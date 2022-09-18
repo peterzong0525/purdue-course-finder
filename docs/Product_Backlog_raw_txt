@@ -1,0 +1,142 @@
+Team 9 Product Backlog 
+
+CS 307 Fall 2022 
+
+Purdue Course Finder 
+
+Alex Kobus, Alex Plump, Tommy Lane, Peter Zong 
+
+Problem Statement 
+
+Many students see their schedule at the beginning of the year and must go searching for their classes. Making this process harder, Google Maps often doesn’t recognize building acronyms, making it even more difficult to find classroom locations. Our product will eliminate that issue by providing a map of Purdue which outlines buildings, classrooms, the courses in those classrooms, the time slots of those courses, and more. This map will also be searchable using the names or acronyms of buildings, or by using course numbers or titles. This will help students to find exactly where their classes are, find more information about the classrooms and buildings, and see the locations of other sections for their courses. 
+
+ 
+
+Background Information 
+
+Audience 
+
+New and veteran students alike often stress about figuring out, not only their classes, but how they will get to each one and whether they need to make adjustments in order to make their journeys possible. Though this is not strictly limited to students, often prospective students and even professors may struggle with current solutions for finding buildings on campus and information about them. 
+
+ 
+
+Alternatives & Limitations 
+
+Currently, the only method of looking up classes is going to the Purdue course look-up page. Although this provides users with information about courses and who teaches them, the location is an abstraction. For example, room BHEE 129 is a well-known room for many upperclassmen, but for new students, this might be a challenge to navigate to. Our software provides a map and building layout so students can visually see exactly where their classes are and don’t wander around on the first few days of the semester. 
+
+ 
+
+ 
+
+ 
+
+Functional Requirements 
+
+As a User, I would like to see a tutorial that explains how to use the software. 
+
+As a User, I would like to see an option to select a specific semester to view the courses offered that semester. 
+
+As a User, I would like to see a birds-eye view map of Purdue.  
+
+As a User, I would like to see a sidebar that shows a list of all classes and buildings. 
+
+As a User, I would like to see campus buildings highlighted on the map. 
+
+As a User, I would like to see campus buildings labeled on the map 
+
+As a User, I would like to be able to click a highlighted building on the map to see more information about it, the rooms in it, and the classes in it. 
+
+As a User, I would like to filter the buildings that I see highlighted on the map by name. 
+
+As a User, I would like to filter the buildings that I see highlighted on the map by class location. 
+
+As a User, I would like to filter the buildings that I see highlighted on the map by section location. 
+
+As a User, I would like to see current Purdue courses, and their section times, professors, and locations. 
+
+As a User, I would like to create a list of favorite buildings and classrooms. 
+
+As a User, I would like to create a list of saved (favorite) classes and sections. 
+
+As a User, I would like to filter the map by my favorite buildings and rooms. 
+
+As a User, I would like to filter the map by my favorite classes and sections. 
+
+As a User, I would like to search the map for a building’s location. 
+
+As a User, I would like the sidebar to show classrooms in a building after selecting that building. 
+
+As a User, I would like to select a classroom from the sidebar to see more information about it and the classes in it. 
+
+As a User, I would like a dedicated page for signing up. 
+
+As a User, I would like a dedicated page for logging in. 
+
+As a User, I would like to create an account. 
+
+As a User, I would like to delete an account. 
+
+As a User, I would like to change my account username. 
+
+As a User, I would like to change my account password. 
+
+As a User, I would like the login data to be encrypted. 
+
+As a User, I would like to see a suggestion page for future iterations (if time allows). 
+
+As a Student, I would like to create a personal schedule for all my classes in a week. 
+
+As a Student, I would like to see the estimated time it takes to walk between my classes 
+
+As a Student, I would like to see the estimated time it takes to bike between my classes 
+
+As a Student, I would like to filter the map and sidebar to show only relevant courses and course locations. 
+
+As a Student, I would like to filter the map and sidebar to show only relevant sections and section locations. 
+
+As a Student, I would like to filter the map and sidebar to show only relevant buildings. 
+
+As a Student, I would like to filter the map and sidebar to show only relevant classrooms. 
+
+As a Student, I would like to filter the map and sidebar to show only relevant meeting times. 
+
+As a Student, I would like to see a schedule page that shows all class meetings in a selected room in each week. 
+
+As a Student, I would like to see a schedule page that shows all meetings of a selected class in each week. 
+
+As a Professor, I would like to see the number of seats in a classroom. 
+
+As a Professor, I would like to see the number of students registered in a section. 
+
+As a Professor, I would like to see statistics that show how often a classroom or building is used. (if time allows) 
+ 
+
+Non-Functional Requirements 
+
+As a User, I would like the application to be easy to use. 
+
+As a User, I would like the application to be fast. 
+
+As a User, I would like the application to be secure. 
+
+As a Developer, I would like to store Purdue course info from Purdue’s API in a database, Presumably SQL. 
+
+As a Developer, I would like to save backend logs of what pages are accessed most frequently. 
+
+As a Developer, I would like to save encrypted account login information in a database. 
+
+As a Developer, I would like to employ a front-end using a React.JS web application. 
+
+As a Developer, I would like to employ a backend using Spring Boot. 
+
+As a Developer, I would like to restrict schedule creation specifically to users that are logged in. 
+
+As a Developer, I would like to optimize the web application, so that response times are lower than 1 second. 
+
+As a Developer, I would like to optimize the web application, so that page loading times are lower than 500 ms. 
+
+As a Developer, I would like the application to be hosted on AWS. 
+
+As a Developer, I would like to create the application in a way that allows it to be adapted to include other universities. 
+
+As a Developer, I would like to have developer roles on accounts for testing and any account resolutions (like resetting passwords). (if time allows) 
