@@ -1,1 +1,2 @@
-# CS307-Project-Frontend
+# CS307-Project
+## Purdue Course Finder
