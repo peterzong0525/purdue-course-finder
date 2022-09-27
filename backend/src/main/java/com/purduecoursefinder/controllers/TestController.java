@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 	@GetMapping(value = "/")
 	public String index(@RequestParam(name = "number", required = false) Integer number) {
-		return "It works! " + (number == null ? "" : number);
+		return "It works! Param: " + (number == null ? "" : number);
 	}
 }
