@@ -1,0 +1,1 @@
+docker run --name CourseFinder-PostgreSQL -p 5432:5432 -e POSTGRES_USER=coursefinder -e POSTGRES_PASSWORD=coursefinder -e POSTGRES_DB=coursefinderDB -d postgres
