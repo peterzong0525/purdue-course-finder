@@ -1,0 +1,15 @@
+services:
+  postgresdb:
+    image: postgres
+    environment:
+      - POSTGRES_USER=coursefinder
+      - POSTGRES_PASSWORD=coursefinder
+      - POSTGRES_DB=coursefinderDB
+
+  purdue-course-finder:
+    build: .
+    image: purdue-course-finder:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgresdb
