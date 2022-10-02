@@ -1,0 +1,9 @@
+Create Table: CREATE TABLE name (colNameA datatype, colNameB datatype, ...);
+Possible Data Types: int (Integer), varchar(length) (String), bool (Boolean), float (floating point (decimal) value), date (date format YYYY-MM-DD), datetime (date and time format YYYY-MM-DD hh:mm:ss)
+Get All Columns: SELECT * FROM table;
+Get Specific Columns: SELECT colNameA, colNameB FROM table;
+Get Specific Rows: SELECT * FROM table WHERE [condition that specifies the specific row(s) to get];
+Add data to table: INSERT INTO table VALUES(dataA, dataB, ...);
+Change data: UPDATE table SET colNameA = dataA, colNameB = dataB, ... WHERE [condition that specifies the specific row(s) to update];
+Remove data: DELETE FROM table WHERE [condition that specifies the specific row(s) to delete];
+See data from multiple tables: SELECT * FROM table1 JOIN table2 WHERE table1.foreignKeyToTable2 = table2.key;
