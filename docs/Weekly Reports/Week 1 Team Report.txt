@@ -1,0 +1,33 @@
+=== Weekly Team Report (Team 9: Purdue Course Finder) ===
+
+Week 1 (Summary) (Scrum Master: Alex Kobus)
+9/27/22 - 3 hours - Commit 22a02ce - Tommy: Setup Spring Boot project
+9/27/22 - 3.5 hours - Commit 5ac6a38 - Alex P: Setup local Spring Boot environment
+9/28/22 - 2 hours - Commit 023fce3 - Alex K: Setup my local React Environment, Initialize the React Project for our frontend, Setup React Packages
+9/28/22 - 1 hour - Commit a1a7c73 - Alex K: Create a "components" folder for our React pages and component files & Add Routing logic to the index file to allow for different pages to have different URLs
+9/30/22 - 1 hour - Commit d6fdb23 - Alex P: Setup local React environment
+9/30/22 - 4 hours - Commit 1e6ab20 - Alex K: Setup my local Spring Boot Environment, fix local IntelliJ build issues, learn Spring Boot framework & syntax, fix issue with /test endpoint where it would return an error if not followed by a '/' character (as in "/test/"), modify /test endpoint to check if the given parameter is an integer and return a readable error
+10/1/22 - 3 hours - Commit 4731fbc - Tommy: Added basic local database setup and integration into Spring Boot
+10/1/22 - 1 hour - Commit 52de702 - Tommy: React Tutorial
+10/2/22 - 3 hours - Commit d34d399 - Peter: React Tutorial & local React environment setup
+10/2/22 - 3 hours - Commit 87e18a0 - Alex P: React Tutorial
+10/2/22 - 3.25 hours - Commit a6f0c10 - Alex P: Docker Tutorial
+10/2/22 - 0.5 hours - Commit 7a58162 - Tommy: Setup my local React environment
+10/2/22 - 2 hours - Commit 9a29b3f - Alex K: Learn SQL syntax
+10/2/22 - 1 hour - Commit 16b62b4 - Alex K: finalize signup page UI design
+10/2/22 - 3 hours - Commit 7f50bc7 - Peter: Spring Boot with React connection tutorial completed & local Spring Boot environment setup
+10/2/22 - 3 hours - Commit b28668b - Tommy: Containerized the backend
+10/2/22 - 2 hours - Commit 3a2c77b - Peter: SQL learning with syntax examples
+10/2/22 - 2 hours - Commit 12adc46 - Peter: Finalized Log In and Tutorial page designs
+
+Week 2 (Plan) (Scrum Master: Alex Kobus)
+[Meetings]
+10/3/22 - Discuss Week 1 Progress & Discuss instructor feedback from the Sprint 1 Planning Document user stories
+10/5/22 - Discuss backend and frontend integrations for creating, logging into, and modifying accounts
+
+[Individual Goals]
+Alex K: learn Docker Commands/Syntax, work on the signup page and related frontend logic
+Alex P: learn SQL syntax, learn & test various types of databases, setup Docker container for the database, add & remove data in the database from our backend/server
+Tommy: define database schema in our backend, add & remove data in the database from our backend/server, learn and start working on encryption to client-side message passing
+Peter: implement login page UI, implement tutorial page UI, add UI mockups and page descriptions to tutorial page, learn Docker through tutorials & testing
+
