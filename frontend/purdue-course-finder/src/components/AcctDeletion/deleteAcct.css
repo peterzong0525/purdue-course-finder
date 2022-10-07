@@ -1,0 +1,17 @@
+.parent {
+    width: 1500px;
+    margin: 0 auto;
+    background-color: #9D8446;
+    border-radius: 10px;
+}
+
+.Purd-Head {
+    text-align: center;
+    font-size: 30px;
+}
+
+.back-button {
+    right: 50px;
+    
+}
+
