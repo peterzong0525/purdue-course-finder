@@ -35,7 +35,7 @@ function loginPage() {
                 </div>
                 <div className='other-links'>
                     <a href='./' >Forgot Password?</a>
-                    <a href='' style={{marginLeft: 'auto'}}>Create an Account</a>
+                    <a href='./signup' style={{marginLeft: 'auto'}}>Create an Account</a>
                 </div>
             </form>
         </div>
