@@ -48,3 +48,10 @@
     display: flex;
     flex-basis: 50%;
 }
+
+.error {
+    background-color: red;
+    white-space: pre-wrap;
+    border-radius: 7px;
+    text-align: center;
+}

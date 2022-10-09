@@ -1,13 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Button} from "react-bootstrap"
 import './loginPage.css'
 
 
-function signup() {
-    const handleLoginClick = (event) => {
+function Signup() {
+    const [error, setError] = useState(null);
+
+    const handleSubmitClick = (event) => {
         event.preventDefault();
-        var {email, password} = document.forms[0];
-        console.log(email.value, password.value);
+        var {email, password, passwordConfirm} = document.forms[0];
+        // console.log(email.value, password.value, passwordConfirm.value);
+        if (email.value === null || email.value === "") {
+            setError("Error: Email address is required.");
+            return;
+        }
+        if (password.value === null || password.value === "") {
+            setError("Error: Password is required.");
+            return;
+        }
+        // eslint-disable-next-line
+        if (!email.value.match(".+@.+\..+")) {
+            setError("Error: Invalid email address. \nEmail must be in the format of 'email@example.com'");
+            return;
+        }
+        if (password.value !== passwordConfirm.value) {
+            setError("Error: Passwords must match");
+            return;
+        }
+        setError(null);
+        return;
     }
 
     return (
@@ -18,23 +39,29 @@ function signup() {
         <div className='Purd-Head'>
             Purdue Course Finder
         </div>
-            <form className="form" onSubmit={handleLoginClick}>
+            {error !== null && (
+                <div className="error">
+                    <p>{error}</p>
+                </div>
+            )}
+
+            <form className="form" onSubmit={handleSubmitClick}>
                 <div className='login-label'>
                     Sign Up
                 </div>
                 <div className="input-container">
                     <label>Email Address </label>
-                    <input type="text" name="email" required />
+                    <input type="text" name="email" />
 
                 </div>
                 <div className="input-container">
                     <label>Password </label>
-                    <input type="password" name="password" required />
+                    <input type="password" name="password" />
 
                 </div>
                 <div className="input-container">
                     <label>Confirm Password </label>
-                    <input type="password" name="password" required />
+                    <input type="password" name="passwordConfirm" />
 
                 </div>
                 <div className="button-container">
@@ -48,4 +75,4 @@ function signup() {
     );
 }
 
-export default signup;
+export default Signup;
