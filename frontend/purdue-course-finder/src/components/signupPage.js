@@ -36,19 +36,18 @@ function Signup() {
             position: 'absolute', left: '50%', top: '50%',
             transform: 'translate(-50%, -50%)'
         }}>
-        <div className='Purd-Head'>
-            Purdue Course Finder
-        </div>
+            <div className='Purd-Head'>
+                Purdue Course Finder
+            </div>
+            <div className='login-label'>
+                Sign Up
+            </div>
             {error !== null && (
                 <div className="error">
                     <p>{error}</p>
                 </div>
             )}
-
             <form className="form" onSubmit={handleSubmitClick}>
-                <div className='login-label'>
-                    Sign Up
-                </div>
                 <div className="input-container">
                     <label>Email Address </label>
                     <input type="text" name="email" />
