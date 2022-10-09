@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Button} from "react-bootstrap"
 import './loginPage.css'
 
@@ -13,9 +13,9 @@ function loginPage() {
     }
     return (
         <div className="form-container">                
-        <div className='Purd-Head'>
-            Purdue Course Finder
-        </div>
+            <div className='Purd-Head'>
+                Purdue Course Finder
+            </div>
             <form className="form" onSubmit={handleLoginClick}>
                 <div className='login-label'>
                     Log In
@@ -38,6 +38,7 @@ function loginPage() {
                     <a href='./signup' style={{marginLeft: 'auto'}}>Create an Account</a>
                 </div>
             </form>
+            <a href='/'>Home</a>
         </div>
     );
 }
