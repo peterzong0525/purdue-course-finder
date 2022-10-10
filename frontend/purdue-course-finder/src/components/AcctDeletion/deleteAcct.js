@@ -1,16 +1,49 @@
 import React, { Component } from 'react';
 import {Button} from "react-bootstrap";
 import "./deleteAcct.css";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+
+function printButtonPress(confirmOrDeny) {
+    console.log('clicked');
+    console.log(confirmOrDeny);
+}
+
+function returnButton (value) {
+    return (<input type="submit" value={value} onClick={() => printButtonPress(value)}/>);
+}
 
 function deleteAcctPage() {
-    // TODO: Function for sending request to server
-
     return (
-        <div className='parent'>
-            <div className="Purd-Head">
+        <div class='parent'>
+            <div class="Purd-Head">
                 Purdue Course Finder
             </div>
-            
+            <div class='back-button'>
+                <a href="/">
+                    <a href="/" class="button">Go Back</a>
+                </a>
+            </div>
+            <p>&nbsp;</p>
+
+            <div class="box">
+                <a href="#ConfirmDelete" class="button">Delete Account</a>
+            </div>
+
+            <div class="overlay" id="ConfirmDelete">
+                <div class="wrapper">
+                    <h2>Are you sure you would like to Delete Your Account? This cannot be undone.</h2>
+                    <a href="#" class="close">&times;</a>
+                    <div class="content">
+                        <div class="container">
+                            <form>
+                                {returnButton('Confirm')}
+                                {returnButton('Cancel')}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
