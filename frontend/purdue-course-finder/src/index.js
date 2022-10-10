@@ -8,6 +8,8 @@ import Login from './components/loginPage.js'
 import Signup from './components/signupPage.js'
 import Tutorial from './components/tutorialPage.js'
 
+export const serverURL = 'http://localhost:8080';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // Add routes to the list below

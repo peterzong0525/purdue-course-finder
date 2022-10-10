@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { Dialog } from '@material-ui/core';
 import axios from 'axios';
 import './loginPage.css';
+import { serverURL } from '../index.js';
 
 
 function Signup() {
@@ -33,7 +34,7 @@ function Signup() {
         setError(null);
 
         //send new account credentials to server
-        var url = `http://localhost:8080/test/signup?email=${email.value}&password=${password.value}`;
+        var url = `${serverURL}/test/signup?email=${email.value}&password=${password.value}`;
         axios.get(url).then((response) => {
             if (response.status !== 200) {
                 //error
