@@ -3,10 +3,16 @@ import {Button} from "react-bootstrap";
 import "./deleteAcct.css";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import axios from 'axios';
 
 function printButtonPress(confirmOrDeny) {
     console.log('clicked');
     console.log(confirmOrDeny);
+    const serverResponse = 'not changed';
+    axios.get(`localhost:80/test/signup?email=testemail&password=testpassword`) // Need a real address
+        .then(res => console.log(res.data));
+    //`localhost:80/test/signup?email=testemail&password=testpassword`
+    //`https://jsonplaceholder.typicode.com/users`
 }
 
 function returnButton (value) {
