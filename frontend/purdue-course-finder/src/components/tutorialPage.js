@@ -9,7 +9,7 @@ import homeBuildingImg from '../design_images/home page building selection.PNG'
 import homeCourseImg from '../design_images/home page course selection.PNG'
 import courseScheduleImg from '../design_images/course schedule page.PNG'
 
-function tutorialPage() {
+function Tutorial() {
     return(
         <div className='tutorialPageContainer'>
             <div className='returnHomeContainer'>
@@ -106,6 +106,7 @@ function tutorialPage() {
                             If you would like to create an account, please click the <a href='./signup'>Create an Account</a> link.
                         </p>
                         <h3 id='Modifying_Account_Info'>Modifying Account Info</h3>
+                        {/* eslint-disable-next-line */}
                         <img  alt='No image yet'></img>
                         <p>
                             If for any reason you would like to change your account email address or password, you can do so on this page.
@@ -140,17 +141,20 @@ function tutorialPage() {
                     <p>Text Here</p>
                     <div className='subSection'>
                         <h3 id='Map'>Map</h3>
+                        {/* eslint-disable-next-line */}
                         <img src={homeImg} alt='No image yet'></img>
                         <p>
                             To move around the map, simply drag along the map. All buildings currently registered in the system
                             will be clickable on the map.
                         </p>
+                        {/* eslint-disable-next-line */}
                         <img src={homeBuildingImg} alt='No image yet'></img>
                         <p>
                             When you click on a building on a map, relevant information will appear
                             in the sidebar (and maybe a popup (TBD)).
                         </p>
                         <h3 id='Sidebar'>Sidebar</h3>
+                        {/* eslint-disable-next-line */}
                         <img src={homeCourseImg} alt='No image yet'></img>
                         <p>
                             The sidebar, by default, contains all the buildings registered in the system. 
@@ -171,4 +175,4 @@ function tutorialPage() {
     );
 }
 
-export default tutorialPage;
+export default Tutorial;

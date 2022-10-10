@@ -3,7 +3,7 @@ import {Button} from "react-bootstrap"
 import './loginPage.css'
 
 
-function loginPage() {
+function Login() {
     const handleLoginClick = (event) => {
         
         event.preventDefault();
@@ -45,4 +45,4 @@ function loginPage() {
     );
 }
 
-export default loginPage;
+export default Login;
