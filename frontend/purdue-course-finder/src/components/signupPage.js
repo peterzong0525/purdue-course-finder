@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import {Button} from "react-bootstrap"
-import './loginPage.css'
+import { Button } from "react-bootstrap";
+import { Dialog } from '@material-ui/core';
+import axios from 'axios';
+import './loginPage.css';
 
 
 function Signup() {
     const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(false);
 
     const handleSubmitClick = (event) => {
         event.preventDefault();
@@ -28,14 +31,33 @@ function Signup() {
             return;
         }
         setError(null);
-        return;
-    }
+
+        //send new account credentials to server
+        var url = `http://localhost:8080/test/signup?email=${email.value}&password=${password.value}`;
+        axios.get(url).then((response) => {
+            if (response.status !== 200) {
+                //error
+                setError(response.data);
+            } else {
+                //success
+                setError(null);
+                setSuccess(true);
+            }
+            })
+        }
 
     return (
         <div className="form-container" style={{
             position: 'absolute', left: '50%', top: '50%',
             transform: 'translate(-50%, -50%)'
         }}>
+            <Dialog open={success}>
+                <div className="success">
+                    <p>Account Created Successfully</p>
+                    <p><a href='./login'>Log In</a></p>
+                    
+                </div>
+            </Dialog>
             <div className='Purd-Head'>
                 Purdue Course Finder
             </div>

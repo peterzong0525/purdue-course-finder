@@ -55,3 +55,10 @@
     border-radius: 7px;
     text-align: center;
 }
+
+.success {
+    background-color: green;
+    white-space: pre-wrap;
+    text-align: center;
+    padding: 10px;
+}
