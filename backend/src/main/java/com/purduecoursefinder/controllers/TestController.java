@@ -3,10 +3,7 @@ package com.purduecoursefinder.controllers;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.purduecoursefinder.models.User;
 import com.purduecoursefinder.repositories.UserRepository;
@@ -52,7 +49,8 @@ public class TestController {
 	    
         return "Unable to login, incorrect password.";
     }
-	
+
+	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping(value = "/delete-login")
 	public String deleteLogin(@RequestParam(name = "email", required = true) String email, @RequestParam(name = "password", required = true) String password) {
         Optional<User> user = userRepository.findById(email);

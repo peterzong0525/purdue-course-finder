@@ -1,18 +1,29 @@
 .parent {
-    width: 1500px;
     margin: 0 auto;
-    background-color: #9D8446;
-    border-radius: 10px;
+}
+
+.gold-background {
+	width: 1500px;
+	background-color: #9D8446;
+	border-radius: 10px;
 }
 
 .Purd-Head {
     text-align: center;
-    font-size: 30px;
+    font-size: 40px;
+	color: #d0d0d0;
 }
 
 .back-button {
     right: 50px;
     width: 200px;
+}
+
+.user-info {
+	display: inline-block;
+	text-align: left;
+	font-size: 32px;
+	color: #646464;	/* Make this darker with a different font */
 }
 
 /* The following code was taken from: 
