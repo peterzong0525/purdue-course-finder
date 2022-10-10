@@ -41,7 +41,6 @@ function loginPage() {
                     <a href='./signup' style={{marginLeft: 'auto'}}>Create an Account</a>
                 </div>
             </form>
-            <a href='/'>Home</a>
         </div>
     );
 }
