@@ -7,6 +7,7 @@ import Home from './components/Home.js'
 import Login from './components/loginPage.js'
 import Signup from './components/signupPage.js'
 import Tutorial from './components/tutorialPage.js'
+import Courses from './components/Courses.js'
 
 export const serverURL = 'http://localhost:8080';
 
@@ -20,6 +21,7 @@ root.render(
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/tutorial' element={<Tutorial />} />
+          <Route path='/courses' element={<Courses />} />
         </Routes>
       </Router>
   </React.StrictMode>
