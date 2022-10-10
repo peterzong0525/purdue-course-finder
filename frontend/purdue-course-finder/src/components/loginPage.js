@@ -12,10 +12,13 @@ function loginPage() {
         
     }
     return (
-        <div className="form-container">                
-            <div className='Purd-Head'>
-                Purdue Course Finder
-            </div>
+        <div className="form-container" style={{
+            position: 'absolute', left: '50%', top: '50%',
+            transform: 'translate(-50%, -50%)'
+        }}>                
+        <div className='Purd-Head'>
+            Purdue Course Finder
+        </div>
             <form className="form" onSubmit={handleLoginClick}>
                 <div className='login-label'>
                     Log In
