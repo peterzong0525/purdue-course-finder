@@ -17,7 +17,7 @@ function returnButton (value) {
     return (<input type="submit" value={value} onClick={() => printButtonPress(value)}/>);
 }
 
-function deleteAcctPage() {
+function DeleteAcct() {
     return (
         <div data-testid="delete_parent" class='parent'>
             <div class="gold-background">
@@ -65,4 +65,4 @@ function deleteAcctPage() {
     );
 }
 
-export default deleteAcctPage;
+export default DeleteAcct;
