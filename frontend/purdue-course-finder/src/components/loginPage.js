@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Button} from "react-bootstrap"
 import './loginPage.css'
 
 
-function loginPage() {
+function Login() {
     const handleLoginClick = (event) => {
         
         event.preventDefault();
@@ -12,7 +12,10 @@ function loginPage() {
         
     }
     return (
-        <div className="form-container">                
+        <div className="form-container" style={{
+            position: 'absolute', left: '50%', top: '50%',
+            transform: 'translate(-50%, -50%)'
+        }}>                
         <div className='Purd-Head'>
             Purdue Course Finder
         </div>
@@ -42,4 +45,4 @@ function loginPage() {
     );
 }
 
-export default loginPage;
+export default Login;

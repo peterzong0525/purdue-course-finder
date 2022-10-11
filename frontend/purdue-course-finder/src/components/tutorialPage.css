@@ -1,0 +1,61 @@
+html {
+    background-color: lightyellow;
+    scroll-behavior: smooth;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+.tutorialPageContainer {
+    padding: 20px 2% 0 2%;
+    /*Top Right Bottom Left*/
+}
+
+.returnHome, returnHome:link, returnHome:visited, returnHome:hover, returnHome:active {
+    text-decoration: none; 
+    color: black;
+    font-size: 20px;
+}
+
+.mainContentContainer {
+    margin-top: 50px;
+}
+
+.contentsContainer {
+    background-color: lightgray;
+    padding: 0 10px 5px 10px;
+}
+
+.contentsList {
+    font-size: 20px
+}
+
+.contentsList a {
+    text-decoration: none;
+}
+
+.contentsList a:hover{
+    text-decoration: underline;
+    
+}
+
+.contentsList a:visited {
+    color: blue;
+}
+
+.subSection {
+    margin-left: 10px;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+
+
+
+

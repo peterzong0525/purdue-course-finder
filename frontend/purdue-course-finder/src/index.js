@@ -3,8 +3,13 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import Login from './components/loginPage.js'
 import Home from './components/Home.js'
+import Login from './components/loginPage.js'
+import Signup from './components/signupPage.js'
+import Tutorial from './components/tutorialPage.js'
+import Courses from './components/Courses.js'
+
+export const serverURL = 'http://localhost:8080';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,7 +19,9 @@ root.render(
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/tutorial' element={<Tutorial />} />
+          <Route path='/courses' element={<Courses />} />
         </Routes>
       </Router>
   </React.StrictMode>

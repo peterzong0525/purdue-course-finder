@@ -1,5 +1,5 @@
 import logo from '../logo.svg';
-import './App.css';
+import './Home.css';
 
 function Home() {
   return (
@@ -7,17 +7,17 @@ function Home() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h2>This is the default home page, it will be replaced when the maps tasks are implemented.</h2>
-        <p>
-          Edit <code>src/components/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h4>Quick links to some pages:</h4>
+        <form action="/login">
+          <input type="submit" value="Login Page" />
+        </form>
+        <form action="/signup">
+          <input type="submit" value="Signup Page" />
+        </form>
+        <form action="/tutorial">
+          <input type="submit" value="Tutorial Page" />
+        </form>
+
       </header>
     </div>
   );

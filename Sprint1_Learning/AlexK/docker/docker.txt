@@ -1,0 +1,17 @@
+Definitions 
+Image - file containing instructions on how to build a docker container
+Container - isolated process created by the image to run the application
+Dockerfile - file containing a list of commands that create an image
+
+Commands
+`docker pull [image]` - fetch an image from the docker registry
+`docker images` - view a list of all docker images currently on the system
+`docker run [image]` - start a container based on an image
+    `docker run [image] [command]` - startup a container and run the provided command
+    `docker run -d [image]` - startup the container to run in the background
+`docker ps` - view a list of all currently running containers
+`docker ps -a` - view a list of all ran containers, including stopped ones
+`docker run -it [image] [shell]` - startup the container with an interactive shell
+`docker rm [containerID]` - delete a container
+`docker container prune` - delete all stopped containers
+`docker rmi` - delete an image

@@ -1,0 +1,28 @@
+=== Weekly Team Report (Team 9: Purdue Course Finder) ===
+
+Week 2 (Summary) (Scrum Master: Alex Kobus)
+10/2/22 - 3 hours - Commit b28668b - Alex P & Tommy: Containerized backend and added docker-compose.yml
+10/4/22 - 2 hours - Commit b68e4f1 - Alex P: Learning SQL Syntax
+10/4/22 - 3 hours - Commit f29be8f - Peter: setup Login Page UI
+10/5/22 - 2.5 hours - Commit a953ead - Alex P: Testing Relational Databases
+10/6/22 - 4 hours - Commit d4b7db3 - Alex P & Tommy: Added prototype login functionality on the backend
+10/7/22 - 1 hour - Commit 5605d37 - Alex K: Update React project structure
+10/7/22 - 3 hours - Commit 6f7098e - Alex K: Create Signup Page & Implement Signup Page UI
+10/8/22 - 2 hours - Commit 167a070 - Peter: Built UI for tutorial page, slight modification to tutorial page design
+10/8/22 - 3 hours - Commit 3773259 - Alex K: Implement email and password formatting checks on the signup page
+10/9/22 - 4 hours - Commit 5eb0311 - Alex K: Setup Docker locally & Docker Tutorial & Learn Docker Commands/Syntax
+10/9/22 - 3.5 hours - Commit 12adc46 - Peter: Docker setup & Docker tutorial
+10/9/22 - 3 hours - Commit a11bf70 - Tommy: Added TLS locally (encryption)
+10/9/22 - 6 hours - Commit eb1c793 - Tommy: Added beginning of authentication system
+10/9/22 - 1 hour - Commit b2b0db7 - Peter:  Added UI Mockups and descriptions on how to use the pages to the tutorial page 
+
+Week 3 (Plan) (Scrum Master: Alex Kobus)
+[Meetings]
+10/10/22 - Discuss Week 2 Progress & what needs to be completed before the Sprint 1 Presentation
+10/12/22 - Discuss plan for Sprint 1 Presentation & prepare for presentation
+
+[Individual Goals]
+Alex K: Send new account credentials to the server, setup actions depending on server signup responses, create prototype UIs for course data and section registration info, create tests for login page
+Alex P: Create account deletion page, delete accounts from backend/database when requested, create tests form account creation & deletion
+Tommy: Finish authentication system, define db schema in the backend server, test password hashing, forward Purdue API class & registration data
+Peter: Send account credentials to the server, setup actions depending on server login responses, create a page for account modification, modify accounts in backend/database when requested, create tests for account modification
