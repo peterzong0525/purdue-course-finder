@@ -14,45 +14,45 @@ public class TestController {
     @Autowired
     private UserRepository userRepository;
     
-	@GetMapping()
-	public String index(@RequestParam(name = "number", required = false) String number) {
-		int num;
-		if (number == null) {
-			return "It works!";
-		}
+    @GetMapping()
+    public String index(@RequestParam(name = "number", required = false) String number) {
+        int num;
+        if (number == null) {
+            return "It works!";
+        }
 
-		try {
-			num = Integer.parseInt(number);
-			return "It works! Param: " + num;
-		} catch (Exception e) {
-			return "Error: Provided parameter is not an integer";
-		}
-	}
+        try {
+            num = Integer.parseInt(number);
+            return "It works! Param: " + num;
+        } catch (Exception e) {
+            return "Error: Provided parameter is not an integer";
+        }
+    }
 
-	@CrossOrigin
-	@GetMapping(value = "/signup")
-	public String signup(@RequestParam(name = "email", required = true) String email, @RequestParam(name = "password", required = true) String password) {
-	    userRepository.save(User.builder().email(email).password(password).build());
-	    return "Signed up, please login.";
-	}
-	
-	@GetMapping(value = "/login")
+    @CrossOrigin
+    @GetMapping(value = "/signup")
+    public String signup(@RequestParam(name = "email", required = true) String email, @RequestParam(name = "password", required = true) String password) {
+        userRepository.save(User.builder().email(email).password(password).build());
+        return "Signed up, please login.";
+    }
+    
+    @GetMapping(value = "/login")
     public String login(@RequestParam(name = "email", required = true) String email, @RequestParam(name = "password", required = true) String password) {
-	    Optional<User> user = userRepository.findById(email);
-	    
-	    if (user.isEmpty()) {
-	        return "No user exists for that email.";
-	    }
-	    
-	    if (user.get().getPassword().equals(password)) {
-	        return "Congratulations, you are logged in.";
-	    }
-	    
+        Optional<User> user = userRepository.findById(email);
+        
+        if (user.isEmpty()) {
+            return "No user exists for that email.";
+        }
+        
+        if (user.get().getPassword().equals(password)) {
+            return "Congratulations, you are logged in.";
+        }
+        
         return "Unable to login, incorrect password.";
     }
-	
-	@GetMapping(value = "/delete-login")
-	public String deleteLogin(@RequestParam(name = "email", required = true) String email, @RequestParam(name = "password", required = true) String password) {
+    
+    @GetMapping(value = "/delete-login")
+    public String deleteLogin(@RequestParam(name = "email", required = true) String email, @RequestParam(name = "password", required = true) String password) {
         Optional<User> user = userRepository.findById(email);
         
         if (user.isEmpty()) {
