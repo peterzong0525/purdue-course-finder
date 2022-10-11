@@ -50,9 +50,10 @@ public class TestController {
         
         return "Unable to login, incorrect password.";
     }
-    
-    @GetMapping(value = "/delete-login")
-    public String deleteLogin(@RequestParam(name = "email", required = true) String email, @RequestParam(name = "password", required = true) String password) {
+
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping(value = "/delete-login")
+	public String deleteLogin(@RequestParam(name = "email", required = true) String email, @RequestParam(name = "password", required = true) String password) {
         Optional<User> user = userRepository.findById(email);
         
         if (user.isEmpty()) {

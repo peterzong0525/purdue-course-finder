@@ -1,6 +1,5 @@
 import React from 'react';
-import './tutorialPage.css'
-
+import "./tutorialPage.css";
 import signupImg from '../design_images/signup.png'
 import loginImg from '../design_images/login page.PNG'
 import favoriteImg from '../design_images/favoriting.PNG'

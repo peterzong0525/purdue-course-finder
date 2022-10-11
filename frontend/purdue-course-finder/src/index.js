@@ -8,8 +8,9 @@ import Login from './components/loginPage.js'
 import Signup from './components/signupPage.js'
 import Tutorial from './components/tutorialPage.js'
 import Courses from './components/Courses.js'
+import AcctDelete from './components/deleteAcct.js'
 
-export const serverURL = 'http://localhost:8080';
+export const serverURL = 'https://localhost:8443';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -20,6 +21,7 @@ root.render(
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
+          <Route path='/deleteacct' element={<AcctDelete/>} />
           <Route path='/tutorial' element={<Tutorial />} />
           <Route path='/courses' element={<Courses />} />
         </Routes>

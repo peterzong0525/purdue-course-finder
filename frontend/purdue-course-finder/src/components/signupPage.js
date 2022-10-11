@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from "react-bootstrap";
 import { Dialog } from '@material-ui/core';
 import axios from 'axios';
-import './loginPage.css';
+import "./loginPage.css";
 import { serverURL } from '../index.js';
 
 
@@ -34,8 +34,15 @@ function Signup() {
         setError(null);
 
         //send new account credentials to server
-        var url = `${serverURL}/test/signup?email=${email.value}&password=${password.value}`;
-        axios.get(url).then((response) => {
+        var url = `${serverURL}/auth/register`;
+        axios({
+            url: url,
+            method: 'POST',
+            data: {
+                "email": email.value,
+                "password": password.value,
+            },
+        }).then((response) => {
             if (response.status !== 200) {
                 //error
                 setError(response.data);
@@ -44,11 +51,14 @@ function Signup() {
                 setError(null);
                 setSuccess(true);
             }
-            })
-        }
+        }).catch((error) => {
+            // console.log(error);
+            setError(error.response.data.message);
+        });
+    }
 
     return (
-        <div className="form-container" style={{
+        <div className="form-container" data-testid="signup_container" style={{
             position: 'absolute', left: '50%', top: '50%',
             transform: 'translate(-50%, -50%)'
         }}>
@@ -59,7 +69,7 @@ function Signup() {
                     
                 </div>
             </Dialog>
-            <div className='Purd-Head'>
+            <div className='Purd-Head' data-testid="signup_head">
                 Purdue Course Finder
             </div>
             <div className='login-label'>
@@ -70,23 +80,23 @@ function Signup() {
                     <p>{error}</p>
                 </div>
             )}
-            <form className="form" onSubmit={handleSubmitClick}>
-                <div className="input-container">
+            <form className="form" data-testid="signup_form" onSubmit={handleSubmitClick}>
+                <div className="input-container" data-testid="signup_email">
                     <label>Email Address </label>
                     <input type="text" name="email" />
 
                 </div>
-                <div className="input-container">
+                <div className="input-container" data-testid="signup_password1">
                     <label>Password </label>
                     <input type="password" name="password" />
 
                 </div>
-                <div className="input-container">
+                <div className="input-container" data-testid="signup_password2">
                     <label>Confirm Password </label>
                     <input type="password" name="passwordConfirm" />
 
                 </div>
-                <div className="button-container">
+                <div className="button-container" data-testid="signup_signup_button">
                     <Button className="button" type={"submit"} variant={"success"}>Sign Up</Button>
                 </div>
                 <div>

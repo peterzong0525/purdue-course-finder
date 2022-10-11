@@ -1,5 +1,5 @@
 html {
-    background-color: lightyellow;
+    /* background-color: lightyellow; */
     scroll-behavior: smooth;
 }
 
@@ -54,8 +54,3 @@ img {
     margin-right: auto;
     width: 50%;
 }
-
-
-
-
-
