@@ -34,8 +34,15 @@ function Signup() {
         setError(null);
 
         //send new account credentials to server
-        var url = `${serverURL}/test/signup?email=${email.value}&password=${password.value}`;
-        axios.get(url).then((response) => {
+        var url = `${serverURL}/auth/register`;
+        axios({
+            url: url,
+            method: 'POST',
+            data: {
+                "email": email.value,
+                "password": password.value,
+            },
+        }).then((response) => {
             if (response.status !== 200) {
                 //error
                 setError(response.data);
@@ -44,8 +51,11 @@ function Signup() {
                 setError(null);
                 setSuccess(true);
             }
-            })
-        }
+        }).catch((error) => {
+            // console.log(error);
+            setError(error.response.data.message);
+        });
+    }
 
     return (
         <div className="form-container" style={{

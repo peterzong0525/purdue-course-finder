@@ -3,12 +3,7 @@ package com.purduecoursefinder.controllers;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.purduecoursefinder.models.dto.LoginDTO;
 import com.purduecoursefinder.services.AuthenticationService;
@@ -18,7 +13,8 @@ import com.purduecoursefinder.services.AuthenticationService;
 public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
-    
+
+    @CrossOrigin
     @PostMapping(value = "/register")
     public void register(@RequestBody LoginDTO login) {
         authenticationService.createUser(login);
