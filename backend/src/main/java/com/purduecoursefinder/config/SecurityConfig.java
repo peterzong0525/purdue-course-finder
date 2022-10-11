@@ -21,11 +21,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
-            .antMatchers("/register").permitAll()
-            .antMatchers("/login").permitAll()
+            .antMatchers("/auth/register").permitAll()
+            .antMatchers("/auth/login").permitAll()
             .anyRequest().authenticated()
             .and().cors().disable().csrf().disable() // TODO: Fix the security issues this line implies
-            .logout().logoutSuccessHandler((request, response, authentication) -> {
+            .logout().logoutUrl("/auth/logout").logoutSuccessHandler((request, response, authentication) -> {
                 response.setStatus(HttpServletResponse.SC_OK);
             });
         return http.build();

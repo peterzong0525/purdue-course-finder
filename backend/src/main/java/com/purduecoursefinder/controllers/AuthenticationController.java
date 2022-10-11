@@ -3,41 +3,35 @@ package com.purduecoursefinder.controllers;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.purduecoursefinder.models.dto.LoginDTO;
-import com.purduecoursefinder.services.PCFUserDetailsService;
+import com.purduecoursefinder.services.AuthenticationService;
 
 @RestController
+@RequestMapping("/auth")
 public class AuthenticationController {
     @Autowired
-    private PCFUserDetailsService userDetailsService;
-    
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private AuthenticationService authenticationService;
     
     @PostMapping(value = "/register")
-    public String register(@RequestBody LoginDTO login) {
-        userDetailsService.createUser(login);
-
-        return "User successfully registered";
+    public void register(@RequestBody LoginDTO login) {
+        authenticationService.createUser(login);
     }
     
     @PostMapping(value = "/login")
-    public String login(@RequestBody LoginDTO login) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                login.getEmail(), login.getPassword()));
-        
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        
-        return "User successfully logged in";
+    public void login(@RequestBody LoginDTO login) {
+        authenticationService.loginUser(login);
+    }
+    
+    @DeleteMapping(value = "/delete-user")
+    public void deleteAccount() {
+        authenticationService.deleteCurrentUser();
     }
     
     @GetMapping(value = "/user")
