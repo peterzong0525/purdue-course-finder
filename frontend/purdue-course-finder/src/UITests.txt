@@ -1,7 +1,17 @@
 This document is for manually testing User Interfaces (UI) in the Purdue Course Finder Project
 
-Testing Account Signup: (Alex P)
-    
+Testing Account Signup:
+    Upon loading the /signup page, there will be a Purdue looking page containing a gold box
+    with fields for the email address, password, and confirming the password. There is also a
+    button for signing up and a link for users if they already have an account. Confirm this
+    link redirects users to the login page and return. 
+    The email address field must fit an appropriate email address format, of x@x.x. You can 
+    confirm this by inputting different incorrect emails. (The passwords do not have such 
+    formats.) You can also try to input 2 different passwords and notice the result will catch 
+    the error. After an account is created, the same email cannot be used. After filling out 
+    each field, confirm your account by hitting 'Sign Up'. Come back to the sign up page and 
+    re-enter the same email. Confirm the error message 
+    'A user with that email address already exists.' is displayed.
 
 
 Testing Account Login:  (Alex K)

@@ -6,8 +6,38 @@ import '@testing-library/jest-dom';
 
 function testSignupPage() {
     // On page normally
+    expect(getByText('signup_container')).toBeVisible();
+    expect(getByText('signup_head')).toBeVisible();
+    expect(getByText('signup_form')).toBeVisible();
+    expect(getByText('signup_email')).toBeVisible();
+    expect(getByText('signup_password1')).toBeVisible();
+    expect(getByText('signup_password2')).toBeVisible();
+    expect(getByText('signup_signup_button')).toBeVisible();
 
+    // Nesting items
+    const signup_container = getByTestId('signup_container');
+    const signup_head = getByTestId('signup_head');
+    const signup_form = getByTestId('signup_form');
+    const signup_email = getByTestId('signup_email');
+    const signup_password1 = getByTestId('signup_password1');
+    const signup_password2 = getByTestId('signup_password2');
+    const signup_signup_button = getByTestId('signup_signup_button');
 
+    // Cofirming nesting
+    expect(signup_container).toContainElement(signup_head);
+    expect(signup_container).toContainElement(signup_form);
+    expect(signup_container).toContainElement(signup_email);
+    expect(signup_container).toContainElement(signup_password1);
+    expect(signup_container).toContainElement(signup_password2);
+    expect(signup_container).toContainElement(signup_signup_button);
+    expect(signup_head).not.toContainElement(signup_container);
+    expect(signup_head).not.toContainElement(signup_form);
+    expect(signup_head).not.toContainElement(signup_signup_button);
+    expect(signup_form).toContainElement(signup_email);
+    expect(signup_form).toContainElement(signup_password1);
+    expect(signup_form).toContainElement(signup_password2);
+    expect(signup_form).toContainElement(signup_signup_button);
+    expect(signup_password1).not.toContainElement(signup_password1);
 
 }
 

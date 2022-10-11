@@ -58,7 +58,7 @@ function Signup() {
     }
 
     return (
-        <div className="form-container" style={{
+        <div className="form-container" data-testid="signup_container" style={{
             position: 'absolute', left: '50%', top: '50%',
             transform: 'translate(-50%, -50%)'
         }}>
@@ -69,7 +69,7 @@ function Signup() {
                     
                 </div>
             </Dialog>
-            <div className='Purd-Head'>
+            <div className='Purd-Head' data-testid="signup_head">
                 Purdue Course Finder
             </div>
             <div className='login-label'>
@@ -80,23 +80,23 @@ function Signup() {
                     <p>{error}</p>
                 </div>
             )}
-            <form className="form" onSubmit={handleSubmitClick}>
-                <div className="input-container">
+            <form className="form" data-testid="signup_form" onSubmit={handleSubmitClick}>
+                <div className="input-container" data-testid="signup_email">
                     <label>Email Address </label>
                     <input type="text" name="email" />
 
                 </div>
-                <div className="input-container">
+                <div className="input-container" data-testid="signup_password1">
                     <label>Password </label>
                     <input type="password" name="password" />
 
                 </div>
-                <div className="input-container">
+                <div className="input-container" data-testid="signup_password2">
                     <label>Confirm Password </label>
                     <input type="password" name="passwordConfirm" />
 
                 </div>
-                <div className="button-container">
+                <div className="button-container" data-testid="signup_signup_button">
                     <Button className="button" type={"submit"} variant={"success"}>Sign Up</Button>
                 </div>
                 <div>
