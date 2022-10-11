@@ -6,11 +6,9 @@ import 'reactjs-popup/dist/index.css';
 import axios from 'axios';
 
 function printButtonPress(confirmOrDeny) {
-    console.log('clicked');
-    console.log(confirmOrDeny);
-    const serverResponse = 'not changed';
+    let serverResponse = 'not changed';
     axios.get(`http://localhost:80/test/delete-login?email=testemail&password=testpassword`) // Need a real address
-        .then(res => console.log(res.data));
+        .then(res => console.log(res.data));    // Save response to variable 'serverResponse'
     //`localhost:80/test/signup?email=testemail&password=testpassword`
     //`https://jsonplaceholder.typicode.com/users`
 }
@@ -27,9 +25,7 @@ function deleteAcctPage() {
                     Purdue Course Finder
                 </div>
                 <div data-testid="delete_back_button" class='back-button'>
-                    <a href="/">
-                        <a href="/" class="button">Go Back</a>
-                    </a>
+                    <a href="/" class="button">Go Back</a>
                 </div>
                 <p>&nbsp;</p>
             </div>
@@ -50,16 +46,16 @@ function deleteAcctPage() {
                 <a href="#ConfirmDelete" class="button">Delete Account</a>
             </div>
 
-            <div data-testid="delete_confirm_window" class="overlay" id="ConfirmDelete">
-                <div class="wrapper">
+            <div data-testid="delete_confirm_window" className="overlay" id="ConfirmDelete">
+                <div class="wrapper" data-testid="delete_popup">
                     <h2>Are you sure you would like to Delete Your Account? This cannot be undone.</h2>
                     <a href="#" class="close">&times;</a>
                     <div class="content">
                         <div class="container">
                             <form>
-                                {returnButton('Confirm')}
-                                &nbsp;
-                                {returnButton('Cancel')}
+                                <div className="box">
+                                    {returnButton('Confirm')}
+                                </div>
                             </form>
                         </div>
                     </div>
