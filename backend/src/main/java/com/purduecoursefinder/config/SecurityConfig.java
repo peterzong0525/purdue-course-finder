@@ -1,7 +1,11 @@
 package com.purduecoursefinder.config;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,13 +20,21 @@ public class SecurityConfig {
     
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.authorizeHttpRequests((auths) -> 
-//            auths
-//                .antMatchers("/login").permitAll()
-//                .antMatchers("/register").permitAll()
-//                .anyRequest().authenticated());
-        http.cors().and().csrf().disable().authorizeRequests().anyRequest().permitAll();
+        http.authorizeHttpRequests()
+            .antMatchers("/register").permitAll()
+            .antMatchers("/login").permitAll()
+            .anyRequest().authenticated()
+            .and().cors().disable().csrf().disable() // TODO: Fix the security issues this line implies
+            .logout().logoutSuccessHandler((request, response, authentication) -> {
+                response.setStatus(HttpServletResponse.SC_OK);
+            });
         return http.build();
+    }
+    
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+            throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
     
 }

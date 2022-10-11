@@ -1,7 +1,13 @@
 package com.purduecoursefinder.controllers;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,12 +20,28 @@ public class AuthenticationController {
     @Autowired
     private PCFUserDetailsService userDetailsService;
     
-    @PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    
+    @PostMapping(value = "/register")
     public String register(@RequestBody LoginDTO login) {
-        System.out.println("Called!");
         userDetailsService.createUser(login);
-        
-        System.out.println("User successfully registered!");
+
         return "User successfully registered";
+    }
+    
+    @PostMapping(value = "/login")
+    public String login(@RequestBody LoginDTO login) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                login.getEmail(), login.getPassword()));
+        
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        
+        return "User successfully logged in";
+    }
+    
+    @GetMapping(value = "/user")
+    public String user(Principal user) {
+        return user == null ? "No user..." : user.getName();
     }
 }
