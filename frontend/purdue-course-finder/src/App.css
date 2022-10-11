@@ -1,0 +1,309 @@
+/* Home.css */
+html, body, #root {
+  min-height: 100vh;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* loginPage.css */
+.form-container {
+    width: 400px;
+    background-color: #9D8446;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.Purd-Head {
+    text-align: center;
+    font-size: 30px;
+}
+
+.form {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-bottom: 25px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.login-label {
+    text-align: center;
+    font-size: 20px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.button-container {
+    display: flex;
+}
+
+.button {
+    width: 100%;
+    border-radius: 7px;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    font-size: 15px;
+}
+
+.other-links {
+    display: flex;
+    flex-basis: 50%;
+}
+
+.error {
+    background-color: red;
+    white-space: pre-wrap;
+    border-radius: 7px;
+    text-align: center;
+}
+
+.success {
+    background-color: green;
+    white-space: pre-wrap;
+    text-align: center;
+    padding: 10px;
+}
+
+/* tutorialPage.css */
+html {
+    background-color: lightyellow;
+    scroll-behavior: smooth;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+.tutorialPageContainer {
+    padding: 20px 2% 0 2%;
+    /*Top Right Bottom Left*/
+}
+
+.returnHome, returnHome:link, returnHome:visited, returnHome:hover, returnHome:active {
+    text-decoration: none; 
+    color: black;
+    font-size: 20px;
+}
+
+.mainContentContainer {
+    margin-top: 50px;
+}
+
+.contentsContainer {
+    background-color: lightgray;
+    padding: 0 10px 5px 10px;
+}
+
+.contentsList {
+    font-size: 20px
+}
+
+.contentsList a {
+    text-decoration: none;
+}
+
+.contentsList a:hover{
+    text-decoration: underline;
+    
+}
+
+.contentsList a:visited {
+    color: blue;
+}
+
+.subSection {
+    margin-left: 10px;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+/* deleteAcct.css */
+.parent {
+    margin: 0 auto;
+}
+
+.gold-background {
+	width: auto;
+	background-color: #9D8446;
+}
+
+.Purd-Head2 {
+    text-align: center;
+    font-size: 40px;
+	color: #d0d0d0;
+}
+
+.back-button {
+    right: 50px;
+    width: 200px;
+}
+
+.user-info {
+	display: inline-block;
+	text-align: left;
+	font-size: 32px;
+	color: #646464;	/* Make this darker with a different font */
+}
+
+/* The following code was taken from: 
+    https://www.youtube.com/watch?v=ZirRmvPp9QE
+*/
+body {
+	font-family: 'Montserrat', sans-serif;
+	background: #e7e7e7;
+	height: 100vh;
+}
+h3 {
+	text-align: center;
+	color: #413b3b;
+	text-transform: uppercase;
+	font-size: 80px;
+	font-family: 'Zen Tokyo Zoo', cursive;
+}
+h5 {
+	text-align: center;
+	color: #82807f;
+	margin: 80px auto;
+	font-size: 20px;
+	width: 50%;
+	line-height: 1.7;
+}
+.box {
+	text-align: center;
+}
+.button2 {
+	font-size: 1em;
+	padding: 15px 35px;
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+	transition: all 0.3s ease-out;
+	background: #403e3d;
+	border-radius: 50px;
+}
+.overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.8);
+	transition: opacity 500ms;
+	visibility: hidden;
+	opacity: 0;
+}
+.overlay:target {
+	visibility: visible;
+	opacity: 1;
+}
+.wrapper {
+	margin: 70px auto;
+	padding: 20px;
+	background: #e7e7e7;
+	border-radius: 5px;
+	width: 30%;
+	position: relative;
+	transition: all 5s ease-in-out;
+}
+.wrapper h2 {
+	margin-top: 0;
+	color: #333;
+}
+.wrapper .close {
+	position: absolute;
+	top: 20px;
+	right: 30px;
+	transition: all 200ms;
+	font-size: 30px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #333;
+}
+.wrapper .close:hover {
+	color: #06D85F;
+}
+.wrapper .content {
+	max-height: 30%;
+	overflow: auto;
+}
+
+/*form*/
+.container {
+	border-radius: 5px;
+	background-color: #e7e7e7;
+	padding: 20px 0;
+}
+.formlabel {
+	text-transform: uppercase;
+	font-weight: 500;
+	letter-spacing: 3px;
+}
+/* input[type=text], select, textarea {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin-top: 6px;
+	margin-bottom: 16px;
+	resize: vertical;
+} */
+input[type="submit"] {
+	background-color: #413b3b;
+	color: #fff;
+	padding: 15px 50px;
+	border: none;
+	border-radius: 50px;
+	cursor: pointer;
+	font-size: 15px;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Button} from "react-bootstrap";
-import "./deleteAcct.css";
+import "../App.css";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import axios from 'axios';
@@ -21,11 +21,11 @@ function DeleteAcct() {
     return (
         <div data-testid="delete_parent" class='parent'>
             <div class="gold-background">
-                <div data-testid="delete_header" class="Purd-Head">
+                <div data-testid="delete_header" class="Purd-Head2">
                     Purdue Course Finder
                 </div>
                 <div data-testid="delete_back_button" class='back-button'>
-                    <a href="/" class="button">Go Back</a>
+                    <a href="/" class="button2">Go Back</a>
                 </div>
                 <p>&nbsp;</p>
             </div>
@@ -43,7 +43,7 @@ function DeleteAcct() {
             <p>&nbsp;</p>
 
             <div data-testid="delete_delete_button" class="box">
-                <a href="#ConfirmDelete" class="button">Delete Account</a>
+                <a href="#ConfirmDelete" class="button2">Delete Account</a>
             </div>
 
             <div data-testid="delete_confirm_window" className="overlay" id="ConfirmDelete">
