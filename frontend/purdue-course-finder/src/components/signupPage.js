@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from "react-bootstrap";
 import { Dialog } from '@material-ui/core';
 import axios from 'axios';
-import "../App.css";
+import "./loginPage.css";
 import { serverURL } from '../index.js';
 
 

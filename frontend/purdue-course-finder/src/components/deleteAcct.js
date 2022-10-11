@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Button} from "react-bootstrap";
-import "../App.css";
+import "./deleteAcct.css";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import axios from 'axios';
