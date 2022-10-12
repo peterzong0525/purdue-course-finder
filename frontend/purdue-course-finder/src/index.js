@@ -7,8 +7,9 @@ import Home from './components/Home.js'
 import Login from './components/loginPage.js'
 import Signup from './components/signupPage.js'
 import Tutorial from './components/tutorialPage.js'
-import Courses from './components/Courses.js'
 import AcctDelete from './components/deleteAcct.js'
+import Courses from './components/Courses.js'
+import Sections from './components/Sections.js'
 
 export const serverURL = 'https://localhost:8443';
 
@@ -24,6 +25,7 @@ root.render(
           <Route path='/deleteacct' element={<AcctDelete/>} />
           <Route path='/tutorial' element={<Tutorial />} />
           <Route path='/courses' element={<Courses />} />
+          <Route path='/sections/:id' element={<Sections />} />
         </Routes>
       </Router>
   </React.StrictMode>
