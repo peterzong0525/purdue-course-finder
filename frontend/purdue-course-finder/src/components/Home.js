@@ -17,7 +17,15 @@ function Home() {
         <form action="/tutorial">
           <input type="submit" value="Tutorial Page" />
         </form>
-
+        <form action="/deleteacct">
+          <input type="submit" value="Delete Account Page" />
+        </form>
+        <form action="/modifyAccount">
+          <input type="submit" value="Modify Account Page" />
+        </form>
+        <form action="/courses">
+          <input type="submit" value="Courses Page" />
+        </form>
       </header>
     </div>
   );

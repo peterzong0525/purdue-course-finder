@@ -25,7 +25,7 @@ function DeleteAcct() {
                     Purdue Course Finder
                 </div>
                 <div data-testid="delete_back_button" class='back-button'>
-                    <a href="/" class="button2">Go Back</a>
+                    <a href="/modifyAccount" class="button2">Go Back</a>
                 </div>
                 <p>&nbsp;</p>
             </div>

@@ -9,6 +9,7 @@ import Signup from './components/signupPage.js'
 import Tutorial from './components/tutorialPage.js'
 import Courses from './components/Courses.js'
 import AcctDelete from './components/deleteAcct.js'
+import ModifyAcnt from './components/modifyAccount.js'
 
 export const serverURL = 'https://localhost:8443';
 
@@ -24,6 +25,7 @@ root.render(
           <Route path='/deleteacct' element={<AcctDelete/>} />
           <Route path='/tutorial' element={<Tutorial />} />
           <Route path='/courses' element={<Courses />} />
+          <Route path='/modifyAccount' element={<ModifyAcnt />} />
         </Routes>
       </Router>
   </React.StrictMode>

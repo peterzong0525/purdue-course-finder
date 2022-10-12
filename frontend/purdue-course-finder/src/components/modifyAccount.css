@@ -1,0 +1,58 @@
+.modifyAcnt .form-container {
+    width: 400px;
+    background-color: #9D8446;
+    border-radius: 10px;
+    padding: 10px;
+    
+}
+
+.modifyAcnt .success {
+    background-color: lightgreen;
+    white-space: pre-wrap;
+    text-align: center;
+    border-radius: 7px;
+    color: black;
+}
+
+.modifyAcnt .button-container {
+    display: flex;
+    column-gap: 10px
+}
+
+.modifyAcnt .button {
+    cursor: pointer;
+    width: 100%;
+    border-radius: 7px;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    font-size: 15px;
+    transition-duration: 250ms;
+}
+
+.modifyAcnt .button:hover {
+    background-color: #222;
+    transition-duration: 250ms;
+}
+
+.modifyAcnt .delete {
+    justify-content: center;
+    display: flex;
+}
+
+.modifyAcnt .deleteBtn {
+    cursor: pointer;
+    background-color: red;
+    border-radius: 7px;
+    transition-duration: 250ms;
+    font-size: 20px;
+}
+
+.modifyAcnt .deleteBtn:hover {
+    background-color: #A40101;
+    border-radius: 7px;
+    transition-duration: 250ms;
+}
+
+
+

@@ -22,6 +22,14 @@ function Signup() {
             setError("Error: Password is required.");
             return;
         }
+        if (!password.value.match("((?=.*[0-9])(?=.*[a-z]).{8,})")) { 	
+            setError("Error: Your password must contain:\n" +	
+                "• 8 or more characters \n" + 	
+                "• At least one uppercase letter \n" +	
+                "• At least one lowercase letter \n" +	
+                "• At least one number");	
+            return;	
+        }
         // eslint-disable-next-line
         if (!email.value.match(".+@.+\..+")) {
             setError("Error: Invalid email address. \nEmail must be in the format of 'email@example.com'");
