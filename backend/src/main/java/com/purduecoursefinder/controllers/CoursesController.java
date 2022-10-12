@@ -3,6 +3,7 @@ package com.purduecoursefinder.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,8 @@ import com.purduecoursefinder.services.PurdueApiService;
 public class CoursesController {
     @Autowired
     private PurdueApiService purdueApiService;
-    
+
+    @CrossOrigin
     @GetMapping("/courses/{subject}")
     public List<Course> courses(@PathVariable String subject) {
 //        String url = UriComponentsBuilder.fromHttpUrl("https://api.purdue.io/odata/Courses")
