@@ -17,6 +17,9 @@ function Home() {
         <form action="/tutorial">
           <input type="submit" value="Tutorial Page" />
         </form>
+        <form action="/subjects">
+          <input type="submit" value="Subjects" />
+        </form>
 
       </header>
     </div>

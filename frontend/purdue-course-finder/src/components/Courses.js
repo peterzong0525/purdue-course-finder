@@ -3,10 +3,15 @@ import axios from 'axios';
 import { serverURL } from '../index.js';
 
 function Courses() {
-  const [courses, setCourses] = useState([]);
+    const [courses, setCourses] = useState([]);
+
+    // Gets the subject abbreviation from the end of the dynamic URL
+    var subject = window.location.pathname.substring(
+        window.location.pathname.lastIndexOf("/") + 1
+    );
 
     useEffect(() => {
-        var url = `${serverURL}/courses/CS`;
+        var url = `${serverURL}/courses/${subject}`;
         axios.get(url).then((response) => {
             const data = response.data;
             setCourses(data);
@@ -25,7 +30,7 @@ function Courses() {
             <p>Title: {course.title}</p>
             <p>Credits: {course.creditHours}</p>
             <p>Description: {course.description}</p>
-            <a href={`./sections/${course.id}`}>Sections</a>
+            <a href={`../sections/${course.id}`}>Sections</a>
             <p>-----------</p>
         </div>
     ))
