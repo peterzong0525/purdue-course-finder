@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.purduecoursefinder.models.dto.purdueapi.CourseDTO;
+import com.purduecoursefinder.models.dto.CourseDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Course {
     @Id
-    UUID id;
+    UUID courseId;
     
     String title;
     String courseNumber;
@@ -34,17 +34,16 @@ public class Course {
     String description;
     
     @ManyToOne
-    @JoinColumn(name = "subject")
+    @JoinColumn(name = "subjectId")
     Subject subject;
     
     public static Course fromCourseDTO(CourseDTO courseDTO) {
         return Course.builder()
-            .id(UUID.fromString(courseDTO.getId()))
+            .courseId(courseDTO.getId())
             .title(courseDTO.getTitle())
             .courseNumber(courseDTO.getNumber())
             .creditHours(courseDTO.getCreditHours())
             .description(courseDTO.getDescription())
-            .subject(Subject.builder().id(UUID.fromString(courseDTO.getSubjectId())).build())
             .build();
     }
 }

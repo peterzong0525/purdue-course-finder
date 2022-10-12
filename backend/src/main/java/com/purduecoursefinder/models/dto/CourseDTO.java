@@ -1,4 +1,7 @@
-package com.purduecoursefinder.models.dto.purdueapi;
+package com.purduecoursefinder.models.dto;
+
+import java.util.List;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -7,7 +10,7 @@ import lombok.Data;
 @Data
 public class CourseDTO {
     @JsonProperty("Id")
-    private String id;
+    private UUID id;
     
     @JsonProperty("Number")
     private String number;
@@ -23,4 +26,7 @@ public class CourseDTO {
     
     @JsonProperty("Description")
     private String description;
+    
+    @JsonProperty("Classes")
+    private List<ClassDTO> classes;
 }

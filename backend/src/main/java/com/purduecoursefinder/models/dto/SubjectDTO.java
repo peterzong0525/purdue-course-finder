@@ -1,4 +1,4 @@
-package com.purduecoursefinder.models.dto.purdueapi;
+package com.purduecoursefinder.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

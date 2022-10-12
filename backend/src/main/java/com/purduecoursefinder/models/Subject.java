@@ -1,11 +1,9 @@
 package com.purduecoursefinder.models;
 
-import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -26,7 +24,4 @@ public class Subject {
     String name;
     String abbreviation;
     Long lastRefresh;
-    
-    @OneToMany
-    List<Course> courses;
 }
