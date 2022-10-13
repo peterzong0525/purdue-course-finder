@@ -14,12 +14,14 @@ function ModifyAccount() {
     const _handleEditEmail = (event) => {
         setEditEmail(true)
         setEditPass(false)
+        setSuccess(null);
         return;
     }
 
     const _handleEditPass = (event) => {
         setEditEmail(false)
         setEditPass(true)
+        setSuccess(null);
         return;
     }
 
@@ -27,7 +29,6 @@ function ModifyAccount() {
         setEditEmail(false)
         setEditPass(false)
         setError(null);
-        setSuccess(null);
         return;
     }
 

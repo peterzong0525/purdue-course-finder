@@ -32,7 +32,7 @@ public class AuthenticationService {
             throw new UserExistsException();
         }
         
-        User user = new User(uniqueuserid++, login.getEmail(), passwordEncoder.encode(login.getPassword()));
+        User user = new User(login.getEmail(), passwordEncoder.encode(login.getPassword()));
         userRepository.save(user);
     }
     
