@@ -14,7 +14,7 @@ function Login() {
         
         event.preventDefault();
         var {email, password} = document.forms[0];
-        console.log(email.value, password.value);
+        // console.log(email.value, password.value);
 
         setError(null);
 

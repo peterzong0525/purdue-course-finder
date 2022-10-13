@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import {Button} from "react-bootstrap";
+import React from 'react';
 import { serverURL } from '../index.js';
 import "./deleteAcct.css";
-import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import axios from 'axios';
 
 function printButtonPress(confirmOrDeny) {
+    // eslint-disable-next-line
     let serverResponse = 'not changed';
     var url = `${serverURL}/auth/delete-user`;
     axios({
@@ -51,6 +50,7 @@ function DeleteAcct() {
             <div data-testid="delete_confirm_window" className="overlay" id="ConfirmDelete">
                 <div class="wrapper" data-testid="delete_popup">
                     <h2>Are you sure you would like to Delete Your Account? This cannot be undone.</h2>
+                    {/* eslint-disable-next-line */}
                     <a href="#" class="close">&times;</a>
                     <div class="content">
                         <div class="container">

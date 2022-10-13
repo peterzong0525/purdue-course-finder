@@ -44,6 +44,7 @@ function ModifyAccount() {
                 setError("Error: Email address is required.");
                 return;
             }
+            // eslint-disable-next-line
             if (!email.value.match(".+@.+\..+")) {
                 setError("Error: Invalid email address. \nEmail must be in the format of 'email@example.com'");
                 return;
