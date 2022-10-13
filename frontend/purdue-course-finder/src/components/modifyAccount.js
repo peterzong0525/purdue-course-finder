@@ -44,6 +44,8 @@ function ModifyAccount() {
                 setError("Error: Email address is required.");
                 return;
             }
+
+            // eslint-disable-next-line
             if (!email.value.match(".+@.+\..+")) {
                 setError("Error: Invalid email address. \nEmail must be in the format of 'email@example.com'");
                 return;
@@ -68,7 +70,7 @@ function ModifyAccount() {
                 setError("Error: Password is required.");
                 return;
             }
-            if (!password.value.match("((?=.*[0-9])(?=.*[a-z]).{8,})")) { 	
+            if (!password.value.match("((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,})")) { 	
                 setError("Error: Your password must contain:\n" +	
                     "• 8 or more characters \n" + 	
                     "• At least one uppercase letter \n" +	
@@ -140,21 +142,25 @@ function ModifyAccount() {
                     )}
                     {(editEmail || editPass) && (
                         <div className="button-container">
-                            <button className="button" type={"button"} onClick={_handleEditCancel}>Cancel</button>
-                            <button className="button" type={"submit"} onClick={_handleEditConfirm}>Confirm</button>
+                            <button className="afterButton" type={"button"} onClick={_handleEditCancel}>Cancel</button>
+                            <button className="afterButton" type={"submit"} onClick={_handleEditConfirm}>Confirm</button>
                         </div>
                     )}
- 
+
                     {error && (
-                        <div className="error">
+                        <div>
                             <br></br>
-                            {error}
+                            <div className="error">
+                                {error}
+                            </div>
                         </div>
                     )}
                     {success && (
-                        <div className="success">
+                        <div>
                             <br></br>
-                            {success}
+                            <div className="success">
+                                {success}
+                            </div>
                         </div>
                     )}
 
