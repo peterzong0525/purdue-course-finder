@@ -15,7 +15,7 @@ function Courses() {
         axios.get(url).then((response) => {
             const data = response.data;
             setCourses(data);
-            console.log(data);
+            // console.log(data);
         });
     }, [])
 
@@ -26,12 +26,12 @@ function Courses() {
 
     return courses.map((course, index) => (
         <div key={index}>
-            <p>ID: {course.classId}</p>
-            <p>Name: {course.course.subject.abbreviation} {course.course.courseNumber}</p>
-            <p>Title: {course.course.title}</p>
-            <p>Credits: {course.course.creditHours}</p>
-            <p>Description: {course.course.description}</p>
-            <a href={`../sections/${course.classId}`}>Sections</a>
+            <p>ID: {course.courseId}</p>
+            <p>Name: {course.subjectAbbreviation} {course.courseNumber}</p>
+            <p>Title: {course.title}</p>
+            <p>Credits: {course.creditHours}</p>
+            <p>Description: {course.description}</p>
+            <a href={`../sections/${course.courseId}`}>Sections</a>
             <p>-----------</p>
         </div>
     ))

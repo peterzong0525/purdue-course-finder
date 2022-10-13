@@ -6,12 +6,11 @@ function Subjects() {
   const [subjects, setSubjects] = useState([]);
 
     useEffect(() => {
-        // var url = `${serverURL}/subjects`;
-        // axios.get(url).then((response) => {
-        //     const data = response.data;
-        //     setSubjects(data);
-        // });
-        setSubjects(['CS', 'MA', 'EAPS', 'STAT', 'CHM']);
+        var url = `${serverURL}/subjects`;
+        axios.get(url).then((response) => {
+            const data = response.data;
+            setSubjects(data);
+        });
     }, [])
 
   const displaySubjects = (subjects) => {
@@ -21,11 +20,10 @@ function Subjects() {
 
     return subjects.map((subject, index) => (
         <div key={index}>
-            {/* <p>ID: {subject.id}</p>
-            <p>Abbreviation: {subject.abbreviation}</p>
-            <p>Name: {subject.name}</p> */}
-            <p>{subject}</p>
-            <a href={`./courses/${subject}`}>Courses</a>
+            <p>ID: {subject.Id}</p>
+            <p>Abbreviation: {subject.Abbreviation}</p>
+            <p>Name: {subject.Name}</p>
+            <a href={`./courses/${subject.Abbreviation}`}>Courses</a>
             <p>-----------</p>
         </div>
     ))

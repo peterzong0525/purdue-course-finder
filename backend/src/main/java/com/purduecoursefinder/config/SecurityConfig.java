@@ -24,6 +24,7 @@ public class SecurityConfig {
             .antMatchers("/auth/register").permitAll()
             .antMatchers("/auth/login").permitAll()
             .antMatchers("/courses/*").permitAll()
+            .antMatchers("/subjects").permitAll()
             .anyRequest().authenticated()
             .and().cors().disable().csrf().disable() // TODO: Fix the security issues this line implies
             .logout().logoutUrl("/auth/logout").logoutSuccessHandler((request, response, authentication) -> {
