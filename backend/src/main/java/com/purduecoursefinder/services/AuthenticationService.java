@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.purduecoursefinder.exceptions.UserExistsException;
+import com.purduecoursefinder.exceptions.LoginFailedException;
 import com.purduecoursefinder.models.User;
 import com.purduecoursefinder.models.dto.LoginDTO;
 import com.purduecoursefinder.repositories.UserRepository;
@@ -33,11 +34,15 @@ public class AuthenticationService {
         userRepository.save(user);
     }
     
-    public void loginUser(LoginDTO login) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                login.getEmail(), login.getPassword()));
-        
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+    public void loginUser(LoginDTO login) throws LoginFailedException {
+        try {
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    login.getEmail(), login.getPassword()));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        } catch (Exception e){
+            throw new LoginFailedException();
+        }
     }
 
     public void deleteCurrentUser() {

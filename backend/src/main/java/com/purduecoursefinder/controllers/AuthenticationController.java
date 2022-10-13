@@ -19,7 +19,8 @@ public class AuthenticationController {
     public void register(@RequestBody LoginDTO login) {
         authenticationService.createUser(login);
     }
-    
+
+    @CrossOrigin
     @PostMapping(value = "/login")
     public void login(@RequestBody LoginDTO login) {
         authenticationService.loginUser(login);
