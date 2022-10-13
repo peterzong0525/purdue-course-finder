@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Button} from "react-bootstrap";
+import { serverURL } from '../index.js';
 import "./deleteAcct.css";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
@@ -7,10 +8,11 @@ import axios from 'axios';
 
 function printButtonPress(confirmOrDeny) {
     let serverResponse = 'not changed';
-    axios.get(`http://localhost:80/test/delete-login?email=testemail&password=testpassword`) // Need a real address
-        .then(res => console.log(res.data));    // Save response to variable 'serverResponse'
-    //`localhost:80/test/signup?email=testemail&password=testpassword`
-    //`https://jsonplaceholder.typicode.com/users`
+    var url = `${serverURL}/auth/delete-user`;
+    axios({
+        url: url,
+        method: 'POST',
+    }).then(res => console.log(res.data));    // Save response to variable 'serverResponse' eventually
 }
 
 function returnButton (value) {
