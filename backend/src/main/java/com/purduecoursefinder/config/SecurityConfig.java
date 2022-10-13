@@ -23,6 +23,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests()
             .antMatchers("/auth/register").permitAll()
             .antMatchers("/auth/login").permitAll()
+            .antMatchers("/auth/modify-account").permitAll()
             .anyRequest().authenticated()
             .and().cors().disable().csrf().disable() // TODO: Fix the security issues this line implies
             .logout().logoutUrl("/auth/logout").logoutSuccessHandler((request, response, authentication) -> {

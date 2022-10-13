@@ -17,12 +17,12 @@ import lombok.Data;
 @AllArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    int uniqueuserid;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int uniqueuserid;
 
-    String email;
+    private String email;
     
-    String password;
+    private String password;
 
     public User() {
         this.email = null;
@@ -31,6 +31,18 @@ public class User {
 
     public User(String email, String password) {
         this.email = email;
+        this.password = password;
+    }
+
+    public int getUniqueUserID() {
+        return uniqueuserid;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 }

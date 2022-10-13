@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import "./modifyAccount.css"
 
+import { serverURL } from '../index.js';
+import axios from 'axios';
+
 function ModifyAccount() {
     const [editEmail, setEditEmail] = useState(false);
     const [editPass, setEditPass] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
 
-    const [email, setEmail] = useState("Email@gmail.com");
+    const [email, setEmail] = useState("test1@test.com");
     const [password, setPass] = useState("Password1");
+
 
     
     const _handleEditEmail = (event) => {
@@ -38,39 +42,63 @@ function ModifyAccount() {
         setSuccess(null);
 
         if (editEmail) {
-            var {email} = document.forms[0];
-            console.log(email.value);
+            var {newEmail} = document.forms[0];
+            console.log(newEmail.value);
 
-            if (email.value === null || email.value === "") {
+            if (newEmail.value === null || newEmail.value === "") {
                 setError("Error: Email address is required.");
                 return;
             }
+
+            if (newEmail.value === email) {
+                setError("Error: Your new email cannot be the same as your old email.");
+                return;
+            }
+
             // eslint-disable-next-line
-            if (!email.value.match(".+@.+\..+")) {
+            if (!newEmail.value.match(".+@.+\..+")) {
                 setError("Error: Invalid email address. \nEmail must be in the format of 'email@example.com'");
                 return;
             }
 
-            //if response from server is error
-            if (false) {
-                setError("Error: An account with that email address already exists.");
-            } else {
-                setError(null);
-                setSuccess("Success: Your email has been updated.");
-                setEmail(email.value);
-                setEditEmail(false);
-            }
+            var url = `${serverURL}/auth/modify-account`;
+            axios({
+                url: url,
+                method: 'POST',
+                data: {
+                    "oldEmail": email,
+                    "newEmail": newEmail.value,
+                    "oldPassword": "",
+                    "newPassword": "",
+                },
+            }).then((response) => {
+                if (response.status !== 200) {
+                    setError(response.data);
+                } else {
+                    setError(null);
+                    setSuccess("Success: Your email has been updated.");
+                    setEmail(newEmail.value);
+                    setEditEmail(false);
+                }
+            }).catch((error) => {
+                setError(error.response.data.message);
+            });
             
 
         } else if (editPass) {
-            var {password, confirmPassword} = document.forms[0];
-            console.log(password.value, confirmPassword.value);
+            var {newPassword, confirmPassword} = document.forms[0];
+            console.log(newPassword.value, confirmPassword.value, password);
 
-            if (password.value === null || password.value === "") {
+            if (newPassword.value === null || newPassword.value === "") {
                 setError("Error: Password is required.");
                 return;
             }
-            if (!password.value.match("((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,})")) { 	
+            if (newPassword.value === password) {
+                setError("Error: Your new password cannot be the same as your old password.");
+                return;
+            }
+
+            if (!newPassword.value.match("((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,})")) { 	
                 setError("Error: Your password must contain:\n" +	
                     "• 8 or more characters \n" + 	
                     "• At least one uppercase letter \n" +	
@@ -78,19 +106,34 @@ function ModifyAccount() {
                     "• At least one number");	
                 return;	
             }
-            if (password.value !== confirmPassword.value) {
+            if (newPassword.value !== confirmPassword.value) {
                 setError("Error: Passwords must match");
                 return;
             }
 
-            if (false) {
-                setError("Error: Some error message.");
-            } else {
-                setError(null);
-                setSuccess("Success: Your password has been updated.");
-                setPass(password.value);
-                setEditPass(false);
-            }
+            var url = `${serverURL}/auth/modify-account`;
+            axios({
+                url: url,
+                method: 'POST',
+                data: {
+                    "oldEmail": email,
+                    "newEmail": email,
+                    "oldPassword": password,
+                    "newPassword": newPassword.value,
+                },
+            }).then((response) => {
+                if (response.status !== 200) {
+                    setError(response.data);
+                } else {
+                    setError(null);
+                    setSuccess("Success: Your password has been updated.");
+                    setPass(newPassword.value);
+                    setEditPass(false);
+                }
+            }).catch((error) => {
+                setError(error.response.data.message);
+            });
+
         }
     }
 
@@ -105,13 +148,13 @@ function ModifyAccount() {
                     {editEmail && (
                         <div className="input-container" >
                             <label>New Email Address </label>
-                            <input type="text" name="email" defaultValue={email}/>
+                            <input type="text" name="newEmail" defaultValue={email}/>
                         </div>
                     )}
                     {!editEmail && (
                         <div className="input-container" >
                             <label>Email Address </label>
-                            <input type="text" name="email" value={email} readOnly style={{
+                            <input type="text" value={email} readOnly style={{
                                 pointerEvents: "none",
                                 backgroundColor: "#bababa"}}/>
                         </div>
@@ -120,7 +163,7 @@ function ModifyAccount() {
                     {editPass && (
                         <div className="input-container">
                             <label>New Password </label>
-                            <input type="password" name="password" />
+                            <input type="password" name="newPassword" />
                             <label>Confirm Password</label>
                             <input type="password" name="confirmPassword" />
                         </div>
@@ -128,7 +171,7 @@ function ModifyAccount() {
                     {!editPass && (
                         <div className="input-container">
                             <label>Password </label>
-                            <input type="password" name="password" value={password} readOnly style={{
+                            <input type="password" value={password} readOnly style={{
                             pointerEvents: "none",
                             backgroundColor: "#bababa"}}/>
                         </div>
