@@ -35,6 +35,22 @@
     transition-duration: 250ms;
 }
 
+.modifyAcnt .afterButton {
+    cursor: pointer;
+    width: 100%;
+    border-radius: 7px;
+    background-color: white;
+    color: black;
+    padding: 5px;
+    font-size: 15px;
+    transition-duration: 250ms;
+}
+
+.modifyAcnt .afterButton:hover {
+    background-color: lightgray;
+    transition-duration: 250ms;
+}
+
 .modifyAcnt .delete {
     justify-content: center;
     display: flex;

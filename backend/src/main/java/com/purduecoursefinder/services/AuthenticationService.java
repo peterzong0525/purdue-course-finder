@@ -24,13 +24,15 @@ public class AuthenticationService {
     
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    private int uniqueuserid = 0;
     
     public void createUser(LoginDTO login) throws UserExistsException {
         if (userRepository.findByEmail(login.getEmail()).isPresent()) {
             throw new UserExistsException();
         }
         
-        User user = new User(login.getEmail(), passwordEncoder.encode(login.getPassword()));
+        User user = new User(uniqueuserid++, login.getEmail(), passwordEncoder.encode(login.getPassword()));
         userRepository.save(user);
     }
     

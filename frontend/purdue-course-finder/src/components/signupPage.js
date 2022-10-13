@@ -22,7 +22,7 @@ function Signup() {
             setError("Error: Password is required.");
             return;
         }
-        if (!password.value.match("((?=.*[0-9])(?=.*[a-z]).{8,})")) { 	
+        if (!password.value.match("((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,})")) { 	
             setError("Error: Your password must contain:\n" +	
                 "• 8 or more characters \n" + 	
                 "• At least one uppercase letter \n" +	
