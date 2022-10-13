@@ -2,17 +2,18 @@ package com.purduecoursefinder.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.purduecoursefinder.exceptions.UnableToRetrieveCoursesException;
 import com.purduecoursefinder.exceptions.UnableToRetrieveSubjectsException;
+import com.purduecoursefinder.exceptions.UnknownSubjectException;
 import com.purduecoursefinder.models.Building;
 import com.purduecoursefinder.models.Class;
 import com.purduecoursefinder.models.Course;
@@ -21,6 +22,7 @@ import com.purduecoursefinder.models.Room;
 import com.purduecoursefinder.models.Section;
 import com.purduecoursefinder.models.Subject;
 import com.purduecoursefinder.models.dto.ClassDTO;
+import com.purduecoursefinder.models.dto.CourseApiDTO;
 import com.purduecoursefinder.models.dto.CourseDTO;
 import com.purduecoursefinder.models.dto.MeetingDTO;
 import com.purduecoursefinder.models.dto.SectionDTO;
@@ -67,25 +69,31 @@ public class PurdueApiService {
     @Value("${pcf.refresh-cache-millis}")
     private long refreshCacheMillis;
     
-    public List<Class> getCourses(String subjectAbbreviation) {
-//String url = apiUrl + "/odata/Courses?$expand=Classes($filter=Term/Code eq '202210';$expand=Sections($expand=Meetings($expand=Room($expand=Building))))&$filter=Subject/Abbreviation eq 'CS'";
-//        
-//        CoursesRequestDTO apiCourses = restTemplate.getForObject(url, CoursesRequestDTO.class);
-//        return apiCourses.getValue();
-        
-        Optional<Subject> subjectOpt = subjectRepository.findByAbbreviation(subjectAbbreviation);
+    public List<CourseDTO> getCourses(String subjectAbbreviation) {        
+        Optional<Subject> subjectOpt = subjectRepository.findByAbbreviation(subjectAbbreviation.toUpperCase());
         Subject subject;
         
-        if (subjectOpt.isPresent() && System.currentTimeMillis() - subjectOpt.get().getLastRefresh() < refreshCacheMillis) {
-            subject = subjectOpt.get();
+        if (subjectOpt.isEmpty()) {
+            populateSubjectRepository();
             
-            System.out.println("Returning cached courses...");
-//            return courseRepository.findBySubjectId(subject.getId());
+            subjectOpt = subjectRepository.findByAbbreviation(subjectAbbreviation.toUpperCase());
+            
+            if (subjectOpt.isPresent()) {
+                subject = subjectOpt.get();
+            } else {
+                throw new UnknownSubjectException();
+            }
+        } else {
+            subject = subjectOpt.get();
         }
         
-        subject = createSubjectFromAbbreviation(subjectAbbreviation);
-        subjectRepository.save(subject);
+        if (System.currentTimeMillis() - subjectOpt.get().getLastRefresh() < refreshCacheMillis) {
+            System.out.println("Returning cached courses...");
+            return courseRepository.findBySubjectId(subject.getId()).stream().map(course -> course.getClasses().size() > 0 ? course : null).filter(Objects::nonNull).map(course -> CourseDTO.fromCourse(course)).collect(Collectors.toList());
+        }
         
+        subject.setLastRefresh(System.currentTimeMillis());
+        subjectRepository.save(subject);
 
         // In the future implement something similar to what is commented below.
 //        String url = UriComponentsBuilder.fromHttpUrl(apiUrl + "/odata/Courses")
@@ -93,7 +101,7 @@ public class PurdueApiService {
 //                .queryParam("$orderby", "Number asc")
 //                .build().toUriString();
         
-        String url = apiUrl + "/odata/Courses?$expand=Classes($filter=Term/Code eq '202210';$expand=Sections($expand=Meetings($expand=Room($expand=Building))))&$filter=Subject/Abbreviation eq '" + subjectAbbreviation + "'";
+        String url = apiUrl + "/odata/Courses?$expand=Classes($filter=Term/Code eq '202310';$expand=Sections($expand=Meetings($expand=Room($expand=Building))))&$filter=Subject/Abbreviation eq '" + subjectAbbreviation.toUpperCase() + "'";
         
         CoursesRequestDTO apiCourses = restTemplate.getForObject(url, CoursesRequestDTO.class);
         
@@ -101,13 +109,12 @@ public class PurdueApiService {
             throw new UnableToRetrieveCoursesException();
         }
         
-        List<Course> courses = new ArrayList<Course>();
-        
-        for (CourseDTO courseDTO : apiCourses.getValue()) {
-            Course course = Course.fromCourseDTO(courseDTO);
+        for (CourseApiDTO courseDTO : apiCourses.getValue()) {
+            Course course = Course.fromCourseApiDTO(courseDTO);
             course.setSubject(subject);
             courseRepository.save(course);
-            courses.add(course);
+            
+            List<Class> classes = new ArrayList<Class>();
             
             for (ClassDTO classDTO : courseDTO.getClasses()) {
                 // Test against Purdue West Lafayette ID
@@ -117,6 +124,7 @@ public class PurdueApiService {
                 
                 Class cls = Class.fromClassDTO(classDTO);
                 cls.setCourse(course);
+                classes.add(cls);
                 classRepository.save(cls);
                 
                 for (SectionDTO sectionDTO : classDTO.getSections()) {
@@ -142,34 +150,40 @@ public class PurdueApiService {
                     }
                 }
             }
+            
+            course.setClasses(classes);
+            courseRepository.save(course);
         }
         
         System.out.println("Returning courses from API...");
-        return classRepository.findAll();
+        return courseRepository.findBySubjectId(subject.getId()).stream().map(course -> course.getClasses().size() > 0 ? course : null).filter(Objects::nonNull).map(course -> CourseDTO.fromCourse(course)).collect(Collectors.toList());
     }
     
-    private Subject createSubjectFromAbbreviation(String abbreviation) {
-        String url = UriComponentsBuilder.fromHttpUrl(apiUrl + "/odata/Subjects")
-                .queryParam("$filter", "Abbreviation eq '" + abbreviation.toUpperCase() + "'")
-                .build().toUriString();
+    public List<SubjectDTO> getSubjects() {
+        List<SubjectDTO> subjects = subjectRepository.findAll().stream().map(SubjectDTO::fromSubject).collect(Collectors.toList());
         
-        SubjectsRequestDTO subjectsRequestDTO = restTemplate.getForObject(url, SubjectsRequestDTO.class);
+        if (subjects.size() == 0) {
+            populateSubjectRepository();
+            subjects = subjectRepository.findAll().stream().map(SubjectDTO::fromSubject).collect(Collectors.toList());
+        }
+        
+        return subjects;
+    }
+    
+    private void populateSubjectRepository() {
+        SubjectsRequestDTO subjectsRequestDTO = restTemplate.getForObject(apiUrl + "/odata/Subjects", SubjectsRequestDTO.class);
         
         if (subjectsRequestDTO == null) {
             throw new UnableToRetrieveSubjectsException();
         }
         
         for (SubjectDTO subjectDTO : subjectsRequestDTO.getValue()) {
-            if (subjectDTO.getAbbreviation().equals(abbreviation)) {
-                return Subject.builder()
-                        .id(UUID.fromString(subjectDTO.getId()))
-                        .name(subjectDTO.getName())
-                        .abbreviation(subjectDTO.getAbbreviation())
-                        .lastRefresh(System.currentTimeMillis())
-                        .build();
-            }
+                subjectRepository.save(Subject.builder()
+                    .id(subjectDTO.getId())
+                    .name(subjectDTO.getName())
+                    .abbreviation(subjectDTO.getAbbreviation())
+                    .lastRefresh(0L)
+                    .build());
         }
-        
-        return null; // TODO: Better error handling
     }
 }

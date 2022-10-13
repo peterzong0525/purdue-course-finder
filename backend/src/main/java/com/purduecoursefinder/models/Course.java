@@ -1,5 +1,6 @@
 package com.purduecoursefinder.models;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -7,9 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.purduecoursefinder.models.dto.CourseDTO;
+import com.purduecoursefinder.models.dto.CourseApiDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,13 +39,16 @@ public class Course {
     @JoinColumn(name = "subjectId")
     Subject subject;
     
-    public static Course fromCourseDTO(CourseDTO courseDTO) {
+    @OneToMany
+    List<Class> classes;
+    
+    public static Course fromCourseApiDTO(CourseApiDTO courseApiDTO) {
         return Course.builder()
-            .courseId(courseDTO.getId())
-            .title(courseDTO.getTitle())
-            .courseNumber(courseDTO.getNumber())
-            .creditHours(courseDTO.getCreditHours())
-            .description(courseDTO.getDescription())
+            .courseId(courseApiDTO.getId())
+            .title(courseApiDTO.getTitle())
+            .courseNumber(courseApiDTO.getNumber())
+            .creditHours(courseApiDTO.getCreditHours())
+            .description(courseApiDTO.getDescription())
             .build();
     }
 }
