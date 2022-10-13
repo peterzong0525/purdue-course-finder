@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
-import {Button} from "react-bootstrap";
+import React from 'react';
+import { serverURL } from '../index.js';
 import "./deleteAcct.css";
-import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import axios from 'axios';
 
 function printButtonPress(confirmOrDeny) {
+    // eslint-disable-next-line
     let serverResponse = 'not changed';
-    axios.get(`http://localhost:80/test/delete-login?email=testemail&password=testpassword`) // Need a real address
-        .then(res => console.log(res.data));    // Save response to variable 'serverResponse'
-    //`localhost:80/test/signup?email=testemail&password=testpassword`
-    //`https://jsonplaceholder.typicode.com/users`
+    var url = `${serverURL}/auth/delete-user`;
+    axios({
+        url: url,
+        method: 'POST',
+    }).then(res => console.log(res.data));    // Save response to variable 'serverResponse' eventually
 }
 
 function returnButton (value) {
@@ -19,13 +20,13 @@ function returnButton (value) {
 
 function DeleteAcct() {
     return (
-        <div data-testid="delete_parent" class='parent'>
-            <div class="gold-background">
-                <div data-testid="delete_header" class="Purd-Head2">
+        <div data-testid="delete_parent" className='parent'>
+            <div className="gold-background">
+                <div data-testid="delete_header" className="Purd-Head2">
                     Purdue Course Finder
                 </div>
-                <div data-testid="delete_back_button" class='back-button'>
-                    <a href="/" class="button2">Go Back</a>
+                <div data-testid="delete_back_button" className='back-button'>
+                    <a href="/modifyAccount" className="button2">Go Back</a>
                 </div>
                 <p>&nbsp;</p>
             </div>
@@ -33,7 +34,7 @@ function DeleteAcct() {
             <p>&nbsp;</p>
 
             <div align="center">
-                <div class="user-info">
+                <div className="user-info">
                     <p>First Name: first_name</p>
                     <p>Last Name: last_name</p>
                     <p>Email: email_address</p>
@@ -42,16 +43,17 @@ function DeleteAcct() {
 
             <p>&nbsp;</p>
 
-            <div data-testid="delete_delete_button" class="box">
-                <a href="#ConfirmDelete" class="button2">Delete Account</a>
+            <div data-testid="delete_delete_button" className="box">
+                <a href="#ConfirmDelete" className="button2">Delete Account</a>
             </div>
 
             <div data-testid="delete_confirm_window" className="overlay" id="ConfirmDelete">
-                <div class="wrapper" data-testid="delete_popup">
+                <div className="wrapper" data-testid="delete_popup">
                     <h2>Are you sure you would like to Delete Your Account? This cannot be undone.</h2>
-                    <a href="#" class="close">&times;</a>
-                    <div class="content">
-                        <div class="container">
+                    {/* eslint-disable-next-line */}
+                    <a href="#" className="close">&times;</a>
+                    <div className="content">
+                        <div className="container">
                             <form>
                                 <div className="box">
                                     {returnButton('Confirm')}

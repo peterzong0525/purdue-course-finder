@@ -1,3 +1,7 @@
+input {
+    font-size: 17px;
+}
+
 .form-container {
     width: 400px;
     background-color: #9D8446;
@@ -32,15 +36,23 @@
 
 .button-container {
     display: flex;
+
 }
 
 .button {
+    cursor: pointer;
     width: 100%;
     border-radius: 7px;
     background-color: black;
     color: white;
     padding: 5px;
     font-size: 15px;
+    transition-duration: 250ms;
+}
+
+.button:hover {
+    background-color: #222;
+    transition-duration: 250ms;
 }
 
 .other-links {
@@ -49,15 +61,16 @@
 }
 
 .error {
-    background-color: red;
+    background-color: #f0162f;
     white-space: pre-wrap;
     border-radius: 7px;
     text-align: center;
+    padding: 10px 0 12px 0;
 }
 
 .success {
     background-color: green;
     white-space: pre-wrap;
     text-align: center;
-    padding: 10px;
+    padding: 10px 0 12px 0;
 }

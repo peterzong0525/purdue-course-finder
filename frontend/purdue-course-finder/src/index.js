@@ -11,6 +11,7 @@ import AcctDelete from './components/deleteAcct.js'
 import Courses from './components/Courses.js'
 import Sections from './components/Sections.js'
 import Subjects from './components/Subjects.js'
+import ModifyAcnt from './components/modifyAccount.js'
 
 export const serverURL = 'https://localhost:8443';
 
@@ -24,6 +25,7 @@ root.render(
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/deleteacct' element={<AcctDelete/>} />
+          <Route path='/modifyAccount' element={<ModifyAcnt />} />
           <Route path='/tutorial' element={<Tutorial />} />
           <Route path='/courses/:id' element={<Courses />} />
           <Route path='/sections/:id' element={<Sections />} />
