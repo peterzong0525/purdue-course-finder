@@ -111,6 +111,7 @@ function ModifyAccount() {
                 return;
             }
 
+            // eslint-disable-next-line
             var url = `${serverURL}/auth/modify-account`;
             axios({
                 url: url,

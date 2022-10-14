@@ -7,7 +7,13 @@ function Subjects() {
 
     useEffect(() => {
         var url = `${serverURL}/subjects`;
-        axios.get(url).then((response) => {
+        const config = {
+          headers:{
+            "Authentication": `Bearer ${window.sessionStorage.getItem("userToken")}`
+          }
+        };
+        console.log(config);
+        axios.get(url, config).then((response) => {
             const data = response.data;
             setSubjects(data);
         });
