@@ -24,8 +24,8 @@ function Home() {
         <form action="/modifyAccount">
           <input type="submit" value="Modify Account Page" />
         </form>
-        <form action="/courses">
-          <input type="submit" value="Courses Page" />
+        <form action="/subjects">
+          <input type="submit" value="Subjects" />
         </form>
       </header>
     </div>

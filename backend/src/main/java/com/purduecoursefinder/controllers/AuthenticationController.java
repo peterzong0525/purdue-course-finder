@@ -15,19 +15,20 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
 
-    @CrossOrigin
     @PostMapping(value = "/register")
     public void register(@RequestBody LoginDTO login) {
         authenticationService.createUser(login);
     }
 
-    @CrossOrigin
     @PostMapping(value = "/login")
-    public void login(@RequestBody LoginDTO login) { authenticationService.loginUser(login); }
+    public String login(@RequestBody LoginDTO login) {
+        return authenticationService.loginUser(login);
+    }
 
-    @CrossOrigin
     @PostMapping(value = "/modify-account")
-    public void modifyAccount(@RequestBody ModifyAccountDTO account) { authenticationService.modifyUser(account); }
+    public void modifyAccount(@RequestBody ModifyAccountDTO account) {
+        authenticationService.modifyUser(account);
+    }
     
     @DeleteMapping(value = "/delete-user")
     public void deleteAccount() {

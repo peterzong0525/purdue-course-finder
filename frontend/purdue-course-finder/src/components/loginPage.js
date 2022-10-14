@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './loginPage.css';
 import { serverURL } from '../index.js';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 
 function Login() {
@@ -11,10 +11,8 @@ function Login() {
     const navigate = useNavigate();
 
     const handleLoginClick = (event) => {
-        
         event.preventDefault();
         var {email, password} = document.forms[0];
-        // console.log(email.value, password.value);
 
         setError(null);
 
@@ -27,16 +25,20 @@ function Login() {
                 "password": password.value,
             },
         }).then((response) => {
+            // console.log(response);
             if (response.status !== 200) {
                 //error
                 setError(response.data);
             } else {
                 //success
                 setError(null);
+                window.sessionStorage.setItem("userToken", response.data);
+                console.log(window.sessionStorage.getItem("userToken"));
                 //setSuccess(true);
                 navigate('/');
             }
         }).catch((error) => {
+            // console.log(error);
             setError("The email address or password entered is incorrect.");
         });
 

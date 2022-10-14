@@ -29,7 +29,6 @@ public class TestController {
         }
     }
 
-    @CrossOrigin
     @GetMapping(value = "/signup")
     public String signup(@RequestParam(name = "email", required = true) String email, @RequestParam(name = "password", required = true) String password) {
         userRepository.save(User.builder().email(email).password(password).build());
@@ -51,7 +50,6 @@ public class TestController {
         return "Unable to login, incorrect password.";
     }
 
-	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping(value = "/delete-login")
 	public String deleteLogin(@RequestParam(name = "email", required = true) String email, @RequestParam(name = "password", required = true) String password) {
         Optional<User> user = userRepository.findById(email);

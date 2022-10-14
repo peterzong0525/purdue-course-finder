@@ -3,7 +3,6 @@ package com.purduecoursefinder.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +13,7 @@ import com.purduecoursefinder.models.User;
 import com.purduecoursefinder.models.dto.LoginDTO;
 import com.purduecoursefinder.models.dto.ModifyAccountDTO;
 import com.purduecoursefinder.repositories.UserRepository;
+import com.purduecoursefinder.util.JwtUtil;
 
 import java.util.Optional;
 
@@ -29,6 +29,9 @@ public class AuthenticationService {
     private AuthenticationManager authenticationManager;
 
     
+    @Autowired
+    private JwtUtil jwtUtil;
+    
     public void createUser(LoginDTO login) throws UserExistsException {
         if (userRepository.findByEmail(login.getEmail()).isPresent()) {
             throw new UserExistsException();
@@ -38,20 +41,19 @@ public class AuthenticationService {
         userRepository.save(user);
     }
     
-    public void loginUser(LoginDTO login) throws LoginFailedException {
-        try {
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+    public String loginUser(LoginDTO login) {
+        try { 
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     login.getEmail(), login.getPassword()));
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new LoginFailedException();
         }
+        
+        
+        return jwtUtil.generateJwt(login.getEmail());
     }
 
     public void modifyUser(ModifyAccountDTO account) {
-
-
         Optional<User> user = userRepository.findByEmail(account.getOldEmail());
         if (user.isPresent()) {
             User existingUser = user.get();
@@ -66,10 +68,9 @@ public class AuthenticationService {
                 existingUser.setPassword(passwordEncoder.encode(account.getNewPassword()));
 
             existingUser = userRepository.save(existingUser);
-        } else
-            System.out.println("OLD EMAIL NOT FOUND... THIS SHOULD NEVER HAPPEN");
-
-
+        } else {
+            System.out.println("OLD EMAIL NOT FOUND... THIS SHOULD NEVER HAPPEN"); // TODO: Replace with log, throw 500
+        }
     }
 
     public void deleteCurrentUser() {
