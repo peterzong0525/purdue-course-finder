@@ -11,11 +11,17 @@ function printButtonPress() {
           "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
         }
     };
-    axios({
-        url: url,
-        config: config,
-        method: 'DELETE',
-    }).then(res => console.log(res.data));
+
+    axios.delete(url, config).then((response) => {
+        // const data = response.data;
+        // setEmail(data);
+        console.log(data)
+    });
+    // axios({
+    //     url: url,
+    //     config: config,
+    //     method: 'DELETE',
+    // }).then(res => console.log(res.data));
 }
 
 function returnButton (value) {
