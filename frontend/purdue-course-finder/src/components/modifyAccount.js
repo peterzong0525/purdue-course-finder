@@ -158,13 +158,13 @@ function ModifyAccount() {
     }
 
     return (
-        <div className='modifyAcnt'>
+        <div data-testid="modify_account" className='modifyAcnt'>
             <div className="form-container" style={{
                 position: 'absolute', left: '50%', top: '50%',
                 transform: 'translate(-50%, -50%)'
             }}>
                 <h1 style={{textAlign: "center"}}>My Account</h1>
-                <form className="form" >
+                <form data-testid="modify_form" className="form" >
                     {editEmail && (
                         <div className="input-container" >
                             <label>New Email Address </label>
@@ -172,7 +172,7 @@ function ModifyAccount() {
                         </div>
                     )}
                     {!editEmail && (
-                        <div className="input-container" >
+                        <div data-testid="noedit_email_input" className="input-container" >
                             <label>Email Address </label>
                             <input type="text" value={email} readOnly style={{
                                 pointerEvents: "none",
@@ -189,7 +189,7 @@ function ModifyAccount() {
                         </div>
                     )}
                     {!editPass && (
-                        <div className="input-container">
+                        <div data-testid="noedit_password_input" className="input-container">
                             <label>Password </label>
                             <input type="password" value={password} readOnly style={{
                             pointerEvents: "none",
@@ -198,7 +198,7 @@ function ModifyAccount() {
                     )}
 
                     {!editEmail &&! editPass && (
-                        <div className="button-container">
+                        <div data-testid="noedit_buttons" className="button-container">
                             <button className="button" type={"button"} onClick={_handleEditEmail}>Edit Email</button>
                             <button className="button" type={"button"} onClick={_handleEditPass}>Edit Password</button>
                         </div>
