@@ -13,7 +13,8 @@ import ModifyAcnt from './components/modifyAccount.js'
 
 export const serverURL = 'https://localhost:8443';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root') || document.createElement('div'));
+
 root.render(
   // Add routes to the list below
   <React.StrictMode>
