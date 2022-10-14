@@ -4,10 +4,17 @@ import java.util.Date;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.purduecoursefinder.models.Meeting;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class MeetingDTO {
     @JsonProperty("Id")
     private UUID id;
@@ -32,4 +39,17 @@ public class MeetingDTO {
     
     @JsonProperty("Room")
     private RoomDTO room;
+    
+    public static MeetingDTO fromMeeting(Meeting meeting) {
+        return MeetingDTO.builder()
+                .id(meeting.getMeetingId())
+                .type(meeting.getType())
+                .startDate(meeting.getStartDate())
+                .endDate(meeting.getEndDate())
+                .daysOfWeek(meeting.getDaysOfWeek())
+                .startTime(meeting.getStartTime())
+                .duration(meeting.getDuration())
+                .room(RoomDTO.fromRoom(meeting.getRoom()))
+                .build();
+    }
 }
