@@ -12,7 +12,12 @@ function Courses() {
 
     useEffect(() => {
         var url = `${serverURL}/courses/${subject}`;
-        axios.get(url).then((response) => {
+        const config = {
+            headers:{
+                "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+            }
+        };
+        axios.get(url, config).then((response) => {
             const data = response.data;
             setCourses(data);
             // console.log(data);

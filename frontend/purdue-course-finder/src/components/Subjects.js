@@ -12,7 +12,6 @@ function Subjects() {
             "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
           }
         };
-        console.log(config);
         axios.get(url, config).then((response) => {
             const data = response.data;
             setSubjects(data);

@@ -11,29 +11,16 @@ function Sections() {
     );
 
     useEffect(() => {
-        // var url = `${serverURL}/sections/${courseID}`;
-        // axios.get(url).then((response) => {
-        //     const data = response.data;
-        //     setSections(data);
-        // });
-        setSections([
-            {
-                id: 0,
-                crn: "LE1",
-                status: "NotAvailable",
-                capacity: 108,
-                enrolled: 108,
-                remainingSpace: 0
-            },
-            {
-                id: 1,
-                crn: "LE2",
-                status: "Open",
-                capacity: 110,
-                enrolled: 109,
-                remainingSpace: 1
+        var url = `${serverURL}/sections/${courseID}`;
+        const config = {
+            headers:{
+                "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
             }
-        ])
+        };
+        axios.get(url, config).then((response) => {
+            const data = response.data;
+            setSections(data);
+        });
     }, [])
 
   const displaySections = (sections) => {
@@ -43,12 +30,13 @@ function Sections() {
 
     return sections.map((section, index) => (
         <div key={index}>
-            <p>ID: {section.id}</p>
-            <p>CRN: {section.crn}</p>
-            <p>Registration Status: {section.status}</p>
-            <p>Capacity: {section.capacity}</p>
-            <p># of Students Enrolled: {section.enrolled}</p>
-            <p>Remaining Space: {section.remainingSpace}</p>
+            <p>ID: {section.Id}</p>
+            <p>CRN: {section.Crn}</p>
+            <p>Type: {section.Type}</p>
+            <p>Registration Status: {section.RegistrationStatus}</p>
+            <p>Capacity: {section.Capacity}</p>
+            <p># of Students Enrolled: {section.Enrolled}</p>
+            <p>Remaining Space: {section.RemainingSpace}</p>
             <p>-----------</p>
         </div>
     ))
