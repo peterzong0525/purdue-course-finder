@@ -29,12 +29,14 @@ public class AuthenticationController {
     public void modifyAccount(@RequestBody ModifyAccountDTO account) {
         authenticationService.modifyUser(account);
     }
-    
+
+
+    @CrossOrigin
     @DeleteMapping(value = "/delete-user")
     public void deleteAccount() {
         authenticationService.deleteCurrentUser();
     }
-    
+
     @GetMapping(value = "/user")
     public String user(Principal user) {
         return user == null ? "No user..." : user.getName();

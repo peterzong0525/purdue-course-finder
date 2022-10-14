@@ -1,24 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { serverURL } from '../index.js';
 import "./deleteAcct.css";
 import 'reactjs-popup/dist/index.css';
 import axios from 'axios';
 
-function printButtonPress(confirmOrDeny) {
-    // eslint-disable-next-line
-    let serverResponse = 'not changed';
+function printButtonPress() {
     var url = `${serverURL}/auth/delete-user`;
+    const config = {
+        headers:{
+          "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+        }
+    };
     axios({
         url: url,
-        method: 'POST',
-    }).then(res => console.log(res.data));    // Save response to variable 'serverResponse' eventually
+        config: config,
+        method: 'DELETE',
+    }).then(res => console.log(res.data));
 }
 
 function returnButton (value) {
-    return (<input type="submit" value={value} onClick={() => printButtonPress(value)}/>);
+    return (<input type="submit" value={value} onClick={() => printButtonPress()}/>);
 }
 
 function DeleteAcct() {
+    const [email, setEmail] = useState('');
+
+    useEffect(() => {
+        console.log("Running useEffect()");
+        var url = `${serverURL}/auth/user`;
+        const config = {
+            headers:{
+            "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+            }
+        };
+        
+        axios.get(url, config).then((response) => {
+            const data = response.data;
+            setEmail(data);
+        });
+    }, [])
+
     return (
         <div data-testid="delete_parent" className='parent'>
             <div className="gold-background">
@@ -37,7 +58,7 @@ function DeleteAcct() {
                 <div className="user-info">
                     <p>First Name: first_name</p>
                     <p>Last Name: last_name</p>
-                    <p>Email: email_address</p>
+                    <p>Email: {email}</p>
                 </div>
             </div>
 

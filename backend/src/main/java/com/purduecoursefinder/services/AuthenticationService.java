@@ -15,6 +15,7 @@ import com.purduecoursefinder.models.dto.ModifyAccountDTO;
 import com.purduecoursefinder.repositories.UserRepository;
 import com.purduecoursefinder.util.JwtUtil;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -73,8 +74,10 @@ public class AuthenticationService {
         }
     }
 
+    @Transactional
     public void deleteCurrentUser() {
-        userRepository.deleteById(SecurityContextHolder.getContext().getAuthentication().getName());
+        userRepository.deleteByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         SecurityContextHolder.getContext().setAuthentication(null);
     }
+
 }
