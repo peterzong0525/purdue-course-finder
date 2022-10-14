@@ -16,8 +16,7 @@ import com.purduecoursefinder.services.PurdueApiService;
 public class SectionsController {
     @Autowired
     private PurdueApiService purdueApiService;
-    
-    @CrossOrigin
+
     @GetMapping("/sections/{courseId}")
     public List<SectionDTO> sections(@PathVariable UUID courseId) {
         return purdueApiService.getSections(courseId);

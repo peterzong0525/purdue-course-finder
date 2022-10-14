@@ -33,7 +33,7 @@ function Login() {
                 //success
                 setError(null);
                 window.sessionStorage.setItem("userToken", response.data);
-                // console.log(window.sessionStorage.getItem("userToken"));
+                console.log(window.sessionStorage.getItem("userToken"));
                 //setSuccess(true);
                 navigate('/');
             }

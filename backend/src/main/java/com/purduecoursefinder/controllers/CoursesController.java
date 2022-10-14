@@ -16,7 +16,6 @@ public class CoursesController {
     @Autowired
     private PurdueApiService purdueApiService;
 
-    @CrossOrigin
     @GetMapping("/courses/{subject}")
     public List<CourseDTO> courses(@PathVariable String subject) {
 //        String url = UriComponentsBuilder.fromHttpUrl("https://api.purdue.io/odata/Courses")

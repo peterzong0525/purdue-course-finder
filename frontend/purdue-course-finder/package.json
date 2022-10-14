@@ -2,6 +2,7 @@
   "name": "purdue-course-finder",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://localhost:8443",
   "dependencies": {
     "@material-ui/core": "^4.12.4",
     "@testing-library/jest-dom": "^5.16.5",

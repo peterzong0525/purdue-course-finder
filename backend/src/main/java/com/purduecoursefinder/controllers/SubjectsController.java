@@ -15,7 +15,6 @@ public class SubjectsController {
     @Autowired
     private PurdueApiService purdueApiService;
 
-    @CrossOrigin
     @GetMapping("/subjects")
     public List<SubjectDTO> subjects() {
         return purdueApiService.getSubjects();

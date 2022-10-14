@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.purduecoursefinder.config.filters.JwtFilter;
 
@@ -35,7 +37,7 @@ public class SecurityConfig {
             .antMatchers("/subjects").permitAll()
             .antMatchers("/auth/modify-account").permitAll()
             .anyRequest().authenticated()
-            .and().cors().disable().csrf().disable() // TODO: Fix the security issues this line implies
+            .and().cors().and().csrf().disable() // TODO: Fix the security issues this line implies
             .logout().logoutUrl("/auth/logout").logoutSuccessHandler((request, response, authentication) -> {
                 response.setStatus(HttpServletResponse.SC_OK);
             })
@@ -44,6 +46,16 @@ public class SecurityConfig {
             .and()
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
+    }
+    
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("*");
+            }
+        };
     }
     
     @Bean

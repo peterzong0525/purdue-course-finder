@@ -9,7 +9,7 @@ function Subjects() {
         var url = `${serverURL}/subjects`;
         const config = {
           headers:{
-            "Authentication": `Bearer ${window.sessionStorage.getItem("userToken")}`
+            "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
           }
         };
         console.log(config);
