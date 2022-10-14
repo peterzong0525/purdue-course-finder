@@ -8,10 +8,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.purduecoursefinder.exceptions.UserExistsException;
+import com.purduecoursefinder.exceptions.LoginFailedException;
 import com.purduecoursefinder.models.User;
 import com.purduecoursefinder.models.dto.LoginDTO;
+import com.purduecoursefinder.models.dto.ModifyAccountDTO;
 import com.purduecoursefinder.repositories.UserRepository;
 import com.purduecoursefinder.util.JwtUtil;
+
+import java.util.Optional;
 
 @Service
 public class AuthenticationService {
@@ -23,6 +27,7 @@ public class AuthenticationService {
     
     @Autowired
     private AuthenticationManager authenticationManager;
+
     
     @Autowired
     private JwtUtil jwtUtil;
@@ -37,10 +42,35 @@ public class AuthenticationService {
     }
     
     public String loginUser(LoginDTO login) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                login.getEmail(), login.getPassword()));
+        try { 
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    login.getEmail(), login.getPassword()));
+        } catch (Exception e) {
+            throw new LoginFailedException();
+        }
+        
         
         return jwtUtil.generateJwt(login.getEmail());
+    }
+
+    public void modifyUser(ModifyAccountDTO account) {
+        Optional<User> user = userRepository.findByEmail(account.getOldEmail());
+        if (user.isPresent()) {
+            User existingUser = user.get();
+
+            if (!account.getNewEmail().equals(account.getOldEmail()))
+                if (userRepository.findByEmail(account.getNewEmail()).isPresent()) {
+                    throw new UserExistsException();
+                }
+                existingUser.setEmail(account.getNewEmail());
+
+            if (!account.getNewPassword().equals(account.getOldPassword()))
+                existingUser.setPassword(passwordEncoder.encode(account.getNewPassword()));
+
+            existingUser = userRepository.save(existingUser);
+        } else {
+            System.out.println("OLD EMAIL NOT FOUND... THIS SHOULD NEVER HAPPEN"); // TODO: Replace with log, throw 500
+        }
     }
 
     public void deleteCurrentUser() {

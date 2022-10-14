@@ -14,8 +14,19 @@ Testing Account Signup:
     'A user with that email address already exists.' is displayed.
 
 
-Testing Account Login:  (Alex K)
-
+Testing Account Login: 
+    Load the /login page. The page contains a gold box labeled "Purdue Course Finder Log In". This box contains fields 
+    for an email address and a password, followed by a black "Log In" button. Below that button are links labeled
+    "Forgot Password?" and "Create an Account". Clicking the "Create an Account" link leads to the /signup page. 
+    Return to the /login page to continue testing here. Since the password recovery feature has not yet been implemented, 
+    the "Forgot Password?" link redirects to the homepage. Attempt to login without entering anything, see an error that states
+    that an email address is required. Attempt to login with an email entered but no password, see an error that states that 
+    a password is required. Enter an invalid email & password combination and click "Log In", see an error that states 
+    "The email address or password entered is incorrect". Enter a valid email with an invalid password and click "Log In", 
+    see an error that states "The email address or password entered is incorrect". Enter a valid password with an invalid email 
+    and click "Log In", see an error that states "The email address or password entered is incorrect". Enter the email & password 
+    credentials for a previously created account and click "Log In". Upon successful login, the user is redirected to the home page 
+    (When the home page is implemented it will show that the user is logged in).
 
 
 Testing Account Deletion:

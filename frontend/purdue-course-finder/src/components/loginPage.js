@@ -1,42 +1,78 @@
-import React from 'react';
-import {Button} from "react-bootstrap"
-import "./loginPage.css";
+import React, { useState } from 'react';
+import './loginPage.css';
+import { serverURL } from '../index.js';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 function Login() {
+    const [error, setError] = useState(null);
+    //const [success, setSuccess] = useState(false);
+    const navigate = useNavigate();
+
     const handleLoginClick = (event) => {
         
         event.preventDefault();
         var {email, password} = document.forms[0];
-        console.log(email.value, password.value);
+        // console.log(email.value, password.value);
+
+        setError(null);
+
+        var url = `${serverURL}/auth/login`;
+        axios({
+            url: url,
+            method: 'POST',
+            data: {
+                "email": email.value,
+                "password": password.value,
+            },
+        }).then((response) => {
+            if (response.status !== 200) {
+                //error
+                setError(response.data);
+            } else {
+                //success
+                setError(null);
+                //setSuccess(true);
+                navigate('/');
+            }
+        }).catch((error) => {
+            setError("The email address or password entered is incorrect.");
+        });
+
         
     }
     return (
-        <div className="form-container" style={{
+        <div className="form-container" data-testid="login_container" style={{
             position: 'absolute', left: '50%', top: '50%',
             transform: 'translate(-50%, -50%)'
         }}>                
-        <div className='Purd-Head'>
+        <div className='Purd-Head' data-testid="login_head">
             Purdue Course Finder
         </div>
-            <form className="form" onSubmit={handleLoginClick}>
-                <div className='login-label'>
+            <form className="form" data-testid="login_form" onSubmit={handleLoginClick}>
+                <div className='login-label' data-testid="login_label">
                     Log In
                 </div>
-                <div className="input-container">
+                <div className="input-container" data-testid="login_email">
                     <label>Email Address </label>
                     <input type="text" name="email" required />
 
                 </div>
-                <div className="input-container">
+                <div className="input-container" data-testid="login_password">
                     <label>Password </label>
                     <input type="password" name="password" required />
 
                 </div>
-                <div className="button-container">
-                    <Button className="button" type={"submit"} variant={"success"}>Log In</Button>
+                {error !== null && (
+                    <div className="error">
+                        <p>{error}</p>
+                    </div>
+                )}
+                <div className="button-container" data-testid="login_button">
+                    <button className="button" type={"submit"} >Log In</button>
                 </div>
-                <div className='other-links'>
+                <div className='other-links' data-testid="login_links">
                     <a href='./' >Forgot Password?</a>
                     <a href='./signup' style={{marginLeft: 'auto'}}>Create an Account</a>
                 </div>

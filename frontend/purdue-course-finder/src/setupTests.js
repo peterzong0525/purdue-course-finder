@@ -37,7 +37,7 @@ function testSignupPage() {
     expect(signup_form).toContainElement(signup_password1);
     expect(signup_form).toContainElement(signup_password2);
     expect(signup_form).toContainElement(signup_signup_button);
-    expect(signup_password1).not.toContainElement(signup_password1);
+    expect(signup_password1).not.toContainElement(signup_password2);
 
 }
 
@@ -65,4 +65,38 @@ function testDeletePage() {
     expect(delete_back_button).not.toContainElement(delete_header);
     expect(delete_delete_button).not.toContainElement(delete_confirm_window);
     expect(delete_confirm_window).toContainElement(delete_popup);
+}
+
+function testLoginPage() {
+    // On page normally
+    expect(getByText('login_container')).toBeVisible();
+    expect(getByText('login_head')).toBeVisible();
+    expect(getByText('login_form')).toBeVisible();
+    expect(getByText('login_label')).toBeVisible();
+    expect(getByText('login_email')).toBeVisible();
+    expect(getByText('login_password')).toBeVisible();
+    expect(getByText('login_button')).toBeVisible();
+    expect(getByText('login_links')).toBeVisible();
+
+    // Nesting items
+    const login_container = getByTestId('login_container');
+    const login_head = getByTestId('login_head');
+    const login_form = getByTestId('login_form');
+    const login_email = getByTestId('login_email');
+    const login_password = getByTestId('login_password');
+    const login_button = getByTestId('login_button');
+
+    // Cofirming nesting
+    expect(login_container).toContainElement(login_head);
+    expect(login_container).toContainElement(login_form);
+    expect(login_container).toContainElement(login_email);
+    expect(login_container).toContainElement(login_password);
+    expect(login_container).toContainElement(login_button);
+    expect(login_head).not.toContainElement(login_container);
+    expect(login_head).not.toContainElement(login_form);
+    expect(login_head).not.toContainElement(login_button);
+    expect(login_form).toContainElement(login_email);
+    expect(login_form).toContainElement(login_password);
+    expect(login_form).toContainElement(login_button);
+
 }

@@ -128,7 +128,7 @@ h5 {
 	margin-bottom: 16px;
 	resize: vertical;
 } */
-input[type="submit"] {
+.parent input[type="submit"] {
 	background-color: #413b3b;
 	color: #fff;
 	padding: 15px 50px;
