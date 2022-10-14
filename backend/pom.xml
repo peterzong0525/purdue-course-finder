@@ -40,6 +40,23 @@
 			<version>0.9.1</version>
 		</dependency>
 
+		<!-- Logging -->
+		<dependency>
+		    <groupId>com.google.flogger</groupId>
+		    <artifactId>flogger</artifactId>
+		    <version>0.7.4</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.google.flogger</groupId>
+		    <artifactId>flogger-system-backend</artifactId>
+		    <version>0.7.4</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.google.flogger</groupId>
+		    <artifactId>flogger-slf4j-backend</artifactId>
+		    <version>0.7.4</version>
+		</dependency>
+
 	    <dependency>
 	      <groupId>org.springframework.boot</groupId>
 	      <artifactId>spring-boot-devtools</artifactId>

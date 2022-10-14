@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,21 @@ public class PurdueApiService {
     
     @Value("${pcf.refresh-cache-millis}")
     private long refreshCacheMillis;
+    
+    public List<SectionDTO> getSections(UUID courseId) {
+        List<Class> classes = courseRepository.findById(courseId).orElseThrow().getClasses();
+        List<SectionDTO> sections = new ArrayList<SectionDTO>();
+        
+        for (Class cls : classes) {
+            sections.addAll(sectionRepository.findAllByCls(cls).stream().map(section -> {
+                SectionDTO s = SectionDTO.fromSection(section);
+                s.setMeetings(meetingRepository.findAllBySection(section).stream().map(meeting -> MeetingDTO.fromMeeting(meeting)).collect(Collectors.toList()));
+                return s;
+            }).collect(Collectors.toList()));
+        }
+        
+        return sections;
+    }
     
     public List<CourseDTO> getCourses(String subjectAbbreviation) {        
         Optional<Subject> subjectOpt = subjectRepository.findByAbbreviation(subjectAbbreviation.toUpperCase());

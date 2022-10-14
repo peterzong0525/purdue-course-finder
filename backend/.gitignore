@@ -5,6 +5,7 @@ target/
 !**/src/test/**/target/
 
 src/main/resources/keystore/*
+logs/
 
 ### STS ###
 .apt_generated

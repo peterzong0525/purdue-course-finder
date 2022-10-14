@@ -5,10 +5,17 @@ import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.purduecoursefinder.models.Section;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class SectionDTO {
     @JsonProperty("Id")
     private UUID id;
@@ -48,4 +55,21 @@ public class SectionDTO {
     
     @JsonProperty("Meetings")
     private List<MeetingDTO> meetings;
+    
+    public static SectionDTO fromSection(Section section) {
+        return SectionDTO.builder()
+                .id(section.getSectionId())
+                .crn(section.getCrn())
+                .type(section.getType())
+                .registrationStatus(section.getRegistrationStatus())
+                .startDate(section.getStartDate())
+                .endDate(section.getEndDate())
+                .capacity(section.getCapacity())
+                .enrolled(section.getEnrolled())
+                .remainingSpace(section.getRemainingSpace())
+                .waitListCapacity(section.getWaitListCapacity())
+                .waitListCount(section.getWaitListCount())
+                .waitListSpace(section.getWaitListSpace())
+                .build();
+    }
 }
