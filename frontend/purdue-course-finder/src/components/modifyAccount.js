@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./modifyAccount.css"
 
 import { serverURL } from '../index.js';
@@ -10,10 +10,23 @@ function ModifyAccount() {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
 
-    const [email, setEmail] = useState("test1@test.com");
-    const [password, setPass] = useState("Password1");
+    const [email, setEmail] = useState("");
+    const [password, setPass] = useState(".........");
 
-
+    useEffect(() => {
+        console.log("Running useEffect()");
+        var url = `${serverURL}/auth/user`;
+        const config = {
+            headers:{
+            "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+            }
+        };
+        
+        axios.get(url, config).then((response) => {
+            const data = response.data;
+            setEmail(data);
+        });
+    }, [])
     
     const _handleEditEmail = (event) => {
         setEditEmail(true)
@@ -43,7 +56,7 @@ function ModifyAccount() {
 
         if (editEmail) {
             var {newEmail} = document.forms[0];
-            console.log(newEmail.value);
+            //console.log(newEmail.value);
 
             if (newEmail.value === null || newEmail.value === "") {
                 setError("Error: Email address is required.");
@@ -65,6 +78,9 @@ function ModifyAccount() {
             axios({
                 url: url,
                 method: 'POST',
+                headers:{
+                    "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+                },
                 data: {
                     "oldEmail": email,
                     "newEmail": newEmail.value,
@@ -79,6 +95,7 @@ function ModifyAccount() {
                     setSuccess("Success: Your email has been updated.");
                     setEmail(newEmail.value);
                     setEditEmail(false);
+                    window.sessionStorage.setItem("userToken", response.data);
                 }
             }).catch((error) => {
                 setError(error.response.data.message);
@@ -87,7 +104,7 @@ function ModifyAccount() {
 
         } else if (editPass) {
             var {newPassword, confirmPassword} = document.forms[0];
-            console.log(newPassword.value, confirmPassword.value, password);
+            //console.log(newPassword.value, confirmPassword.value, password);
 
             if (newPassword.value === null || newPassword.value === "") {
                 setError("Error: Password is required.");
@@ -115,6 +132,9 @@ function ModifyAccount() {
             axios({
                 url: url,
                 method: 'POST',
+                headers:{
+                    "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+                },
                 data: {
                     "oldEmail": email,
                     "newEmail": email,

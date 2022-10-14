@@ -15,7 +15,7 @@ function printButtonPress() {
     axios.delete(url, config).then((response) => {
         // const data = response.data;
         // setEmail(data);
-        console.log(data)
+        console.log("Account successfully deleted");
     });
     // axios({
     //     url: url,

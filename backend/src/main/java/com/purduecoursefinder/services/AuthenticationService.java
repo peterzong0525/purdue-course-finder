@@ -54,7 +54,7 @@ public class AuthenticationService {
         return jwtUtil.generateJwt(login.getEmail());
     }
 
-    public void modifyUser(ModifyAccountDTO account) {
+    public String modifyUser(ModifyAccountDTO account) {
         Optional<User> user = userRepository.findByEmail(account.getOldEmail());
         if (user.isPresent()) {
             User existingUser = user.get();
@@ -65,13 +65,16 @@ public class AuthenticationService {
                 }
                 existingUser.setEmail(account.getNewEmail());
 
-            if (!account.getNewPassword().equals(account.getOldPassword()))
+            if (!account.getOldPassword().equals("........."))
                 existingUser.setPassword(passwordEncoder.encode(account.getNewPassword()));
 
             existingUser = userRepository.save(existingUser);
+            return jwtUtil.generateJwt(account.getNewEmail());
         } else {
             System.out.println("OLD EMAIL NOT FOUND... THIS SHOULD NEVER HAPPEN"); // TODO: Replace with log, throw 500
+            return "";
         }
+
     }
 
     @Transactional

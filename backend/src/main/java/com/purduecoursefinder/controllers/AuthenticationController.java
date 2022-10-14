@@ -26,9 +26,7 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/modify-account")
-    public void modifyAccount(@RequestBody ModifyAccountDTO account) {
-        authenticationService.modifyUser(account);
-    }
+    public String modifyAccount(@RequestBody ModifyAccountDTO account) { return authenticationService.modifyUser(account); }
 
 
     @CrossOrigin

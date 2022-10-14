@@ -17,14 +17,14 @@ function Tutorial() {
         <div className='tutorialPageContainer'>
             <div className='returnHomeContainer'>
                 <a className='returnHome' href='/'>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="Black" class="bi bi-arrow-left" viewBox="0 0 20 6">
-                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="Black" className="bi bi-arrow-left" viewBox="0 0 20 6">
+                        <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
                     </svg>
                     Home
                 </a>
             </div>
             <div className='mainContentContainer'>
-                <h1 align='center'>How To Use The Purdue Course Finder</h1>
+                <h1 style={{textAlign: "center"}}>How To Use The Purdue Course Finder</h1>
                 <div className='contentsContainer'>
                     <h2>Contents</h2>
                     <ol className='contentsList'>
@@ -89,7 +89,7 @@ function Tutorial() {
                     <hr></hr>
                     <h2>User Accounts</h2>
                     <p>
-                        To use this tool, you are not required to create an account. However, if you'd like
+                        To use this tool, you are not required to create an account. However, if you&#39;d like
                         to <a href='#Favoriting_System'>favorite items</a> or <a href='#Personal_Shedules'>build your class schedule</a>, you must be logged in to do so.
                         Creating an account takes less than a minute to do and you can do so <a href='./signup'>here</a>.
                     </p>
@@ -128,7 +128,7 @@ function Tutorial() {
                             greeted with a Success message. Keep in mind that each email address can only be associated with one account.
                         </p>
                         <p>
-                            If you'd instead like to delete your account, you can press the Delete Account button
+                            If you&#39;d instead like to delete your account, you can press the Delete Account button
                             to go to the <a href='./deleteAcct'>Delete Account</a> page.
                         </p>
                     </div>
