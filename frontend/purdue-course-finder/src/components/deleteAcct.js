@@ -54,7 +54,7 @@ function DeleteAcct() {
 
             <p>&nbsp;</p>
 
-            <div align="center">
+            <div>
                 <div className="user-info">
                     <p>First Name: first_name</p>
                     <p>Last Name: last_name</p>
