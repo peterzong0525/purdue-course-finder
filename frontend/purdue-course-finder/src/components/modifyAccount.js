@@ -61,7 +61,7 @@ function ModifyAccount() {
                 return;
             }
 
-            var url = `${serverURL}/auth/modify-account`;
+            let url = `${serverURL}/auth/modify-account`;
             axios({
                 url: url,
                 method: 'POST',
@@ -111,7 +111,7 @@ function ModifyAccount() {
                 return;
             }
 
-            var url = `${serverURL}/auth/modify-account`;
+            let url = `${serverURL}/auth/modify-account`;
             axios({
                 url: url,
                 method: 'POST',

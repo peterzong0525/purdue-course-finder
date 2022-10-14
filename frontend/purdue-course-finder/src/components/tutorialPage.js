@@ -1,13 +1,16 @@
 import React from 'react';
 import './tutorialPage.css'
 
-import signupImg from '../design_images/signup.png'
-import loginImg from '../design_images/login page.PNG'
-import favoriteImg from '../design_images/favoriting.PNG'
-import homeImg from '../design_images/home page.PNG'
-import homeBuildingImg from '../design_images/home page building selection.PNG'
-import homeCourseImg from '../design_images/home page course selection.PNG'
-import courseScheduleImg from '../design_images/course schedule page.PNG'
+import signupImg from '../tutorial_images/signup_page.PNG'
+import loginImg from '../tutorial_images/login_page.PNG'
+import modifyNoeditImg from '../tutorial_images/modify_page_noedit.PNG'
+import modifyEmaileditImg from '../tutorial_images/modify_page_emailedit.PNG'
+import modifyPasseditImg from '../tutorial_images/modify_page_passedit.PNG'
+import favoriteImg from '../tutorial_images/favoriting.PNG'
+import homeImg from '../tutorial_images/home page.PNG'
+import homeBuildingImg from '../tutorial_images/home page building selection.PNG'
+import homeCourseImg from '../tutorial_images/home page course selection.PNG'
+import courseScheduleImg from '../tutorial_images/course schedule page.PNG'
 
 function Tutorial() {
     return(
@@ -85,89 +88,107 @@ function Tutorial() {
                 <div id='User_Accounts'>
                     <hr></hr>
                     <h2>User Accounts</h2>
-                    <p>Text Here</p>
+                    <p>
+                        To use this tool, you are not required to create an account. However, if you'd like
+                        to <a href='#Favoriting_System'>favorite items</a> or <a href='#Personal_Shedules'>build your class schedule</a>, you must be logged in to do so.
+                        Creating an account takes less than a minute to do and you can do so <a href='./signup'>here</a>.
+                    </p>
                     <div className='subSection'>
                         <h3 id='Signing_Up'>Signing Up</h3>
-                        <img src={signupImg} alt=''></img>
+                        <img className="signupImg" src={signupImg} alt='Signup Page'></img>
                         <p>
-                            If you do not already have an account, you may create one on the <a href='./signup'>signup</a> page. 
+                            If you do not already have an account, you may create one by clicking the Sign Up button on the home page. 
                             Please enter your email address, password, and re-enter your password to create a new account.
-                            If you recieve an error upon hitting the Sign Up button, your password either does not match
-                            the required format or the email you have entered is already registered to an account. To log in
-                            instead, please click the log in link at the bottom of the form, bringing you to 
-                            the <a href='./login'>login</a> page.
+                            If you recieve an error upon hitting the Sign Up button, either your email/password does not match
+                            the required format or the email you entered is already registered to an account. 
+                            Your password must contain at least 8 characters including at least 1 uppercase character, 1 lowercase character, and 1 number.
+                        </p>
+                        <p>
+                            To log in instead, click the log in link at the bottom of the form, bringing you to the <a href='./login'>login</a> page.
                         </p>
                         <h3 id='Logging_In'>Logging In</h3>
-                        <img src={loginImg} alt=''></img>
+                        <img className="loginImg" src={loginImg} alt='Login Page'></img>
                         <p>
-                            To log in, please enter your email address and password and hit the Log In button. 
+                            If you already have an account, you may log in by clicking the Log In button on the home page. 
+                            Please enter your email address and password to log in. 
                             If you receive an error, the email address or password you entered is incorrect. 
-                            If you would like to reset your password, please click the <a href='./'>Forgot Password?</a> link. 
-                            If you would like to create an account, please click the <a href='./signup'>Create an Account</a> link.
+                            To reset your password, click the <a href='./'>Forgot Password?</a> link. 
+                            To create an account, click the <a href='./signup'>Create an Account</a> link.
                         </p>
                         <h3 id='Modifying_Account_Info'>Modifying Account Info</h3>
-                        {/* eslint-disable-next-line */}
-                        <img  alt='No image yet'></img>
+                        <div className="modifyImages">
+                            <img src={modifyNoeditImg} alt='Modify Page No Edit'></img>
+                            <img src={modifyEmaileditImg} alt='Modify Page Email Edit'></img>
+                            <img src={modifyPasseditImg} alt='Modify Page Password Edit'></img>
+                        </div>
                         <p>
-                            If for any reason you would like to change your account email address or password, you can do so on this page.
-                            More details to come...
+                            When logged in, you can visit <a href='./modifyAccount'>this</a>  page to change your email address or password.
+                            Click the respective buttons depending on whether you want to change your email or password,
+                            and upon hitting Confirm, either read the error message to see what went wrong or you will be
+                            greeted with a Success message. Keep in mind that each email address can only be associated with one account.
+                        </p>
+                        <p>
+                            If you'd instead like to delete your account, you can press the Delete Account button
+                            to go to the <a href='./deleteAcct'>Delete Account</a> page.
                         </p>
                     </div>
                 </div>
                 <div id='Favoriting_System'>
                     <hr></hr>
                     <h2>Favoriting System</h2>
-                    <img src = {favoriteImg} alt=''></img>
+                    <img className="unimplemented" src = {favoriteImg} alt=''></img>
                     <p>
-                        If you are logged in, you may favorite classes, buildings, rooms and sections. To favorite,
-                        click on the Star next to the item of interest in the sidebar. To manage your favorites,
-                        please go to the <a href='./'>favorites</a> page.
+                        To favorite items when logged in, click on the Star next to the item of interest in the sidebar, which will turn yellow once favorited.
+                        The stars will not appear if you are not logged in. You can favorite courses, buildings, rooms, and sections, and
+                        you can manage or view all your favorites on the <a href='./'>favorites</a> page.
                     </p>
                 </div>
                 <div id='Personal_Shedules'>
                     <hr></hr>
                     <h2>Personal Schedules</h2>
-                    <img src={courseScheduleImg} alt=''></img>
+                    <img className="unimplemented" src={courseScheduleImg} alt=''></img>
                     <p>
-                        If you are logged in, you can create a personal schedule displaying a weekly schedule of your courses.
-                        To add a new course, Something will happen, more deatils to come... To view more details for a course
-                        on the schedule, highlight over the course on the calendar. In the event that two courses overlap,
-                        the calendar will split the courses evenly in the space available.
+                        If you are logged in, you can create a personal schedule displaying a weekly schedule of your courses on the <a href='./'>My Schedule</a> page.
+                        To add a new course, Something will happen, More details to come... To view more details for a course
+                        on the schedule, hover over or click the course on the calendar. In the event that two courses overlap,
+                        the calendar will split the courses evenly in the space available. Exact implementation and display will be determined later.
                     </p>
                 </div>
                 <div id='Navigation'>
                     <hr></hr>
                     <h2>Navigation</h2>
-                    <p>Text Here</p>
+                    <p>
+                        This tool syncs the map and sidebar for easy navigability and is intuitive to use. Explore the following sections to
+                        get a more in-depth understand of how to navigate around the map and sidebar.
+                    </p>
                     <div className='subSection'>
                         <h3 id='Map'>Map</h3>
-                        {/* eslint-disable-next-line */}
-                        <img src={homeImg} alt='No image yet'></img>
+                        <div className="mapImages">
+                            {/* eslint-disable-next-line */}
+                            <img className="unimplemented" src={homeImg} alt='No image yet'></img>
+                            {/* eslint-disable-next-line */}
+                            <img className="unimplemented" src={homeBuildingImg} alt='No image yet'></img>
+                        </div>
                         <p>
-                            To move around the map, simply drag along the map. All buildings currently registered in the system
-                            will be clickable on the map.
-                        </p>
-                        {/* eslint-disable-next-line */}
-                        <img src={homeBuildingImg} alt='No image yet'></img>
-                        <p>
-                            When you click on a building on a map, relevant information will appear
-                            in the sidebar (and maybe a popup (TBD)).
+                            To move around the map, simply drag along the map. All buildings currently registered in the system will be clickable on the map.
+                            When you click on a building on a map, relevant information will appear in the sidebar (and maybe a popup (TBD)).
                         </p>
                         <h3 id='Sidebar'>Sidebar</h3>
                         {/* eslint-disable-next-line */}
-                        <img src={homeCourseImg} alt='No image yet'></img>
+                        <img className="unimplemented" src={homeCourseImg} alt='No image yet'></img>
                         <p>
                             The sidebar, by default, contains all the buildings registered in the system. 
                             To search for a course, building, room, or section, you can use the search bar located at
-                            the top of the sidebar.
+                            the top of the sidebar. To filter your search, click the Filter button below the search bar (not in the UI mockup).
                         </p>
                         <p>
                             In the event that the course, building, room, or section you searched for is not found, 
-                            you can manually search for it under the advanced search (not yet in the UI).
-                            Fill out as many sections as you can and hit the search button to call the Purdue API. If
-                            not results are returned in the sidebar, the course, building, room, or section you are
+                            you can manually search for it under the Advanced Search located below all the sidebar entries(not in the UI mockup).
+                            Fill out as many sections as you can and hit the search button, calling the Purdue API.
+                            If no results are returned in the sidebar, the course, building, room, or section you are
                             searching for is not currently registered in the Purdue system.
                         </p>
+                        <br></br><br></br><br></br>
                     </div>    
                 </div>
             </div>
