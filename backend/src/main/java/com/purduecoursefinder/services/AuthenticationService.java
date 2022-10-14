@@ -3,7 +3,6 @@ package com.purduecoursefinder.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,7 @@ import com.purduecoursefinder.exceptions.UserExistsException;
 import com.purduecoursefinder.models.User;
 import com.purduecoursefinder.models.dto.LoginDTO;
 import com.purduecoursefinder.repositories.UserRepository;
+import com.purduecoursefinder.util.JwtUtil;
 
 @Service
 public class AuthenticationService {
@@ -24,6 +24,9 @@ public class AuthenticationService {
     @Autowired
     private AuthenticationManager authenticationManager;
     
+    @Autowired
+    private JwtUtil jwtUtil;
+    
     public void createUser(LoginDTO login) throws UserExistsException {
         if (userRepository.findByEmail(login.getEmail()).isPresent()) {
             throw new UserExistsException();
@@ -33,11 +36,11 @@ public class AuthenticationService {
         userRepository.save(user);
     }
     
-    public void loginUser(LoginDTO login) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+    public String loginUser(LoginDTO login) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 login.getEmail(), login.getPassword()));
         
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return jwtUtil.generateJwt(login.getEmail());
     }
 
     public void deleteCurrentUser() {

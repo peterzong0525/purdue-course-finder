@@ -21,8 +21,8 @@ public class AuthenticationController {
     }
     
     @PostMapping(value = "/login")
-    public void login(@RequestBody LoginDTO login) {
-        authenticationService.loginUser(login);
+    public String login(@RequestBody LoginDTO login) {
+        return authenticationService.loginUser(login);
     }
     
     @DeleteMapping(value = "/delete-user")
