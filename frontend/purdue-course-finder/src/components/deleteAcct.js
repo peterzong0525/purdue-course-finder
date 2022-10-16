@@ -47,7 +47,7 @@ function DeleteAcct() {
     }, [])
 
     return (
-        <div data-testid="delete_parent" className='parent'>
+        <div data-testid="delete_parent" className='deleteparent'>
             <div className="gold-background">
                 <div data-testid="delete_header" className="Purd-Head2">
                     Purdue Course Finder

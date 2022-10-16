@@ -84,8 +84,7 @@ function ModifyAccount() {
                 data: {
                     "oldEmail": email,
                     "newEmail": newEmail.value,
-                    "oldPassword": "",
-                    "newPassword": "",
+                    "newPassword": ".........",
                 },
             }).then((response) => {
                 if (response.status !== 200) {
@@ -138,7 +137,6 @@ function ModifyAccount() {
                 data: {
                     "oldEmail": email,
                     "newEmail": email,
-                    "oldPassword": password,
                     "newPassword": newPassword.value,
                 },
             }).then((response) => {
@@ -159,10 +157,7 @@ function ModifyAccount() {
 
     return (
         <div data-testid="modify_account" className='modifyAcnt'>
-            <div className="form-container" style={{
-                position: 'absolute', left: '50%', top: '50%',
-                transform: 'translate(-50%, -50%)'
-            }}>
+            <div className="form-container">
                 <h1 style={{textAlign: "center"}}>My Account</h1>
                 <form data-testid="modify_form" className="form" >
                     {editEmail && (

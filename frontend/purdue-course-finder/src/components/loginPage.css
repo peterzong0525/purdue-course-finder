@@ -1,20 +1,25 @@
-input {
+.logSignContainer input {
     font-size: 17px;
 }
 
-.form-container {
+.logSignContainer .form-container {
     width: 400px;
     background-color: #9D8446;
     border-radius: 10px;
     padding: 10px;
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.Purd-Head {
+.logSignContainer .Purd-Head {
     text-align: center;
     font-size: 30px;
 }
 
-.form {
+.logSignContainer .form {
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -23,23 +28,23 @@ input {
     padding-right: 50px;
 }
 
-.login-label {
+.logSignContainer .login-label {
     text-align: center;
     font-size: 20px;
 }
 
-.input-container {
+.logSignContainer .input-container {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
 }
 
-.button-container {
+.logSignContainer .button-container {
     display: flex;
 
 }
 
-.button {
+.logSignContainer .button {
     cursor: pointer;
     width: 100%;
     border-radius: 7px;
@@ -50,17 +55,17 @@ input {
     transition-duration: 250ms;
 }
 
-.button:hover {
+.logSignContainer .button:hover {
     background-color: #222;
     transition-duration: 250ms;
 }
 
-.other-links {
+.logSignContainer .other-links {
     display: flex;
     flex-basis: 50%;
 }
 
-.error {
+.logSignContainer .error {
     background-color: #f0162f;
     white-space: pre-wrap;
     border-radius: 7px;
@@ -68,7 +73,7 @@ input {
     padding: 10px 0 12px 0;
 }
 
-.success {
+.signupSuccess {
     background-color: green;
     white-space: pre-wrap;
     text-align: center;

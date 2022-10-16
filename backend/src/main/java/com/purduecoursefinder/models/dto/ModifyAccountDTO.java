@@ -8,6 +8,5 @@ import lombok.Data;
 public class ModifyAccountDTO {
     String oldEmail;
     String newEmail;
-    String oldPassword;
     String newPassword;
 }
