@@ -65,7 +65,7 @@ public class AuthenticationService {
                 }
                 existingUser.setEmail(account.getNewEmail());
 
-            if (!account.getOldPassword().equals("........."))
+            if (!account.getNewPassword().equals("........."))
                 existingUser.setPassword(passwordEncoder.encode(account.getNewPassword()));
 
             existingUser = userRepository.save(existingUser);

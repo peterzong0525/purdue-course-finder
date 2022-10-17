@@ -66,51 +66,50 @@ function Signup() {
     }
 
     return (
-        <div className="form-container" data-testid="signup_container" style={{
-            position: 'absolute', left: '50%', top: '50%',
-            transform: 'translate(-50%, -50%)'
-        }}>
-            <Dialog open={success}>
-                <div className="success">
-                    <p>Account Created Successfully</p>
-                    <p><a href='./login'>Log In</a></p>
-                    
+        <div className="logSignContainer">
+            <div className="form-container" data-testid="signup_container">
+                <Dialog open={success}>
+                    <div className="signupSuccess">
+                        <p>Account Created Successfully</p>
+                        <p><a href='./login'>Log In</a></p>
+                        
+                    </div>
+                </Dialog>
+                <div className='Purd-Head' data-testid="signup_head">
+                    Purdue Course Finder
                 </div>
-            </Dialog>
-            <div className='Purd-Head' data-testid="signup_head">
-                Purdue Course Finder
+                <div className='login-label'>
+                    Sign Up
+                </div>
+                {error !== null && (
+                    <div className="error">
+                        <p>{error}</p>
+                    </div>
+                )}
+                <form className="form" data-testid="signup_form" onSubmit={handleSubmitClick}>
+                    <div className="input-container" data-testid="signup_email">
+                        <label>Email Address </label>
+                        <input type="text" name="email" />
+
+                    </div>
+                    <div className="input-container" data-testid="signup_password1">
+                        <label>Password </label>
+                        <input type="password" name="password" />
+
+                    </div>
+                    <div className="input-container" data-testid="signup_password2">
+                        <label>Confirm Password </label>
+                        <input type="password" name="passwordConfirm" />
+
+                    </div>
+                    <div className="button-container" data-testid="signup_signup_button">
+                        <Button className="button" type={"submit"} variant={"success"}>Sign Up</Button>
+                    </div>
+                    <div>
+                        <a href='./login' style={{display: 'flex', justifyContent: 'center'}}>Have an account? Log In</a>
+                    </div>
+                </form>
             </div>
-            <div className='login-label'>
-                Sign Up
-            </div>
-            {error !== null && (
-                <div className="error">
-                    <p>{error}</p>
-                </div>
-            )}
-            <form className="form" data-testid="signup_form" onSubmit={handleSubmitClick}>
-                <div className="input-container" data-testid="signup_email">
-                    <label>Email Address </label>
-                    <input type="text" name="email" />
-
-                </div>
-                <div className="input-container" data-testid="signup_password1">
-                    <label>Password </label>
-                    <input type="password" name="password" />
-
-                </div>
-                <div className="input-container" data-testid="signup_password2">
-                    <label>Confirm Password </label>
-                    <input type="password" name="passwordConfirm" />
-
-                </div>
-                <div className="button-container" data-testid="signup_signup_button">
-                    <Button className="button" type={"submit"} variant={"success"}>Sign Up</Button>
-                </div>
-                <div>
-                    <a href='./login' style={{display: 'flex', justifyContent: 'center'}}>Have an account? Log In</a>
-                </div>
-            </form>
         </div>
     );
 }

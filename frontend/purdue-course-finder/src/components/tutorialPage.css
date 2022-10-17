@@ -3,7 +3,7 @@ html {
     scroll-behavior: smooth;
 }
 
-ul {
+.tutorialPageContainer ul {
     list-style-type: disc;
 }
 
@@ -12,30 +12,34 @@ ul {
     /*Top Right Bottom Left*/
 }
 
-.returnHome, returnHome:link, returnHome:visited, returnHome:hover, returnHome:active {
+.tutorialPageContainer .returnHome, 
+.tutorialPageContainer .returnHome:link, 
+.tutorialPageContainer .returnHome:visited, 
+.tutorialPageContainer .returnHome:hover, 
+.tutorialPageContainer .returnHome:active {
     text-decoration: none; 
     color: black;
     font-size: 20px;
 }
 
-.mainContentContainer {
+.tutorialPageContainer .mainContentContainer {
     margin-top: 50px;
 }
 
-.contentsContainer {
+.tutorialPageContainer .contentsContainer {
     background-color: lightgray;
     padding: 0 10px 5px 10px;
 }
 
-.contentsList {
+.tutorialPageContainer .contentsList {
     font-size: 20px
 }
 
-.contentsList a {
+.tutorialPageContainer .contentsList a {
     text-decoration: none;
 }
 
-.contentsList a:hover{
+.tutorialPageContainer .contentsList a:hover{
     text-decoration: underline;
 }
 
