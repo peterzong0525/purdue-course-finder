@@ -1,0 +1,46 @@
+=== Weekly Team Report (Team 9: Purdue Course Finder) ===
+
+Week 3 (Summary) (Scrum Master: Alex Kobus)
+10/7/22 - 1 hour - Commit 76197eb - Alex P: Create Account Deletion Page
+10/10/22 - 3 hours - Commit 002c999 - Alex P: Account Deletion Button and Popup
+10/10/22 - 2 hours - Commit 455429d - Alex P: delete selected account from database
+10/10/22 - 4 hours - Commit a40b8b8, Commit 434d255 - Alex K: connect the Signup Page to the backend, send user credentials to the backend registration endpoint, set up actions depending on the server response, create a Popup for successful account creation
+10/10/22 - 2 hours - Commit 41bd57d - Alex K: prototype UI for course information
+10/10/22 - 2 hours - Commit 23c2527 - Tommy: Updated register and login backend functionality
+10/10/22 - 0.5 hours - Commit 47b358b - Tommy: Account deletion backend functionality
+10/11/22 - 1.5 hours - Commit 1339a77 - Tommy: Added API caching
+10/11/22 - 2 hours - Commit 455429d - Alex P: Account Deletion Testing
+10/11/22 - 1 hour - Commit 52b9f7d - Alex K: update the signup page to use the updated registration endpoint, correct code that shows errors from server responses
+10/11/22 - 1 hour - Commit d84c42e - Alex P: Account Creation Testing
+10/11/22 - 0.5 hours - Commit ab42eec - Alex K: connect the Courses frontend page to the backend for data
+10/11/22 - 1 hour - Commit 7b8f63a - Alex K: prototype UI for section registration information
+10/11/22 - 0.5 hours - Commit e084e6d - Alex K: prototype UI for subject selection, adjust Courses frontend page to take a parameter from the URL for a subject
+10/12/22 - 3 hours - Commit 6ca597d - Peter: Layout logic and UI for modifying account info + some login, signup, and home visual changes
+10/12/22 - 2 hours - Commit 3f6cd57 - Peter: Connected Login page to backend
+10/12/22 - 2.5 hours - Commit 76fc694 - Alex K: test the Login Page, create unit tests & document manual UI tests
+10/12/22 - 1 hour - Commit 739cfa2, Commit d2f9da5 - Peter: Added auto-incremented uniqueuserid to users table
+10/12/22-10/13/22 - 6 hours - Commit 2ce6ca6, Commit a1b122f - Tommy: Forwarded courses and subjects data from API
+10/13/22 - 2 hours - Commit 55223d5 - Peter: Connected modifying account frontend to backend database
+10/13/22 - 2 hours - Commit a1b122f - Tommy: Completed database schema
+10/13/22 - 0.5 hours - Commit e061276 - Alex K: connect the Subjects frontend page to the backend for data
+10/13/22 - 3 hours - Commit N/A - Alex K: attempt to access the cookie value that is being sent from the server upon login for authentication, found out it is not possible with the request sending methods we are using
+10/13/22 - 2 hours - Commit e126f17 - Tommy: Switched authentication to a bearer token
+10/13/22 - 1 hour - Commit 5979000 - Tommy: Added /sections endpoint
+10/13/22 - 1.5 hours - Commit 1e5410e - Tommy: Added logging
+10/13/22 - 1 hour - Commit 2241439 - Peter: Updated Tutorial page with more descriptions and images
+10/13/22-10/14/22 - 4 hours - Commit 222cf18 - Peter: Added functional jest testing after a lot of research, trial and error, and frustration
+10/13/22-10/14/22 - 3 hours - Commit 8eb081d - Alex K: successfully retrieve the authentication token value from the server and save it to a global variable in the client-side frontend
+10/14/22 - 1 hour - Commit dc4fd7e - Alex K: connect the Sections frontend page to the backend for data, add authentication to the subjects, courses, and sections requests
+10/14/22 - 0.5 hours - Commit 95cac9c - Peter: Connect authentication token to modify user accounts
+10/15/22 - 0.5 hours - Commit 31caf24 - Peter: Bug fix and restructured CSS to prevent global CSS changes
+
+Week 4 (Plan) (Scrum Master: Alex Kobus)
+[Meetings]
+10/16/22 - Sprint 1 Retrospective, Plan for Sprint 2 & complete Sprint 2 Planning Document
+10/19/22 - Discuss backend & frontend integrations for accessing data for the sidebar, Discuss progress on homepage components that other tasks depend on (map & sidebar)
+
+[Individual Goals]
+Alex K: create map component for the homepage, connect it to the Google Maps API
+Alex P: work on data filtering for the sidebar
+Tommy: add support for favorites to the backend, modify sections endpoint to correctly return all needed data for this sprint
+Peter: create the sidebar component for the homepage, add building, course, & section data to the sidebar, create UI for search bar & filters
