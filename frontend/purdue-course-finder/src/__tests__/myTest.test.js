@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Signup from '../components/signupPage';
 import Login from '../components/loginPage';
 import Home from '../components/Home';

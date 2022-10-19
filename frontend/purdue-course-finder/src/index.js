@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals';
 import './index.css';
@@ -15,9 +15,9 @@ import ModifyAcnt from './components/modifyAccount.js'
 
 export const serverURL = 'https://localhost:8443';
 
-const root = ReactDOM.createRoot(document.getElementById('root') || document.createElement('div'));
+//const root = ReactDOM.createRoot(document.getElementById('root') || document.createElement('div'));
 
-root.render(
+ReactDOM.render(
   // Add routes to the list below
   <React.StrictMode>
       <Router>
@@ -33,7 +33,8 @@ root.render(
           <Route path='/subjects' element={<Subjects />} />
         </Routes>
       </Router>
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById('root') || document.createElement('div')
 );
 
 // If you want to start measuring performance in your app, pass a function
