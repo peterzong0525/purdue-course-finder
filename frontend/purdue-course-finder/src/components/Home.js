@@ -1,12 +1,19 @@
-import logo from '../logo.svg';
 import "../App.css";
 import React from 'react';
+import SideBar from './sideBar';
 
 function Home() {
   return (
     <div className="App">
+      <div className="MainContent">
+        <div className="sideBar">
+          <SideBar />
+        </div>
+        <div className="map">
+          map
+        </div>
+      </div>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <h2>This is the default home page, it will be replaced when the maps tasks are implemented.</h2>
         <h4>Quick links to some pages:</h4>
         <form action="/login">
