@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './sideBar.css';
 import PropTypes from 'prop-types';
+import {populateSidebar} from './fillSidebar.js';
 
 
 
@@ -24,13 +25,14 @@ function SideBar() {
         <div className = "sideBarContainer">
             <h1>Purdue Course Finder</h1>
             {ListofItems}
+            {populateSidebar('Course','MA')}
         </div>
     );
 }
 
 export default SideBar;
 
-function ListItem(props) {
+export function ListItem(props) {
     ListItem.propTypes = {
         itemHead: PropTypes.string,
         firstRow: PropTypes.string,
