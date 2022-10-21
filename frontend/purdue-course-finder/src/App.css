@@ -24,7 +24,7 @@ html, body, #root {
 }
 .sideBar {
   width: 25%;
-  height: 500px; /*Temporary*/
+  height: 100vh;
 }
 
 .map {

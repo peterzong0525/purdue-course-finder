@@ -18,7 +18,7 @@ function SideBar() {
     let ListofItems = [];
     ListofItems.push(setItem("ARMS", "Neil Armstring Hall of Engineering", ""))
     ListofItems.push(setItem("HAMP", "Delon & Elizabeth Hampton Hall of Civil Engineering", ""))
-    ListofItems.push(setItem("CS 35400-LE1", "Room: PHYS 203", "Instructor: Douglas Comer"))
+    ListofItems.push(setItem("CS 35400-LE1", "Room: PHYS 203", "Instructor: Douglas Comer"))  
 
 
     const handleChange = (e) => {
@@ -33,21 +33,23 @@ function SideBar() {
 
     return(
         <div className = "sideBarContainer">
-            <h1>Purdue Course Finder</h1>
-            <div className='searchBar'>
-                <input id = 'search-input' type="text"
-                       placeholder="Search"
-                       onKeyDown={handleChange}
-                       autoComplete='off' />
-                <img className ="searchIcon"
-                     src={searchIcon}
-                     onClick={() => {handleChange({key: 'Enter'})}} />
+            <div className = 'header'>
+                <h1 style={{fontSize:'2vw'}}>Purdue Course Finder</h1>
+                <div className='searchBar'>
+                    <input id = 'search-input' type="text"
+                        placeholder="Search"
+                        onKeyDown={handleChange}
+                        autoComplete='off' />
+                    <img className ="searchIcon"
+                        src={searchIcon}
+                        onClick={() => {handleChange({key: 'Enter'})}} />
+                </div>
+                <div className='filterAdvanced'>
+                    <button type='submit'>Filter</button>
+                    <button style={{marginLeft: 'auto'}} type='submit'>Advanced Search</button>
+                </div>
+                <hr></hr>
             </div>
-            <div className='filterAdvanced'>
-                <button type='submit'>Filter</button>
-                <button style={{marginLeft: 'auto'}} type='submit'>Advanced Search</button>
-            </div>
-            <hr></hr>
             <div className='listOfItems'>
                 {ListofItems}
             </div>

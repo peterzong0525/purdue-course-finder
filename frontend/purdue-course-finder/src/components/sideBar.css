@@ -1,5 +1,13 @@
 .sideBarContainer {
     padding: 0 10px 0 10px;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+}
+
+.sideBarContainer .listOfItems {
+   flex-grow: 1;
+   overflow-y: scroll;
 }
 
 .sideBarContainer .listItemContainer {
@@ -37,5 +45,4 @@
 .sideBarContainer .filterAdvanced {
     display: flex;
     margin-bottom: 10px;
-
 }
