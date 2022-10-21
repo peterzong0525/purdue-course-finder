@@ -6,8 +6,9 @@
 }
 
 .sideBarContainer .listOfItems {
+    margin-bottom: 10px;
    flex-grow: 1;
-   overflow-y: scroll;
+   overflow-y: auto;
 }
 
 .sideBarContainer .listItemContainer {
