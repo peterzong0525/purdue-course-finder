@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import './sideBar.css';
 import PropTypes from 'prop-types';
-
-
+import searchIcon from '../tutorial_images/search-icon.png'
 
 
 function SideBar() {
@@ -20,10 +19,37 @@ function SideBar() {
     ListofItems.push(setItem("HAMP", "Delon & Elizabeth Hampton Hall of Civil Engineering", ""))
     ListofItems.push(setItem("CS 35400-LE1", "Room: PHYS 203", "Instructor: Douglas Comer"))
 
+
+    const handleChange = (e) => {
+        if (e.key === 'Enter') {
+            let searchStr = document.getElementById('search-input').value;
+            if (searchStr.trim() !== '') {
+                console.log(document.getElementById('search-input').value);
+                // Filter stuff
+            }
+        }
+    }
+
     return(
         <div className = "sideBarContainer">
             <h1>Purdue Course Finder</h1>
-            {ListofItems}
+            <div className='searchBar'>
+                <input id = 'search-input' type="text"
+                       placeholder="Search"
+                       onKeyDown={handleChange}
+                       autoComplete='off' />
+                <img className ="searchIcon"
+                     src={searchIcon}
+                     onClick={() => {handleChange({key: 'Enter'})}} />
+            </div>
+            <div className='filterAdvanced'>
+                <button type='submit'>Filter</button>
+                <button style={{marginLeft: 'auto'}} type='submit'>Advanced Search</button>
+            </div>
+            <hr></hr>
+            <div className='listOfItems'>
+                {ListofItems}
+            </div>
         </div>
     );
 }
