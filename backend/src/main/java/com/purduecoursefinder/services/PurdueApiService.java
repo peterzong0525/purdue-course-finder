@@ -18,6 +18,7 @@ import com.purduecoursefinder.exceptions.UnknownSubjectException;
 import com.purduecoursefinder.models.Building;
 import com.purduecoursefinder.models.Class;
 import com.purduecoursefinder.models.Course;
+import com.purduecoursefinder.models.Instructor;
 import com.purduecoursefinder.models.Meeting;
 import com.purduecoursefinder.models.Room;
 import com.purduecoursefinder.models.Section;
@@ -33,6 +34,7 @@ import com.purduecoursefinder.models.dto.purdueapi.SubjectsRequestDTO;
 import com.purduecoursefinder.repositories.BuildingRepository;
 import com.purduecoursefinder.repositories.ClassRepository;
 import com.purduecoursefinder.repositories.CourseRepository;
+import com.purduecoursefinder.repositories.InstructorRepository;
 import com.purduecoursefinder.repositories.MeetingRepository;
 import com.purduecoursefinder.repositories.RoomRepository;
 import com.purduecoursefinder.repositories.SectionRepository;
@@ -57,6 +59,9 @@ public class PurdueApiService {
     
     @Autowired
     private MeetingRepository meetingRepository;
+    
+    @Autowired
+    private InstructorRepository instructorRepository;
     
     @Autowired
     private RoomRepository roomRepository;
@@ -117,7 +122,7 @@ public class PurdueApiService {
 //                .queryParam("$orderby", "Number asc")
 //                .build().toUriString();
         
-        String url = apiUrl + "/odata/Courses?$expand=Classes($filter=Term/Code eq '202310';$expand=Sections($expand=Meetings($expand=Room($expand=Building))))&$filter=Subject/Abbreviation eq '" + subjectAbbreviation.toUpperCase() + "'";
+        String url = apiUrl + "/odata/Courses?$expand=Classes($filter=Term/Code eq '202310';$expand=Sections($expand=Meetings($expand=Room($expand=Building)&$expand=Instructors)))&$filter=Subject/Abbreviation eq '" + subjectAbbreviation.toUpperCase() + "'";
         
         CoursesRequestDTO apiCourses = restTemplate.getForObject(url, CoursesRequestDTO.class);
         
@@ -156,6 +161,10 @@ public class PurdueApiService {
                         
                         Meeting meeting = Meeting.fromMeetingDTO(meetingDTO);
                         meeting.setSection(section);
+                        
+                        for (Instructor instructor : meeting.getInstructors()) {
+                            instructorRepository.save(instructor);
+                        }
                         
                         Room room = meeting.getRoom();
                         Building building = room.getBuilding();

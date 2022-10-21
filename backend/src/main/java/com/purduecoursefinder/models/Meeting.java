@@ -1,11 +1,14 @@
 package com.purduecoursefinder.models;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -41,6 +44,10 @@ public class Meeting {
     @JoinColumn(name = "roomId")
     Room room;
     
+    @ManyToMany
+    @JoinColumn(name = "instructorId")
+    List<Instructor> instructors;
+    
     public static Meeting fromMeetingDTO(MeetingDTO meetingDTO) {
         return Meeting.builder()
             .meetingId(meetingDTO.getId())
@@ -51,6 +58,7 @@ public class Meeting {
             .startTime(meetingDTO.getStartTime())
             .duration(meetingDTO.getDuration())
             .room(Room.fromRoomDTO(meetingDTO.getRoom())) // Might need changed
+            .instructors(meetingDTO.getInstructors().stream().map(instructor -> Instructor.fromInstructorDTO(instructor)).collect(Collectors.toList()))
             .build();
     }
 }

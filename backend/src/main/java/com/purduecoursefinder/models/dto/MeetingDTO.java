@@ -1,7 +1,9 @@
 package com.purduecoursefinder.models.dto;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.purduecoursefinder.models.Meeting;
@@ -40,6 +42,9 @@ public class MeetingDTO {
     @JsonProperty("Room")
     private RoomDTO room;
     
+    @JsonProperty("Instructors")
+    private List<InstructorDTO> instructors;
+    
     public static MeetingDTO fromMeeting(Meeting meeting) {
         return MeetingDTO.builder()
                 .id(meeting.getMeetingId())
@@ -50,6 +55,7 @@ public class MeetingDTO {
                 .startTime(meeting.getStartTime())
                 .duration(meeting.getDuration())
                 .room(RoomDTO.fromRoom(meeting.getRoom()))
+                .instructors(meeting.getInstructors().stream().map(instructor -> InstructorDTO.fromInstructor(instructor)).collect(Collectors.toList()))
                 .build();
     }
 }
