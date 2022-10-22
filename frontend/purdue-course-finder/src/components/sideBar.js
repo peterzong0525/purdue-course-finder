@@ -1,11 +1,77 @@
 import React, { useState } from 'react';
 import './sideBar.css';
 import PropTypes from 'prop-types';
-import {populateSidebar} from './fillSidebar.js';
+//import { populateSidebar } from './fillSidebar.js';
+import { serverURL } from '../index.js';
+import axios from 'axios';
 import searchIcon from '../tutorial_images/search-icon.png'
 
+let ListofItems = [];
+let filter = 'Course';
 
 function SideBar() {
+    const [objects, setObjects] = useState([]);
+
+
+    function populateSidebar(filter_option, search_string) {
+        // Copy of local function from sideBar.js
+        function setItem(itemHead_in, firstRow_in, secondRow_in) {
+            return(
+                <ListItem key = {itemHead_in + firstRow_in +secondRow_in}
+                        itemHead = {itemHead_in}
+                        firstRow = {firstRow_in}
+                        secondRow = {secondRow_in}/>
+            );
+        }
+    
+        // Check which filter option is needed
+        if (filter_option === 'Building') {
+            // Axios Information
+            var url = `${serverURL}/buildings`;
+            const config = {
+              headers:{
+                "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+              }
+            };
+    
+            // TODO: Finish when /buildings works
+    
+        } else if (filter_option === 'Classroom') {
+            console.log('classrooms');
+        } else if (filter_option === 'Course') {
+            // Axios Information
+            url = `${serverURL}/courses/` + search_string;
+            const config = {
+              headers:{
+                "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+              }
+            };
+    
+            // Query Backend
+            axios.get(url, config).then((response) => {
+                const data = response.data;
+                setObjects(data);
+                // console.log(data);
+            });
+        } else if (filter_option === 'Section') {
+            // Axios Information
+            url = `${serverURL}/sections/` + search_string;
+            const config = {
+              headers:{
+                "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+              }
+            };
+    
+            // Query Backend
+            axios.get(url, config).then((response) => {
+                const data = response.data;
+                setObjects(data);
+            });
+        } else {
+            console.log("updateSidebar received incorrect filter option!");
+        }
+    }
+
     function setItem(itemHead_in, firstRow_in, secondRow_in) {
         return(
             <ListItem key = {itemHead_in + firstRow_in + secondRow_in}
@@ -15,22 +81,47 @@ function SideBar() {
         );
     }
 
-    let ListofItems = [];
-    ListofItems.push(setItem("ARMS", "Neil Armstring Hall of Engineering", ""))
-    ListofItems.push(setItem("HAMP", "Delon & Elizabeth Hampton Hall of Civil Engineering", ""))
-    ListofItems.push(setItem("CS 35400-LE1", "Room: PHYS 203", "Instructor: Douglas Comer"))
-
-
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         if (e.key === 'Enter') {
+            // Get search string from text field
             let searchStr = document.getElementById('search-input').value;
+
+            // Check if search string is empty
             if (searchStr.trim() !== '') {
-                console.log(document.getElementById('search-input').value);
-                // Filter stuff
-                //console.log(document.getElementById('filter_option').value);
+
+                // Get current filter option
+                filter = document.querySelector('input[name="filter_option"]:checked');
+                if (filter != null) {
+                    filter = filter.value;
+                } else {
+                    filter = 'Course';  // Default filter option because checked="checked" breaks things
+                }
+                
+                // Change sidebar
+                await populateSidebar(filter, searchStr);
             }
         }
     }
+
+    const displayObjects = (objects) => {
+        if (!objects.length) {
+            return null;
+        }
+    
+        if (filter === 'Course') {
+            return objects.map((course, index) => (
+                <div key={index}>
+                    {setItem(course.subjectAbbreviation + course.courseNumber, course.title, course.creditHours + " Credit Hours")}
+                </div>
+            ))
+        } else if (filter === 'Section') {
+            return objects.map((section, index) => (
+                <div key={index}>
+                    {setItem("filler", "filler", "filler")}
+                </div>
+            ))
+        }
+      }
 
     return(
         <div className = "sideBarContainer">
@@ -53,34 +144,41 @@ function SideBar() {
                 </div>
                 <hr></hr>
             </div>
-            <div className='listOfItems'>
-                {ListofItems}
+            <div id="sidebar_list" className='listOfItems'>
+                {displayObjects(objects)}
             </div>
-            {populateSidebar('Course','MA')}
 
             <div className="popup_overlay" id="SideBarFilter">
                 <div className="popup_wrapper">
                     <h2>Change Filter</h2>
                     {/* eslint-disable-next-line */}
-                    <a href="/" className="close">&times;</a>
+                    <a href="#" className="close">&times;</a>
                     <div className="content">
                         <div className="popup_container">
                             <form>
                                 <div className="popup_box">
-                                    <input type="radio" id="building" name="filter_option" />
-                                    <label className="text">Building</label>
+                                    <label className="text">
+                                        <input type="radio" id="building" name="filter_option" value="Building"/>
+                                        Building
+                                    </label>
                                     <p>&nbsp;</p>
 
-                                    <input type="radio" id="classroom" name="filter_option" />
-                                    <label className="text">Classroom</label>
+                                    <label className="text">
+                                        <input type="radio" id="classroom" name="filter_option" value="Classroom" />
+                                        Classroom
+                                    </label>
                                     <p>&nbsp;</p>
 
-                                    <input type="radio" id="course" name="filter_option" />
-                                    <label className="text">Course</label>
+                                    <label className="text">
+                                        <input type="radio" id="course" name="filter_option" value="Course"/>
+                                        Course
+                                    </label>
                                     <p>&nbsp;</p>
 
-                                    <input type="radio" id="section" name="filter_option" />
-                                    <label className="text">Section</label>
+                                    <label className="text">
+                                        <input type="radio" id="section" name="filter_option" value="Section"/>
+                                        Section
+                                    </label>
                                 </div>
                             </form>
                         </div>
