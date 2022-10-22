@@ -28,26 +28,7 @@
 /* The following code was taken from: 
     https://www.youtube.com/watch?v=ZirRmvPp9QE
 */
-/* body {
-	font-family: 'Montserrat', sans-serif;
-	background: #e7e7e7;
-	height: 100vh;
-} */
-/* h3 {
-	text-align: center;
-	color: #413b3b;
-	text-transform: uppercase;
-	font-size: 80px;
-	font-family: 'Zen Tokyo Zoo', cursive;
-}
-h5 {
-	text-align: center;
-	color: #82807f;
-	margin: 80px auto;
-	font-size: 20px;
-	width: 50%;
-	line-height: 1.7;
-} */
+
 .deleteparent .box {
 	text-align: center;
 }

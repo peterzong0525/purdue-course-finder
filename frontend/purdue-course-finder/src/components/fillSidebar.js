@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import "./fillSidebar.css";
 import { serverURL } from '../index.js';
 import { ListItem } from './sideBar.js';
 import axios from 'axios';

@@ -8,7 +8,7 @@ import searchIcon from '../tutorial_images/search-icon.png'
 function SideBar() {
     function setItem(itemHead_in, firstRow_in, secondRow_in) {
         return(
-            <ListItem key = {itemHead_in + firstRow_in +secondRow_in}
+            <ListItem key = {itemHead_in + firstRow_in + secondRow_in}
                     itemHead = {itemHead_in}
                     firstRow = {firstRow_in}
                     secondRow = {secondRow_in}/>
@@ -18,7 +18,7 @@ function SideBar() {
     let ListofItems = [];
     ListofItems.push(setItem("ARMS", "Neil Armstring Hall of Engineering", ""))
     ListofItems.push(setItem("HAMP", "Delon & Elizabeth Hampton Hall of Civil Engineering", ""))
-    ListofItems.push(setItem("CS 35400-LE1", "Room: PHYS 203", "Instructor: Douglas Comer"))  
+    ListofItems.push(setItem("CS 35400-LE1", "Room: PHYS 203", "Instructor: Douglas Comer"))
 
 
     const handleChange = (e) => {
@@ -27,6 +27,7 @@ function SideBar() {
             if (searchStr.trim() !== '') {
                 console.log(document.getElementById('search-input').value);
                 // Filter stuff
+                //console.log(document.getElementById('filter_option').value);
             }
         }
     }
@@ -45,7 +46,9 @@ function SideBar() {
                         onClick={() => {handleChange({key: 'Enter'})}} />
                 </div>
                 <div className='filterAdvanced'>
-                    <button type='submit'>Filter</button>
+                    <a href="#SideBarFilter" className="button">
+                        <button type='submit'>Filter</button>
+                    </a>
                     <button style={{marginLeft: 'auto'}} type='submit'>Advanced Search</button>
                 </div>
                 <hr></hr>
@@ -54,6 +57,36 @@ function SideBar() {
                 {ListofItems}
             </div>
             {populateSidebar('Course','MA')}
+
+            <div className="popup_overlay" id="SideBarFilter">
+                <div className="popup_wrapper">
+                    <h2>Change Filter</h2>
+                    {/* eslint-disable-next-line */}
+                    <a href="/" className="close">&times;</a>
+                    <div className="content">
+                        <div className="popup_container">
+                            <form>
+                                <div className="popup_box">
+                                    <input type="radio" id="building" name="filter_option" />
+                                    <label className="text">Building</label>
+                                    <p>&nbsp;</p>
+
+                                    <input type="radio" id="classroom" name="filter_option" />
+                                    <label className="text">Classroom</label>
+                                    <p>&nbsp;</p>
+
+                                    <input type="radio" id="course" name="filter_option" />
+                                    <label className="text">Course</label>
+                                    <p>&nbsp;</p>
+
+                                    <input type="radio" id="section" name="filter_option" />
+                                    <label className="text">Section</label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
