@@ -3,15 +3,16 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import Home from './components/Home.js'
-import Login from './components/loginPage.js'
-import Signup from './components/signupPage.js'
-import Tutorial from './components/tutorialPage.js'
-import AcctDelete from './components/deleteAcct.js'
-import Courses from './components/Courses.js'
-import Sections from './components/Sections.js'
-import Subjects from './components/Subjects.js'
-import ModifyAcnt from './components/modifyAccount.js'
+import Home from './components/Home.js';
+import Login from './components/loginPage.js';
+import Signup from './components/signupPage.js';
+import Tutorial from './components/tutorialPage.js';
+import AcctDelete from './components/deleteAcct.js';
+import Courses from './components/Courses.js';
+import Sections from './components/Sections.js';
+import Subjects from './components/Subjects.js';
+import ModifyAcnt from './components/modifyAccount.js';
+import Map from './components/Map.js';
 
 export const serverURL = 'https://localhost:8443';
 
@@ -31,6 +32,7 @@ ReactDOM.render(
           <Route path='/courses/:id' element={<Courses />} />
           <Route path='/sections/:id' element={<Sections />} />
           <Route path='/subjects' element={<Subjects />} />
+          <Route path='/map' element={<Map />} />
         </Routes>
       </Router>
   </React.StrictMode>,
