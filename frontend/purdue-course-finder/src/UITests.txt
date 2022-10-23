@@ -42,3 +42,13 @@ Testing Account Deletion:
     email." since user information isn't stored on the browser side yet. To confirm with a real
     account, create an account using email 'testemail' and password 'testpassword' refollow the
     steps above. Additionally, if the popup is open, the 'X' button should close it.
+
+Testing Sidebar Filtering:
+    On the main page, there is a sidebar to the left of the map. The filter for the sidebar
+    defaults to Courses. In order to change the filtering option, press the 'Filter' button and
+    a popup window should appear with the options 'Building', 'Classroom', 'Course', and
+    'Section'. You can leave the boxes unchecked if you want to stay on Courses or change the
+    filter to another type. To test filtering, type in something such as 'MA' or 'ENGL' and press
+    either enter on your keyboard or press the magnifying glass. After a couple of seconds,
+    observe the classes appear in the sidebar. Visually confirm your search string created the
+    correct courses or other filtering option you selected.

@@ -125,3 +125,35 @@ it('Delete account page renders without crashing', () => {
 it('Tutorial page renders without crashing', () => {
     render(<Tutorial />)
 });
+
+it('Sidebar Filter Pop-up renders without crashing', () => {
+    render(<Home />)
+
+    // On page normally
+    expect(screen.getByTestId('filter_overlay')).toBeInTheDocument();
+    expect(screen.getByTestId('filter_close')).toBeInTheDocument();
+    expect(screen.getByTestId('filter_container')).toBeInTheDocument();
+    expect(screen.getByTestId('filter_building')).toBeInTheDocument();
+    expect(screen.getByTestId('filter_classroom')).toBeInTheDocument();
+    expect(screen.getByTestId('filter_course')).toBeInTheDocument();
+    expect(screen.getByTestId('filter_section')).toBeInTheDocument();
+
+    // Nesting items
+    const filter_overlay = screen.getByTestId('filter_overlay');
+    const filter_close = screen.getByTestId('filter_close');
+    const filter_container = screen.getByTestId('filter_container');
+    const filter_building = screen.getByTestId('filter_building');
+    const filter_classroom = screen.getByTestId('filter_classroom');
+    const filter_course = screen.getByTestId('filter_course');
+    const filter_section = screen.getByTestId('filter_section');
+
+    // Confirming nesting
+    expect(filter_overlay).toContainElement(filter_close);
+    expect(filter_overlay).toContainElement(filter_container);
+    expect(filter_close).not.toContainElement(filter_container);
+    expect(filter_container).not.toContainElement(filter_close);
+    expect(filter_container).toContainElement(filter_building);
+    expect(filter_container).toContainElement(filter_classroom);
+    expect(filter_container).toContainElement(filter_course);
+    expect(filter_container).toContainElement(filter_section);
+});

@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 //import { populateSidebar } from './fillSidebar.js';
 import { serverURL } from '../index.js';
 import axios from 'axios';
-import searchIcon from '../tutorial_images/search-icon.png'
+import searchIcon from '../tutorial_images/search-icon.png';
 
-let ListofItems = [];
 let filter = 'Course';
 
 function SideBar() {
@@ -34,10 +33,27 @@ function SideBar() {
               }
             };
     
-            // TODO: Finish when /buildings works
+            // Query Backend
+            axios.get(url, config).then((response) => {
+                const data = response.data;
+                setObjects(data);
+            });
     
         } else if (filter_option === 'Classroom') {
-            console.log('classrooms');
+            // Axios Information
+            var url = `${serverURL}/classrooms`;
+            const config = {
+              headers:{
+                "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+              }
+            };
+
+            // Query Backend
+            axios.get(url, config).then((response) => {
+                const data = response.data;
+                setObjects(data);
+            });
+
         } else if (filter_option === 'Course') {
             // Axios Information
             url = `${serverURL}/courses/` + search_string;
@@ -51,8 +67,8 @@ function SideBar() {
             axios.get(url, config).then((response) => {
                 const data = response.data;
                 setObjects(data);
-                // console.log(data);
             });
+
         } else if (filter_option === 'Section') {
             // Axios Information
             url = `${serverURL}/sections/` + search_string;
@@ -67,6 +83,7 @@ function SideBar() {
                 const data = response.data;
                 setObjects(data);
             });
+
         } else {
             console.log("updateSidebar received incorrect filter option!");
         }
@@ -117,11 +134,27 @@ function SideBar() {
         } else if (filter === 'Section') {
             return objects.map((section, index) => (
                 <div key={index}>
-                    {setItem("filler", "filler", "filler")}
+                    {setItem(section.Name, "(" + section.subjectAbbreviation + ")", section.Courses.length + " Courses")}
                 </div>
             ))
+        } else if (filter === 'Building') {
+            // TODO: Confirm this works when server can return this data
+            return objects.map((building, index) => (
+                <div key={index}>
+                    {setItem(building.ShortCode, building.Name, building.Rooms.length + " Rooms")}
+                </div>
+            ))
+        } else if (filter === 'Classroom') {
+            // TODO: Confirm this works when server can return this data
+            return objects.map((classroom, index) => (
+                <div key={index}>
+                    {setItem(classroom.number, classroom.Building.Name, classroom.Meetings.length + " meetings per week")}
+                </div>
+            ))
+        } else {
+            console.log('No other filtering option should occur.');
         }
-      }
+    }
 
     return(
         <div className = "sideBarContainer">
@@ -148,35 +181,51 @@ function SideBar() {
                 {displayObjects(objects)}
             </div>
 
-            <div className="popup_overlay" id="SideBarFilter">
+            <div className="popup_overlay" id="SideBarFilter" data-testid="filter_overlay">
                 <div className="popup_wrapper">
                     <h2>Change Filter</h2>
                     {/* eslint-disable-next-line */}
-                    <a href="#" className="close">&times;</a>
+                    <a href="#" className="close" data-testid="filter_close">&times;</a>
                     <div className="content">
-                        <div className="popup_container">
+                        <div className="popup_container" data-testid="filter_container">
                             <form>
                                 <div className="popup_box">
                                     <label className="text">
-                                        <input type="radio" id="building" name="filter_option" value="Building"/>
+                                        <input type="radio"
+                                                id="building"
+                                                name="filter_option"
+                                                value="Building"
+                                                data-testid="filter_building" />
                                         Building
                                     </label>
                                     <p>&nbsp;</p>
 
                                     <label className="text">
-                                        <input type="radio" id="classroom" name="filter_option" value="Classroom" />
+                                        <input type="radio"
+                                        id="classroom"
+                                        name="filter_option"
+                                        value="Classroom"
+                                        data-testid="filter_classroom" />
                                         Classroom
                                     </label>
                                     <p>&nbsp;</p>
 
                                     <label className="text">
-                                        <input type="radio" id="course" name="filter_option" value="Course"/>
+                                        <input type="radio"
+                                        id="course"
+                                        name="filter_option"
+                                        value="Course"
+                                        data-testid="filter_course" />
                                         Course
                                     </label>
                                     <p>&nbsp;</p>
 
                                     <label className="text">
-                                        <input type="radio" id="section" name="filter_option" value="Section"/>
+                                        <input type="radio"
+                                        id="section"
+                                        name="filter_option"
+                                        value="Section"
+                                        data-testid="filter_section" />
                                         Section
                                     </label>
                                 </div>
