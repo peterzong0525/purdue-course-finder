@@ -157,3 +157,13 @@ it('Sidebar Filter Pop-up renders without crashing', () => {
     expect(filter_container).toContainElement(filter_course);
     expect(filter_container).toContainElement(filter_section);
 });
+
+it('Home page contains Map and Sidebar', () => {
+    render(<Home />);
+
+    const map = screen.getByTestId('map');
+    const sidebar = screen.getByTestId('sidebar');
+
+    expect(map).toBeInTheDocument();
+    expect(sidebar).toBeInTheDocument();
+});

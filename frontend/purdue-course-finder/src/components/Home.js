@@ -8,10 +8,10 @@ function Home() {
     <div className="App">
       <div className="MainContent">
         <div className="sideBar">
-          <SideBar />
+          <SideBar data-testid="sidebar"/>
         </div>
         <div className="map">
-          <Map />
+          <Map data-testid="map"/>
         </div>
       </div>
     </div>

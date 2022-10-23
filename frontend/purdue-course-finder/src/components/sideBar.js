@@ -41,7 +41,7 @@ function SideBar() {
     
         } else if (filter_option === 'Classroom') {
             // Axios Information
-            var url = `${serverURL}/classrooms`;
+            url = `${serverURL}/classrooms`;
             const config = {
               headers:{
                 "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
