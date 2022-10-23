@@ -1,5 +1,11 @@
 package com.purduecoursefinder.services;
 
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.UUID;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -7,16 +13,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.purduecoursefinder.exceptions.UserExistsException;
 import com.purduecoursefinder.exceptions.LoginFailedException;
+import com.purduecoursefinder.exceptions.UserExistsException;
+import com.purduecoursefinder.models.Course;
+import com.purduecoursefinder.models.Section;
 import com.purduecoursefinder.models.User;
 import com.purduecoursefinder.models.dto.LoginDTO;
 import com.purduecoursefinder.models.dto.ModifyAccountDTO;
 import com.purduecoursefinder.repositories.UserRepository;
 import com.purduecoursefinder.util.JwtUtil;
-
-import javax.transaction.Transactional;
-import java.util.Optional;
 
 @Service
 public class AuthenticationService {
@@ -38,7 +43,13 @@ public class AuthenticationService {
             throw new UserExistsException();
         }
         
-        User user = new User(login.getEmail(), passwordEncoder.encode(login.getPassword()));
+        User user = User.builder()
+                .email(login.getEmail())
+                .password(passwordEncoder.encode(login.getPassword()))
+                .favoriteCourses(new ArrayList<Course>())
+                .favoriteSections(new ArrayList<Section>())
+                .build();
+        user.getFavoriteSections().add(Section.builder().sectionId(UUID.fromString("28230dfd-d5e4-4529-ac60-0b4d44eb17c5")).build());
         userRepository.save(user);
     }
     

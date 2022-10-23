@@ -45,7 +45,6 @@ public class Meeting {
     Room room;
     
     @ManyToMany
-    @JoinColumn(name = "instructorId")
     List<Instructor> instructors;
     
     public static Meeting fromMeetingDTO(MeetingDTO meetingDTO) {
