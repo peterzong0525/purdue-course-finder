@@ -30,20 +30,25 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        if (request.getRequestURI().contains("/auth/register") || request.getRequestURI().contains("/auth/login")) {
-            chain.doFilter(request, response);
-            return;
-        }
-        
+//        if (request.getRequestURI().contains("/auth/register") || request.getRequestURI().contains("/auth/login")) {
+//            chain.doFilter(request, response);
+//            return;
+//        }
         String requestTokenHeader = request.getHeader("Authorization");
         String email = null;
         String jwtToken = null;
 
-        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
-            jwtToken = requestTokenHeader.substring(7);
-            email = jwtUtil.getTokenEmail(jwtToken);
+        if (requestTokenHeader != null) {
+            if (requestTokenHeader.startsWith("Bearer ")) {
+                jwtToken = requestTokenHeader.substring(7);
+                email = jwtUtil.getTokenEmail(jwtToken);
+            } else {
+                throw new InvalidAuthorizationHeaderException();
+            }
         } else {
-            throw new InvalidAuthorizationHeaderException();
+            // Anonymous authentication
+            chain.doFilter(request, response);
+            return;
         }
 
         if (SecurityContextHolder.getContext().getAuthentication() == null) {

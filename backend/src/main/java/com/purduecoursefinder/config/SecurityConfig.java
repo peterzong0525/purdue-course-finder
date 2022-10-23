@@ -31,13 +31,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
-            .antMatchers("/auth/register").permitAll()
-            .antMatchers("/auth/login").permitAll()
-            .antMatchers("/courses/*").permitAll()
-            .antMatchers("/subjects").permitAll()
-            .antMatchers("/auth/modify-account").permitAll()
+            .antMatchers(
+                    "/auth/register",
+                    "/auth/login",
+                    "/courses/*",
+                    "/subjects").permitAll()
+            .and()
+            .authorizeHttpRequests()
             .anyRequest().authenticated()
-            .and().cors().and().csrf().disable() // TODO: Fix the security issues this line implies
+            .and().cors()
+            .and().csrf().disable() // TODO: Fix the security issues this line implies
             .logout().logoutUrl("/auth/logout").logoutSuccessHandler((request, response, authentication) -> {
                 response.setStatus(HttpServletResponse.SC_OK);
             })
