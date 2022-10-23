@@ -14,9 +14,9 @@ const center = {
 function Map() {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyDaPKNi8qCSx9-Z3GSReeXLwpPB74sEip8",
+    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
     preventGoogleFontsLoading: true,
-  })
+  });
 
   return isLoaded ? (
       <GoogleMap
