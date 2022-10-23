@@ -19,6 +19,13 @@
     background-color: white;
     padding: 0 10px 10px 10px;
     display:block;
+    cursor: pointer;
+    transition-duration: 250ms;
+}
+
+.sideBarContainer .listItemContainer:hover {
+    background-color: #e7e7e7;
+    transition-duration: 250ms;
 }
 
 .sideBarContainer .searchBar {
@@ -70,6 +77,7 @@
 	transition: opacity 500ms;
 	visibility: hidden;
 	opacity: 0;
+    z-index: 1;
 }
 
 .sideBarContainer .popup_overlay:target {
@@ -117,4 +125,11 @@
     font-size: 28px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color:rgba(50, 50, 50, 0.8);
+}
+
+
+.sideBarContainer .popup_box .sortBy {
+    display: flex;
+    column-gap: 20px;
+    justify-content: center;
 }

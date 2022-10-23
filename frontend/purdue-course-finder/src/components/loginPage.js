@@ -32,10 +32,7 @@ function Login() {
             } else {
                 //success
                 setError(null);
-                console.log(response);
                 window.sessionStorage.setItem("userToken", response.data);
-                console.log(window.sessionStorage.getItem("userToken"));
-                //setSuccess(true);
                 navigate('/');
             }
         }).catch((error) => {

@@ -7,94 +7,101 @@ import axios from 'axios';
 import searchIcon from '../tutorial_images/search-icon.png';
 
 let filter = 'Course';
+let curCourse = "";
 
 function SideBar() {
     const [objects, setObjects] = useState([]);
-
+    const [sortOption, setSortOption] = useState("asc");
 
     function populateSidebar(filter_option, search_string) {
-        // Copy of local function from sideBar.js
-        function setItem(itemHead_in, firstRow_in, secondRow_in) {
-            return(
-                <ListItem key = {itemHead_in + firstRow_in +secondRow_in}
-                        itemHead = {itemHead_in}
-                        firstRow = {firstRow_in}
-                        secondRow = {secondRow_in}/>
-            );
-        }
-    
+        const config = {
+            headers:{
+              "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+            }
+        };
+
+        let url = "";
+
         // Check which filter option is needed
         if (filter_option === 'Building') {
             // Axios Information
-            var url = `${serverURL}/buildings`;
-            const config = {
-              headers:{
-                "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
-              }
-            };
-    
-            // Query Backend
-            axios.get(url, config).then((response) => {
-                const data = response.data;
-                setObjects(data);
-            });
+            url = `${serverURL}/buildings`;
     
         } else if (filter_option === 'Classroom') {
             // Axios Information
             url = `${serverURL}/classrooms`;
-            const config = {
-              headers:{
-                "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
-              }
-            };
-
-            // Query Backend
-            axios.get(url, config).then((response) => {
-                const data = response.data;
-                setObjects(data);
-            });
 
         } else if (filter_option === 'Course') {
             // Axios Information
             url = `${serverURL}/courses/` + search_string;
-            const config = {
-              headers:{
-                "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
-              }
-            };
-    
-            // Query Backend
-            axios.get(url, config).then((response) => {
-                const data = response.data;
-                setObjects(data);
-            });
 
         } else if (filter_option === 'Section') {
             // Axios Information
             url = `${serverURL}/sections/` + search_string;
-            const config = {
-              headers:{
-                "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
-              }
-            };
-    
-            // Query Backend
-            axios.get(url, config).then((response) => {
-                const data = response.data;
-                setObjects(data);
-            });
 
         } else {
             console.log("updateSidebar received incorrect filter option!");
+            return;
         }
+        // Query Backend
+        axios.get(url, config).then((response) => {
+            let data = response.data;
+            data.sort((a, b) => a.courseNumber - b.courseNumber);
+            if (sortOption === "des")
+                data = data.reverse();
+            console.log(data)
+            setObjects(data);
+        });
+
     }
 
-    function setItem(itemHead_in, firstRow_in, secondRow_in) {
+    function setItem(itemHead_in, firstRow_in, secondRow_in, dataType, dataID) {
         return(
-            <ListItem key = {itemHead_in + firstRow_in + secondRow_in}
+            <ListItem key = {dataID}
                     itemHead = {itemHead_in}
                     firstRow = {firstRow_in}
-                    secondRow = {secondRow_in}/>
+                    secondRow = {secondRow_in}
+                    dataType = {dataType}
+                    dataID = {dataID}/>
+        );
+    }
+
+    function ListItem(props) {
+        ListItem.propTypes = {
+            itemHead: PropTypes.string,
+            firstRow: PropTypes.string,
+            secondRow: PropTypes.string,
+            dataType: PropTypes.string,
+            dataID: PropTypes.string,
+        };
+    
+        const [itemHead, firstRow, secondRow, dataType, dataID] = [props.itemHead, props.firstRow, props.secondRow, props.dataType, props.dataID];
+    
+        const handleChange = async (e) => {
+           
+            if (e.filter === "Course") {
+                filter = "Section";
+                curCourse = itemHead;
+                document.getElementById("section").checked = true;
+            }
+            populateSidebar(filter, e.searchStr)
+        }
+    
+        return(
+            <div className = "listItemContainer" onClick={() => {handleChange({filter: dataType, searchStr: dataID})}}>
+                <h2 className = "ItemHead" style={{margin: "0"}}>
+                    {props.itemHead}
+                </h2>
+                <p className = "firstRow" style={{margin: "5px 0 0 0"}}>
+                    {props.firstRow}
+                </p>
+                {props.secondRow != "" && (
+                    <p className = "secondRow" style={{margin: "5px 0 0 0"}}>
+                        {props.secondRow}
+                    </p>
+                )}
+    
+            </div>
         );
     }
 
@@ -121,6 +128,8 @@ function SideBar() {
     }
 
     const displayObjects = (objects) => {
+        console.log("look")
+        console.log(objects)
         if (!objects.length) {
             return null;
         }
@@ -128,27 +137,27 @@ function SideBar() {
         if (filter === 'Course') {
             return objects.map((course, index) => (
                 <div key={index}>
-                    {setItem(course.subjectAbbreviation + course.courseNumber, course.title, course.creditHours + " Credit Hours")}
+                    {setItem(course.subjectAbbreviation + course.courseNumber, course.title, course.creditHours + " Credit Hours", "Course", course.courseId)}
                 </div>
             ))
         } else if (filter === 'Section') {
             return objects.map((section, index) => (
                 <div key={index}>
-                    {setItem(section.Name, "(" + section.subjectAbbreviation + ")", section.Courses.length + " Courses")}
+                    {setItem(curCourse + " - " + section.Crn, "Type: " + section.Type, "Capacity: " + section.Capacity, "Section", section.Id)}
                 </div>
             ))
         } else if (filter === 'Building') {
             // TODO: Confirm this works when server can return this data
             return objects.map((building, index) => (
                 <div key={index}>
-                    {setItem(building.ShortCode, building.Name, building.Rooms.length + " Rooms")}
+                    {setItem(building.ShortCode, building.Name, building.Rooms.length + " Rooms", "Building", building.buildingId)}
                 </div>
             ))
         } else if (filter === 'Classroom') {
             // TODO: Confirm this works when server can return this data
             return objects.map((classroom, index) => (
                 <div key={index}>
-                    {setItem(classroom.number, classroom.Building.Name, classroom.Meetings.length + " meetings per week")}
+                    {setItem(classroom.number, classroom.Building.Name, classroom.Meetings.length + " meetings per week", "Classroom", classroom.classroomId)}
                 </div>
             ))
         } else {
@@ -195,6 +204,7 @@ function SideBar() {
                                                 id="building"
                                                 name="filter_option"
                                                 value="Building"
+                                                defaultChecked="True"
                                                 data-testid="filter_building" />
                                         Building
                                     </label>
@@ -228,6 +238,29 @@ function SideBar() {
                                         data-testid="filter_section" />
                                         Section
                                     </label>
+                                    <hr></hr>
+                                    <div className="sortBy">
+                                        Sort By:
+                                        <label className="txt">
+                                            <input type="radio"
+                                                id="sortAscend"
+                                                name="sort_option"
+                                                value="Ascending"
+                                                defaultChecked="True"
+                                                onChange={() => {setSortOption("asc")}}
+                                                data-testid="sort_asc" />
+                                            Ascending
+                                        </label>
+                                        <label className="txt">
+                                            <input type="radio"
+                                                id="sortAscend"
+                                                name="sort_option"
+                                                value="Descending"
+                                                onChange={() => {setSortOption("des")}}
+                                                data-testid="sort_des" />
+                                            Descending
+                                        </label>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -240,27 +273,4 @@ function SideBar() {
 
 export default SideBar;
 
-export function ListItem(props) {
-    ListItem.propTypes = {
-        itemHead: PropTypes.string,
-        firstRow: PropTypes.string,
-        secondRow: PropTypes.string,
-    };
 
-    return(
-        <div className = "listItemContainer">
-            <h2 className = "ItemHead" style={{margin: "0"}}>
-                {props.itemHead}
-            </h2>
-            <p className = "firstRow" style={{margin: "5px 0 0 0"}}>
-                {props.firstRow}
-            </p>
-            {props.secondRow != "" && (
-                <p className = "secondRow" style={{margin: "5px 0 0 0"}}>
-                    {props.secondRow}
-                </p>
-            )}
-
-        </div>
-    );
-}
