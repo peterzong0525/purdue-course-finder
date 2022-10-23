@@ -49,7 +49,6 @@ function SideBar() {
             data.sort((a, b) => a.courseNumber - b.courseNumber);
             if (sortOption === "des")
                 data = data.reverse();
-            console.log(data)
             setObjects(data);
         });
 
@@ -128,8 +127,6 @@ function SideBar() {
     }
 
     const displayObjects = (objects) => {
-        console.log("look")
-        console.log(objects)
         if (!objects.length) {
             return null;
         }
