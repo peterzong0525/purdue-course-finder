@@ -7,8 +7,8 @@
 
 .sideBarContainer .listOfItems {
     margin-bottom: 10px;
-   flex-grow: 1;
-   overflow-y: auto;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .sideBarContainer .listItemContainer {
@@ -46,4 +46,75 @@
 .sideBarContainer .filterAdvanced {
     display: flex;
     margin-bottom: 10px;
+}
+
+/* Classes for popup window when pressing settings button */
+.deleteparent .filterAdvanced .button {
+	font-size: 1em;
+	padding: 15px 35px;
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+	transition: all 0.3s ease-out;
+	background: #403e3d;
+	border-radius: 50px;
+}
+
+.sideBarContainer .popup_overlay {
+    position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.8);
+	transition: opacity 500ms;
+	visibility: hidden;
+	opacity: 0;
+}
+
+.sideBarContainer .popup_overlay:target {
+	visibility: visible;
+	opacity: 1;
+}
+
+.sideBarContainer .popup_wrapper {
+    margin: 70px auto;
+	padding: 20px;
+	background: #e7e7e7;
+	border-radius: 5px;
+	width: 30%;
+	position: relative;
+	transition: all 5s ease-in-out;
+}
+
+.sideBarContainer .popup_wrapper .close {
+    position: absolute;
+	top: 20px;
+	right: 30px;
+	transition: all 200ms;
+	font-size: 30px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #333;
+}
+
+.sideBarContainer .popup_wrapper .content {
+	max-height: 30%;
+	overflow: auto;
+}
+
+.sideBarContainer .popup_container {
+    border-radius: 5px;
+	background-color: #e7e7e7;
+	padding: 20px 0;
+}
+
+.sideBarContainer .popup_box {
+    text-align: center;
+}
+
+.sideBarContainer .popup_box .text {
+    font-size: 28px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color:rgba(50, 50, 50, 0.8);
 }
