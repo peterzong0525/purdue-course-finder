@@ -7,11 +7,11 @@ function Home() {
   return (
     <div className="App">
       <div className="MainContent">
-        <div className="sideBar">
-          <SideBar data-testid="sidebar"/>
+        <div className="sideBar" data-testid="sidebar">
+          <SideBar />
         </div>
-        <div className="map">
-          <Map data-testid="map"/>
+        <div className="map" data-testid="map">
+          <Map />
         </div>
       </div>
     </div>

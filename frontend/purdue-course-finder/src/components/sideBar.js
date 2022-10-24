@@ -163,7 +163,7 @@ function SideBar() {
     }
 
     return(
-        <div className = "sideBarContainer">
+        <div className = "sideBarContainer" data-testid="sidebarContainer">
             <div className = 'header'>
                 <h1 style={{fontSize:'2vw'}}>Purdue Course Finder</h1>
                 <div className='searchBar'>

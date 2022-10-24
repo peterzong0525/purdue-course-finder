@@ -39,7 +39,7 @@ function Map() {
         { /* Child components, such as markers, info windows, etc. */ }
         <></>
       </GoogleMap>
-  ) : <></>
+  ) : <div data-testid="mapLoading"></div>
 }
 
 export default React.memo(Map)

@@ -167,3 +167,16 @@ it('Home page renders without crashing', () => {
     render(<Home />);
 });
 
+it('Home page contains Map and Sidebar', () => {
+    render(<Home />);
+
+    const map = screen.getByTestId('map');
+    const sidebar = screen.getByTestId('sidebar');
+    const mapLoading = screen.getByTestId('mapLoading');
+    const sidebarContainer = screen.getByTestId('sidebarContainer');
+
+    expect(map).toBeInTheDocument();
+    expect(sidebar).toBeInTheDocument();
+    expect(mapLoading).toBeInTheDocument();
+    expect(sidebarContainer).toBeInTheDocument();
+});
