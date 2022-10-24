@@ -12,6 +12,7 @@ let curCourse = "";
 function SideBar() {
     const [objects, setObjects] = useState([]);
     const [sortOption, setSortOption] = useState("asc");
+    const [loading, setLoading] = useState(false);
 
     function populateSidebar(filter_option, search_string) {
         const config = {
@@ -50,6 +51,7 @@ function SideBar() {
             if (sortOption === "des")
                 data = data.reverse();
             setObjects(data);
+            setLoading(false);
         });
 
     }
@@ -77,7 +79,7 @@ function SideBar() {
         const [itemHead, firstRow, secondRow, dataType, dataID] = [props.itemHead, props.firstRow, props.secondRow, props.dataType, props.dataID];
     
         const handleChange = async (e) => {
-           
+            setLoading(true);
             if (e.filter === "Course") {
                 filter = "Section";
                 curCourse = itemHead;
@@ -106,6 +108,7 @@ function SideBar() {
 
     const handleChange = async (e) => {
         if (e.key === 'Enter') {
+            setLoading(true);
             // Get search string from text field
             let searchStr = document.getElementById('search-input').value;
 
@@ -184,7 +187,12 @@ function SideBar() {
                 <hr></hr>
             </div>
             <div id="sidebar_list" className='listOfItems'>
-                {displayObjects(objects)}
+                {!loading && (displayObjects(objects))}
+                {loading && (
+                    <div className="loaderContainer">
+                        <div className="loader"></div>
+                    </div>
+                )}
             </div>
 
             <div className="popup_overlay" id="SideBarFilter" data-testid="filter_overlay">
