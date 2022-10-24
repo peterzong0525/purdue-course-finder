@@ -2,6 +2,7 @@ import React from 'react';
 import Signup from '../components/signupPage';
 import Login from '../components/loginPage';
 import Home from '../components/Home';
+import Sidebar from '../components/sideBar'
 import Modify from '../components/modifyAccount';
 import Delete from '../components/deleteAcct';
 import Tutorial from '../components/tutorialPage';
@@ -81,10 +82,6 @@ it('Login page renders without crashing', () => {
     expect(login_form).toContainElement(login_button);
 });
 
-it('Home page renders without crashing', () => {
-    render(<Home />)
-});
-
 it('Modify account page renders without crashing', () => {
     render(<Modify />)
     expect(screen.getByTestId('modify_account')).toBeInTheDocument();
@@ -127,7 +124,7 @@ it('Tutorial page renders without crashing', () => {
 });
 
 it('Sidebar Filter Pop-up renders without crashing', () => {
-    render(<Home />)
+    render(<Sidebar />)
 
     // On page normally
     expect(screen.getByTestId('filter_overlay')).toBeInTheDocument();
@@ -137,6 +134,8 @@ it('Sidebar Filter Pop-up renders without crashing', () => {
     expect(screen.getByTestId('filter_classroom')).toBeInTheDocument();
     expect(screen.getByTestId('filter_course')).toBeInTheDocument();
     expect(screen.getByTestId('filter_section')).toBeInTheDocument();
+    expect(screen.getByTestId('sort_asc')).toBeInTheDocument();
+    expect(screen.getByTestId('sort_des')).toBeInTheDocument();
 
     // Nesting items
     const filter_overlay = screen.getByTestId('filter_overlay');
@@ -146,6 +145,9 @@ it('Sidebar Filter Pop-up renders without crashing', () => {
     const filter_classroom = screen.getByTestId('filter_classroom');
     const filter_course = screen.getByTestId('filter_course');
     const filter_section = screen.getByTestId('filter_section');
+    const sort_container = screen.getByTestId('sort_container');
+    const sort_asc = screen.getByTestId('sort_asc');
+    const sort_des = screen.getByTestId('sort_des');
 
     // Confirming nesting
     expect(filter_overlay).toContainElement(filter_close);
@@ -156,14 +158,12 @@ it('Sidebar Filter Pop-up renders without crashing', () => {
     expect(filter_container).toContainElement(filter_classroom);
     expect(filter_container).toContainElement(filter_course);
     expect(filter_container).toContainElement(filter_section);
+    expect(filter_container).toContainElement(sort_container);
+    expect(sort_container).toContainElement(sort_asc);
+    expect(sort_container).toContainElement(sort_des);
 });
 
-it('Home page contains Map and Sidebar', () => {
+it('Home page renders without crashing', () => {
     render(<Home />);
-
-    const map = screen.getByTestId('map');
-    const sidebar = screen.getByTestId('sidebar');
-
-    expect(map).toBeInTheDocument();
-    expect(sidebar).toBeInTheDocument();
 });
+

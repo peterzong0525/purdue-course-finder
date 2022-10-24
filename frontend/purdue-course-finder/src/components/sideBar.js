@@ -236,7 +236,7 @@ function SideBar() {
                                         Section
                                     </label>
                                     <hr></hr>
-                                    <div className="sortBy">
+                                    <div className="sortBy" data-testid="sort_container">
                                         Sort By:
                                         <label className="txt">
                                             <input type="radio"

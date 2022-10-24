@@ -43,6 +43,12 @@ Testing Account Deletion:
     account, create an account using email 'testemail' and password 'testpassword' refollow the
     steps above. Additionally, if the popup is open, the 'X' button should close it.
 
+Testing Sidebar Component Clicking:
+    In the sidebar, components consisting of either buildings, classrooms, courses, or sections.
+    When clicking on a course, the sidebar should refresh to show section components that are
+    relevant to the selected course. Similarly, when a building is clicked, classrooms that are
+    inside the selected building should repopulate the sidebar.
+
 Testing Sidebar Filtering:
     On the main page, there is a sidebar to the left of the map. The filter for the sidebar
     defaults to Courses. In order to change the filtering option, press the 'Filter' button and
