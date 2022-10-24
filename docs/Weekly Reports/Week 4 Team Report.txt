@@ -1,0 +1,31 @@
+=== Weekly Team Report (Team 9: Purdue Course Finder) ===
+
+Week 4 (Summary) (Scrum Master: Alex Kobus)
+10/18/22 - 3 hours - Commit 48e16f2 - Peter: Created sidebar component with temp content, added to home page
+10/20/22 - 3 hours - Commit e57363b - Alex P: Query and Read Server, Create Panes
+10/20/22 - 1.5 hours - Commit c768381 - Peter: Added search bar and filter buttons to sidebar
+10/20/22 - 0.5 hours - Commit a680e9a - Peter: Allow sidebar to scroll when max height reached
+10/21/22 - 1 hours - Commit ffa1671 - Tommy: Added instructors to /sections output
+10/22/22 - 2 hours - Commit 801d7ca - Alex P: Filter Sidebar, Popup, and created Radio Buttons 
+10/22/22 - 7 hours - Commit a7cffe1 - Alex K: Remove Default Homepage & Replace it with a page for the map & sidebar, Create a Map component, Setup the Google Maps API for our project & generate an API key, Add the Google Maps integration to the Map component, Setup the map to default to Purdue's campus, Modify Google Maps API parameters to make the map appear in the desired format for our project (road view, disable clickable labels, show zoom control buttons, disable map fullscreen button, disable street view, allow "gesture" control (mouse scroll/movements))
+10/22/22 - 5 hours - Commit e8e8bd7 - Alex P: Read Search Bar, Incorporate Filter, Fixed Server Query, Refined Panes (& Debugging) 
+10/22/22 - 2 hours - Commit 937b01d - Alex K: Create gitignored .env file to keep the Google Maps API key off of the github repository, Generate a new Google Maps API key & disable the old Google Maps API key
+10/23/22 - 1.5 hours - Commit 0f8067a - Alex P: Sidebar Unit Tests & Manual Tests
+10/23/22 - 2 hours - Commit 38510ef - Alex K: Create unit tests for the homepage & document manual tests for the map component
+10/23/22 - 6 hours - Commit 186c0d4 - Tommy: Added favorites capability in the backend
+10/23/22 - 2 hours - Commit 5fc57a7 - Tommy: Removed unnecessary authentication requirement for certain endpoints
+10/23/22 - 3 hours - Commit 3039f2e - Peter: Connected sidebar course click to display corresponding sections + fixed sections display issue
+10/23/22 - 0.5 hours - Commit 2b13c42 - Peter: Sort filter added and filter popup visibility fix
+10/23/22 - 0.5 hours - Commit c1e3050 - Peter: Updated testing for sidebar
+10/23/22 - 1 hour - Commit eb71412 - Peter: Added spin loading animation when searching
+
+Week 5 (Plan) (Scrum Master: Alex Kobus)
+[Meetings]
+10/24/22 - Discuss Week 4 Progress & What tasks need to be completed in Week 5 because other tasks in this sprint depend on them
+10/26/22 - Discuss progress on tasks that other tasks depend on
+
+[Individual Goals]
+Alex K: Add buttons to homepage for logged-in dependent features, implement checking & redirecting for logged-in dependent features
+Alex P: Add highlight overlays for Purdue campus buildings
+Tommy: Create unit tests for the backend, start working on AWS deployment
+Peter: Add sidebar information for buildings & classrooms, add UI for favoriting & favorites list/management, Add favoriting stars to sidebar components, start connecting favoriting to backend
