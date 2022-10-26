@@ -21,7 +21,7 @@ class Building {
   }
 }
 
-let Buildings;
+let Buildings = [];
 
 function Map(props) {
   Map.propTypes = {
@@ -38,19 +38,24 @@ function Map(props) {
   });
 
   // Fill list Buildings with all building info
-  //generateBuildings();
+  Buildings = [];
+  generateBuildings();
+  let filtered_Buildings = filterBuildings(props.buildingName);
 
-  
-  const flightPlanCoordinates = [{lat:40.42376,lng:-86.91722},{lat:40.42368,lng:-86.91722},{lat:40.42368,lng:-86.91728},{lat:40.42307,lng:-86.91730},
-    {lat:40.42307,lng:-86.91705},{lat:40.42343,lng:-86.91705},{lat:40.42343,lng:-86.91698},{lat:40.42332,lng:-86.91698},
-    {lat:40.42332,lng:-86.91669},{lat:40.42344,lng:-86.91669},{lat:40.42345,lng:-86.91676},{lat:40.42349,lng:-86.91676},
-    {lat:40.42349,lng:-86.91662},{lat:40.42342,lng:-86.91662},{lat:40.42342,lng:-86.91644},{lat:40.42350,lng:-86.91644},
-    {lat:40.42349,lng:-86.91637},{lat:40.42367,lng:-86.91638},{lat:40.42367,lng:-86.91643},{lat:40.42375,lng:-86.91644},
-    {lat:40.42376,lng:-86.91660},{lat:40.42368,lng:-86.91661},{lat:40.42369,lng:-86.91704},{lat:40.42376,lng:-86.91705}];
+  // This will be removed
+  let buildingPolygons = [];
+  for (let i = 0; i < Buildings.length; i++) {
+    buildingPolygons.push(new Polygon({
+      path: Buildings[i].coordArray,
+      strokeColor: '#000000', 
+      fillColor:'#A0A0FF'
+    }
+    ));
+  }
 
   // Not sure how to use this object
   const flightPath = new Polyline({
-    path: flightPlanCoordinates,
+    path: Buildings[0].coordArray,
     geodesic: true,
     strokeColor: "#FF0000",
     strokeOpacity: 1.0,
@@ -83,11 +88,13 @@ function Map(props) {
           <div>
             <Marker position={{ lat: 40.43066, lng: -86.92358 }} />
 
-            <Polygon path={flightPlanCoordinates} options={{strokeColor: '#FFFF00', fillColor:'#FF0000' }} />
-            
-            
-            <Polyline path={flightPlanCoordinates} strokeColor={'#FF0000'}/>
-            
+            {
+              buildingPolygons.map((building, index) => (
+                <div key={index}>
+                  {building.render()}
+                </div>
+              ))
+            }
         
           </div>
         }
@@ -97,13 +104,14 @@ function Map(props) {
 }
 
 function generateBuildings() {  // I'm sorry, this function is just a mess
+  // <Polygon path={building.coordArray} options={{strokeColor: '#000000', fillColor:'#A0A0FF' }} />
   // Alphabetical A-G
   Buildings.push(new Building("Agricultural & Biological Engr", 
   [{lat: 40.42195,lng: -86.91691},{lat: 40.42148,lng: -86.91692},{lat: 40.42147,lng: -86.91623},{lat: 40.42193,lng: -86.91617}]));
   Buildings.push(new Building("Beering Hall of Lib Arts & Ed", 
   [{lat:40.42590,lng:-86.91649},{lat:40.42523,lng:-86.91647},{lat:40.42522,lng:-86.91611},{lat:40.42533,lng:-86.91593},
-    {lat:40.42554,lng:-86.91600},{lat:40.42556,lng:-86.91557},{lat:40.42568,lng:-86.91505},{lat:40.42574,lng:-86.91555},
-    {lat:40.42575,lng:-86.91611},{lat:40.42592,lng:-86.91612}]));
+    {lat:40.42554,lng:-86.91600},{lat:40.42556,lng:-86.91557},{lat:40.42574,lng:-86.91555},{lat:40.42575,lng:-86.91611},
+    {lat:40.42592,lng:-86.91612}]));
   Buildings.push(new Building("Brown Laboratory of Chemistry",
   [{lat:40.42642,lng:-86.91228},{lat:40.42642,lng:-86.91131},{lat:40.42649,lng:-86.91123},{lat:40.42667,lng:-86.91123},
     {lat:40.42672,lng:-86.91130},{lat:40.42672,lng:-86.91228}]));
@@ -221,6 +229,19 @@ function generateBuildings() {  // I'm sorry, this function is just a mess
     {lat:40.42682,lng:-86.91286},{lat:40.42757,lng:-86.91288}]));
   Buildings.push(new Building("Wetherill Lab of Chemistry",
   [{lat:40.42673,lng:-86.91355},{lat:40.42621,lng:-86.91354},{lat:40.42622,lng:-86.91262},{lat:40.42673,lng:-86.91263}]));
+}
+
+function filterBuildings(buildingName) {
+  let filtered = [];
+
+  // Find name match from buildingName(props)
+  for (let i = 0; i < Buildings.length; i++) {
+      if (Buildings[i].buildingName === buildingName) {
+        filtered.push(Buildings[i]);
+      }
+  }
+
+  return filtered;
 }
 
 export default React.memo(Map)
