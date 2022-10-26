@@ -9,7 +9,11 @@ import searchIcon from '../tutorial_images/search-icon.png';
 let filter = 'Course';
 let curCourse = "";
 
-function SideBar() {
+function SideBar(props) {
+    SideBar.propTypes = {
+        onClick: PropTypes.func,
+    };
+
     const [objects, setObjects] = useState([]);
     const [sortOption, setSortOption] = useState("asc");
     const [loading, setLoading] = useState(false);
@@ -56,6 +60,7 @@ function SideBar() {
 
     }
 
+
     function setItem(itemHead_in, firstRow_in, secondRow_in, dataType, dataID) {
         return(
             <ListItem key = {dataID}
@@ -63,7 +68,8 @@ function SideBar() {
                     firstRow = {firstRow_in}
                     secondRow = {secondRow_in}
                     dataType = {dataType}
-                    dataID = {dataID}/>
+                    dataID = {dataID}
+                    onClick = {(e)=> {props.onClick(e)}}/>
         );
     }
 
@@ -74,6 +80,7 @@ function SideBar() {
             secondRow: PropTypes.string,
             dataType: PropTypes.string,
             dataID: PropTypes.string,
+            onClick: PropTypes.func,
         };
     
         const [itemHead, firstRow, secondRow, dataType, dataID] = [props.itemHead, props.firstRow, props.secondRow, props.dataType, props.dataID];
@@ -85,6 +92,7 @@ function SideBar() {
                 curCourse = itemHead;
                 document.getElementById("section").checked = true;
             }
+            props.onClick(dataID);
             populateSidebar(filter, e.searchStr)
         }
     

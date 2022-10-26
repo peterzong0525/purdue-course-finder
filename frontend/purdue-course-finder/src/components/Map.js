@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useState } from 'react';
+import PropTypes from 'prop-types';
 import { GoogleMap, useJsApiLoader} from '@react-google-maps/api';
 // For items on the map
 import { Marker, Polyline, Polygon } from '@react-google-maps/api';
@@ -22,7 +23,14 @@ class Building {
 
 let Buildings;
 
-function Map() {
+function Map(props) {
+  Map.propTypes = {
+    buildingName: PropTypes.string
+  };
+
+   
+  console.log(props.buildingName)
+
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
