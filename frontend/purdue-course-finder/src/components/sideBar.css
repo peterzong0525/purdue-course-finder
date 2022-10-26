@@ -19,7 +19,7 @@
     border-radius: 5px;
     background-color: white;
     padding: 0 10px 10px 10px;
-    display:block;
+    display: flex;
     cursor: pointer;
     transition-duration: 250ms;
 }
@@ -27,6 +27,41 @@
 .sideBarContainer .listItemContainer:hover {
     background-color: #e7e7e7;
     transition-duration: 250ms;
+}
+
+.sideBarContainer .listItemInfo { 
+    display: block;
+}
+
+.sideBarContainer .favoriteStar {
+    margin-left: auto;
+    margin-right: 30px;
+    align-self: center;
+}
+
+.sideBarContainer .star {
+    transform: translate(0, -27px);
+    visibility: hidden;
+    font-size: 50px;
+    cursor: pointer;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+}
+
+.sideBarContainer .star:hover:before {
+    color: #fad982;
+    transition-duration: 150ms;
+}
+
+.sideBarContainer .star:before {
+    content: "\2605";
+    color: white;
+    visibility: visible;
+    transition-duration: 150ms;
+}
+.sideBarContainer .star:checked:before {
+    content: "\2605";
+    color: #F4B30A;
 }
 
 .sideBarContainer .searchBar {
@@ -155,3 +190,4 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+

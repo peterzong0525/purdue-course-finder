@@ -95,21 +95,31 @@ function SideBar(props) {
             props.onClick(dataID);
             populateSidebar(filter, e.searchStr)
         }
+
+        const changeFavorite = (e) => {
+            console.log(e)
+        }
+
+    
     
         return(
             <div className = "listItemContainer" onClick={() => {handleChange({filter: dataType, searchStr: dataID})}}>
-                <h2 className = "ItemHead" style={{margin: "0"}}>
-                    {props.itemHead}
-                </h2>
-                <p className = "firstRow" style={{margin: "5px 0 0 0"}}>
-                    {props.firstRow}
-                </p>
-                {props.secondRow != "" && (
-                    <p className = "secondRow" style={{margin: "5px 0 0 0"}}>
-                        {props.secondRow}
+                <div className = "listItemInfo" >
+                    <h2 className = "ItemHead" style={{margin: "0"}}>
+                        {props.itemHead}
+                    </h2>
+                    <p className = "firstRow" style={{margin: "5px 0 0 0"}}>
+                        {props.firstRow}
                     </p>
-                )}
-    
+                    {props.secondRow != "" && (
+                        <p className = "secondRow" style={{margin: "5px 0 0 0"}}>
+                            {props.secondRow}
+                        </p>
+                    )}
+                </div>
+                <div className = "favoriteStar" >
+                    <input className = "star" type="checkbox" onClick={(e) => {e.stopPropagation(); changeFavorite(e)}}></input>
+                </div>
             </div>
         );
     }
@@ -172,6 +182,7 @@ function SideBar(props) {
             console.log('No other filtering option should occur.');
         }
     }
+
 
     return(
         <div className = "sideBarContainer" data-testid="sidebarContainer">
