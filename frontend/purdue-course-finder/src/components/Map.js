@@ -29,7 +29,7 @@ function Map(props) {
   };
 
    
-  console.log(props.buildingName)
+  console.log("Building Name: " + props.buildingName);
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -78,7 +78,7 @@ function Map(props) {
             <Marker position={{ lat: 40.43066, lng: -86.92358 }} />
 
             {
-              Buildings.map((building, index) => (
+              filtered_Buildings.map((building, index) => (
                 <div key={index}>
                   <Polygon path={building.coordArray} options={{strokeColor: '#000000', fillColor:'#A0A0FF' }} />
                 </div>

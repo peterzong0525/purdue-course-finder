@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './sideBar.css';
 import PropTypes from 'prop-types';
-//import { populateSidebar } from './fillSidebar.js';
 import { serverURL } from '../index.js';
 import axios from 'axios';
 import searchIcon from '../tutorial_images/search-icon.png';
 
-let filter = 'Course';
-let curCourse = "";
-
+let filter = 'Building';
+let prevDesc = "";
+var searchString = "";
 function SideBar(props) {
     SideBar.propTypes = {
         onClick: PropTypes.func,
@@ -18,7 +17,11 @@ function SideBar(props) {
     const [sortOption, setSortOption] = useState("asc");
     const [loading, setLoading] = useState(false);
 
-    function populateSidebar(filter_option, search_string) {
+    useEffect(() => {
+        handleChange({key: 'Enter'})
+    }, []);
+    
+    function populateSidebar(filter_option) {
         const config = {
             headers:{
               "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
@@ -26,23 +29,32 @@ function SideBar(props) {
         };
 
         let url = "";
-
+        console.log("Filter: " + filter_option)
+        console.log("Search string: " + searchString)
         // Check which filter option is needed
         if (filter_option === 'Building') {
             // Axios Information
-            url = `${serverURL}/buildings`;
+            url = `${serverURL}/buildings/`;
     
         } else if (filter_option === 'Classroom') {
             // Axios Information
             url = `${serverURL}/classrooms`;
 
         } else if (filter_option === 'Course') {
+            if (searchString.trim() === '') {
+                setLoading(false);
+                return;
+            }
             // Axios Information
-            url = `${serverURL}/courses/` + search_string;
+            url = `${serverURL}/courses/` + searchString;
 
         } else if (filter_option === 'Section') {
+            if (searchString.trim() === '') {
+                setLoading(false);
+                return;
+            }
             // Axios Information
-            url = `${serverURL}/sections/` + search_string;
+            url = `${serverURL}/sections/` + searchString;
 
         } else {
             console.log("updateSidebar received incorrect filter option!");
@@ -51,11 +63,24 @@ function SideBar(props) {
         // Query Backend
         axios.get(url, config).then((response) => {
             let data = response.data;
-            data.sort((a, b) => a.courseNumber - b.courseNumber);
+            
+            if (filter_option === 'Building') 
+                data.sort((a, b) => a.Name.localeCompare(b.Name));
+            else if (filter_option === 'Classroom')
+                ;
+            else if (filter_option === 'Course')
+                data.sort((a, b) => a.courseNumber - b.courseNumber);
+            else if (filter_option === 'Section')
+                ;
+               
             if (sortOption === "des")
                 data = data.reverse();
+            console.log(data)
             setObjects(data);
             setLoading(false);
+            
+        }).catch((error) => {
+            console.log(error);
         });
 
     }
@@ -85,15 +110,23 @@ function SideBar(props) {
     
         const [itemHead, firstRow, secondRow, dataType, dataID] = [props.itemHead, props.firstRow, props.secondRow, props.dataType, props.dataID];
     
-        const handleChange = async (e) => {
+        const handleChange = (e) => {
             setLoading(true);
             if (e.filter === "Course") {
                 filter = "Section";
-                curCourse = itemHead;
+                prevDesc = itemHead;
+                searchString = e.searchStr;
                 document.getElementById("section").checked = true;
             }
-            props.onClick(dataID);
-            populateSidebar(filter, e.searchStr)
+            if (e.filter === "Building") {
+                //filter = "Classroom";
+                prevDesc = itemHead;
+                searchString = e.searchStr;
+                document.getElementById("classroom").checked = true;
+                props.onClick(firstRow);
+            }
+            
+            populateSidebar(filter)
         }
 
         const changeFavorite = (e) => {
@@ -111,11 +144,9 @@ function SideBar(props) {
                     <p className = "firstRow" style={{margin: "5px 0 0 0"}}>
                         {props.firstRow}
                     </p>
-                    {props.secondRow != "" && (
-                        <p className = "secondRow" style={{margin: "5px 0 0 0"}}>
-                            {props.secondRow}
-                        </p>
-                    )}
+                    <p className = "secondRow" style={{margin: "5px 0 0 0"}}>
+                        {props.secondRow}
+                    </p>
                 </div>
                 <div className = "favoriteStar" >
                     <input className = "star" type="checkbox" onClick={(e) => {e.stopPropagation(); changeFavorite(e)}}></input>
@@ -124,26 +155,23 @@ function SideBar(props) {
         );
     }
 
-    const handleChange = async (e) => {
+    const handleChange = (e) => {
         if (e.key === 'Enter') {
             setLoading(true);
             // Get search string from text field
             let searchStr = document.getElementById('search-input').value;
 
-            // Check if search string is empty
-            if (searchStr.trim() !== '') {
-
-                // Get current filter option
-                filter = document.querySelector('input[name="filter_option"]:checked');
-                if (filter != null) {
-                    filter = filter.value;
-                } else {
-                    filter = 'Course';  // Default filter option because checked="checked" breaks things
-                }
-                
-                // Change sidebar
-                await populateSidebar(filter, searchStr);
+            // Get current filter option
+            filter = document.querySelector('input[name="filter_option"]:checked');
+            if (filter != null) {
+                filter = filter.value;
+            } else {
+                filter = 'Building';  // Default filter option because checked="checked" breaks things
             }
+            
+            // Change sidebar
+            searchString = searchStr;
+            populateSidebar(filter);
         }
     }
 
@@ -151,7 +179,7 @@ function SideBar(props) {
         if (!objects.length) {
             return null;
         }
-    
+
         if (filter === 'Course') {
             return objects.map((course, index) => (
                 <div key={index}>
@@ -161,14 +189,27 @@ function SideBar(props) {
         } else if (filter === 'Section') {
             return objects.map((section, index) => (
                 <div key={index}>
-                    {setItem(curCourse + " - " + section.Crn, "Type: " + section.Type, "Capacity: " + section.Capacity, "Section", section.Id)}
+                    {setItem(prevDesc + " - " + section.Crn, "Type: " + section.Type, "Capacity: " + section.Capacity, "Section", section.Id)}
                 </div>
             ))
         } else if (filter === 'Building') {
-            // TODO: Confirm this works when server can return this data
-            return objects.map((building, index) => (
+            let filtered = [];
+            
+            // Filter for buildings with name or shortcode containing search string
+            for (let i = 0; i < objects.length; i++) {
+                if (objects[i].Name.includes(searchString) || 
+                    objects[i].ShortCode.includes(searchString)) {
+                    filtered.push(objects[i]);
+                }
+            }
+
+            if (filtered.length === 0) {
+                return null;
+            }
+
+            return filtered.map((building, index) => (
                 <div key={index}>
-                    {setItem(building.ShortCode, building.Name, building.Rooms.length + " Rooms", "Building", building.buildingId)}
+                    {setItem(building.ShortCode, building.Name, "", "Building", building.Id)}
                 </div>
             ))
         } else if (filter === 'Classroom') {
@@ -181,6 +222,7 @@ function SideBar(props) {
         } else {
             console.log('No other filtering option should occur.');
         }
+        
     }
 
 
@@ -206,7 +248,10 @@ function SideBar(props) {
                 <hr></hr>
             </div>
             <div id="sidebar_list" className='listOfItems'>
-                {!loading && (displayObjects(objects))}
+                {!loading && displayObjects(objects)}
+                {!loading && !displayObjects(objects) && (
+                    <h1>No Results.</h1>
+                )}
                 {loading && (
                     <div className="loaderContainer">
                         <div className="loader"></div>
