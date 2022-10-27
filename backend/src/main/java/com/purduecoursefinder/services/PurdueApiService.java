@@ -23,12 +23,14 @@ import com.purduecoursefinder.models.Meeting;
 import com.purduecoursefinder.models.Room;
 import com.purduecoursefinder.models.Section;
 import com.purduecoursefinder.models.Subject;
+import com.purduecoursefinder.models.dto.BuildingDTO;
 import com.purduecoursefinder.models.dto.ClassDTO;
 import com.purduecoursefinder.models.dto.CourseApiDTO;
 import com.purduecoursefinder.models.dto.CourseDTO;
 import com.purduecoursefinder.models.dto.MeetingDTO;
 import com.purduecoursefinder.models.dto.SectionDTO;
 import com.purduecoursefinder.models.dto.SubjectDTO;
+import com.purduecoursefinder.models.dto.purdueapi.BuildingsRequestDTO;
 import com.purduecoursefinder.models.dto.purdueapi.CoursesRequestDTO;
 import com.purduecoursefinder.models.dto.purdueapi.SubjectsRequestDTO;
 import com.purduecoursefinder.repositories.BuildingRepository;
@@ -195,6 +197,14 @@ public class PurdueApiService {
         return subjects;
     }
     
+    public List<BuildingDTO> getBuildings() {
+        // Make this method cached in the future.
+        
+        populateBuildingsRepository();
+        
+        return buildingRepository.findAll().stream().map(BuildingDTO::fromBuilding).collect(Collectors.toList());
+    }
+    
     private void populateSubjectRepository() {
         SubjectsRequestDTO subjectsRequestDTO = restTemplate.getForObject(apiUrl + "/odata/Subjects", SubjectsRequestDTO.class);
         
@@ -209,6 +219,18 @@ public class PurdueApiService {
                     .abbreviation(subjectDTO.getAbbreviation())
                     .lastRefresh(0L)
                     .build());
+        }
+    }
+    
+    private void populateBuildingsRepository() {
+        BuildingsRequestDTO buildingsRequestDTO = restTemplate.getForObject(apiUrl + "/odata/Buildings", BuildingsRequestDTO.class);
+        
+        if (buildingsRequestDTO == null) {
+            throw new UnableToRetrieveSubjectsException();
+        }
+        
+        for (BuildingDTO buildingDTO : buildingsRequestDTO.getValue()) {
+                buildingRepository.save(Building.fromBuildingDTO(buildingDTO));
         }
     }
 }

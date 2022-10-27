@@ -35,7 +35,8 @@ public class SecurityConfig {
                     "/auth/register",
                     "/auth/login",
                     "/courses/*",
-                    "/subjects").permitAll()
+                    "/subjects",
+                    "/buildings").permitAll()
             .and()
             .authorizeHttpRequests()
             .anyRequest().authenticated()
