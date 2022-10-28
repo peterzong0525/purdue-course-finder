@@ -2,7 +2,6 @@ package com.purduecoursefinder.services;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -49,7 +48,7 @@ public class AuthenticationService {
                 .favoriteCourses(new ArrayList<Course>())
                 .favoriteSections(new ArrayList<Section>())
                 .build();
-        user.getFavoriteSections().add(Section.builder().sectionId(UUID.fromString("28230dfd-d5e4-4529-ac60-0b4d44eb17c5")).build());
+        
         userRepository.save(user);
     }
     
