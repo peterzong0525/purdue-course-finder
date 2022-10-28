@@ -51,7 +51,7 @@ function Map(props) {
     strokeWeight: 2,
   });
   
-
+  //<Marker position={{ lat: 40.43066, lng: -86.92358 }} />
   return isLoaded ? (
       <GoogleMap
         mapContainerStyle={containerStyle}
@@ -70,12 +70,12 @@ function Map(props) {
           gestureHandling: "greedy",
         }}
       >
+        
 
         { /* Child components, such as markers, info windows, etc. */
 
           // This div is necessary as a parent element
           <div>
-            <Marker position={{ lat: 40.43066, lng: -86.92358 }} />
 
             {
               filtered_Buildings.map((building, index) => (
