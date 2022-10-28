@@ -30,7 +30,7 @@ public class Building {
         return Building.builder()
             .buildingId(buildingDTO.getId())
             .name(buildingDTO.getName())
-            .shortCode(buildingDTO.getName())
+            .shortCode(buildingDTO.getShortCode())
             .build();
     }
 }
