@@ -45,13 +45,26 @@ function SideBar(props) {
             }
             // Axios Information
             url = `${serverURL}/courses/` + searchString;
-
+        
+        } else if (filter_option === 'Section') {
+            if (searchString.trim() === '') {
+                setLoading(false);
+                return;
+            }
+            // Axios Information
+            url = `${serverURL}/sections/` + searchString;
         } else {
             console.log("updateSidebar received incorrect filter option!");
             return;
         }
         // Query Backend
-        axios.get(url).then((response) => {
+        const config = {
+            headers:{
+                "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+            }
+        };
+        console.log("Url: " + url);
+        axios.get(url, config).then((response) => {
             let data = response.data;
             
             if (filter_option === 'Building') 
@@ -60,7 +73,9 @@ function SideBar(props) {
                 ;
             else if (filter_option === 'Course')
                 data.sort((a, b) => a.courseNumber - b.courseNumber);
-               
+            else if (filter_option === 'Section')
+                data.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
+
             if (sortOption === "des")
                 data = data.reverse();
             console.log(data)
@@ -69,17 +84,19 @@ function SideBar(props) {
             
         }).catch((error) => {
             console.log(error);
+            setLoading(false);
         });
 
     }
 
 
-    function setItem(itemHead_in, firstRow_in, secondRow_in, dataType, dataID) {
+    function setItem(itemHead_in, firstRow_in, secondRow_in, thirdRow_in, dataType, dataID) {
         return(
             <ListItem key = {dataID}
                     itemHead = {itemHead_in}
                     firstRow = {firstRow_in}
                     secondRow = {secondRow_in}
+                    thirdRow = {thirdRow_in}
                     dataType = {dataType}
                     dataID = {dataID}
                     onClick = {(e)=> {props.onClick(e)}}/>
@@ -91,26 +108,28 @@ function SideBar(props) {
             itemHead: PropTypes.string,
             firstRow: PropTypes.string,
             secondRow: PropTypes.string,
+            thirdRow: PropTypes.string,
             dataType: PropTypes.string,
             dataID: PropTypes.string,
             onClick: PropTypes.func,
         };
     
-        const [itemHead, firstRow, secondRow, dataType, dataID] = [props.itemHead, props.firstRow, props.secondRow, props.dataType, props.dataID];
+        const [itemHead, firstRow, secondRow, thirdRow, dataType, dataID] = [props.itemHead, props.firstRow, props.secondRow, props.thirdRow, props.dataType, props.dataID];
     
         const handleChange = (e) => {
             setLoading(true);
             if (e.filter === "Course") {
-                //filter = "Section";
+                filter = "Section";
                 prevDesc = itemHead;
                 searchString = e.searchStr;
-            }
-            if (e.filter === "Building") {
+            } else if (e.filter === "Building") {
                 //filter = "Classroom";
                 prevDesc = itemHead;
                 searchString = e.searchStr;
-                document.getElementById("classroom").checked = true;
+                //document.getElementById("classroom").checked = true;
                 props.onClick(firstRow);
+            } else if (e.filter === "Section") {
+                props.onClick(thirdRow.substring(10));
             }
             
             populateSidebar(filter)
@@ -131,13 +150,16 @@ function SideBar(props) {
             <div className = "listItemContainer" onClick={() => {handleChange({filter: dataType, searchStr: dataID})}}>
                 <div className = "listItemInfo" >
                     <h2 className = "ItemHead" style={{margin: "0"}}>
-                        {props.itemHead}
+                        {itemHead}
                     </h2>
                     <p className = "firstRow" style={{margin: "5px 0 0 0"}}>
-                        {props.firstRow}
+                        {firstRow}
                     </p>
                     <p className = "secondRow" style={{margin: "5px 0 0 0"}}>
-                        {props.secondRow}
+                        {secondRow}
+                    </p>
+                    <p className = "thirdRow" style={{margin: "5px 0 0 0"}}>
+                        {thirdRow}
                     </p>
                 </div>
                 {loggedIn && (
@@ -178,13 +200,21 @@ function SideBar(props) {
         if (filter === 'Course') {
             return objects.map((course, index) => (
                 <div key={index}>
-                    {setItem(course.subjectAbbreviation + course.courseNumber, course.title, course.creditHours + " Credit Hours", "Course", course.courseId)}
+                    {setItem(course.subjectAbbreviation + course.courseNumber, 
+                        course.title, 
+                        course.creditHours + " Credit Hours", 
+                        "Description: " + ((course.description.length > 0) ? course.description : "None"), 
+                        "Course", course.courseId)}
                 </div>
             ))
         } else if (filter === 'Section') {
             return objects.map((section, index) => (
                 <div key={index}>
-                    {setItem(prevDesc + " - " + section.Crn, "Type: " + section.Type, "Capacity: " + section.Capacity, "Section", section.Id)}
+                    {setItem(prevDesc + " - " + section.Type + " - " + section.Crn, 
+                    "Meeting day(s): " + section.Meetings[0].DaysOfWeek, 
+                    "Instructor: " + section.Meetings[0].Instructors[0].Name, 
+                    "Location: " + section.Meetings[0].Room.Building.Name, 
+                    "Section", section.Id)}
                 </div>
             ))
         } else if (filter === 'Building') {
@@ -204,14 +234,22 @@ function SideBar(props) {
 
             return filtered.map((building, index) => (
                 <div key={index}>
-                    {setItem(building.ShortCode, building.Name, "", "Building", building.Id)}
+                    {setItem(building.ShortCode, 
+                        building.Name, 
+                        "TODO: Need rooms to also be returned", 
+                        "",
+                        "Building", building.Id)}
                 </div>
             ))
         } else if (filter === 'Classroom') {
             // TODO: Confirm this works when server can return this data
             return objects.map((classroom, index) => (
                 <div key={index}>
-                    {setItem(classroom.number, classroom.Building.Name, classroom.Meetings.length + " meetings per week", "Classroom", classroom.classroomId)}
+                    {setItem(classroom.number, 
+                        classroom.Building.Name, 
+                        classroom.Meetings.length + " meetings per week", 
+                        "",
+                        "Classroom", classroom.classroomId)}
                 </div>
             ))
         } else {
