@@ -64,7 +64,7 @@ function SideBar(props) {
             }
         };
         console.log("Url: " + url);
-        axios.get(url, config).then((response) => {
+        axios.get(url).then((response) => {
             let data = response.data;
             
             if (filter_option === 'Building') 

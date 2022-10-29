@@ -1,8 +1,27 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { GoogleMap, useJsApiLoader} from '@react-google-maps/api';
-// For items on the map
 import { Marker, Polyline, Polygon } from '@react-google-maps/api';
+import { Fab, makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  homeFAB: {
+    backgroundColor: '#9D8446',
+    '&:hover': {
+      backgroundColor: '#9D8446',
+    },
+    margin: theme.spacing(1),
+    // position: 'fixed',
+    // right: theme.spacing(2),
+    // top: theme.spacing(1),
+    padding: 20,
+  },
+  homeFABdiv: {
+    position: 'fixed',
+    right: theme.spacing(0),
+    top: theme.spacing(0),
+  },
+}));
 
 const containerStyle = {
   width: '100%',
@@ -11,7 +30,7 @@ const containerStyle = {
 
 const center = {
   lat: 40.426, 
-  lng: -86.92
+  lng: -86.93
 };
 
 class Building {
@@ -28,8 +47,9 @@ function Map(props) {
     buildingName: PropTypes.string
   };
 
+  const classes = useStyles();
    
-  console.log("Building Name: " + props.buildingName);
+  // console.log("Building Name: " + props.buildingName);
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -78,13 +98,47 @@ function Map(props) {
           <div>
 
             {
-              filtered_Buildings.map((building, index) => (
+              Buildings.map((building, index) => (
                 <div key={index}>
                   <Polygon path={building.coordArray} options={{strokeColor: '#000000', fillColor:'#A0A0FF' }} />
                 </div>
               ))
             }
-        
+
+            <div className={classes.homeFABdiv}>
+              { window.sessionStorage.getItem("userToken") === null && 
+                <Fab variant="extended" className={classes.homeFAB} href='/login'>
+                  Log In
+                </Fab> 
+              }
+
+              { window.sessionStorage.getItem("userToken") !== null && 
+                <Fab variant="extended" className={classes.homeFAB} href='/schedule'>
+                  My Schedule
+                </Fab> 
+              }
+
+              { window.sessionStorage.getItem("userToken") !== null && 
+                <Fab variant="extended" className={classes.homeFAB} href='/favorites'>
+                  Favorites
+                </Fab> 
+              }
+
+              { window.sessionStorage.getItem("userToken") !== null && 
+                <Fab variant="extended" className={classes.homeFAB} href='/modifyAccount'>
+                  Account Settings
+                </Fab> 
+              }
+
+              { window.sessionStorage.getItem("userToken") !== null && 
+                <Fab variant="extended" className={classes.homeFAB} onClick={() => { window.sessionStorage.removeItem("userToken");}} href='/'>
+                  Sign Out
+                </Fab> 
+              }
+            </div>
+
+            
+
           </div>
         }
         <></>
