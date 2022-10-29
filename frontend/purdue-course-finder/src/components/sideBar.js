@@ -13,28 +13,26 @@ function SideBar(props) {
         onClick: PropTypes.func,
     };
 
+    const [loggedIn, setLoggedIn] = useState(false);
     const [objects, setObjects] = useState([]);
     const [sortOption, setSortOption] = useState("asc");
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        handleChange({key: 'Enter'})
-    }, []);
+        if (window.sessionStorage.getItem("userToken") != null) {
+            setLoggedIn(true);
+        }
+        handleChange({key: 'Enter'});
+    }, [loggedIn]);
     
     function populateSidebar(filter_option) {
-        const config = {
-            headers:{
-              "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
-            }
-        };
-
         let url = "";
         console.log("Filter: " + filter_option)
         console.log("Search string: " + searchString)
         // Check which filter option is needed
         if (filter_option === 'Building') {
             // Axios Information
-            url = `${serverURL}/buildings/`;
+            url = `${serverURL}/buildings`;
     
         } else if (filter_option === 'Classroom') {
             // Axios Information
@@ -48,20 +46,12 @@ function SideBar(props) {
             // Axios Information
             url = `${serverURL}/courses/` + searchString;
 
-        } else if (filter_option === 'Section') {
-            if (searchString.trim() === '') {
-                setLoading(false);
-                return;
-            }
-            // Axios Information
-            url = `${serverURL}/sections/` + searchString;
-
         } else {
             console.log("updateSidebar received incorrect filter option!");
             return;
         }
         // Query Backend
-        axios.get(url, config).then((response) => {
+        axios.get(url).then((response) => {
             let data = response.data;
             
             if (filter_option === 'Building') 
@@ -70,8 +60,6 @@ function SideBar(props) {
                 ;
             else if (filter_option === 'Course')
                 data.sort((a, b) => a.courseNumber - b.courseNumber);
-            else if (filter_option === 'Section')
-                ;
                
             if (sortOption === "des")
                 data = data.reverse();
@@ -113,10 +101,9 @@ function SideBar(props) {
         const handleChange = (e) => {
             setLoading(true);
             if (e.filter === "Course") {
-                filter = "Section";
+                //filter = "Section";
                 prevDesc = itemHead;
                 searchString = e.searchStr;
-                document.getElementById("section").checked = true;
             }
             if (e.filter === "Building") {
                 //filter = "Classroom";
@@ -131,6 +118,11 @@ function SideBar(props) {
 
         const changeFavorite = (e) => {
             console.log(e)
+            const config = {
+                headers:{
+                    "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+                }
+            };
         }
 
     
@@ -148,9 +140,12 @@ function SideBar(props) {
                         {props.secondRow}
                     </p>
                 </div>
-                <div className = "favoriteStar" >
-                    <input className = "star" type="checkbox" onClick={(e) => {e.stopPropagation(); changeFavorite(e)}}></input>
-                </div>
+                {loggedIn && (
+                    <div className = "favoriteStar" >
+                        <input className = "star" type="checkbox" onClick={(e) => {e.stopPropagation(); changeFavorite(e)}}></input>
+                    </div>
+                )}
+
             </div>
         );
     }
@@ -299,14 +294,6 @@ function SideBar(props) {
                                     </label>
                                     <p>&nbsp;</p>
 
-                                    <label className="text">
-                                        <input type="radio"
-                                        id="section"
-                                        name="filter_option"
-                                        value="Section"
-                                        data-testid="filter_section" />
-                                        Section
-                                    </label>
                                     <hr></hr>
                                     <div className="sortBy" data-testid="sort_container">
                                         Sort By:

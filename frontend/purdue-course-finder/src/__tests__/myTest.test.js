@@ -144,7 +144,6 @@ it('Sidebar Filter Pop-up renders without crashing', () => {
     const filter_building = screen.getByTestId('filter_building');
     const filter_classroom = screen.getByTestId('filter_classroom');
     const filter_course = screen.getByTestId('filter_course');
-    const filter_section = screen.getByTestId('filter_section');
     const sort_container = screen.getByTestId('sort_container');
     const sort_asc = screen.getByTestId('sort_asc');
     const sort_des = screen.getByTestId('sort_des');
@@ -157,7 +156,6 @@ it('Sidebar Filter Pop-up renders without crashing', () => {
     expect(filter_container).toContainElement(filter_building);
     expect(filter_container).toContainElement(filter_classroom);
     expect(filter_container).toContainElement(filter_course);
-    expect(filter_container).toContainElement(filter_section);
     expect(filter_container).toContainElement(sort_container);
     expect(sort_container).toContainElement(sort_asc);
     expect(sort_container).toContainElement(sort_des);

@@ -21,14 +21,23 @@ html, body, #root {
 
 .MainContent {
   display: flex;
+  position: relative;
 }
+
 .sideBar {
-  width: 25%;
+  max-width: 50%;
+  min-width: 250px;
+  width: 30%;
   height: 100vh;
+  resize: horizontal;
+  overflow: auto;
+  z-index: 1;
+  position: absolute;
+  background-color: #EBE8D7;
 }
 
 .map {
-  width: 75%;
+  width: 100%;
   background-color: white;
-  
+  position:absolute;
 }
