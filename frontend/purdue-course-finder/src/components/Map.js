@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { GoogleMap, useJsApiLoader} from '@react-google-maps/api';
-import { Marker, Polyline, Polygon } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker, Polyline, Polygon } from '@react-google-maps/api';
 import { Fab, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -11,9 +10,6 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#9D8446',
     },
     margin: theme.spacing(1),
-    // position: 'fixed',
-    // right: theme.spacing(2),
-    // top: theme.spacing(1),
     padding: 20,
   },
   homeFABdiv: {
@@ -93,7 +89,6 @@ function Map(props) {
         
 
         { /* Child components, such as markers, info windows, etc. */
-
           // This div is necessary as a parent element
           <div>
 
@@ -136,8 +131,6 @@ function Map(props) {
                 </Fab> 
               }
             </div>
-
-            
 
           </div>
         }

@@ -6,12 +6,14 @@ import './index.css';
 import Home from './components/Home.js';
 import Login from './components/loginPage.js';
 import Signup from './components/signupPage.js';
-import Tutorial from './components/tutorialPage.js';
 import AcctDelete from './components/deleteAcct.js';
+import ModifyAcnt from './components/modifyAccount.js';
+import Tutorial from './components/tutorialPage.js';
+import Schedule from './components/Schedule.js';
+import Favorites from './components/Favorites.js';
 import Courses from './components/Courses.js';
 import Sections from './components/Sections.js';
 import Subjects from './components/Subjects.js';
-import ModifyAcnt from './components/modifyAccount.js';
 import Map from './components/Map.js';
 
 export const serverURL = 'https://localhost:8443';
@@ -29,6 +31,10 @@ ReactDOM.render(
           <Route path='/deleteacct' element={<AcctDelete/>} />
           <Route path='/modifyAccount' element={<ModifyAcnt />} />
           <Route path='/tutorial' element={<Tutorial />} />
+          <Route path='/schedule' element={<Schedule />} />
+          <Route path='/favorites' element={<Favorites />} />
+
+          {/* Below Routes are Temporary */}
           <Route path='/courses/:id' element={<Courses />} />
           <Route path='/sections/:id' element={<Sections />} />
           <Route path='/subjects' element={<Subjects />} />

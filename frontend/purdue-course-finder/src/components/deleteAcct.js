@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { serverURL } from '../index.js';
-import "./deleteAcct.css";
-import 'reactjs-popup/dist/index.css';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import 'reactjs-popup/dist/index.css';
+import "./deleteAcct.css";
+import { serverURL } from '../index.js';
 
 function printButtonPress() {
     var url = `${serverURL}/auth/delete-user`;
@@ -15,6 +16,7 @@ function printButtonPress() {
     axios.delete(url, config).then((response) => {
         // const data = response.data;
         // setEmail(data);
+        window.sessionStorage.removeItem("userToken");
         console.log("Account successfully deleted");
     });
     // axios({
@@ -29,10 +31,19 @@ function returnButton (value) {
 }
 
 function DeleteAcct() {
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState('');
 
     useEffect(() => {
-        console.log("Running useEffect()");
+        if (window.sessionStorage.getItem("userToken") === null) {
+            //user is not logged in, redirect to /login
+            navigate('/login');
+            return;
+        }
+
+        navigate('/deleteacct');
+        
         var url = `${serverURL}/auth/user`;
         const config = {
             headers:{

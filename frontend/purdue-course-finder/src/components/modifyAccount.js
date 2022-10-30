@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./modifyAccount.css"
 
 import { serverURL } from '../index.js';
@@ -13,8 +14,15 @@ function ModifyAccount() {
     const [email, setEmail] = useState("");
     const [password, setPass] = useState(".........");
 
+    const navigate = useNavigate();
+
     useEffect(() => {
-        console.log("Running useEffect()");
+        if (window.sessionStorage.getItem("userToken") === null) {
+            //user is not logged in, redirect to /login
+            navigate('/login');
+            return;
+        }
+        
         var url = `${serverURL}/auth/user`;
         const config = {
             headers:{

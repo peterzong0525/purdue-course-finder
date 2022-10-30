@@ -1,7 +1,7 @@
-import "../App.css";
 import React, { useState } from 'react';
 import SideBar from './sideBar.js';
 import Map from './Map.js';
+import "../App.css";
 
 function Home() {
   const [building, setBuilding] = useState('');
