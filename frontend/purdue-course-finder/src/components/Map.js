@@ -93,7 +93,7 @@ function Map(props) {
           <div>
 
             {
-              Buildings.map((building, index) => (
+              filtered_Buildings.map((building, index) => (
                 <div key={index}>
                   <Polygon path={building.coordArray} options={{strokeColor: '#000000', fillColor:'#A0A0FF' }} />
                 </div>

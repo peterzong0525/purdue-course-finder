@@ -41,6 +41,7 @@ function SideBar(props) {
         } else if (filter_option === 'Course') {
             if (searchString.trim() === '') {
                 setLoading(false);
+                setObjects([]);
                 return;
             }
             // Axios Information
@@ -49,6 +50,7 @@ function SideBar(props) {
         } else if (filter_option === 'Section') {
             if (searchString.trim() === '') {
                 setLoading(false);
+                setObjects([]);
                 return;
             }
             // Axios Information
@@ -142,6 +144,18 @@ function SideBar(props) {
                     "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
                 }
             };
+            let url = "";
+            if (e.category === "Course")
+                url = `${serverURL}/favorites/courses/` + e.id;
+            else if (e.category === "Section")
+                url = `${serverURL}/favorites/sections/` + e.id;
+
+            axios.post(url, config).then((response) => {
+                console.log(response)
+            }).catch((error) => {
+                console.log(error);
+            });
+
         }
 
     
@@ -164,7 +178,7 @@ function SideBar(props) {
                 </div>
                 {loggedIn && (
                     <div className = "favoriteStar" >
-                        <input className = "star" type="checkbox" onClick={(e) => {e.stopPropagation(); changeFavorite(e)}}></input>
+                        <input className = "star" type="checkbox" onClick={(e) => {e.stopPropagation(); changeFavorite({category: dataType, id: dataID})}}></input>
                     </div>
                 )}
 
