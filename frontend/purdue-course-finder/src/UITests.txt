@@ -77,3 +77,25 @@ Testing Buildings From Sidebar to Map:
     outline of that building on the map. Confirm the shape is where the building actually is. Repeat these steps with other
     buildings on Purdue's campus and confirm their outlines too.
 
+Testing Homepage Floating Buttons:
+    There are a collection of floating buttons that appear in the upper right corner of the home page of our application. 
+    These buttons are for logging in, signing out, accessing the account settings page, accessing the favorites page, and 
+    accessing the user schedule page. The Log In button only appears if you are not currently logged into an account, and 
+    the other buttons only appear if you are currently loggen into an account. When loading the application initially, 
+    you should not be logged into an account. Therefore, the only button that appears in the top right is the "LOG IN" 
+    button. Clicking this button leads to the login page (See above "Testing Account Login" section for more info). 
+    Once logged in, the "LOG IN" button disappears, and the following buttons appear in the top right of the homepage 
+    (from right to left): "SIGN OUT", "ACCOUNT SETTINGS", "FAVORITES", and "MY SCHEDULE". Clicking "MY SCHEDULE" leads to
+    the user schedule page. Clicking "FAVORITES" leads to the user favorites page. Clicking "ACCOUNT SETTINGS" leads to the 
+    modify account page. Clicking "SIGN OUT" logs the user out of the application and reloads the homepage. Once reloaded,
+    these four buttons will disappear and the "LOG IN" button will appear. Also, the star icon buttons on each sidebar 
+    element will only appear when the user is logged in, and disappear when the user logs out. 
+
+Testing Login Redirection:
+    Navigate to the '/deleteacct', '/modifyAccount', '/schedule', and '/favorites' pages while logged in to ensure that they
+    load as expected. Using the button on the homepage, sign out of your current account. Navigate to each of the four pages
+    listed above and see that they redirect to the login page. 
+    
+    This can also be tested by navigating to these pages when first loading the application before ever logging in, and they
+    will each still redirect to the login page.
+

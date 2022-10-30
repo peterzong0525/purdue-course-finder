@@ -85,7 +85,7 @@ function SideBar(props) {
             setLoading(false);
             
         }).catch((error) => {
-            console.log(error);
+            // console.log(error);
             setLoading(false);
         });
 
@@ -190,7 +190,10 @@ function SideBar(props) {
         if (e.key === 'Enter') {
             setLoading(true);
             // Get search string from text field
-            let searchStr = document.getElementById('search-input').value;
+            var searchStr = null;
+            if (document.getElementById('search-input') !== null) {
+                searchStr = document.getElementById('search-input').value;
+            }            
 
             // Get current filter option
             filter = document.querySelector('input[name="filter_option"]:checked');
