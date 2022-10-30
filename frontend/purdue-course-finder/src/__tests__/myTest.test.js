@@ -83,7 +83,7 @@ it('Login page renders without crashing', () => {
 });
 
 it('Modify account page renders without crashing', () => {
-    render(<Modify />)
+    render(<BrowserRouter><Modify /></BrowserRouter>)
     expect(screen.getByTestId('modify_account')).toBeInTheDocument();
     expect(screen.getByTestId('modify_form')).toBeInTheDocument();
     expect(screen.getByTestId('noedit_buttons')).toBeInTheDocument();
@@ -92,7 +92,7 @@ it('Modify account page renders without crashing', () => {
 });
 
 it('Delete account page renders without crashing', () => {
-    render(<Delete />)
+    render(<BrowserRouter><Delete /></BrowserRouter>)
 
     // On page normally
     expect(screen.getByTestId('delete_parent')).toBeInTheDocument();
@@ -133,7 +133,6 @@ it('Sidebar Filter Pop-up renders without crashing', () => {
     expect(screen.getByTestId('filter_building')).toBeInTheDocument();
     expect(screen.getByTestId('filter_classroom')).toBeInTheDocument();
     expect(screen.getByTestId('filter_course')).toBeInTheDocument();
-    expect(screen.getByTestId('filter_section')).toBeInTheDocument();
     expect(screen.getByTestId('sort_asc')).toBeInTheDocument();
     expect(screen.getByTestId('sort_des')).toBeInTheDocument();
 
