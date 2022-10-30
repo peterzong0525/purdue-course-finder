@@ -10,6 +10,6 @@ services:
     build: .
     image: purdue-course-finder:latest
     ports:
-      - "80:8080"
+      - "8443:8443"
     depends_on:
       - postgresdb
