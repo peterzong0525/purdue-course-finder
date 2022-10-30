@@ -31,6 +31,7 @@ public class PCFUserDetailsService implements UserDetailsService {
         // This is worth returning to later.
         Hibernate.initialize(user.getFavoriteCourses());
         Hibernate.initialize(user.getFavoriteSections());
+        Hibernate.initialize(user.getFavoriteBuildings());
         
         return new PCFUserDetails(user);
     }

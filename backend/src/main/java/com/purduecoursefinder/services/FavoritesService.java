@@ -9,8 +9,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.purduecoursefinder.models.User;
+import com.purduecoursefinder.models.dto.BuildingDTO;
 import com.purduecoursefinder.models.dto.CourseDTO;
 import com.purduecoursefinder.models.dto.SectionDTO;
+import com.purduecoursefinder.repositories.BuildingRepository;
 import com.purduecoursefinder.repositories.CourseRepository;
 import com.purduecoursefinder.repositories.SectionRepository;
 import com.purduecoursefinder.repositories.UserRepository;
@@ -27,6 +29,9 @@ public class FavoritesService {
     @Autowired
     private UserRepository userRepository;
     
+    @Autowired
+    private BuildingRepository buildingRepository;
+    
     public void addFavoriteCourse(UUID courseId) {
         User user = ((PCFUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
         user.getFavoriteCourses().add(courseRepository.findById(courseId).orElseThrow());
@@ -36,6 +41,12 @@ public class FavoritesService {
     public void addFavoriteSection(UUID sectionId) {
         User user = ((PCFUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
         user.getFavoriteSections().add(sectionRepository.findById(sectionId).orElseThrow());
+        userRepository.save(user);
+    }
+    
+    public void addFavoriteBuilding(UUID buildingId) {
+        User user = ((PCFUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+        user.getFavoriteBuildings().add(buildingRepository.findById(buildingId).orElseThrow());
         userRepository.save(user);
     }
     
@@ -49,6 +60,11 @@ public class FavoritesService {
         return user.getFavoriteSections().stream().map(section -> SectionDTO.fromSection(section)).collect(Collectors.toList());
     }
     
+    public List<BuildingDTO> getFavoriteBuildings() {
+        User user = ((PCFUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+        return user.getFavoriteBuildings().stream().map(building -> BuildingDTO.fromBuilding(building)).collect(Collectors.toList());
+    }
+    
     public void removeFavoriteCourse(UUID courseId) {
         User user = ((PCFUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
         user.getFavoriteCourses().removeIf(filter -> filter.getCourseId().equals(courseId));
@@ -58,6 +74,12 @@ public class FavoritesService {
     public void removeFavoriteSection(UUID sectionId) {
         User user = ((PCFUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
         user.getFavoriteSections().removeIf(filter -> filter.getSectionId().equals(sectionId));
+        userRepository.save(user);
+    }
+    
+    public void removeFavoriteBuilding(UUID buildingId) {
+        User user = ((PCFUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+        user.getFavoriteBuildings().removeIf(filter -> filter.getBuildingId().equals(buildingId));
         userRepository.save(user);
     }
 }
