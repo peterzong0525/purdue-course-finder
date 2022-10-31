@@ -1,0 +1,32 @@
+=== Weekly Team Report (Team 9: Purdue Course Finder) ===
+
+Week 5 (Summary) (Scrum Master: Alex Kobus)
+10/25/22 - 3.5 hours - Commit f350c8c - Alex P: Generate Geographical Coordinates for Buildings
+10/26/22 - 2 hours - Commit 5db688e - Peter: Set outline for sending building data from sidebar to map component
+10/26/22 - 3 hours - Commit 9c7dbe7 - Alex P: Generate Polygon Building Shapes 
+10/26/22 - 2 hours - Commit 77c5abe - Alex P: Display Shapes on Map 
+10/26/22 - 1 hours - Commit 2322e7e - Peter: Added favoriting star UI in sidebar
+10/27/22 - 1.5 hours - Commit 407df1a - Tommy: Added /buildings endpoint
+10/27/22 - 2 hours - Commit 7092c1a - Peter: Added building to sidebar, filters buildings
+10/28/22 - 1.5 hours - Commit 8ec5435 - Alex P: Building Highlight Tests
+10/28/22 - 1 hours - Commit f4b057a - Peter: Make sidebar resizable, remove sidebar login requirement, remove section filter
+10/29/22 - 2 hours - Commit d740226 - Peter: Edited display info for buildings, courses, and sections + adjust section sorting
+10/29/22 - 3 hours - Commit 6dc1dfa - Alex K: Add buttons to the homepage for Login, Logout, account settings, favorites page, and schedule page; make these buttons appear depending on whether the user is logged in or not
+10/29/22 - 3 hours - Commit 70c9d7b - Alex K: Check for login token on pages that require accounts & redirect to the login page if attempting to access a restricted page while not logged in, Create components & routes for yet-to-be-implemented favorites & user schedule pages and implement token checking & redirection if not logged in
+10/30/22 - 4 hours - Commit 343f1b0 - Alex K: Testing login redirection and homepage buttons & fixing bugs in unit tests 
+10/30/22 - 1 hours - Commit 04bb118 - Tommy: Added ability to favorite buildings in the backend
+10/30/22 - 4 hours - Commit a346c51 - Tommy: Added tests for controllers
+10/30/22 - 3 hours - Commit 44d788b - Peter: Connected sidebar favorites to backend
+10/30/22 - 1 hour - Commit 80fa53a - Tommy: Initial containerization of frontend
+10/30/22 - 1.5 hours - Commit cc5ad80 Tommy: Initial CI for Automated testing on GitHub
+
+Week 6 (Plan) (Scrum Master: Alex Kobus)
+[Meetings]
+10/31/22 - Discuss Week 5 Progress & what needs to be completed before the Sprint 2 Presentation 
+11/2/22 - Discuss plan for Sprint 2 Presentation & prepare for presentation
+
+[Individual Goals]
+Alex K: Link sidebar filtering to the map component, pan to a building and change its highlight color when it is selected from the sidebar
+Alex P: finish adding building highlights and names to the map display
+Tommy: Finish CI for Automated testing on GitHub, AWS deployment
+Peter: Create the favorites page
