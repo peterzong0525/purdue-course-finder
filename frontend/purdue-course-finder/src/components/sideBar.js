@@ -27,16 +27,19 @@ function SideBar(props) {
     
     function populateSidebar(filter_option) {
         let url = "";
+        let getFavUrl = "";
+
         console.log("Filter: " + filter_option)
         console.log("Search string: " + searchString)
+
         // Check which filter option is needed
         if (filter_option === 'Building') {
-            // Axios Information
             url = `${serverURL}/buildings`;
+            getFavUrl = `${serverURL}/favorites/buildings`;
     
         } else if (filter_option === 'Classroom') {
-            // Axios Information
             url = `${serverURL}/classrooms`;
+            getFavUrl = `${serverURL}/favorites/classrooms`;
 
         } else if (filter_option === 'Course') {
             if (searchString.trim() === '') {
@@ -44,8 +47,9 @@ function SideBar(props) {
                 setObjects([]);
                 return;
             }
-            // Axios Information
+
             url = `${serverURL}/courses/` + searchString;
+            getFavUrl = `${serverURL}/favorites/courses`;
         
         } else if (filter_option === 'Section') {
             if (searchString.trim() === '') {
@@ -53,23 +57,21 @@ function SideBar(props) {
                 setObjects([]);
                 return;
             }
-            // Axios Information
+
             url = `${serverURL}/sections/` + searchString;
+            getFavUrl = `${serverURL}/favorites/sections`;
+
         } else {
             console.log("updateSidebar received incorrect filter option!");
             return;
         }
-        // Query Backend
-        const config = {
-            headers:{
-                "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
-            }
-        };
+
+        // Query Backend        
         console.log("Url: " + url);
         axios.get(url).then((response) => {
             let data = response.data;
             
-            if (filter_option === 'Building') {
+            if (filter_option === 'Building') {{
                 data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
 
                 //remove duplicates
@@ -78,33 +80,67 @@ function SideBar(props) {
                 for (let i = 1; i < data.length; i++) {
                     if (data[i].ShortCode.localeCompare(data[i-1].ShortCode) !== 0) {
                         tmp.push(data[i]);
+            }
                     }
                 }
                 data = tmp;
-            } else if (filter_option === 'Classroom') {
-                // ;
-            } else if (filter_option === 'Course') {
+            } else if (filter_option === 'Classroom') { {
+                console.log("todo")// ;
+            }
+            } else if (filter_option === 'Course') { {
                 data.sort((a, b) => a.courseNumber - b.courseNumber);
-            } else if (filter_option === 'Section') {
+            }
+            else if (filter_option === 'Section') {
                 data.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
-            } 
+            }
 
             if (sortOption === "des") {
                 data = data.reverse();
-            } 
-            console.log(data)
-            setObjects(data);
-            setLoading(false);
+
             
+
+            // If user is logged in, get their favorites
+            console.log("Get favorites url: " + getFavUrl);
+            if (loggedIn) {
+                const config = {
+                    headers:{
+                        "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+                    }
+                };
+                axios.get(getFavUrl, config).then((response) => {
+                    let favorites = response.data;
+                    console.log(favorites);
+
+                    for (let i = 0; i < data.length; i++) {
+                        if (favorites.some(e => e.Id === data[i].Id)) {
+                            data[i]['isFavorite'] = true;
+                        } else {
+                            data[i]['isFavorite'] = false;
+                        }
+                    }
+
+                    console.log(data)
+                    setObjects(data);
+                    setLoading(false);
+                }).catch((error) => {
+                    console.log(error);
+                    setLoading(false);
+                });
+            } else {
+                setObjects(data);
+                setLoading(false);
+            }            
         }).catch((error) => {
-            // console.log(error);
+            console.log(error);
             setLoading(false);
         });
+
+
 
     }
 
 
-    function setItem(itemHead_in, firstRow_in, secondRow_in, thirdRow_in, dataType, dataID) {
+    function setItem(itemHead_in, firstRow_in, secondRow_in, thirdRow_in, dataType, dataID, isFavorite) {
         return(
             <ListItem key = {dataID}
                     itemHead = {itemHead_in}
@@ -113,6 +149,7 @@ function SideBar(props) {
                     thirdRow = {thirdRow_in}
                     dataType = {dataType}
                     dataID = {dataID}
+                    isFavorite = {isFavorite}
                     onClick = {(e)=> {props.onClick(e)}}/>
         );
     }
@@ -125,10 +162,11 @@ function SideBar(props) {
             thirdRow: PropTypes.string,
             dataType: PropTypes.string,
             dataID: PropTypes.string,
+            isFavorite: PropTypes.bool,
             onClick: PropTypes.func,
         };
     
-        const [itemHead, firstRow, secondRow, thirdRow, dataType, dataID] = [props.itemHead, props.firstRow, props.secondRow, props.thirdRow, props.dataType, props.dataID];
+        let [itemHead, firstRow, secondRow, thirdRow, dataType, dataID, isFavorite] = [props.itemHead, props.firstRow, props.secondRow, props.thirdRow, props.dataType, props.dataID, props.isFavorite];
     
         const handleChange = (e) => {
             setLoading(true);
@@ -151,19 +189,51 @@ function SideBar(props) {
 
         const changeFavorite = (e) => {
             console.log(e)
-            const config = {
+            let method = "";
+            let url = "";
+            if (e.category === "Building") {
+                url = `${serverURL}/favorites/buildings/${e.id}`;
+                if (e.isFavorite) {
+                    method = "DELETE";
+                } else {
+                    method = "POST";
+                }
+                
+            }
+            else if (e.category === "Classroom") {
+                // url = `${serverURL}/favorites/rooms/${e.id}`;
+                // if (e.isFavorite) {
+                //     method = "DELETE";
+                // } else {
+                //     method = "POST";
+                // }
+            }
+            else if (e.category === "Course") {
+                url = `${serverURL}/favorites/courses/${e.id}`;
+                if (e.isFavorite) {
+                    method = "DELETE";
+                } else {
+                    method = "POST";
+                }
+            }
+            else if (e.category === "Section"){
+                url = `${serverURL}/favorites/sections/${e.id}`;
+                if (e.isFavorite) {
+                    method = "DELETE";
+                } else {
+                    method = "POST";
+                }
+            }
+
+            axios({
+                url: url,
                 headers:{
                     "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
-                }
-            };
-            let url = "";
-            if (e.category === "Course")
-                url = `${serverURL}/favorites/courses/` + e.id;
-            else if (e.category === "Section")
-                url = `${serverURL}/favorites/sections/` + e.id;
-
-            axios.post(url, config).then((response) => {
-                console.log(response)
+                },
+                method: method,
+            }).then((response) => {
+                isFavorite = !e.isFavorite;
+                //console.log(response)
             }).catch((error) => {
                 console.log(error);
             });
@@ -190,7 +260,12 @@ function SideBar(props) {
                 </div>
                 {loggedIn && (
                     <div className = "favoriteStar" >
-                        <input className = "star" type="checkbox" onClick={(e) => {e.stopPropagation(); changeFavorite({category: dataType, id: dataID})}}></input>
+                        {isFavorite && (
+                            <input className = "star" type="checkbox" defaultChecked = "checked" onClick={(e) => {e.stopPropagation(); changeFavorite({category: dataType, id: dataID, isFavorite: isFavorite})}}></input>
+                        )}
+                        {!isFavorite && (
+                            <input className = "star" type="checkbox" onClick={(e) => {e.stopPropagation(); changeFavorite({category: dataType, id: dataID, isFavorite: isFavorite})}}></input>
+                        )}
                     </div>
                 )}
 
@@ -233,7 +308,9 @@ function SideBar(props) {
                         course.title, 
                         course.creditHours + " Credit Hours", 
                         "Description: " + ((course.description.length > 0) ? course.description : "None"), 
-                        "Course", course.courseId)}
+                        "Course",
+                        course.courseId,
+                        course.isFavorite)}
                 </div>
             ))
         } else if (filter === 'Section') {
@@ -242,8 +319,10 @@ function SideBar(props) {
                     {setItem(prevDesc + " - " + section.Type + " - " + section.Crn, 
                     "Meeting day(s): " + section.Meetings[0].DaysOfWeek, 
                     "Instructor: " + section.Meetings[0].Instructors[0].Name, 
-                    "Location: " + section.Meetings[0].Room.Building.ShortCode + " " + section.Meetings[0].Room.Number, 
-                    "Section", section.Id)}
+                    "Location: " + section.Meetings[0].Room.Building.Name, 
+                    "Section", 
+                    section.Id,
+                    section.isFavorite)}
                 </div>
             ))
         } else if (filter === 'Building') {
@@ -269,7 +348,9 @@ function SideBar(props) {
                         building.Name, 
                         "", 
                         "",
-                        "Building", building.Id)}
+                        "Building", 
+                        building.Id,
+                        building.isFavorite)}
                         {/* TODO: Need rooms to also be returned */}
                 </div>
             ))
@@ -281,7 +362,9 @@ function SideBar(props) {
                         classroom.Building.Name, 
                         classroom.Meetings.length + " meetings per week", 
                         "",
-                        "Classroom", classroom.classroomId)}
+                        "Classroom", 
+                        classroom.classroomId,
+                        classroom.isFavorite)}
                 </div>
             ))
         } else {
