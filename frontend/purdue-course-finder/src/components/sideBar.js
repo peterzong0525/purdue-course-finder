@@ -217,7 +217,7 @@ function SideBar(props) {
         if (filter === 'Course') {
             return objects.map((course, index) => (
                 <div key={index}>
-                    {setItem(course.subjectAbbreviation + course.courseNumber, 
+                    {setItem(course.subjectAbbreviation + " " + course.courseNumber, 
                         course.title, 
                         course.creditHours + " Credit Hours", 
                         "Description: " + ((course.description.length > 0) ? course.description : "None"), 
@@ -230,7 +230,7 @@ function SideBar(props) {
                     {setItem(prevDesc + " - " + section.Type + " - " + section.Crn, 
                     "Meeting day(s): " + section.Meetings[0].DaysOfWeek, 
                     "Instructor: " + section.Meetings[0].Instructors[0].Name, 
-                    "Location: " + section.Meetings[0].Room.Building.Name, 
+                    "Location: " + section.Meetings[0].Room.Building.ShortCode + " " + section.Meetings[0].Room.Number, 
                     "Section", section.Id)}
                 </div>
             ))
@@ -239,9 +239,11 @@ function SideBar(props) {
             
             // Filter for buildings with name or shortcode containing search string
             for (let i = 0; i < objects.length; i++) {
-                if (objects[i].Name.includes(searchString) || 
-                    objects[i].ShortCode.includes(searchString)) {
-                    filtered.push(objects[i]);
+                if (searchString !== null && objects[i].Name !== undefined && objects[i].ShortCode !== undefined) {
+                    if (objects[i].Name.toLowerCase().includes(searchString.toLowerCase()) || 
+                        objects[i].ShortCode.toLowerCase().includes(searchString.toLowerCase())) {
+                        filtered.push(objects[i]);
+                    }
                 }
             }
 
@@ -249,13 +251,21 @@ function SideBar(props) {
                 return null;
             }
 
+            //sort by shortcode for initial load (when nothing has been searched yet)
+            if (searchString === "") {
+                filtered = filtered.sort((a,b) => {
+                    return a.ShortCode.localeCompare(b.ShortCode);
+                })
+            }
+
             return filtered.map((building, index) => (
                 <div key={index}>
                     {setItem(building.ShortCode, 
                         building.Name, 
-                        "TODO: Need rooms to also be returned", 
+                        "", 
                         "",
                         "Building", building.Id)}
+                        {/* TODO: Need rooms to also be returned */}
                 </div>
             ))
         } else if (filter === 'Classroom') {
