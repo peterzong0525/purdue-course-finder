@@ -71,7 +71,7 @@ function SideBar(props) {
         axios.get(url).then((response) => {
             let data = response.data;
             
-            if (filter_option === 'Building') {{
+            if (filter_option === 'Building') {
                 data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
 
                 //remove duplicates
@@ -80,21 +80,20 @@ function SideBar(props) {
                 for (let i = 1; i < data.length; i++) {
                     if (data[i].ShortCode.localeCompare(data[i-1].ShortCode) !== 0) {
                         tmp.push(data[i]);
-            }
                     }
                 }
                 data = tmp;
-            } else if (filter_option === 'Classroom') { {
-                console.log("todo")// ;
-            }
-            } else if (filter_option === 'Course') { {
+
+            } else if (filter_option === 'Classroom') {
+                console.log("todo");
+            } else if (filter_option === 'Course') {
                 data.sort((a, b) => a.courseNumber - b.courseNumber);
             }
             else if (filter_option === 'Section') {
                 data.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
             }
 
-            if (sortOption === "des") {
+            if (sortOption === "des") 
                 data = data.reverse();
 
             
