@@ -151,6 +151,8 @@ function generateBuildings() {  // I'm sorry, this function is just a mess
   // Alphabetical A-G
   Buildings.push(new Building("Agricultural & Biological Engr", 
   [{lat: 40.42195,lng: -86.91692},{lat: 40.42148,lng: -86.91692},{lat: 40.42147,lng: -86.91623},{lat: 40.42193,lng: -86.91617}]));
+  Buildings.push(new Building("Armory", 
+  [{lat: 40.42841,lng: -86.91657,},{lat: 40.42841,lng: -86.91595},{lat: 40.42762,lng: -86.91595},{lat: 40.42762,lng: -86.91657}]));
   Buildings.push(new Building("Beering Hall of Lib Arts & Ed", 
   [{lat:40.425915,lng:-86.91648},{lat:40.42522,lng:-86.91648},{lat:40.42522,lng:-86.91612},{lat:40.42533,lng:-86.91593},
     {lat:40.42555,lng:-86.91600},{lat:40.42555,lng:-86.91555},{lat:40.42574,lng:-86.91555},{lat:40.42574,lng:-86.91612},
@@ -158,9 +160,16 @@ function generateBuildings() {  // I'm sorry, this function is just a mess
   Buildings.push(new Building("Brown Laboratory of Chemistry",
   [{lat:40.42642,lng:-86.91228},{lat:40.42642,lng:-86.91131},{lat:40.42649,lng:-86.91123},{lat:40.42667,lng:-86.91123},
     {lat:40.42672,lng:-86.91130},{lat:40.42672,lng:-86.91228}]));
+  Buildings.push(new Building("Chaney-Hale Hall of Science",
+  [{lat:40.428904,lng:-86.915500},{lat:40.428463,lng:-86.914993},{lat:40.428319,lng:-86.915235},{lat:40.428491,lng:-86.915440},
+    {lat:40.428318,lng:-86.915723},{lat:40.428625,lng:-86.916005}]));
   Buildings.push(new Building("Class of 1950 Lecture Hall",
   [{lat:40.42651,lng:-86.91529},{lat:40.42622,lng:-86.91529},{lat:40.42617,lng:-86.91503},{lat:40.42622,lng:-86.91478},
     {lat:40.42651,lng:-86.91479}]));
+  Buildings.push(new Building("Elliott Hall of Music",
+  [{lat:40.42829,lng:-86.91491},{lat:40.42786,lng:-86.91443},{lat:40.42754,lng:-86.91495},{lat:40.42758,lng:-86.91501},
+    {lat:40.42747,lng:-86.91524}, {lat:40.42756,lng:-86.91550}, {lat:40.42773,lng:-86.91558}, {lat:40.42789,lng:-86.915385}, 
+    {lat:40.42795,lng:-86.91544}]));
   Buildings.push(new Building("Ernest C. Young Hall",
   [{lat:40.42338,lng:-86.91077},{lat:40.42233,lng:-86.91077},{lat:40.42233,lng:-86.910480},{lat:40.42338,lng:-86.910480}]));
   Buildings.push(new Building("Felix Haas Hall",
@@ -192,6 +201,8 @@ function generateBuildings() {  // I'm sorry, this function is just a mess
     {lat:40.42364,lng:-86.91008},{lat:40.42348,lng:-86.91008},{lat:40.42347,lng:-86.90987},{lat:40.42358,lng:-86.90987},
     {lat:40.42354,lng:-86.90984},{lat:40.42366,lng:-86.909335},{lat:40.42372,lng:-86.9093575},{lat:40.42372,lng:-86.90926},
     {lat:40.42388,lng:-86.90927}]));
+  Buildings.push(new Building("Johnson Hall of Nursing",
+  [{lat:40.42959,lng:-86.91554},{lat:40.42936,lng:-86.91524},{lat:40.42921,lng:-86.91549},{lat:40.42945,lng: -86.91577}]));
   Buildings.push(new Building("Knoy Hall of Technology",
   [{lat:40.42738,lng:-86.91088},{lat:40.42762,lng:-86.91089},{lat:40.42772,lng:-86.91101},{lat:40.42780,lng:-86.91101},
     {lat:40.42790,lng:-86.91088},{lat:40.42821,lng:-86.91102},{lat:40.42802,lng:-86.91128},{lat:40.42738,lng:-86.91129}]));
