@@ -71,20 +71,30 @@ function SideBar(props) {
         axios.get(url).then((response) => {
             let data = response.data;
             
-            if (filter_option === 'Building') {
-                data.sort((a, b) => a.Name.localeCompare(b.Name));
+            if (filter_option === 'Building') {{
+                data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
+
+                //remove duplicates
+                let tmp = [];
+                tmp.push(data[0])
+                for (let i = 1; i < data.length; i++) {
+                    if (data[i].ShortCode.localeCompare(data[i-1].ShortCode) !== 0) {
+                        tmp.push(data[i]);
             }
-            else if (filter_option === 'Classroom') {
-                console.log("todo");
+                    }
+                }
+                data = tmp;
+            } else if (filter_option === 'Classroom') { {
+                console.log("todo")// ;
             }
-            else if (filter_option === 'Course') {
+            } else if (filter_option === 'Course') { {
                 data.sort((a, b) => a.courseNumber - b.courseNumber);
             }
             else if (filter_option === 'Section') {
                 data.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
             }
 
-            if (sortOption === "des")
+            if (sortOption === "des") {
                 data = data.reverse();
 
             
@@ -294,7 +304,7 @@ function SideBar(props) {
         if (filter === 'Course') {
             return objects.map((course, index) => (
                 <div key={index}>
-                    {setItem(course.subjectAbbreviation + course.courseNumber, 
+                    {setItem(course.subjectAbbreviation + " " + course.courseNumber, 
                         course.title, 
                         course.creditHours + " Credit Hours", 
                         "Description: " + ((course.description.length > 0) ? course.description : "None"), 
@@ -320,9 +330,11 @@ function SideBar(props) {
             
             // Filter for buildings with name or shortcode containing search string
             for (let i = 0; i < objects.length; i++) {
-                if (objects[i].Name.includes(searchString) || 
-                    objects[i].ShortCode.includes(searchString)) {
-                    filtered.push(objects[i]);
+                if (searchString !== null && objects[i].Name !== undefined && objects[i].ShortCode !== undefined) {
+                    if (objects[i].Name.toLowerCase().includes(searchString.toLowerCase()) || 
+                        objects[i].ShortCode.toLowerCase().includes(searchString.toLowerCase())) {
+                        filtered.push(objects[i]);
+                    }
                 }
             }
 
@@ -334,11 +346,12 @@ function SideBar(props) {
                 <div key={index}>
                     {setItem(building.ShortCode, 
                         building.Name, 
-                        "TODO: Need room count to also be returned", 
+                        "", 
                         "",
                         "Building", 
                         building.Id,
                         building.isFavorite)}
+                        {/* TODO: Need rooms to also be returned */}
                 </div>
             ))
         } else if (filter === 'Classroom') {
