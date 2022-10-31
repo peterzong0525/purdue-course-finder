@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.purduecoursefinder.models.dto.BuildingDTO;
 import com.purduecoursefinder.models.dto.CourseDTO;
@@ -51,17 +52,20 @@ public class FavoritesController {
     public void addBuilding(@PathVariable UUID buildingId) {
         favoritesService.addFavoriteBuilding(buildingId);
     }
-    
+
+    @CrossOrigin
     @DeleteMapping("/courses/{courseId}")
     public void removeCourse(@PathVariable UUID courseId) {
         favoritesService.removeFavoriteCourse(courseId);
     }
-    
+
+    @CrossOrigin
     @DeleteMapping("/sections/{sectionId}")
     public void removeSection(@PathVariable UUID sectionId) {
         favoritesService.removeFavoriteSection(sectionId);
     }
-    
+
+    @CrossOrigin
     @DeleteMapping("/buildings/{buildingId}")
     public void removeBuilding(@PathVariable UUID buildingId) {
         favoritesService.removeFavoriteBuilding(buildingId);
