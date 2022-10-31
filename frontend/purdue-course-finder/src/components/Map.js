@@ -95,7 +95,15 @@ function Map(props) {
             {
               Buildings.map((building, index) => (
                 <div key={index}>
-                  <Polygon path={building.coordArray} options={{strokeColor: '#000000', fillColor:'#A0A0FF' }} />
+                  <Polygon path={building.coordArray} options={{strokeColor: '#000000', fillColor:'#FFF72F' }} />
+                </div>
+              ))
+            }
+
+            {
+              filtered_Buildings.map((building, index) => (
+                <div key={index}>
+                  <Polygon path={building.coordArray} options={{strokeColor: '#000000', fillColor:'#0019FA' }} />
                 </div>
               ))
             }
