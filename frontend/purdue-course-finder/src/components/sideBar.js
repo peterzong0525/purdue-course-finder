@@ -71,7 +71,7 @@ function SideBar(props) {
         axios.get(url).then((response) => {
             let data = response.data;
             
-            if (filter_option === 'Building') {{
+            if (filter_option === 'Building') {
                 data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
 
                 //remove duplicates
@@ -80,21 +80,20 @@ function SideBar(props) {
                 for (let i = 1; i < data.length; i++) {
                     if (data[i].ShortCode.localeCompare(data[i-1].ShortCode) !== 0) {
                         tmp.push(data[i]);
-            }
                     }
                 }
                 data = tmp;
-            } else if (filter_option === 'Classroom') { {
-                console.log("todo")// ;
-            }
-            } else if (filter_option === 'Course') { {
+
+            } else if (filter_option === 'Classroom') {
+                console.log("todo");
+            } else if (filter_option === 'Course') {
                 data.sort((a, b) => a.courseNumber - b.courseNumber);
             }
             else if (filter_option === 'Section') {
                 data.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
             }
 
-            if (sortOption === "des") {
+            if (sortOption === "des") 
                 data = data.reverse();
 
             
@@ -112,11 +111,31 @@ function SideBar(props) {
                     console.log(favorites);
 
                     for (let i = 0; i < data.length; i++) {
-                        if (favorites.some(e => e.Id === data[i].Id)) {
-                            data[i]['isFavorite'] = true;
-                        } else {
-                            data[i]['isFavorite'] = false;
+                        let allId = "";
+                        let favId = "";
+                        if (filter_option === 'Building') {
+                            if (favorites.some(e => e.Id === data[i].Id)) {
+                                data[i]['isFavorite'] = true;
+                            } else {
+                                data[i]['isFavorite'] = false;
+                            }
+                        } else if (filter_option === 'Classroom') {
+                            console.log("classrooms");
+                        } else if (filter_option === 'Course') {
+                            if (favorites.some(e => e.courseId === data[i].courseId)) {
+                                data[i]['isFavorite'] = true;
+                            } else {
+                                data[i]['isFavorite'] = false;
+                            }
+                        } else if (filter_option === 'Section') {
+                            if (favorites.some(e => e.Id === data[i].Id)) {
+                                data[i]['isFavorite'] = true;
+                            } else {
+                                data[i]['isFavorite'] = false;
+                            }
                         }
+
+
                     }
 
                     console.log(data)
