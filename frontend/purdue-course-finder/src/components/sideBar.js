@@ -69,17 +69,29 @@ function SideBar(props) {
         axios.get(url).then((response) => {
             let data = response.data;
             
-            if (filter_option === 'Building') 
-                data.sort((a, b) => a.Name.localeCompare(b.Name));
-            else if (filter_option === 'Classroom')
-                ;
-            else if (filter_option === 'Course')
-                data.sort((a, b) => a.courseNumber - b.courseNumber);
-            else if (filter_option === 'Section')
-                data.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
+            if (filter_option === 'Building') {
+                data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
 
-            if (sortOption === "des")
+                //remove duplicates
+                let tmp = [];
+                tmp.push(data[0])
+                for (let i = 1; i < data.length; i++) {
+                    if (data[i].ShortCode.localeCompare(data[i-1].ShortCode) !== 0) {
+                        tmp.push(data[i]);
+                    }
+                }
+                data = tmp;
+            } else if (filter_option === 'Classroom') {
+                // ;
+            } else if (filter_option === 'Course') {
+                data.sort((a, b) => a.courseNumber - b.courseNumber);
+            } else if (filter_option === 'Section') {
+                data.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
+            } 
+
+            if (sortOption === "des") {
                 data = data.reverse();
+            } 
             console.log(data)
             setObjects(data);
             setLoading(false);
@@ -249,13 +261,6 @@ function SideBar(props) {
 
             if (filtered.length === 0) {
                 return null;
-            }
-
-            //sort by shortcode for initial load (when nothing has been searched yet)
-            if (searchString === "") {
-                filtered = filtered.sort((a,b) => {
-                    return a.ShortCode.localeCompare(b.ShortCode);
-                })
             }
 
             return filtered.map((building, index) => (
