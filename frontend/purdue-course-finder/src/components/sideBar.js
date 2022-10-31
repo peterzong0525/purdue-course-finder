@@ -111,11 +111,31 @@ function SideBar(props) {
                     console.log(favorites);
 
                     for (let i = 0; i < data.length; i++) {
-                        if (favorites.some(e => e.Id === data[i].Id)) {
-                            data[i]['isFavorite'] = true;
-                        } else {
-                            data[i]['isFavorite'] = false;
+                        let allId = "";
+                        let favId = "";
+                        if (filter_option === 'Building') {
+                            if (favorites.some(e => e.Id === data[i].Id)) {
+                                data[i]['isFavorite'] = true;
+                            } else {
+                                data[i]['isFavorite'] = false;
+                            }
+                        } else if (filter_option === 'Classroom') {
+                            console.log("classrooms");
+                        } else if (filter_option === 'Course') {
+                            if (favorites.some(e => e.courseId === data[i].courseId)) {
+                                data[i]['isFavorite'] = true;
+                            } else {
+                                data[i]['isFavorite'] = false;
+                            }
+                        } else if (filter_option === 'Section') {
+                            if (favorites.some(e => e.Id === data[i].Id)) {
+                                data[i]['isFavorite'] = true;
+                            } else {
+                                data[i]['isFavorite'] = false;
+                            }
                         }
+
+
                     }
 
                     console.log(data)
