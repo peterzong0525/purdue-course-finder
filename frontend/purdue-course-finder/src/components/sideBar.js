@@ -338,7 +338,7 @@ function SideBar(props) {
                     {setItem(prevDesc + " - " + section.Type + " - " + section.Crn, 
                     "Meeting day(s): " + section.Meetings[0].DaysOfWeek, 
                     "Instructor: " + section.Meetings[0].Instructors[0].Name, 
-                    "Location: " + section.Meetings[0].Room.Building.Name, 
+                    "Location: " + section.Meetings[0].Room.Building.ShortCode + " " + section.Meetings[0].Room.Number, 
                     "Section", 
                     section.Id,
                     section.isFavorite)}
