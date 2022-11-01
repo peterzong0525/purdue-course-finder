@@ -76,7 +76,7 @@ jobs:
         # push it to ECR so that it can
         # be deployed to ECS.
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:$IMAGE_TAG ./frontend/purdue-course-finder
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:latest
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:latest
         
     - name: Build, tag, and push backend image to Amazon ECR
@@ -89,7 +89,7 @@ jobs:
         # push it to ECR so that it can
         # be deployed to ECS.
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:$IMAGE_TAG ./backend
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:latest
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:latest"
 
     - name: Deploy Amazon ECS task definition
