@@ -77,7 +77,7 @@ jobs:
         # be deployed to ECS.
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:latest ./frontend/purdue-course-finder
         docker push $ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:latest
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:latest
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:latest"
         
     - name: Build, tag, and push backend image to Amazon ECR
       id: build-image2
