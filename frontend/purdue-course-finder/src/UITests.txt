@@ -69,13 +69,15 @@ Testing Homepage Map:
 
 Testing Buildings From Sidebar to Map:
     On the main page, notice the sidebar on the left, and the map on the right. On default, the filter is set to Building.
-    Test "Testing Sidebar Filtering" for more information about that. The search bar will allow us to search for all
+    See "Testing Sidebar Filtering" above for more information about that. The search bar will allow us to search for all
     buildings by having an empty string and hitting the search button. Alternatively, you can search for a specific building
-    by typing in its full name, or part of its name. Do this by typing something like "Max W & Maileen Brown Hall", which is
-    the most recent name for the Electrical Engineering building. You can also search just "Pharmacy" to see the Robert Heine
-    Pharamcy Building in the sidebar. For testing the buildings, click on a building in the sidebar. This will highlight the
-    outline of that building on the map. Confirm the shape is where the building actually is. Repeat these steps with other
-    buildings on Purdue's campus and confirm their outlines too.
+    by typing in its full name, part of its name, or its shortcode. Do this by typing something like "Max W & Maileen Brown Hall", 
+    which is the most recent name for the Electrical Engineering building (BHEE). You can also search just "Pharmacy" to see the 
+    Robert Heine Pharamcy Building (RHPH) in the sidebar. You can also search "WALC" to see the Wilmeth Active Learning Center (WALC)
+    in the sidebar. For testing the buildings, click on a building in the sidebar. This will cause the map to pan to the location of 
+    that building, and change the highlight color for that building. Confirm that the shape of the building's highlight is where the 
+    building actually is and that the map panned to the correct highlighted building. Repeat these steps with other buildings on
+    Purdue's campus and confirm the map pans correctly and their highlights display correctly.
 
 Testing Homepage Floating Buttons:
     There are a collection of floating buttons that appear in the upper right corner of the home page of our application. 
