@@ -43,9 +43,9 @@ function Map(props) {
     buildingName: PropTypes.string
   };
 
+  const [map, setMap] = useState(null);
+
   const classes = useStyles();
-   
-  // console.log("Building Name: " + props.buildingName);
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -66,6 +66,10 @@ function Map(props) {
     strokeOpacity: 1.0,
     strokeWeight: 2,
   });
+
+  if (map && filtered_Buildings[0] && filtered_Buildings[0].coordArray[0]) {
+    map.panTo(filtered_Buildings[0].coordArray[0]);
+  }
   
   //<Marker position={{ lat: 40.43066, lng: -86.92358 }} />
   return isLoaded ? (
@@ -85,6 +89,7 @@ function Map(props) {
           fullscreenControl: false,
           gestureHandling: "greedy",
         }}
+        onLoad={map=>setMap(map)}
       >
         
 
@@ -139,7 +144,6 @@ function Map(props) {
                 </Fab> 
               }
             </div>
-
           </div>
         }
         <></>

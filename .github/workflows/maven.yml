@@ -59,7 +59,7 @@ jobs:
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
-        docker build --build-arg REACT_APP_BACKEND_URL="http://purdue-course-finder.us-east-2.elasticbeanstalk.com:8443"  --build-arg REACT_APP_MAPS_API_KEY="${{ secrets.REACT_APP_MAPS_API_KEY }}"" -t $ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:latest ./frontend/purdue-course-finder
+        docker build --build-arg REACT_APP_BACKEND_URL="http://purdue-course-finder.us-east-2.elasticbeanstalk.com:8443"  --build-arg REACT_APP_MAPS_API_KEY="${{ secrets.REACT_APP_MAPS_API_KEY }}" -t $ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:latest ./frontend/purdue-course-finder
         docker push $ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:latest
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:latest"
         
