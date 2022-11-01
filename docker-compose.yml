@@ -1,0 +1,19 @@
+services:
+  postgresdb:
+    image: postgres
+    environment:
+      - POSTGRES_USER=coursefinder
+      - POSTGRES_PASSWORD=coursefinder
+      - POSTGRES_DB=coursefinderDB
+
+  purdue-course-finder:
+    image: 103944692301.dkr.ecr.us-east-2.amazonaws.com/purdue-course-finder-backend
+    ports:
+      - "8443:8443"
+    depends_on:
+      - postgresdb
+
+  purdue-course-finder-frontend:
+    image: 103944692301.dkr.ecr.us-east-2.amazonaws.com/purdue-course-finder
+    ports:
+      - "3000:3000"
