@@ -66,7 +66,7 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build, tag, and push image to Amazon ECR
+    - name: Build, tag, and push frontend image to Amazon ECR
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -78,6 +78,16 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:$IMAGE_TAG ./frontend/purdue-course-finder
         docker push $ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:$IMAGE_TAG
         echo "::set-output name=image1::$ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:$IMAGE_TAG"
+        
+    - name: Build, tag, and push backend image to Amazon ECR
+      id: build-image2
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        # Build a docker container and
+        # push it to ECR so that it can
+        # be deployed to ECS.
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:$IMAGE_TAG ./backend
         docker push $ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:$IMAGE_TAG
         echo "::set-output name=image2::$ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:$IMAGE_TAG"
@@ -88,7 +98,7 @@ jobs:
       with:
         task-definition: ${{ env.ECS_TASK_DEFINITION }}
         container-name: ${{ env.CONTAINER_NAME_FRONTEND }}
-        image: ${{ steps.build-image.outputs.image1 }}
+        image: ${{ steps.build-image.outputs.image }}
         
     - name: Fill in the new backend image ID in the Amazon ECS task definition
       id: task-def2
@@ -96,7 +106,7 @@ jobs:
       with:
         task-definition: ${{ env.ECS_TASK_DEFINITION }}
         container-name: ${{ env.CONTAINER_NAME_BACKEND }}
-        image: ${{ steps.build-image.outputs.image2 }}
+        image: ${{ steps.build-image2.outputs.image }}
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
