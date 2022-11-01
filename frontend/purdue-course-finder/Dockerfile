@@ -1,7 +1,7 @@
+FROM node:18-alpine
+
 ARG BACKEND_URL
 ARG REACT_APP_MAPS_API_KEY
-
-FROM node:18-alpine
 
 WORKDIR /app
 COPY . .
