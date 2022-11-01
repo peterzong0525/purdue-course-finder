@@ -16,7 +16,7 @@ import Sections from './components/Sections.js';
 import Subjects from './components/Subjects.js';
 import Map from './components/Map.js';
 
-export const serverURL = 'https://localhost:8443';
+export const serverURL = process.env.REACT_APP_BACKEND_URL || 'https://localhost:8443';
 
 //const root = ReactDOM.createRoot(document.getElementById('root') || document.createElement('div'));
 

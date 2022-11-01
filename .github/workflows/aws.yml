@@ -24,23 +24,10 @@
 #    See the documentation for each action used below for the recommended IAM policies for this IAM user,
 #    and best practices on handling the access key credentials.
 
-name: Deploy to Amazon ECS
+name: Deploy to AWS
 
 on:
   workflow_dispatch:
-
-env:
-  AWS_REGION: us-east-2                       # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY_FRONTEND: purdue-course-finder        # set this to your Amazon ECR repository name
-  ECR_REPOSITORY_BACKEND: purdue-course-finder-backend        # set this to your Amazon ECR repository name
-  ECS_SERVICE: purdue-course-finder           # set this to your Amazon ECS service name
-  ECS_CLUSTER: purdue-course-finder           # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: task-definition.json   # set this to the path to your Amazon ECS task definition
-                                              # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME_FRONTEND: purdue-course-finder        # set this to the name of the container in the
-                                              # containerDefinitions section of your task definition
-  CONTAINER_NAME_BACKEND: purdue-course-finder-backend        # set this to the name of the container in the
-                                              # containerDefinitions section of your task definition
 
 permissions:
   contents: read
@@ -54,44 +41,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
-
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
-
-    - name: Build, tag, and push frontend image to Amazon ECR
-      id: build-image
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        # Build a docker container and
-        # push it to ECR so that it can
-        # be deployed to ECS.
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:latest ./frontend/purdue-course-finder
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:latest
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:latest"
-        
-    - name: Build, tag, and push backend image to Amazon ECR
-      if: ${{ false }}
-      id: build-image2
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        # Build a docker container and
-        # push it to ECR so that it can
-        # be deployed to ECS.
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:latest ./backend
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:latest
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:latest"
 
     -
       name: Generate Deployment Package

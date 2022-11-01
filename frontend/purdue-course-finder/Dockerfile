@@ -1,3 +1,6 @@
+ARG BACKEND_URL
+ARG REACT_APP_MAPS_API_KEY
+
 FROM node:18-alpine
 
 WORKDIR /app
@@ -7,5 +10,7 @@ RUN npm i
 RUN npm run build
 
 ENV NODE_ENV production
+ENV REACT_APP_BACKEND_URL=$BACKEND_URL
+ENV REACT_APP_MAPS_API_KEY=$REACT_APP_MAPS_API_KEY
 EXPOSE 3000
 CMD ["npx", "serve", "-s", "build"]
