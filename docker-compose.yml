@@ -16,4 +16,4 @@ services:
   purdue-course-finder-frontend:
     image: 103944692301.dkr.ecr.us-east-2.amazonaws.com/purdue-course-finder
     ports:
-      - "3000:3000"
+      - "80:3000"
