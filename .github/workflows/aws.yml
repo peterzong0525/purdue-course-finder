@@ -92,10 +92,17 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:latest
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:latest"
 
-    - name: Deploy Amazon ECS task definition
-      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+    -
+      name: Generate Deployment Package
+      run: zip -r deploy.zip *
+
+    - name: Deploy to EB
+      uses: einaregilsson/beanstalk-deploy@v14
       with:
-        task-definition: ${{ env.ECS_TASK_DEFINITION }}
-        service: ${{ env.ECS_SERVICE }}
-        cluster: ${{ env.ECS_CLUSTER }}
-        wait-for-service-stability: true
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        application_name: purdue-course-finder
+        environment_name: purdue-course-finder-environment
+        version_label: "purdue-course-finder-${{ steps.format-time.outputs.replaced }}"
+        region: us-east-2
+        deployment_package: deploy.zip
