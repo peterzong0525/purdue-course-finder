@@ -189,7 +189,7 @@ function Favorites() {
                 }).catch((error) => {
                     console.log(error)
                 });
-                
+
             } else {
                 console.log("Error: Data type does not exist.")
             }
@@ -234,6 +234,11 @@ function Favorites() {
                 </div>
                 <div className = "listItemContainer">
                     {buildings}
+                    {!buildings && (
+                        <div className = "noFavorites">
+                            You have no favorite buildings.
+                        </div>
+                    )}
                 </div>
             </div>
             <div className = "favList">
@@ -242,6 +247,11 @@ function Favorites() {
                 </div>
                 <div className = "listItemContainer">
                     {classrooms}
+                    {!classrooms && (
+                        <div className = "noFavorites">
+                            You have no favorite classrooms.
+                        </div>
+                    )}
                 </div>
             </div>
             <div className = "favList">
@@ -250,6 +260,11 @@ function Favorites() {
                 </div>
                 <div className = "listItemContainer">
                     {courses}
+                    {!courses && (
+                        <div className = "noFavorites">
+                            You have no favorite courses.
+                        </div>
+                    )}
                 </div>
             </div>
             <div className = "favList">
@@ -258,6 +273,11 @@ function Favorites() {
                 </div>
                 <div className = "listItemContainer">
                     {sections}
+                    {!sections && (
+                        <div className = "noFavorites">
+                            You have no favorite sections.
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
