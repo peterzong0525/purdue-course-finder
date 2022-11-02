@@ -301,6 +301,9 @@ function SideBar(props) {
             // Change sidebar
             searchString = searchStr;
             populateSidebar(filter);
+            if (filter === "Building") {
+                props.onClick('');
+            }
         }
     }
 

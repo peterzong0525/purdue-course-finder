@@ -48,6 +48,7 @@ function Map(props) {
   const [map, setMap] = useState(null);
   const [Buildings, setBuildings] = useState([]);
   const [FilteredBuildings, setFilteredBuildings] = useState([]);
+  let mapZoom = 15; // Default zoom is 15
 
   const classes = useStyles();
 
@@ -57,8 +58,6 @@ function Map(props) {
     preventGoogleFontsLoading: true,
   });
 
-
-  //const [Zoom, setZoom] = useState(15); // 15 is default
 
 
   async function generateBuildings() {
@@ -102,10 +101,16 @@ function Map(props) {
   // Filter for specific building
   useEffect(() => {
     filterBuildings(props.buildingName);
+    mapZoom = 15;
   }, [props.buildingName]);
+
+  if (map) {
+    map.panTo(center);
+  }
 
   if (map && FilteredBuildings[0] && FilteredBuildings[0].coordArray[0]) {
     map.panTo(FilteredBuildings[0].coordArray[0]);
+    mapZoom = 18;
   }
 
   if (Buildings.length === 0) {
@@ -119,7 +124,7 @@ function Map(props) {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={15}
+        zoom={mapZoom}
         //onZoomChanged={() => { console.log(map.getZoom()) }}
         clickableIcons={false}
         tilt={0}
