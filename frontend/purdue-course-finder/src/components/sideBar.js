@@ -74,16 +74,6 @@ function SideBar(props) {
             if (filter_option === 'Building') {
                 data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
 
-                //remove duplicates
-                let tmp = [];
-                tmp.push(data[0])
-                for (let i = 1; i < data.length; i++) {
-                    if (data[i].ShortCode.localeCompare(data[i-1].ShortCode) !== 0) {
-                        tmp.push(data[i]);
-                    }
-                }
-                data = tmp;
-
             } else if (filter_option === 'Classroom') {
                 console.log("todo");
             } else if (filter_option === 'Course') {
@@ -349,7 +339,8 @@ function SideBar(props) {
             
             // Filter for buildings with name or shortcode containing search string
             for (let i = 0; i < objects.length; i++) {
-                if (searchString !== null && objects[i].Name !== undefined && objects[i].ShortCode !== undefined) {
+                if (searchString !== null && searchString !== undefined && objects[i].Name !== undefined && objects[i].ShortCode !== undefined) {
+                    // console.log(searchString, objects[i].Name, objects[i].ShortCode)
                     if (objects[i].Name.toLowerCase().includes(searchString.toLowerCase()) || 
                         objects[i].ShortCode.toLowerCase().includes(searchString.toLowerCase())) {
                         filtered.push(objects[i]);

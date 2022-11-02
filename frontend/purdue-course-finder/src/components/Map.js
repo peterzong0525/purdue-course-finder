@@ -41,8 +41,21 @@ class Building {
 }
 
 function Map(props) {
+  Map.propTypes = {
+    buildingName: PropTypes.string
+  };
+
+  const [map, setMap] = useState(null);
   const [Buildings, setBuildings] = useState([]);
   const [FilteredBuildings, setFilteredBuildings] = useState([]);
+
+  const classes = useStyles();
+
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+    preventGoogleFontsLoading: true,
+  });
 
 
   async function generateBuildings() {
@@ -78,27 +91,15 @@ function Map(props) {
     setFilteredBuildings(filtered);
   }
 
-  Map.propTypes = {
-    buildingName: PropTypes.string
-  };
-
-  const [map, setMap] = useState(null);
-
-  const classes = useStyles();
-
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
-    preventGoogleFontsLoading: true,
-  });
-
   // Fill list Buildings with all building info
   useEffect(() => {
     generateBuildings();
   }, []);
 
   // Filter for specific building
-  //filterBuildings(props.buildingName);
+  useEffect(() => {
+    filterBuildings(props.buildingName);
+  }, [props.buildingName]);
 
   if (map && FilteredBuildings[0] && FilteredBuildings[0].coordArray[0]) {
     map.panTo(FilteredBuildings[0].coordArray[0]);
