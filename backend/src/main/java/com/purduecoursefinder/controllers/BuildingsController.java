@@ -1,5 +1,6 @@
 package com.purduecoursefinder.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class BuildingsController {
     private PurdueApiService purdueApiService;
     
     @GetMapping("/buildings")
-    public List<BuildingDTO> buildings() {
+    public List<BuildingDTO> buildings() throws IOException {
         return purdueApiService.getBuildings();
     }
 }

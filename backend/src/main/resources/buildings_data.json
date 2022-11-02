@@ -1,0 +1,514 @@
+{
+    "buildings": [
+        {
+            "Name": "Seng-Liang Wang Hall",
+            "ShortCode": "WANG",
+            "ShortCode_Location":{"lat":40.43041,"lng":-86.91246},
+            "OutlineCoords": [{"lat":40.43090,"lng":-86.91279},{"lat":40.43074,"lng":-86.91307},{"lat":40.43001,"lng":-86.91230},{"lat":40.43017,"lng":-86.91203}]
+        },
+        {
+            "Name": "Lawson Computer Science Bldg",
+            "ShortCode": "LWSN",
+            "ShortCode_Location":{"lat":40.42779,"lng":-86.91695},
+            "OutlineCoords":[{"lat":40.42743,"lng":-86.91683},{"lat":40.42817,"lng":-86.91683},{"lat":40.42817,"lng":-86.91714},{"lat":40.42743,"lng":-86.91714}]
+        },
+        {
+            "Name": "Forney Hall of Chemical Engr",
+            "ShortCode": "FRNY",
+            "ShortCode_Location":{"lat":40.42953,"lng":-86.91395},
+            "OutlineCoords":[{"lat":40.42913,"lng":-86.91399},{"lat":40.42947,"lng":-86.91345},{"lat":40.42992,"lng":-86.91396},{"lat":40.42960,"lng":-86.91450}]
+        },
+        {
+            "Name": "Grissom Hall",
+            "ShortCode": "GRIS",
+            "ShortCode_Location":{"lat":40.42623,"lng":-86.91084},
+            "OutlineCoords":[{"lat":40.42614,"lng":-86.91063},{"lat":40.42670,"lng":-86.91063},{"lat":40.42670,"lng":-86.91088},{"lat":40.42637,"lng":-86.91088},{"lat":40.42637,"lng":-86.91115},{"lat":40.42614,"lng":-86.91115}]
+        },
+        {
+            "Name": "Knoy Hall of Technology",
+            "ShortCode": "KNOY",
+            "ShortCode_Location":{"lat":40.42757,"lng":-86.91106},
+            "OutlineCoords":[{"lat":40.42738,"lng":-86.91088},{"lat":40.42762,"lng":-86.91089},{"lat":40.42772,"lng":-86.91101},{"lat":40.42780,"lng":-86.91101},{"lat":40.42790,"lng":-86.91088},{"lat":40.42821,"lng":-86.91102},{"lat":40.42802,"lng":-86.91128},{"lat":40.42738,"lng":-86.91129}]
+        },
+        {
+            "Name": "Mathematical Sciences Building",
+            "ShortCode": "MATH",
+            "ShortCode_Location":{"lat":40.42617,"lng":-86.91565},
+            "OutlineCoords":[{"lat":40.42599,"lng":-86.91590},{"lat":40.42599,"lng":-86.91563},{"lat":40.42638,"lng":-86.91562},{"lat":40.42656,"lng":-86.91570},{"lat":40.42656,"lng":-86.91581},{"lat":40.42638,"lng":-86.91589}]
+        },
+        {
+            "Name": "Stewart Center",
+            "ShortCode": "STEW",
+            "ShortCode_Location":{"lat":40.42503,"lng":-86.91269},
+            "OutlineCoords":[{"lat":40.42544,"lng":-86.91350},{"lat":40.42468,"lng":-86.91341},{"lat":40.42470,"lng":-86.91188},{"lat":40.42494,"lng":-86.91186},{"lat":40.42494,"lng":-86.91196},{"lat":40.42541,"lng":-86.91196},{"lat":40.42541,"lng":-86.91240},{"lat":40.42525,"lng":-86.91242},{"lat":40.42525,"lng":-86.91249},{"lat":40.42530,"lng":-86.91249},{"lat":40.42530,"lng":-86.91274},{"lat":40.42545,"lng":-86.91276}]
+        },
+        {
+            "Name": "Materials and Electrical Engr",
+            "ShortCode": "MSEE",
+            "ShortCode_Location":{"lat":40.42934,"lng":-86.91264},
+            "OutlineCoords":[{"lat":40.42970,"lng":-86.91272},{"lat":40.42950,"lng":-86.91305},{"lat":40.42897,"lng":-86.91248},{"lat":40.42917,"lng":-86.91217}]
+        },
+        {
+            "Name": "Wilmeth Active Learning Center",
+            "ShortCode": "WALC",
+            "ShortCode_Location":{"lat":40.42741,"lng":-86.91306},
+            "OutlineCoords":[{"lat":40.42776,"lng":-86.9135},{"lat":40.42776,"lng":-86.91287},{"lat":40.42690,"lng":-86.91352},{"lat":40.42691,"lng":-86.91278}]
+        },
+        {
+            "Name": "Stanley Coulter Hall",
+            "ShortCode": "SC",
+            "ShortCode_Location":{"lat":40.42652,"lng":-86.91436},
+            "OutlineCoords":[{"lat":40.42627,"lng":-86.91468},{"lat":40.42628,"lng":-86.91402},{"lat":40.42676,"lng":-86.91405},{"lat":40.42676,"lng":-86.91467}]
+        },
+        {
+            "Name": "Honors College&Resid North",
+            "ShortCode": "HCRN",
+            "ShortCode_Location":{"lat":40.42680,"lng":-86.91962},
+            "OutlineCoords":[{"lat":40.42718,"lng":-86.91940},{"lat":40.42714,"lng":-86.91994},{"lat":40.42699,"lng":-86.92012},{"lat":40.42690,"lng":-86.92000},{"lat":40.42699,"lng":-86.91986},{"lat":40.42698,"lng":-86.91965},{"lat":40.42662,"lng":-86.91964},{"lat":40.42662,"lng":-86.91987},{"lat":40.42670,"lng":-86.91999},{"lat":40.42660,"lng":-86.92010},{"lat":40.42648,"lng":-86.91994},{"lat":40.42640,"lng":-86.91940}]
+        },
+        {
+            "Name": "Physics Building",
+            "ShortCode": "PHYS",
+            "ShortCode_Location":{"lat":40.430207,"lng":-86.91347},
+            "OutlineCoords":[{"lat":40.42952,"lng":-86.91329},{"lat":40.42986,"lng":-86.91276},{"lat":40.43064,"lng":-86.91361},{"lat":40.43036,"lng":-86.91405},{"lat":40.42994,"lng":-86.91368},{"lat":40.43013,"lng":-86.91337},{"lat":40.43002,"lng":-86.91325},{"lat":40.42981,"lng":-86.91357}]
+        },
+        {
+            "Name": "Brown Laboratory of Chemistry",
+            "ShortCode": "BRWN",
+            "ShortCode_Location":{"lat":40.42657,"lng":-86.91182},
+            "OutlineCoords":[{"lat":40.42642,"lng":-86.91228},{"lat":40.42642,"lng":-86.91131},{"lat":40.42649,"lng":-86.91123},{"lat":40.42667,"lng":-86.91123},{"lat":40.42672,"lng":-86.91130},{"lat":40.42672,"lng":-86.91228}]
+        },
+        {
+            "Name": "Wetherill Lab of Chemistry",
+            "ShortCode": "WTHR",
+            "ShortCode_Location":{"lat":40.42646,"lng":-86.91306},
+            "OutlineCoords":[{"lat":40.42674,"lng":-86.91355},{"lat":40.42621,"lng":-86.91355},{"lat":40.42621,"lng":-86.91262},{"lat":40.42674,"lng":-86.91262}]
+        },
+        {
+            "Name": "Hampton Hall of Civil Engnrng",
+            "ShortCode": "HAMP",
+            "ShortCode_Location":{"lat":40.43017,"lng":-86.91478},
+            "OutlineCoords":[{"lat":40.42973,"lng":-86.91465},{"lat":40.43005,"lng":-86.91415},{"lat":40.43020,"lng":-86.91429},{"lat":40.43000,"lng":-86.91459},{"lat":40.43012,"lng":-86.91473},{"lat":40.43034,"lng":-86.91439},{"lat":40.43068,"lng":-86.91483},{"lat":40.43060,"lng":-86.91499},{"lat":40.43073,"lng":-86.91515},{"lat":40.43056,"lng":-86.91538},{"lat":40.43044,"lng":-86.91526},{"lat":40.43036,"lng":-86.91534}]
+        },
+        {
+            "Name": "Neil Armstrong Hall of Engr",
+            "ShortCode": "ARMS",
+            "ShortCode_Location":{"lat":40.43103,"lng":-86.91493},
+            "OutlineCoords":[{"lat":40.43116,"lng":-86.91590},{"lat":40.43102,"lng":-86.91576},{"lat":40.43091,"lng":-86.91593},{"lat":40.43064,"lng":-86.91564},{"lat":40.43079,"lng":-86.91541},{"lat":40.43087,"lng":-86.91549},{"lat":40.43085,"lng":-86.91457},{"lat":40.43068,"lng":-86.91437},{"lat":40.43085,"lng":-86.91409},{"lat":40.43086,"lng":-86.91393},{"lat":40.43112,"lng":-86.91421}]
+        },
+        {
+            "Name": "Recitation Building",
+            "ShortCode": "REC",
+            "ShortCode_Location":{"lat":40.42581,"lng":-86.91516},
+            "OutlineCoords":[{"lat":40.42605,"lng":-86.91534},{"lat":40.42556,"lng":-86.91534},{"lat":40.42556,"lng":-86.91503},{"lat":40.42605,"lng":-86.91503}]
+        },
+        {
+            "Name": "Beering Hall of Lib Arts & Ed",
+            "ShortCode": "BRNG",
+            "ShortCode_Location":{"lat":40.42566,"lng":-86.91629},
+            "OutlineCoords":[{"lat":40.425915,"lng":-86.91648},{"lat":40.42522,"lng":-86.91648},{"lat":40.42522,"lng":-86.91612},{"lat":40.42533,"lng":-86.91593},{"lat":40.42555,"lng":-86.91600},{"lat":40.42555,"lng":-86.91555},{"lat":40.42574,"lng":-86.91555},{"lat":40.42574,"lng":-86.91612},{"lat":40.425915,"lng":-86.91612}]
+        },
+        {
+            "Name": "Lilly Hall of Life Sciences",
+            "ShortCode": "LILY",
+            "ShortCode_Location":{"lat":40.42353,"lng":-86.91821},
+            "OutlineCoords":[{"lat":40.42369,"lng":-86.91902},{"lat":40.42335,"lng":-86.91902},{"lat":40.42334,"lng":-86.91812},{"lat":40.42286,"lng":-86.91811},{"lat":40.42286,"lng":-86.91768},{"lat":40.42335,"lng":-86.91768},{"lat":40.42335,"lng":-86.91748},{"lat":40.42362,"lng":-86.91748},{"lat":40.42362,"lng":-86.91775},{"lat":40.42376,"lng":-86.91775},{"lat":40.42376,"lng":-86.91808},{"lat":40.42369,"lng":-86.91808}]
+        },
+        {
+            "Name": "Lyles-Porter Hall",
+            "ShortCode": "LYLE",
+            "ShortCode_Location":{"lat":40.42755,"lng":-86.91234},
+            "OutlineCoords":[{"lat":40.42123,"lng":-86.91718},{"lat":40.42095,"lng":-86.91719},{"lat":40.42091,"lng":-86.91638},{"lat":40.42094,"lng":-86.91660},{"lat":40.42062,"lng":-86.91660},{"lat":40.42062,"lng":-86.91628},{"lat":40.42113,"lng":-86.91626},{"lat":40.42114,"lng":-86.91666},{"lat":40.42125,"lng":-86.91666}]
+        },
+        {
+            "Name": "Agricultural & Biological Engr",
+            "ShortCode": "ABE",
+            "ShortCode_Location":{"lat":40.42167,"lng":-86.91658},
+            "OutlineCoords":[{"lat": 40.42195,"lng": -86.91692},{"lat": 40.42148,"lng": -86.91692},{"lat": 40.42147,"lng": -86.91623},{"lat": 40.42193,"lng": -86.91617}]
+        },
+        {
+            "Name": "Hicks Undergraduate Library",
+            "ShortCode": "HIKS",
+            "ShortCode_Location":{"lat":40.42454,"lng":-86.91265},
+            "OutlineCoords":[{"lat":40.42459,"lng":-86.91279},{"lat":40.42447,"lng":-86.91279},{"lat":40.42447,"lng":-86.91249},{"lat":40.42459,"lng":-86.91248}]
+        },
+        {
+            "Name": "Forest Products Building",
+            "ShortCode": "FPRD",
+            "ShortCode_Location":{"lat":40.42308,"lng":-86.91512},
+            "OutlineCoords":[{"lat":40.42327,"lng":-86.91522},{"lat":40.42292,"lng":-86.91523},{"lat":40.42291,"lng":-86.91502},{"lat":40.42327,"lng":-86.91497}]
+        },
+        {
+            "Name": "Pao Hall of Visual & Perf Arts",
+            "ShortCode": "PAO",
+            "ShortCode_Location":{"lat":40.42254,"lng":-86.91298},
+            "OutlineCoords":[{"lat":40.42281,"lng":-86.91352},{"lat":40.42251,"lng":-86.91351},{"lat":40.42229,"lng":-86.91343},{"lat":40.42231,"lng":-86.91299},{"lat":40.42227,"lng":-86.91254},{"lat":40.42249,"lng":-86.91242},{"lat":40.42281,"lng":-86.91240}]
+        },
+        {
+            "Name": "Nelson Hall of Food Science",
+            "ShortCode": "NLSN",
+            "ShortCode_Location":{"lat":40.42154,"lng":-86.91552},
+            "OutlineCoords":[{"lat":40.42186,"lng":-86.91579},{"lat":40.42127,"lng":-86.91581},{"lat":40.42126,"lng":-86.91513},{"lat":40.42185,"lng":-86.91515}]
+        },
+        {
+            "Name": "Forestry Building",
+            "ShortCode": "FORS",
+            "ShortCode_Location":{"lat":40.42281,"lng":-86.91410},
+            "OutlineCoords":[{"lat":40.42253,"lng":-86.91399},{"lat":40.42301,"lng":-86.91400},{"lat":40.423015,"lng":-86.914245},{"lat":40.42253,"lng":-86.91426}]
+        },
+        {
+            "Name": "Armory",
+            "ShortCode": "AR",
+            "ShortCode_Location":{"lat":40.42806,"lng":-86.91626},
+            "OutlineCoords":[{"lat": 40.42841,"lng": -86.91657},{"lat": 40.42841,"lng": -86.91595},{"lat": 40.42762,"lng": -86.91595},{"lat": 40.42762,"lng": -86.91657}]
+        },
+        {
+            "Name": "Biochemistry Building",
+            "ShortCode": "BCHM",
+            "ShortCode_Location":{"lat":40.42280,"lng":-86.91638},
+            "OutlineCoords":[{"lat":40.42313,"lng":-86.91639},{"lat":40.42281,"lng":-86.91640},{"lat":40.42282,"lng":-86.91686},{"lat":40.42260,"lng":-86.91686},{"lat":40.42259,"lng":-86.91618},{"lat":40.42313,"lng":-86.91616}]
+        },
+        {
+            "Name": "Class of 1950 Lecture Hall",
+            "ShortCode": "CL50",
+            "ShortCode_Location":{"lat":40.42632,"lng":-86.91503},
+            "OutlineCoords":[{"lat":40.42651,"lng":-86.91529},{"lat":40.42622,"lng":-86.91529},{"lat":40.42617,"lng":-86.91503},{"lat":40.42622,"lng":-86.91478},{"lat":40.42651,"lng":-86.91479}]
+        },
+        {
+            "Name": "Smith Hall",
+            "ShortCode": "SMTH",
+            "ShortCode_Location":{"lat":40.42357,"lng":-86.91682},
+            "OutlineCoords":[{"lat":40.42376,"lng":-86.91722},{"lat":40.42368,"lng":-86.91722},{"lat":40.42368,"lng":-86.91728},{"lat":40.42307,"lng":-86.91730},{"lat":40.42307,"lng":-86.91705},{"lat":40.42343,"lng":-86.91705},{"lat":40.42343,"lng":-86.91698},{"lat":40.42332,"lng":-86.91698},{"lat":40.42332,"lng":-86.91669},{"lat":40.42344,"lng":-86.91669},{"lat":40.42345,"lng":-86.91676},{"lat":40.42349,"lng":-86.91676},{"lat":40.42349,"lng":-86.91662},{"lat":40.42342,"lng":-86.91662},{"lat":40.42342,"lng":-86.91644},{"lat":40.42350,"lng":-86.91644},{"lat":40.42349,"lng":-86.91637},{"lat":40.42367,"lng":-86.91638},{"lat":40.42367,"lng":-86.91643},{"lat":40.42375,"lng":-86.91644},{"lat":40.42376,"lng":-86.91660},{"lat":40.42368,"lng":-86.91661},{"lat":40.42369,"lng":-86.91704},{"lat":40.42376,"lng":-86.91705}]
+        },
+        {
+            "Name": "Jerry S Rawls Hall",
+            "ShortCode": "RAWL",
+            "ShortCode_Location":{"lat":40.42374,"lng":-86.90969},
+            "OutlineCoords":[{"lat":40.42388,"lng":-86.91010},{"lat":40.42382,"lng":-86.91010},{"lat":40.42382,"lng":-86.91020},{"lat":40.42364,"lng":-86.91019},{"lat":40.42364,"lng":-86.91008},{"lat":40.42348,"lng":-86.91008},{"lat":40.42347,"lng":-86.90987},{"lat":40.42358,"lng":-86.90987},{"lat":40.42354,"lng":-86.90984},{"lat":40.42366,"lng":-86.909335},{"lat":40.42372,"lng":-86.9093575},{"lat":40.42372,"lng":-86.90926},{"lat":40.42388,"lng":-86.90927}]
+        },
+        {
+            "Name": "Krannert Building",
+            "ShortCode": "KRAN",
+            "ShortCode_Location":{"lat":40.42371,"lng":-86.91077},
+            "OutlineCoords":[{"lat":40.42384,"lng":-86.910420},{"lat":40.42384,"lng":-86.91126},{"lat":40.42347,"lng":-86.91125},{"lat":40.42347,"lng":-86.910864},{"lat":40.423635,"lng":-86.910864},{"lat":40.423635,"lng":-86.910420}]
+        },
+        {
+            "Name": "Horticulture Building",
+            "ShortCode": "HORT",
+            "ShortCode_Location":{"lat":40.42182,"lng":-86.91441},
+            "OutlineCoords":[{"lat":40.42355,"lng":-86.91475},{"lat":40.42327,"lng":-86.91475},{"lat":40.42326,"lng":-86.91456},{"lat":40.42337,"lng":-86.91455},{"lat":40.42336,"lng":-86.91420},{"lat":40.42318,"lng":-86.91421},{"lat":40.42318,"lng":-86.91402},{"lat":40.42353,"lng":-86.91401}]
+        },
+        {
+            "Name": "Heavilon Hall",
+            "ShortCode": "HEAV",
+            "ShortCode_Location":{"lat":40.42624,"lng":-86.91182},
+            "OutlineCoords":[{"lat":40.42633,"lng":-86.91133},{"lat":40.42633,"lng":-86.91234},{"lat":40.42615,"lng":-86.91234},{"lat":40.42615,"lng":-86.91133}]
+        },
+        {
+            "Name": "University Hall",
+            "ShortCode": "UNIV",
+            "ShortCode_Location":{"lat":40.42528,"lng":-86.91512},
+            "OutlineCoords":[{"lat":40.42546,"lng":-86.91528},{"lat":40.42507,"lng":-86.91528},{"lat":40.42507,"lng":-86.91508},{"lat":40.42546,"lng":-86.91508}]
+        },
+        {
+            "Name": "Matthews Hall",
+            "ShortCode": "MTHW",
+            "ShortCode_Location":{"lat":40.42464,"lng":-86.91633},
+            "OutlineCoords":[{"lat":40.424395,"lng":-86.91652},{"lat":40.424395,"lng":-86.91621},{"lat":40.42493,"lng":-86.91621},{"lat":40.42493,"lng":-86.91627},{"lat":40.42509,"lng":-86.91627},{"lat":40.42509,"lng":-86.91647},{"lat":40.42493,"lng":-86.91647},{"lat":40.42493,"lng":-86.91652}]
+        },
+        {
+            "Name": "Creighton Hall of Animal Sci",
+            "ShortCode": "CRTN",
+            "ShortCode_Location":{"lat":40.42120,"lng":-86.91873},
+            "OutlineCoords":[{"lat":40.42130,"lng":-86.91936},{"lat":40.42102,"lng":-86.91938},{"lat":40.42101,"lng":-86.91843},{"lat":40.42118,"lng":-86.91820},{"lat":40.42129,"lng":-86.91819}]
+        },
+        {
+            "Name": "Jischke Hall of Biomedical Eng",
+            "ShortCode": "MJIS",
+            "ShortCode_Location":{"lat":40.42218,"lng":-86.92108},
+            "OutlineCoords":[{"lat":40.42242,"lng":-86.92139},{"lat":40.42193,"lng":-86.92137},{"lat":40.42193,"lng":-86.92071},{"lat":40.42215,"lng":-86.92075},{"lat":40.42214,"lng":-86.92089},{"lat":40.42244,"lng":-86.92096}]
+        },
+        {
+            "Name": "Peirce Hall",
+            "ShortCode": "PRCE",
+            "ShortCode_Location":{"lat":40.42665,"lng":-86.91503},
+            "OutlineCoords":[{"lat":40.42674,"lng":-86.91528},{"lat":40.42657,"lng":-86.91528},{"lat":40.42657,"lng":-86.91480},{"lat":40.42674,"lng":-86.91480}]
+        },
+        {
+            "Name": "Winthrop E. Stone Hall",
+            "ShortCode": "STON",
+            "ShortCode_Location":{"lat":40.42453,"lng":-86.91516},
+            "OutlineCoords":[{"lat":40.42492,"lng":-86.91541},{"lat":40.42457,"lng":-86.91540},{"lat":40.42456,"lng":-86.91569},{"lat":40.42439,"lng":-86.91568},{"lat":40.42440,"lng":-86.91503},{"lat":40.42490,"lng":-86.91505}]
+        },
+        {
+            "Name": "Elliott Hall of Music",
+            "ShortCode": "ELLT",
+            "ShortCode_Location":{"lat":40.42788,"lng":-86.91492},
+            "OutlineCoords":[{"lat":40.42829,"lng":-86.91491},{"lat":40.42786,"lng":-86.91443},{"lat":40.42754,"lng":-86.91495},{"lat":40.42758,"lng":-86.91501},{"lat":40.42747,"lng":-86.91524}, {"lat":40.42756,"lng":-86.91550}, {"lat":40.42773,"lng":-86.91558}, {"lat":40.42789,"lng":-86.915385}, {"lat":40.42795,"lng":-86.91544}]
+        },
+        {
+            "Name": "Chaney-Hale Hall of Science",
+            "ShortCode": "CHAS",
+            "ShortCode_Location":{"lat":40.42862,"lng":-86.91552},
+            "OutlineCoords":[{"lat":40.428904,"lng":-86.915500},{"lat":40.428463,"lng":-86.914993},{"lat":40.428319,"lng":-86.915235},{"lat":40.428491,"lng":-86.915440},{"lat":40.428318,"lng":-86.915723},{"lat":40.428625,"lng":-86.916005}]
+        },
+        {
+            "Name": "Morgan Ctr for Entrepreneurshp",
+            "ShortCode": "MRGN",
+            "ShortCode_Location":{"lat":40.42379,"lng":-86.92284},
+            "OutlineCoords":[{"lat":40.42400,"lng":-86.92298},{"lat":40.42347,"lng":-86.92298},{"lat":40.42350,"lng":-86.92272},{"lat":40.42400,"lng":-86.92278}]
+        },
+        {
+            "Name": "Lynn Hall of Vet Medicine",
+            "ShortCode": "LYNN",
+            "ShortCode_Location":{"lat":40.41941,"lng":-86.91481},
+            "OutlineCoords":[{"lat":40.42009,"lng":-86.91389},{"lat":40.42009,"lng":-86.91519},{"lat":40.41949,"lng":-86.91520},{"lat":40.41949,"lng":-86.91571},{"lat":40.41902,"lng":-86.91570},{"lat":40.41897,"lng":-86.91480},{"lat":40.41923,"lng":-86.91480},{"lat":40.41923,"lng":-86.91441},{"lat":40.41896,"lng":-86.91438},{"lat":40.41888,"lng":-86.91428},{"lat":40.41888,"lng":-86.91413},{"lat":40.41899,"lng":-86.91398},{"lat":40.41972,"lng":-86.91409},{"lat":40.41972,"lng":-86.91389}]
+        },
+        {
+            "Name": "University Church",
+            "ShortCode": "UC",
+            "ShortCode_Location":{"lat":40.42614,"lng":-86.91005},
+            "OutlineCoords":[{"lat":40.42593,"lng":-86.91019},{"lat":40.42593,"lng":-86.90999},{"lat":40.42615,"lng":-86.90999},{"lat":40.42615,"lng":-86.90980},{"lat":40.42628,"lng":-86.90980},{"lat":40.42628,"lng":-86.91003},{"lat":40.42632,"lng":-86.91003},{"lat":40.42632,"lng":-86.91019}]
+        },
+        {
+            "Name": "Robert Heine Pharmacy Building",
+            "ShortCode": "RHPH",
+            "ShortCode_Location":{"lat":40.42970,"lng":-86.91602},
+            "OutlineCoords":[{"lat":40.42944,"lng":-86.91608},{"lat":40.42981,"lng":-86.91553},{"lat":40.43005,"lng":-86.91578},{"lat":40.42988,"lng":-86.91607},{"lat":40.42985,"lng":-86.91637},{"lat":40.42954,"lng":-86.91637},{"lat":40.42954,"lng":-86.91628},{"lat":40.42946,"lng":-86.91628}]
+        },
+        {
+            "Name": "Mechanical Engineering Bldg",
+            "ShortCode": "ME",
+            "ShortCode_Location":{"lat":40.42826,"lng":-86.91289},
+            "OutlineCoords":[{"lat":40.42811,"lng":-86.91356},{"lat":40.42796,"lng":-86.91354},{"lat":40.42788,"lng":-86.91299},{"lat":40.42806,"lng":-86.91264},{"lat":40.42799,"lng":-86.91254},{"lat":40.42799,"lng":-86.91238},{"lat":40.42812,"lng":-86.91238},{"lat":40.42823,"lng":-86.91218},{"lat":40.42869,"lng":-86.91266}]
+        },
+        {
+            "Name": "Veterinary Pathology Building",
+            "ShortCode": "VPTH",
+            "ShortCode_Location":{"lat":40.42005,"lng":-86.91564},
+            "OutlineCoords":[{"lat":40.42020,"lng":-86.91582},{"lat":40.42003,"lng":-86.91582},{"lat":40.42002,"lng":-86.91576},{"lat":40.41983,"lng":-86.91576},{"lat":40.41983,"lng":-86.91555},{"lat":40.42003,"lng":-86.91556},{"lat":40.42002,"lng":-86.91545},{"lat":40.42020,"lng":-86.91543}]
+        },
+        {
+            "Name": "Psychological Sciences Bldg",
+            "ShortCode": "PSYC",
+             "ShortCode_Location":{"lat":40.42704,"lng":-86.91491},
+            "OutlineCoords":[{"lat":40.42714,"lng":-86.91537},{"lat":40.42693,"lng":-86.91537},{"lat":40.42693,"lng":-86.91451},{"lat":40.42714,"lng":-86.91451}]
+        },
+        {
+            "Name": "Felix Haas Hall",
+            "ShortCode": "HAAS",
+            "ShortCode_Location":{"lat":40.42682,"lng":-86.91631},
+            "OutlineCoords":[{"lat":40.42706,"lng":-86.91652},{"lat":40.42658,"lng":-86.91652},{"lat":40.42658,"lng":-86.91618},{"lat":40.42671,"lng":-86.91618},{"lat":40.42671,"lng":-86.91605},{"lat":40.42693,"lng":-86.91605},{"lat":40.42693,"lng":-86.91618},{"lat":40.42706,"lng":-86.91618}]
+        },
+        {
+            "Name": "Marriott Hall",
+            "ShortCode": "MRRT",
+            "ShortCode_Location":{"lat":40.42459,"lng":-86.91697},
+            "OutlineCoords":[{"lat":40.42489,"lng":-86.91713},{"lat":40.42430,"lng":-86.91713},{"lat":40.42429,"lng":-86.91674},{"lat":40.42466,"lng":-86.91675},{"lat":40.42465,"lng":-86.91683},{"lat":40.42489,"lng":-86.91683}]
+        },
+        {
+            "Name": "Potter Engineering Center",
+            "ShortCode": "POTR",
+            "ShortCode_Location":{"lat":40.42753,"lng":-86.91232},
+            "OutlineCoords":[{"lat":40.42772,"lng":-86.91264},{"lat":40.42723,"lng":-86.91264},{"lat":40.42723,"lng":-86.91245},{"lat":40.42732,"lng":-86.91245},{"lat":40.42732,"lng":-86.91204},{"lat":40.42777,"lng":-86.91204},{"lat":40.42777,"lng":-86.91252},{"lat":40.42772,"lng":-86.91252}]
+        },
+        {
+            "Name": "Lambert Field House & Gym",
+            "ShortCode": "LAMB",
+            "ShortCode_Location":{"lat":40.43237,"lng":-86.91592},
+            "OutlineCoords":[{"lat":40.43261,"lng":-86.91648},{"lat":40.43212,"lng":-86.91648},{"lat":40.43213,"lng":-86.91632},{"lat":40.43182,"lng":-86.91631},{"lat":40.43182,"lng":-86.91556},{"lat":40.43211,"lng":-86.91554},{"lat":40.43212,"lng":-86.91537},{"lat":40.43261,"lng":-86.91538}]
+        },
+        {
+            "Name": "Brees Student-Athlete Acad Ctr",
+            "ShortCode": "BRES",
+            "ShortCode_Location":{"lat":40.43415,"lng":-86.91658},
+            "OutlineCoords":[{"lat":40.43438,"lng":-86.91695},{"lat":40.43380,"lng":-86.91693},{"lat":40.43383,"lng":-86.91612},{"lat":40.43442,"lng":-86.91615}]
+        },
+        {
+            "Name": "Krach Leadership Center",
+            "ShortCode": "KRCH",
+            "ShortCode_Location":{"lat":40.42757,"lng":-86.92123},
+            "OutlineCoords":[{"lat":40.43204,"lng":-86.91099},{"lat":40.42765,"lng":-86.92162},{"lat":40.42747,"lng":-86.92162},{"lat":40.42747,"lng":-86.92083},{"lat":40.42764,"lng":-86.92082}]
+        },
+        {
+            "Name": "Ernest C. Young Hall",
+            "ShortCode": "YONG",
+            "ShortCode_Location":{"lat":40.42284,"lng":-86.91059},
+            "OutlineCoords":[{"lat":40.42338,"lng":-86.91077},{"lat":40.42233,"lng":-86.91077},{"lat":40.42233,"lng":-86.910480},{"lat":40.42338,"lng":-86.910480}]
+        },
+        {
+            "Name": "Eleanor B Shreve Residence Hal",
+            "ShortCode": "SHRV",
+            "ShortCode_Location":{"lat":40.42681,"lng":-86.92495},
+            "OutlineCoords":[{"lat":40.42701,"lng":-86.92544},{"lat":40.42660,"lng":-86.92545},{"lat":40.42661,"lng":-86.92442},{"lat":40.42702,"lng":-86.92443}]
+        },
+        {
+            "Name": "Pfendler Hall of Agriculture",
+            "ShortCode": "PFEN",
+            "ShortCode_Location":{"lat":40.42357,"lng":-86.91538},
+            "OutlineCoords":[{"lat":40.42374,"lng":-86.91570},{"lat":40.42354,"lng":-86.91570},{"lat":40.42354,"lng":-86.91560},{"lat":40.42333,"lng":-86.91560},{"lat":40.42333,"lng":-86.91518},{"lat":40.42355,"lng":-86.91519},{"lat":40.42354,"lng":-86.91508},{"lat":40.42375,"lng":-86.91509}]
+        },
+        {
+            "Name": "Honors College&Resid South",
+            "ShortCode": "HCRS",
+            "ShortCode_Location":{"lat":40.42572,"lng":-86.91945},
+            "OutlineCoords":[{"lat":40.42618,"lng":-86.91959},{"lat":40.42538,"lng":-86.91959},{"lat":40.42538,"lng":-86.91934},{"lat":40.42619,"lng":-86.91936}]
+        },
+        {
+            "Name": "Griffin Residence Hall South",
+            "ShortCode": "GRFS",
+            "ShortCode_Location":{"lat":40.42786,"lng":-86.92015},
+            "OutlineCoords":[{"lat":40.42764,"lng":-86.92065},{"lat":40.42751,"lng":-86.92065},{"lat":40.42749,"lng":-86.92005},{"lat":40.42820,"lng":-86.92006},{"lat":40.42820,"lng":-86.92035},{"lat":40.42766,"lng":-86.92036}]
+        },
+        {
+            "Name": "Fowler Memorial House",
+            "ShortCode": "FWLR",
+            "ShortCode_Location":{"lat":40.42490,"lng":-86.92225},
+            "OutlineCoords":[{"lat":40.42517,"lng":-86.92237},{"lat":40.42474,"lng":-86.92239},{"lat":40.42474,"lng":-86.92246},{"lat":40.42460,"lng":-86.92248},{"lat":40.42459,"lng":-86.92204},{"lat":40.42473,"lng":-86.92204},{"lat":40.42473,"lng":-86.92212},{"lat":40.42517,"lng":-86.92212}]
+        },
+        {
+            "Name": "Bill and Sally Hanley Hall",
+            "ShortCode": "HNLY",
+            "ShortCode_Location":{"lat":40.42469,"lng":-86.92284},
+            "OutlineCoords":[{"lat":40.42483,"lng":-86.92309},{"lat":40.42466,"lng":-86.92311},{"lat":40.42464,"lng":-86.92320},{"lat":40.42451,"lng":-86.92316},{"lat":40.42459,"lng":-86.92271},{"lat":40.42459,"lng":-86.92258},{"lat":40.42489,"lng":-86.92258},{"lat":40.42489,"lng":-86.92274},{"lat":40.42483,"lng":-86.92275}]
+        },
+        {
+            "Name": "Johnson Hall of Nursing",
+            "ShortCode": "JNSN",
+            "ShortCode_Location":{"lat":40.42942,"lng":-86.91549},
+            "OutlineCoords":[{"lat":40.42959,"lng":-86.91554},{"lat":40.42936,"lng":-86.91524},{"lat":40.42921,"lng":-86.91549},{"lat":40.42945,"lng": -86.91577}]
+        },
+        {
+            "Name": "Purdue Memorial Union",
+            "ShortCode": "PMU",
+            "ShortCode_Location":{"lat":40.42501,"lng":-86.91130},
+            "OutlineCoords":[{"lat":40.42545,"lng":-86.91169},{"lat":40.42461,"lng":-86.91169},{"lat":40.42462,"lng":-86.91059},{"lat":40.42479,"lng":-86.91058},{"lat":40.42480,"lng":-86.91106},{"lat":40.42548,"lng":-86.91109}]
+        },
+        {
+            "Name": "Hillenbrand Residence Hall",
+            "ShortCode": "HILL",
+            "ShortCode_Location":{"lat":40.42674,"lng":-86.92664},
+            "OutlineCoords":[{"lat":40.42721,"lng":-86.92702},{"lat":40.42693,"lng":-86.92703},{"lat":40.42693,"lng":-86.92738},{"lat":40.42680,"lng":-86.92738},{"lat":40.42679,"lng":-86.92691},{"lat":40.42675,"lng":-86.92691},{"lat":40.42641,"lng":-86.92737},{"lat":40.42617,"lng":-86.92706},{"lat":40.42651,"lng":-86.92657},{"lat":40.42614,"lng":-86.92655},{"lat":40.42614,"lng":-86.92639},{"lat":40.42642,"lng":-86.92638},{"lat":40.42642,"lng":-86.92602},{"lat":40.42656,"lng":-86.92602},{"lat":40.42656,"lng":-86.92647},{"lat":40.42662,"lng":-86.92648},{"lat":40.42669,"lng":-86.92654},{"lat":40.42668,"lng":-86.92623},{"lat":40.42702,"lng":-86.92625},{"lat":40.42702,"lng":-86.92668},{"lat":40.42680,"lng":-86.92669},{"lat":40.42686,"lng":-86.92677},{"lat":40.42686,"lng":-86.92684},{"lat":40.42721,"lng":-86.92685}]
+        },
+        {
+            "Name": "Equine Health Sciences Bldg",
+            "ShortCode": "EHSB",
+            "ShortCode_Location":{"lat":40.41869,"lng":-86.91497},
+            "OutlineCoords":[{"lat":40.41880,"lng":-86.91521},{"lat":40.41857,"lng":-86.91521},{"lat":40.41857,"lng":-86.91473},{"lat":40.41878,"lng":-86.91472}]
+        },
+        {
+            "Name": "Hockmeyer Hall Strc Bio",
+            "ShortCode": "HOCK",
+            "ShortCode_Location":{"lat":40.42112,"lng":-86.92111},
+            "OutlineCoords":[{"lat":40.42127,"lng":-86.92152},{"lat":40.42092,"lng":-86.92126},{"lat":40.42094,"lng":-86.92090},{"lat":40.42150,"lng":-86.92100},{"lat":40.42148,"lng":-86.92117},{"lat":40.42133,"lng":-86.92115},{"lat":40.42128,"lng":-86.92126},{"lat":40.42139,"lng":-86.92139}]
+        },
+        {
+            "Name": "Whistler Hall of Ag Research",
+            "ShortCode": "WSLR",
+            "ShortCode_Location":{"lat":40.42296,"lng":-86.91550},
+            "OutlineCoords":[{"lat":40.42330,"lng":-86.91568},{"lat":40.42263,"lng":-86.91563},{"lat":40.42264,"lng":-86.91554},{"lat":40.42253,"lng":-86.91554},{"lat":40.42253,"lng":-86.91535},{"lat":40.42330,"lng":-86.91535}]
+        },
+        {
+            "Name": "Agricultural Administration",
+            "ShortCode": "AGAD",
+            "ShortCode_Location":{"lat":40.42343,"lng":-86.91432},
+            "OutlineCoords":[{"lat":40.42355,"lng":-86.91474},{"lat":40.42326,"lng":-86.91476},{"lat":40.42326,"lng":-86.91456},{"lat":40.42337,"lng":-86.91455},{"lat":40.42336,"lng":-86.91421},{"lat":40.42318,"lng":-86.91420},{"lat":40.42317,"lng":-86.91402},{"lat":40.42353,"lng":-86.91401}]
+        },
+        {
+            "Name": "Drug Discovery Bldg",
+            "ShortCode": "DRUG",
+            "ShortCode_Location":{"lat":40.42176,"lng":-86.91754},
+            "OutlineCoords":[{"lat":40.42201,"lng":-86.91779},{"lat":40.42154,"lng":-86.91780},{"lat":40.42153,"lng":-86.91731},{"lat":40.42199,"lng":-86.91731}]
+        },
+        {
+            "Name": "Bechtel Innovation Design Ctr",
+            "ShortCode": "BIDC",
+            "ShortCode_Location":{"lat":40.42749,"lng":-86.91879},
+            "OutlineCoords":[{"lat":40.42764,"lng":-86.91895},{"lat":40.42739,"lng":-86.91895},{"lat":40.42740,"lng":-86.91860},{"lat":40.42743,"lng":-86.91860},{"lat":40.42743,"lng":-86.91866},{"lat":40.42753,"lng":-86.91866},{"lat":40.42752,"lng":-86.91859},{"lat":40.42764,"lng":-86.91860}]
+        },
+        {
+            "Name": "Nuclear Engineering Building",
+            "ShortCode": "NUCL",
+            "ShortCode_Location":{"lat":40.42712,"lng":-86.91110},
+            "OutlineCoords":[{"lat":40.42731,"lng":-86.91131},{"lat":40.42696,"lng":-86.91131},{"lat":40.42696,"lng":-86.91090},{"lat":40.42731,"lng":-86.91091}]
+        },
+        {
+            "Name": "Animal Sciences Teaching Lab",
+            "ShortCode": "ASTL",
+            "ShortCode_Location":{"lat":40.42325,"lng":-86.91985},
+            "OutlineCoords":[{"lat":40.42328,"lng":-86.91997},{"lat":40.42316,"lng":-86.91998},{"lat":40.42316,"lng":-86.91972},{"lat":40.42329,"lng":-86.91972}]
+        },
+        {
+            "Name": "Hansen Life Sciences Research",
+            "ShortCode": "HANS",
+            "ShortCode_Location":{"lat":40.42231,"lng":-86.91692},
+            "OutlineCoords":[{"lat":40.42247,"lng":-86.91730},{"lat":40.42211,"lng":-86.91731},{"lat":40.42208,"lng":-86.91669},{"lat":40.42245,"lng":-86.91666}]
+        },
+        {
+            "Name": "Animal Disease Diagnostic Lab",
+            "ShortCode": "ADDL",
+            "ShortCode_Location":{"lat":40.41817,"lng":-86.91601},
+            "OutlineCoords":[{"lat":40.41846,"lng":-86.91617},{"lat":40.41780,"lng":-86.91619},{"lat":40.41779,"lng":-86.91586},{"lat":40.41846,"lng":-86.91585}]
+        },
+        {
+            "Name": "Ray W Herrick Laboratory",
+            "ShortCode": "HERL",
+            "ShortCode_Location":{"lat":40.42232,"lng":-86.91998},
+            "OutlineCoords":[{"lat":40.42260,"lng":-86.92013},{"lat":40.42197,"lng":-86.92013},{"lat":40.42197,"lng":-86.91971},{"lat":40.42261,"lng":-86.91975}]
+        },
+        {
+            "Name": "Harvey W. Wiley Residence Hall",
+            "ShortCode": "WILY",
+            "ShortCode_Location":{"lat":40.42949,"lng":-86.92071},
+            "OutlineCoords":[{"lat":40.42993,"lng":-86.92124},{"lat":40.42896,"lng":-86.92124},{"lat":40.42897,"lng":-86.92020},{"lat":40.42993,"lng":-86.92020}]
+        },
+        {
+            "Name": "Bindley Bioscience Center",
+            "ShortCode": "BIND",
+            "ShortCode_Location":{"lat":40.42295,"lng":-86.92344},
+            "OutlineCoords":[{"lat":40.42318,"lng":-86.92357},{"lat":40.42261,"lng":-86.92356},{"lat":40.42260,"lng":-86.92328},{"lat":40.42318,"lng":-86.92324}]
+        },
+        {
+            "Name": "Food Science Building",
+            "ShortCode": "FS",
+            "ShortCode_Location":{"lat":40.42167,"lng":-86.91547},
+            "OutlineCoords":[{"lat":40.42186,"lng":-86.91579},{"lat":40.42127,"lng":-86.91581},{"lat":40.42126,"lng":-86.91513},{"lat":40.42184,"lng":-86.91514}]
+        },
+        {
+            "Name": "Birk Nanotechnology Center",
+            "ShortCode": "BRK",
+            "ShortCode_Location":{"lat":40.42274,"lng":-86.92459},
+            "OutlineCoords":[{"lat":40.42301,"lng":-86.92525},{"lat":40.42225,"lng":-86.92506},{"lat":40.42226,"lng":-86.92401},{"lat":40.42301,"lng":-86.92400},{"lat":40.42311,"lng":-86.92463}]
+        },
+        {
+            "Name": "Max W & Maileen Brown Hall",
+            "ShortCode": "BHEE",
+            "ShortCode_Location":{"lat":40.42874,"lng":-86.91196},
+            "OutlineCoords":[{"lat":40.42879,"lng":-86.91248},{"lat":40.42815,"lng":-86.91167},{"lat":40.42836,"lng":-86.91132},{"lat":40.42850,"lng":-86.91147},{"lat":40.42839,"lng":-86.91165},{"lat":40.42847,"lng":-86.91174},{"lat":40.428665,"lng":-86.91146},{"lat":40.42913,"lng":-86.91196}]
+        },
+        {
+            "Name": "Marc & Sharon Hagle Hall",
+            "ShortCode": "HAGL",
+            "ShortCode_Location":{"lat":40.42711,"lng":-86.91879},
+            "OutlineCoords":[{"lat":40.42716,"lng":-86.91893},{"lat":40.42706,"lng":-86.91894},{"lat":40.42706,"lng":-86.91872},{"lat":40.42715,"lng":-86.91872}]
+        },
+        {
+            "Name": "Flex Lab",
+            "ShortCode": "FLEX",
+            "ShortCode_Location":{"lat":40.42154,"lng":-86.92364},
+            "OutlineCoords":[{"lat":40.421975,"lng":-86.923801},{"lat":40.421975,"lng":-86.923461},{"lat":40.421056,"lng":-86.923443},{"lat":40.421056,"lng":-86.923797}]
+        },
+        {
+            "Name": "Dudley Hall",
+            "ShortCode": "DUDL",
+            "ShortCode_Location":{"lat":40.42749,"lng":-86.91163},
+            "OutlineCoords":[{"lat":40.42799,"lng":-86.91187},{"lat":40.42707,"lng":-86.91188},{"lat":40.42707,"lng":-86.91136},{"lat":40.42799,"lng":-86.91137}]
+        },
+        {
+            "Name": "Gerald D and Edna E Mann Hall",
+            "ShortCode": "MANN",
+            "ShortCode_Location":{"lat":40.42299,"lng":-86.9227},
+            "OutlineCoords":[{"lat":40.42322,"lng":-86.92287},{"lat":40.42274,"lng":-86.92279},{"lat":40.42273,"lng":-86.92252},{"lat":40.42325,"lng":-86.92250}]
+        }
+    ]
+}

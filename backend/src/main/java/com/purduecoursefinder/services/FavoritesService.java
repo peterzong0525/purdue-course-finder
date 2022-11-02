@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.purduecoursefinder.models.User;
 import com.purduecoursefinder.models.dto.BuildingDTO;
 import com.purduecoursefinder.models.dto.CourseDTO;
@@ -44,9 +46,9 @@ public class FavoritesService {
         userRepository.save(user);
     }
     
-    public void addFavoriteBuilding(UUID buildingId) {
+    public void addFavoriteBuilding(String shortCode) {
         User user = ((PCFUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
-        user.getFavoriteBuildings().add(buildingRepository.findById(buildingId).orElseThrow());
+        user.getFavoriteBuildings().add(buildingRepository.findById(shortCode).orElseThrow());
         userRepository.save(user);
     }
     
@@ -62,7 +64,17 @@ public class FavoritesService {
     
     public List<BuildingDTO> getFavoriteBuildings() {
         User user = ((PCFUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
-        return user.getFavoriteBuildings().stream().map(building -> BuildingDTO.fromBuilding(building)).collect(Collectors.toList());
+        return user.getFavoriteBuildings().stream().map(building -> {
+            try {
+                return BuildingDTO.fromBuilding(building);
+            } catch (JsonMappingException e) {
+                e.printStackTrace();
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            
+            return null;
+        }).toList();
     }
     
     public void removeFavoriteCourse(UUID courseId) {
@@ -77,9 +89,9 @@ public class FavoritesService {
         userRepository.save(user);
     }
     
-    public void removeFavoriteBuilding(UUID buildingId) {
+    public void removeFavoriteBuilding(String shortCode) {
         User user = ((PCFUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
-        user.getFavoriteBuildings().removeIf(filter -> filter.getBuildingId().equals(buildingId));
+        user.getFavoriteBuildings().removeIf(filter -> filter.getShortCode().equals(shortCode));
         userRepository.save(user);
     }
 }

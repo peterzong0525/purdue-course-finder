@@ -1,7 +1,6 @@
 package com.purduecoursefinder.models;
 
-import java.util.UUID;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -21,16 +20,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Building {
     @Id
-    UUID buildingId;
+    String shortCode;
     
     String name;
-    String shortCode;
+    
+    @Column(columnDefinition="TEXT")
+    String shortCodeLocation;
+    
+    @Column(columnDefinition="TEXT")
+    String outlineCoords;
     
     public static Building fromBuildingDTO(BuildingDTO buildingDTO) {
         return Building.builder()
-            .buildingId(buildingDTO.getId())
-            .name(buildingDTO.getName())
-            .shortCode(buildingDTO.getShortCode())
-            .build();
+                .shortCode(buildingDTO.getShortCode())
+                .name(buildingDTO.getName())
+                .shortCodeLocation(buildingDTO.getShortCodeLocation().toString())
+                .outlineCoords(buildingDTO.getOutlineCoords().toString())
+                .build();
     }
 }

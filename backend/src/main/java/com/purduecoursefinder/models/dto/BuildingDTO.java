@@ -1,8 +1,10 @@
 package com.purduecoursefinder.models.dto;
 
-import java.util.UUID;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.purduecoursefinder.models.Building;
 
 import lombok.AllArgsConstructor;
@@ -15,24 +17,26 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BuildingDTO {
-    @JsonProperty("Id")
-    private UUID id;
-    
-    @JsonProperty("CampusId")
-    private UUID campusId;
-    
     @JsonProperty("Name")
-    private String name;
+    String name;
     
     @JsonProperty("ShortCode")
-    private String shortCode;
+    String shortCode;
     
-    public static BuildingDTO fromBuilding(Building building) {
+    @JsonProperty("ShortCode_Location")
+    JsonNode shortCodeLocation;
+    
+    @JsonProperty("OutlineCoords")
+    JsonNode outlineCoords;
+    
+    public static BuildingDTO fromBuilding(Building building) throws JsonMappingException, JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        
         return BuildingDTO.builder()
-                .id(building.getBuildingId())
-                // No campusId... Make a separate DTO without in the future
                 .name(building.getName())
                 .shortCode(building.getShortCode())
+                .shortCodeLocation(mapper.readTree(building.getShortCodeLocation()))
+                .outlineCoords(mapper.readTree(building.getOutlineCoords()))
                 .build();
     }
 }

@@ -22,13 +22,13 @@ public class RoomDTO {
     private String number;
     
     @JsonProperty("Building")
-    private BuildingDTO building;
+    private BuildingMappingDTO building;
     
     public static RoomDTO fromRoom(Room room) {
         return RoomDTO.builder()
                 .id(room.getRoomId())
                 .number(room.getNumber())
-                .building(BuildingDTO.fromBuilding(room.getBuilding()))
+                .building(BuildingMappingDTO.fromBuilding(room.getBuilding()))
                 .build();
     }
 }

@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.purduecoursefinder.models.dto.BuildingDTO;
 import com.purduecoursefinder.models.dto.CourseDTO;
@@ -48,9 +48,9 @@ public class FavoritesController {
         favoritesService.addFavoriteSection(sectionId);
     }
     
-    @PostMapping("/buildings/{buildingId}")
-    public void addBuilding(@PathVariable UUID buildingId) {
-        favoritesService.addFavoriteBuilding(buildingId);
+    @PostMapping("/buildings/{buildingShortCode}")
+    public void addBuilding(@PathVariable String buildingShortCode) {
+        favoritesService.addFavoriteBuilding(buildingShortCode);
     }
 
     @CrossOrigin
@@ -66,8 +66,8 @@ public class FavoritesController {
     }
 
     @CrossOrigin
-    @DeleteMapping("/buildings/{buildingId}")
-    public void removeBuilding(@PathVariable UUID buildingId) {
-        favoritesService.removeFavoriteBuilding(buildingId);
+    @DeleteMapping("/buildings/{buildingShortCode}")
+    public void removeBuilding(@PathVariable String buildingShortCode) {
+        favoritesService.removeFavoriteBuilding(buildingShortCode);
     }
 }

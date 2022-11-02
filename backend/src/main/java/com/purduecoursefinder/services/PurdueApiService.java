@@ -1,5 +1,6 @@
 package com.purduecoursefinder.services;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,12 +11,17 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.purduecoursefinder.exceptions.UnableToRetrieveCoursesException;
 import com.purduecoursefinder.exceptions.UnableToRetrieveSubjectsException;
 import com.purduecoursefinder.exceptions.UnknownSubjectException;
 import com.purduecoursefinder.models.Building;
+import com.purduecoursefinder.models.BuildingMapping;
 import com.purduecoursefinder.models.Class;
 import com.purduecoursefinder.models.Course;
 import com.purduecoursefinder.models.Instructor;
@@ -24,6 +30,8 @@ import com.purduecoursefinder.models.Room;
 import com.purduecoursefinder.models.Section;
 import com.purduecoursefinder.models.Subject;
 import com.purduecoursefinder.models.dto.BuildingDTO;
+import com.purduecoursefinder.models.dto.BuildingMappingDTO;
+import com.purduecoursefinder.models.dto.BuildingsFileDTO;
 import com.purduecoursefinder.models.dto.ClassDTO;
 import com.purduecoursefinder.models.dto.CourseApiDTO;
 import com.purduecoursefinder.models.dto.CourseDTO;
@@ -33,6 +41,7 @@ import com.purduecoursefinder.models.dto.SubjectDTO;
 import com.purduecoursefinder.models.dto.purdueapi.BuildingsRequestDTO;
 import com.purduecoursefinder.models.dto.purdueapi.CoursesRequestDTO;
 import com.purduecoursefinder.models.dto.purdueapi.SubjectsRequestDTO;
+import com.purduecoursefinder.repositories.BuildingMappingRepository;
 import com.purduecoursefinder.repositories.BuildingRepository;
 import com.purduecoursefinder.repositories.ClassRepository;
 import com.purduecoursefinder.repositories.CourseRepository;
@@ -69,10 +78,16 @@ public class PurdueApiService {
     private RoomRepository roomRepository;
     
     @Autowired
+    private BuildingMappingRepository buildingMappingRepository;
+    
+    @Autowired
     private BuildingRepository buildingRepository;
     
     @Value("${pcf.api-url}")
     private String apiUrl;
+    
+    @Value("${pcf.buildings-data-file-location}")
+    private String buildingsDataFileLocation;
     
     @Value("${pcf.refresh-cache-millis}")
     private long refreshCacheMillis;
@@ -92,7 +107,9 @@ public class PurdueApiService {
         return sections;
     }
     
-    public List<CourseDTO> getCourses(String subjectAbbreviation) {        
+    public List<CourseDTO> getCourses(String subjectAbbreviation) throws IOException {
+        getBuildings(); // Make sure buildings are populated.
+        
         Optional<Subject> subjectOpt = subjectRepository.findByAbbreviation(subjectAbbreviation.toUpperCase());
         Subject subject;
         
@@ -169,6 +186,7 @@ public class PurdueApiService {
                         }
                         
                         Room room = meeting.getRoom();
+                        room.setBuilding(buildingRepository.findById(meetingDTO.getRoom().getBuilding().getShortCode()).orElse(buildingRepository.findById("N/A").orElseThrow()));
                         Building building = room.getBuilding();
                         
                         buildingRepository.save(building);
@@ -197,12 +215,22 @@ public class PurdueApiService {
         return subjects;
     }
     
-    public List<BuildingDTO> getBuildings() {
-        // Make this method cached in the future.
+    public List<BuildingDTO> getBuildings() throws IOException {
+        if (buildingMappingRepository.count() == 0L) {
+            populateBuildingMappingsRepository();
+            loadBuildingsFile();
+        }
         
-        populateBuildingsRepository();
-        
-        return buildingRepository.findAll().stream().map(BuildingDTO::fromBuilding).collect(Collectors.toList());
+        return buildingRepository.findAll().stream().map(t -> {
+            try {
+                return BuildingDTO.fromBuilding(t);
+            } catch (JsonMappingException e) {
+                e.printStackTrace();
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }).toList();
     }
     
     private void populateSubjectRepository() {
@@ -222,15 +250,28 @@ public class PurdueApiService {
         }
     }
     
-    private void populateBuildingsRepository() {
+    private void loadBuildingsFile() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        
+        BuildingsFileDTO bf = objectMapper.readValue(ResourceUtils.getFile(buildingsDataFileLocation), BuildingsFileDTO.class);
+        
+        for (BuildingDTO buildingDTO : bf.getBuildings()) {
+            buildingRepository.save(Building.fromBuildingDTO(buildingDTO));
+        }
+        
+        buildingRepository.save(Building.builder().name("N/A").shortCode("N/A").shortCodeLocation("{}").outlineCoords("[]").build());
+    }
+    
+    // TODO: Figure out if this is necessary. It probably isn't.
+    private void populateBuildingMappingsRepository() {
         BuildingsRequestDTO buildingsRequestDTO = restTemplate.getForObject(apiUrl + "/odata/Buildings", BuildingsRequestDTO.class);
         
         if (buildingsRequestDTO == null) {
             throw new UnableToRetrieveSubjectsException();
         }
         
-        for (BuildingDTO buildingDTO : buildingsRequestDTO.getValue()) {
-                buildingRepository.save(Building.fromBuildingDTO(buildingDTO));
+        for (BuildingMappingDTO buildingMappingDTO : buildingsRequestDTO.getValue()) {
+                buildingMappingRepository.save(BuildingMapping.fromBuildingDTO(buildingMappingDTO));
         }
     }
 }

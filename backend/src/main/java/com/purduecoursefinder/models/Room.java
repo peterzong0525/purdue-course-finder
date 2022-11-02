@@ -35,7 +35,6 @@ public class Room {
         return Room.builder()
             .roomId(roomDTO.getId())
             .number(roomDTO.getNumber())
-            .building(Building.fromBuildingDTO(roomDTO.getBuilding())) // Might need changed
             .build();
     }
 }
