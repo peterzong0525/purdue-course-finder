@@ -40,13 +40,12 @@
     height: 70vh;
     background-color: #CEB888;
     border: 2px solid black;
-    border-radius: 10px;
 }
 
 .favoritesPageContainer .listItem {
     max-width: 100%;
     margin: 5px;
-    border: 2px solid green;
+    border: 2px solid gray;
     border-radius: 5px;
     background-color: white;
     display: grid;

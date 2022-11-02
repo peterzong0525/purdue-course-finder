@@ -98,13 +98,12 @@ function SideBar(props) {
                 };
                 axios.get(getFavUrl, config).then((response) => {
                     let favorites = response.data;
+                    console.log("Favorites:" );
                     console.log(favorites);
 
                     for (let i = 0; i < data.length; i++) {
-                        let allId = "";
-                        let favId = "";
                         if (filter_option === 'Building') {
-                            if (favorites.some(e => e.Id === data[i].Id)) {
+                            if (favorites.some(e => e.ShortCode === data[i].ShortCode)) {
                                 data[i]['isFavorite'] = true;
                             } else {
                                 data[i]['isFavorite'] = false;
@@ -359,7 +358,7 @@ function SideBar(props) {
                         "", 
                         "",
                         "Building", 
-                        building.Id,
+                        building.ShortCode,
                         building.isFavorite)}
                         {/* TODO: Need rooms to also be returned */}
                 </div>
