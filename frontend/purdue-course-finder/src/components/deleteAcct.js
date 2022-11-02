@@ -5,7 +5,7 @@ import 'reactjs-popup/dist/index.css';
 import "./deleteAcct.css";
 import { serverURL } from '../index.js';
 
-function printButtonPress() {
+function handleButtonPress() {
     var url = `${serverURL}/auth/delete-user`;
     const config = {
         headers:{
@@ -19,15 +19,10 @@ function printButtonPress() {
         window.sessionStorage.removeItem("userToken");
         console.log("Account successfully deleted");
     });
-    // axios({
-    //     url: url,
-    //     config: config,
-    //     method: 'DELETE',
-    // }).then(res => console.log(res.data));
 }
 
 function returnButton (value) {
-    return (<input type="submit" value={value} onClick={() => printButtonPress()}/>);
+    return (<input type="submit" value={value} onClick={() => handleButtonPress()}/>);
 }
 
 function DeleteAcct() {
