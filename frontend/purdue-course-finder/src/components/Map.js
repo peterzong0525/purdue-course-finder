@@ -58,6 +58,9 @@ function Map(props) {
   });
 
 
+  //const [Zoom, setZoom] = useState(15); // 15 is default
+
+
   async function generateBuildings() {
     let responseData = [];
     var url = `${serverURL}/buildings`;
@@ -117,6 +120,7 @@ function Map(props) {
         mapContainerStyle={containerStyle}
         center={center}
         zoom={15}
+        //onZoomChanged={() => { console.log(map.getZoom()) }}
         clickableIcons={false}
         tilt={0}
         mapTypeId={"ROADMAP"}
@@ -141,6 +145,7 @@ function Map(props) {
               Buildings.map((building, index) => (
                 <div key={index}>
                   <Polygon path={building.coordArray} options={{strokeColor: '#000000', fillColor:'#FFF72F' }} />
+                  <Marker label={{text:building.shortCode, fontSize:"10px"}} position={{lat:(building.shortCodeLocation.lat-0.0001), lng:building.shortCodeLocation.lng}} icon="../map_images/BlankPNG.png" />
                 </div>
               ))
             }

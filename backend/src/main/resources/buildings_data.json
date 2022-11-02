@@ -52,7 +52,7 @@
             "Name": "Wilmeth Active Learning Center",
             "ShortCode": "WALC",
             "ShortCode_Location":{"lat":40.42741,"lng":-86.91306},
-            "OutlineCoords":[{"lat":40.42776,"lng":-86.9135},{"lat":40.42776,"lng":-86.91287},{"lat":40.42690,"lng":-86.91352},{"lat":40.42691,"lng":-86.91278}]
+            "OutlineCoords":[{"lat":40.42776,"lng":-86.9135},{"lat":40.42776,"lng":-86.91287},{"lat":40.42691,"lng":-86.91278},{"lat":40.42690,"lng":-86.91352}]
         },
         {
             "Name": "Stanley Coulter Hall",
@@ -117,8 +117,8 @@
         {
             "Name": "Lyles-Porter Hall",
             "ShortCode": "LYLE",
-            "ShortCode_Location":{"lat":40.42755,"lng":-86.91234},
-            "OutlineCoords":[{"lat":40.42123,"lng":-86.91718},{"lat":40.42095,"lng":-86.91719},{"lat":40.42091,"lng":-86.91638},{"lat":40.42094,"lng":-86.91660},{"lat":40.42062,"lng":-86.91660},{"lat":40.42062,"lng":-86.91628},{"lat":40.42113,"lng":-86.91626},{"lat":40.42114,"lng":-86.91666},{"lat":40.42125,"lng":-86.91666}]
+            "ShortCode_Location":{"lat":40.42104,"lng":-86.91671},
+            "OutlineCoords":[{"lat":40.42123,"lng":-86.91719},{"lat":40.42091,"lng":-86.91719},{"lat":40.42094,"lng":-86.91660},{"lat":40.42062,"lng":-86.91660},{"lat":40.42062,"lng":-86.91628},{"lat":40.42113,"lng":-86.91626},{"lat":40.42114,"lng":-86.91666},{"lat":40.42125,"lng":-86.91666}]
         },
         {
             "Name": "Agricultural & Biological Engr",
@@ -328,7 +328,7 @@
             "Name": "Krach Leadership Center",
             "ShortCode": "KRCH",
             "ShortCode_Location":{"lat":40.42757,"lng":-86.92123},
-            "OutlineCoords":[{"lat":40.43204,"lng":-86.91099},{"lat":40.42765,"lng":-86.92162},{"lat":40.42747,"lng":-86.92162},{"lat":40.42747,"lng":-86.92083},{"lat":40.42764,"lng":-86.92082}]
+            "OutlineCoords":[{"lat":40.42765,"lng":-86.92162},{"lat":40.42747,"lng":-86.92162},{"lat":40.42747,"lng":-86.92083},{"lat":40.42764,"lng":-86.92082}]
         },
         {
             "Name": "Ernest C. Young Hall",
