@@ -200,7 +200,7 @@ function SideBar(props) {
                 //document.getElementById("classroom").checked = true;
                 props.onClick(firstRow);
             } else if (e.filter === "Section") {
-                props.onClick(thirdRow.substring(10));
+                //props.onClick(thirdRow.substring(10));
             }
             
             populateSidebar(filter)
