@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -83,11 +83,11 @@ public class PurdueApiService {
     @Autowired
     private BuildingRepository buildingRepository;
     
+    @Value("${pcf.buildings-data-file-location}")
+    private Resource buildingsDataFile;
+    
     @Value("${pcf.api-url}")
     private String apiUrl;
-    
-    @Value("${pcf.buildings-data-file-location}")
-    private String buildingsDataFileLocation;
     
     @Value("${pcf.refresh-cache-millis}")
     private long refreshCacheMillis;
@@ -253,7 +253,7 @@ public class PurdueApiService {
     private void loadBuildingsFile() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         
-        BuildingsFileDTO bf = objectMapper.readValue(ResourceUtils.getFile(buildingsDataFileLocation), BuildingsFileDTO.class);
+        BuildingsFileDTO bf = objectMapper.readValue(buildingsDataFile.getInputStream(), BuildingsFileDTO.class);
         
         for (BuildingDTO buildingDTO : bf.getBuildings()) {
             buildingRepository.save(Building.fromBuildingDTO(buildingDTO));
