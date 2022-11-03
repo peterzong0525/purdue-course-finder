@@ -40,6 +40,9 @@ function SideBar(props) {
         } else if (filter_option === 'Classroom') {
             url = `${serverURL}/classrooms`;
             getFavUrl = `${serverURL}/favorites/classrooms`;
+            setLoading(false);
+            setObjects([]);
+            return;
 
         } else if (filter_option === 'Course') {
             if (searchString.trim() === '') {
@@ -183,10 +186,10 @@ function SideBar(props) {
                 prevDesc = itemHead;
                 searchString = e.searchStr;
             } else if (e.filter === "Building") {
-                //filter = "Classroom";
+                filter = "Classroom";
                 prevDesc = itemHead;
                 searchString = e.searchStr;
-                //document.getElementById("classroom").checked = true;
+                // document.getElementById("classroom").checked = true;
                 props.onClick(firstRow);
             } else if (e.filter === "Section") {
                 //props.onClick(thirdRow.substring(10));
