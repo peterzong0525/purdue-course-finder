@@ -124,7 +124,7 @@ it('Tutorial page renders without crashing', () => {
 });
 
 it('Sidebar Filter Pop-up renders without crashing', () => {
-    render(<Sidebar />)
+    render(<Sidebar onClick={() => {return;}}/>)
 
     // On page normally
     expect(screen.getByTestId('filter_overlay')).toBeInTheDocument();
