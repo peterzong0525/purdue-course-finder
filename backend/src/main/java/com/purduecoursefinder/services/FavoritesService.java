@@ -1,6 +1,7 @@
 package com.purduecoursefinder.services;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -13,8 +14,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.purduecoursefinder.models.User;
 import com.purduecoursefinder.models.dto.BuildingDTO;
 import com.purduecoursefinder.models.dto.CourseDTO;
-import com.purduecoursefinder.models.dto.SectionDTO;
+import com.purduecoursefinder.models.dto.FavoriteSectionDTO;
 import com.purduecoursefinder.repositories.BuildingRepository;
+import com.purduecoursefinder.repositories.ClassRepository;
 import com.purduecoursefinder.repositories.CourseRepository;
 import com.purduecoursefinder.repositories.SectionRepository;
 import com.purduecoursefinder.repositories.UserRepository;
@@ -24,6 +26,9 @@ import com.purduecoursefinder.security.PCFUserDetails;
 public class FavoritesService {
     @Autowired
     private CourseRepository courseRepository;
+    
+    @Autowired
+    private ClassRepository classRepository;
     
     @Autowired
     private SectionRepository sectionRepository;
@@ -57,9 +62,27 @@ public class FavoritesService {
         return user.getFavoriteCourses().stream().map(course -> CourseDTO.fromCourse(course)).collect(Collectors.toList());
     }
 
-    public List<SectionDTO> getFavoriteSections() {
+    public List<FavoriteSectionDTO> getFavoriteSections() {
         User user = ((PCFUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
-        return user.getFavoriteSections().stream().map(section -> SectionDTO.fromSection(section)).collect(Collectors.toList());
+//        return user.getFavoriteSections().stream().map(section -> {
+//            try {
+//                return FavoriteSectionDTO.fromSection(section,
+//                        courseRepository.findByClasses(classRepository.findBySections(section/*.getSectionId()*/)
+//                                .orElseThrow().getClassId())
+//                                    .orElseThrow());
+//            } catch (NoSuchElementException e) {
+//                System.out.println("Nothing.");
+//            }
+//            
+//            return FavoriteSectionDTO.fromSection(section, null);
+//            }).collect(Collectors.toList());
+        
+//        return user.getFavoriteSections().stream().map(section -> FavoriteSectionDTO.fromSection(section,
+//                        courseRepository.findByClasses(classRepository.findBySections(section/*.getSectionId()*/)
+//                                .orElseThrow().getClassId()).orElseThrow())).collect(Collectors.toList());
+        
+        return user.getFavoriteSections().stream().map(section -> FavoriteSectionDTO.fromSection(section,
+                section.getCls().getCourse())).collect(Collectors.toList());
     }
     
     public List<BuildingDTO> getFavoriteBuildings() {

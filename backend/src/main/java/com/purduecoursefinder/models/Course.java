@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -39,8 +40,8 @@ public class Course {
     @JoinColumn(name = "subjectId")
     Subject subject;
     
-    @OneToMany
-    List<Class> classes;
+    @OneToMany(fetch = FetchType.EAGER)
+    List<PCFClass> classes;
     
     public static Course fromCourseApiDTO(CourseApiDTO courseApiDTO) {
         return Course.builder()

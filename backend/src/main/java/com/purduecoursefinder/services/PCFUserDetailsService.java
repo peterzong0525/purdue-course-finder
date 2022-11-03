@@ -30,7 +30,7 @@ public class PCFUserDetailsService implements UserDetailsService {
         // This ate away so much time I'm sticking with this working solution for now.
         // This is worth returning to later.
         Hibernate.initialize(user.getFavoriteCourses());
-        Hibernate.initialize(user.getFavoriteSections());
+        Hibernate.initialize(user.getFavoriteSections());        
         Hibernate.initialize(user.getFavoriteBuildings());
         
         return new PCFUserDetails(user);

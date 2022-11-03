@@ -22,10 +22,10 @@ import com.purduecoursefinder.exceptions.UnableToRetrieveSubjectsException;
 import com.purduecoursefinder.exceptions.UnknownSubjectException;
 import com.purduecoursefinder.models.Building;
 import com.purduecoursefinder.models.BuildingMapping;
-import com.purduecoursefinder.models.Class;
 import com.purduecoursefinder.models.Course;
 import com.purduecoursefinder.models.Instructor;
 import com.purduecoursefinder.models.Meeting;
+import com.purduecoursefinder.models.PCFClass;
 import com.purduecoursefinder.models.Room;
 import com.purduecoursefinder.models.Section;
 import com.purduecoursefinder.models.Subject;
@@ -93,10 +93,10 @@ public class PurdueApiService {
     private long refreshCacheMillis;
     
     public List<SectionDTO> getSections(UUID courseId) {
-        List<Class> classes = courseRepository.findById(courseId).orElseThrow().getClasses();
+        List<PCFClass> classes = courseRepository.findById(courseId).orElseThrow().getClasses();
         List<SectionDTO> sections = new ArrayList<SectionDTO>();
         
-        for (Class cls : classes) {
+        for (PCFClass cls : classes) {
             sections.addAll(sectionRepository.findAllByCls(cls).stream().map(section -> {
                 SectionDTO s = SectionDTO.fromSection(section);
                 s.setMeetings(meetingRepository.findAllBySection(section).stream().map(meeting -> MeetingDTO.fromMeeting(meeting)).collect(Collectors.toList()));
@@ -154,7 +154,7 @@ public class PurdueApiService {
             course.setSubject(subject);
             courseRepository.save(course);
             
-            List<Class> classes = new ArrayList<Class>();
+            List<PCFClass> classes = new ArrayList<PCFClass>();
             
             for (ClassDTO classDTO : courseDTO.getClasses()) {
                 // Test against Purdue West Lafayette ID
@@ -162,7 +162,7 @@ public class PurdueApiService {
                     continue;
                 }
                 
-                Class cls = Class.fromClassDTO(classDTO);
+                PCFClass cls = PCFClass.fromClassDTO(classDTO);
                 cls.setCourse(course);
                 classes.add(cls);
                 classRepository.save(cls);
@@ -193,6 +193,8 @@ public class PurdueApiService {
                         roomRepository.save(room);
                         meetingRepository.save(meeting);
                     }
+                    
+                    classRepository.save(cls);
                 }
             }
             

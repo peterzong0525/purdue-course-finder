@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -40,7 +41,7 @@ public class Section {
     
     @ManyToOne
     @JoinColumn(name = "classId")
-    Class cls;
+    PCFClass cls;
     
     public static Section fromSectionDTO(SectionDTO sectionDTO) {
         return Section.builder()
