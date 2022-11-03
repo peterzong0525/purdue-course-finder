@@ -69,6 +69,11 @@ Testing Account Deletion:
         5. Notice the email on the page vanishes as no one is currently logged in.
 
 Testing Sidebar Component Clicking:
+    A. Identification and Classification
+        Test Case: 401
+        System: sidebar on the homepage (/)
+        Description: selecting items on the sidebar
+        Severity: 1
     In the sidebar, components consisting of either buildings, classrooms, courses, or sections.
     When clicking on a course, the sidebar should refresh to show section components that are
     relevant to the selected course. Similarly, when a building is clicked, classrooms that are
@@ -107,6 +112,15 @@ Testing Sidebar Filtering:
         6. (See Test Case 401 for clicking courses and showing sections)
 
 Testing Homepage Map:
+    A. Identification and Classification
+        Test Case: 601
+        System: map on the homepage (/)
+        Description: interacting with the map
+        Severity: 1
+
+        Sprint: 2
+        User Story: 1
+
     When loading the web application, it defaults to our homepage. This homepage contains a map of Purdue's campus in 
     West Lafayette, and a sidebar on the left of the page. A "+" button in the lower right corner of the map allows it to be 
     zoomed in. A "-" button in the lower right corner of the map allows it to be zoomed out. The scroll wheel on the mouse can
@@ -153,6 +167,12 @@ Testing Map Building Labels:
             that accurately represents that building's shortcode, ex. Wilmeth Active Learning Center -> WALC.
 
 Testing Buildings From Sidebar to Map:
+    A. Identification and Classification
+        Test Case: 901
+        System: /       (home page)
+        Description: Sidebar & Map component interactions
+        Severity: 1
+
     On the main page, notice the sidebar on the left, and the map on the right. On default, the filter is set to Building.
     See "Testing Sidebar Filtering" above for more information about that. The search bar will allow us to search for all
     buildings by having an empty string and hitting the search button. Alternatively, you can search for a specific building
@@ -165,6 +185,12 @@ Testing Buildings From Sidebar to Map:
     Purdue's campus and confirm the map pans correctly and their highlights display correctly.
 
 Testing Homepage Floating Buttons:
+    A. Identification and Classification
+        Test Case: 1001
+        System: /       (home page)
+        Description: buttons on the homepage that appear depending on whether or not a user is currently signed in
+        Severity: 1
+
     There are a collection of floating buttons that appear in the upper right corner of the home page of our application. 
     These buttons are for logging in, signing out, accessing the account settings page, accessing the favorites page, and 
     accessing the user schedule page. The Log In button only appears if you are not currently logged into an account, and 
@@ -179,6 +205,11 @@ Testing Homepage Floating Buttons:
     element will only appear when the user is logged in, and disappear when the user logs out. 
 
 Testing Login Redirection:
+    A. Identification and Classification
+        Test Case: 1101
+        Systems: /deleteacct, /modifyAccount, /schedule, /favorites
+        Description: buttons on the homepage that appear depending on whether or not a user is currently signed in
+        Severity: 1
     Navigate to the '/deleteacct', '/modifyAccount', '/schedule', and '/favorites' pages while logged in to ensure that they
     load as expected. Using the button on the homepage, sign out of your current account. Navigate to each of the four pages
     listed above and see that they redirect to the login page. 
