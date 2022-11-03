@@ -144,7 +144,7 @@ function Map(props) {
               Buildings.map((building, index) => (
                 <div key={index}>
                   <Polygon path={building.coordArray} options={{strokeColor: '#000000', fillColor:'#FFF72F' }} />
-                  <Marker label={{text:building.shortCode, fontSize:"10px"}} position={{lat:(building.shortCodeLocation.lat-0.0001), lng:building.shortCodeLocation.lng}} icon="../map_images/BlankPNG.png" />
+                  <Marker label={{text:building.shortCode, fontSize:"15px", fontWeight: 'bold'}} position={{lat:(building.shortCodeLocation.lat-0.0001), lng:building.shortCodeLocation.lng}} icon="../map_images/BlankPNG.png" />
                 </div>
               ))
             }
