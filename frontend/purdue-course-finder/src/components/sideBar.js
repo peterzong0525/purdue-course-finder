@@ -120,7 +120,7 @@ function SideBar(props) {
                                 data[i]['isFavorite'] = false;
                             }
                         } else if (filter_option === 'Section') {
-                            if (favorites.some(e => e.Id === data[i].Id)) {
+                            if (favorites.some(e => e.id === data[i].Id)) {
                                 data[i]['isFavorite'] = true;
                             } else {
                                 data[i]['isFavorite'] = false;
