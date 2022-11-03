@@ -66,7 +66,6 @@ function Map(props) {
       responseData = response.data;
     });
 
-    console.log("Response Length: "+ responseData.length);
     let buildings = [];
     for (let i = 0; i < responseData.length; i++) {
       let currBuilding = responseData[i];
@@ -76,7 +75,6 @@ function Map(props) {
                                   currBuilding.OutlineCoords));
     }
     setBuildings(buildings);
-    console.log("Buildings Length: " + Buildings.length);
   }
 
   function filterBuildings(buildingName) {
@@ -106,10 +104,6 @@ function Map(props) {
     console.log(FilteredBuildings[0], props.buildingName)
     map.panTo(FilteredBuildings[0].coordArray[0]);
     map.setZoom(18);
-  }
-
-  if (Buildings.length === 0) {
-    console.log("Buildings is empty!");
   }
   
   // This is for displaying only text 
