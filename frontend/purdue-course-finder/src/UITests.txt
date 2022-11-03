@@ -1,6 +1,12 @@
 This document is for manually testing User Interfaces (UI) in the Purdue Course Finder Project
 
 Testing Account Signup:
+    A. Identification and Classification
+        Test Case: 101
+        System: /signup
+        Description: Creating an Account
+        Severity: 1
+    
     Upon loading the /signup page, there will be a Purdue looking page containing a gold box
     with fields for the email address, password, and confirming the password. There is also a
     button for signing up and a link for users if they already have an account. Confirm this
@@ -14,7 +20,13 @@ Testing Account Signup:
     'A user with that email address already exists.' is displayed.
 
 
-Testing Account Login: 
+Testing Account Login:
+    A. Identification and Classification
+        Test Case: 201
+        System: /login
+        Description: Logging into an Account
+        Severity: 1
+
     Load the /login page. The page contains a gold box labeled "Purdue Course Finder Log In". This box contains fields 
     for an email address and a password, followed by a black "Log In" button. Below that button are links labeled
     "Forgot Password?" and "Create an Account". Clicking the "Create an Account" link leads to the /signup page. 
@@ -30,18 +42,31 @@ Testing Account Login:
 
 
 Testing Account Deletion:
-    On the delete account page, currently under path /deleteacct, there should be a header at
-    the top of the page displaying 'Purdue Course Finder' and a back button to go back to the
-    home page (/). Confirm that button takes the user back to the home page and then return to
-    the /deleteacct page. After account creation is all set up, a user's first name, last name,
-    and email will be displayed on the page. 
-    There should also be a button under the user info displaying 'Delete Account'. Upon pressing 
-    it, a popup window will appear and ask the user if they are sure they want to delete their
-    account. Hit F12 or inspect element to open the console. When pressing 'Confirm', the
-    window, should print to the console the server's response of "No user exists for that 
-    email." since user information isn't stored on the browser side yet. To confirm with a real
-    account, create an account using email 'testemail' and password 'testpassword' refollow the
-    steps above. Additionally, if the popup is open, the 'X' button should close it.
+    A. Identification and Classification
+        Test Case: 301
+        System: /deleteacct
+        Description: Deleting an Account
+        Severity: 1
+        
+        Sprint: 1
+        User Story: 7
+        Task: 4
+    
+    B. Instructions
+        1. Open the page
+        2. Click the 'Go Back' Button
+        3. Click the 'Delete Account' Button
+        4. Click the 'X' on the popup
+        5. Click the 'Confirm' button on the popup
+
+    C. Expected result
+        1. Observe a header at the top of the page displaying 'Purdue Course Finder' and a back button 
+            to go back to the home page. Also see the current logged in user's email displayed.
+        2. Confirm that button takes the user back to the home page (Return to the delete account page 
+            to continue the tutorial)
+        3. Confirm a popup appears asking if you are sure, and the action cannot be undone.
+        4. The popup closes.
+        5. Notice the email on the page vanishes as no one is currently logged in.
 
 Testing Sidebar Component Clicking:
     In the sidebar, components consisting of either buildings, classrooms, courses, or sections.
