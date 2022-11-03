@@ -33,7 +33,7 @@
         {
             "Name": "Mathematical Sciences Building",
             "ShortCode": "MATH",
-            "ShortCode_Location":{"lat":40.42617,"lng":-86.91565},
+            "ShortCode_Location":{"lat":40.42623,"lng":-86.91576},
             "OutlineCoords":[{"lat":40.42599,"lng":-86.91590},{"lat":40.42599,"lng":-86.91563},{"lat":40.42638,"lng":-86.91562},{"lat":40.42656,"lng":-86.91570},{"lat":40.42656,"lng":-86.91581},{"lat":40.42638,"lng":-86.91589}]
         },
         {
@@ -63,7 +63,7 @@
         {
             "Name": "Honors College&Resid North",
             "ShortCode": "HCRN",
-            "ShortCode_Location":{"lat":40.42680,"lng":-86.91962},
+            "ShortCode_Location":{"lat":40.42679,"lng":-86.91951},
             "OutlineCoords":[{"lat":40.42718,"lng":-86.91940},{"lat":40.42714,"lng":-86.91994},{"lat":40.42699,"lng":-86.92012},{"lat":40.42690,"lng":-86.92000},{"lat":40.42699,"lng":-86.91986},{"lat":40.42698,"lng":-86.91965},{"lat":40.42662,"lng":-86.91964},{"lat":40.42662,"lng":-86.91987},{"lat":40.42670,"lng":-86.91999},{"lat":40.42660,"lng":-86.92010},{"lat":40.42648,"lng":-86.91994},{"lat":40.42640,"lng":-86.91940}]
         },
         {
@@ -118,7 +118,7 @@
             "Name": "Lyles-Porter Hall",
             "ShortCode": "LYLE",
             "ShortCode_Location":{"lat":40.42104,"lng":-86.91671},
-            "OutlineCoords":[{"lat":40.42123,"lng":-86.91719},{"lat":40.42091,"lng":-86.91719},{"lat":40.42094,"lng":-86.91660},{"lat":40.42062,"lng":-86.91660},{"lat":40.42062,"lng":-86.91628},{"lat":40.42113,"lng":-86.91626},{"lat":40.42114,"lng":-86.91666},{"lat":40.42125,"lng":-86.91666}]
+            "OutlineCoords":[{"lat":40.42123,"lng":-86.91719},{"lat":40.42091,"lng":-86.91719},{"lat":40.42091,"lng":-86.91660},{"lat":40.42062,"lng":-86.91660},{"lat":40.42062,"lng":-86.91628},{"lat":40.42113,"lng":-86.91626},{"lat":40.42114,"lng":-86.91666},{"lat":40.42125,"lng":-86.91666}]
         },
         {
             "Name": "Agricultural & Biological Engr",
@@ -165,7 +165,7 @@
         {
             "Name": "Biochemistry Building",
             "ShortCode": "BCHM",
-            "ShortCode_Location":{"lat":40.42280,"lng":-86.91638},
+            "ShortCode_Location":{"lat":40.42269,"lng":-86.91650},
             "OutlineCoords":[{"lat":40.42313,"lng":-86.91639},{"lat":40.42281,"lng":-86.91640},{"lat":40.42282,"lng":-86.91686},{"lat":40.42260,"lng":-86.91686},{"lat":40.42259,"lng":-86.91618},{"lat":40.42313,"lng":-86.91616}]
         },
         {
@@ -196,7 +196,7 @@
             "Name": "Horticulture Building",
             "ShortCode": "HORT",
             "ShortCode_Location":{"lat":40.42182,"lng":-86.91441},
-            "OutlineCoords":[{"lat":40.42355,"lng":-86.91475},{"lat":40.42327,"lng":-86.91475},{"lat":40.42326,"lng":-86.91456},{"lat":40.42337,"lng":-86.91455},{"lat":40.42336,"lng":-86.91420},{"lat":40.42318,"lng":-86.91421},{"lat":40.42318,"lng":-86.91402},{"lat":40.42353,"lng":-86.91401}]
+            "OutlineCoords": [{"lat": 40.42190,"lng": -86.91478},{"lat": 40.42153,"lng": -86.91479},{"lat": 40.42152,"lng": -86.91458},{"lat": 40.42174,"lng": -86.91457},{"lat": 40.42173,"lng": -86.91423},{"lat": 40.42163,"lng": -86.91424},{"lat": 40.42162,"lng": -86.91403},{"lat": 40.42188,"lng": -86.91403}]
         },
         {
             "Name": "Heavilon Hall",
@@ -411,7 +411,7 @@
         {
             "Name": "Agricultural Administration",
             "ShortCode": "AGAD",
-            "ShortCode_Location":{"lat":40.42343,"lng":-86.91432},
+            "ShortCode_Location":{"lat":40.42343,"lng":-86.91437},
             "OutlineCoords":[{"lat":40.42355,"lng":-86.91474},{"lat":40.42326,"lng":-86.91476},{"lat":40.42326,"lng":-86.91456},{"lat":40.42337,"lng":-86.91455},{"lat":40.42336,"lng":-86.91421},{"lat":40.42318,"lng":-86.91420},{"lat":40.42317,"lng":-86.91402},{"lat":40.42353,"lng":-86.91401}]
         },
         {
@@ -467,12 +467,6 @@
             "ShortCode": "BIND",
             "ShortCode_Location":{"lat":40.42295,"lng":-86.92344},
             "OutlineCoords":[{"lat":40.42318,"lng":-86.92357},{"lat":40.42261,"lng":-86.92356},{"lat":40.42260,"lng":-86.92328},{"lat":40.42318,"lng":-86.92324}]
-        },
-        {
-            "Name": "Food Science Building",
-            "ShortCode": "FS",
-            "ShortCode_Location":{"lat":40.42167,"lng":-86.91547},
-            "OutlineCoords":[{"lat":40.42186,"lng":-86.91579},{"lat":40.42127,"lng":-86.91581},{"lat":40.42126,"lng":-86.91513},{"lat":40.42184,"lng":-86.91514}]
         },
         {
             "Name": "Birk Nanotechnology Center",

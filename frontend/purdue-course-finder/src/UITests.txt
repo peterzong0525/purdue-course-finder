@@ -75,14 +75,36 @@ Testing Sidebar Component Clicking:
     inside the selected building should repopulate the sidebar.
 
 Testing Sidebar Filtering:
-    On the main page, there is a sidebar to the left of the map. The filter for the sidebar
-    defaults to Courses. In order to change the filtering option, press the 'Filter' button and
-    a popup window should appear with the options 'Building', 'Classroom', 'Course', and
-    'Section'. You can leave the boxes unchecked if you want to stay on Courses or change the
-    filter to another type. To test filtering, type in something such as 'MA' or 'ENGL' and press
-    either enter on your keyboard or press the magnifying glass. After a couple of seconds,
-    observe the classes appear in the sidebar. Visually confirm your search string created the
-    correct courses or other filtering option you selected.
+    A. Identification and Classification
+        Test Case: 501
+        System: /       (home page)
+        Description: Filtering Sidebar and Panes
+        Severity: 1
+        
+        Sprint: 2
+        User Story: 5
+        Task: 5
+    
+    B. Instructions
+        * Searching in the sidebar requires you to hit enter or click the magnifying glass *
+
+        1. Open the page
+        2. Click the 'Filter' button
+        3. Click the Filter Popup's 'X' button
+        4. Type a building name in the search bar, such as 'Pharmacy' or 'Brown' (not case-sensitive)
+        5. Change the filter to Course, and type in a department, such as 'CS' or 'MA'
+        6. Testing Sections (See Expected result)
+
+    C. Expected result
+        1. Confirm the sidebar appears on the left side of the page. By default, the current filter
+            is 'Building' so buildings will appear in the sidebar.
+        2. Confirm a popup appears with options 'Building', 'Classroom', and 'Course'. Also confirm
+            sort by 'Ascending' and 'Descending' options appear. (Note: Classrooms are going to be
+            implemented in the next sprint and do not work currently.)
+        3. Confirm the popup disappears.
+        4. Confirm only the correct buildings display.
+        5. Confirm courses for input department appear.
+        6. (See Test Case 401 for clicking courses and showing sections)
 
 Testing Homepage Map:
     When loading the web application, it defaults to our homepage. This homepage contains a map of Purdue's campus in 
@@ -91,6 +113,44 @@ Testing Homepage Map:
     also be used to zoom in and out on the map (only if the mouse cursor is over the map on the page, scrolling on the sidebar
     works as expected). Clicking on the map and dragging allows the user to pan the map in all directions. The arrow keys on 
     the keyboard can also be used for panning (as long as the map has been most recently clicked on).
+
+Testing Map Buildings:
+    A. Identification and Classification
+        Test Case: 701
+        System: /       (home page)
+        Description: Building Outlines on Map
+        Severity: 1
+        
+        Sprint: 2
+        User Story: 4
+        Task: 4
+    
+    B. Instructions
+        1. Open the page
+        2. Scroll around on the map
+
+    C. Expected result
+        1. Confirm the map appears
+        2. Ensure at Purdue West Lafayette's campus, academic buildings have an accurate
+            outline representing their building architecture.
+
+Testing Map Building Labels:
+    A. Identification and Classification
+        Test Case: 801
+        System: /       (home page)
+        Description: Building Labels on Map
+        Severity: 1
+        
+        Sprint: 2
+        User Story: 6
+        Task: 4
+    
+    B. Instructions
+        1. Open the page and scroll around on the map
+
+    C. Expected result
+        1. Ensure at Purdue West Lafayette's campus, academic buildings have a label on outlined buildings
+            that accurately represents that building's shortcode, ex. Wilmeth Active Learning Center -> WALC.
 
 Testing Buildings From Sidebar to Map:
     On the main page, notice the sidebar on the left, and the map on the right. On default, the filter is set to Building.
