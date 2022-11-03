@@ -40,13 +40,12 @@
     height: 70vh;
     background-color: #CEB888;
     border: 2px solid black;
-    border-radius: 10px;
 }
 
 .favoritesPageContainer .listItem {
     max-width: 100%;
     margin: 5px;
-    border: 2px solid green;
+    border: 2px solid gray;
     border-radius: 5px;
     background-color: white;
     display: grid;
@@ -70,7 +69,7 @@
     margin: -1px;
 }
 
-.favoritesPageContainer .removeTxt{
+.favoritesPageContainer .removeTxt {
     font-size: 40px;
     font-weight: bold;
     color: #F0F0F0;
@@ -87,8 +86,13 @@
     user-select: none;
 }
 
-.listItem:hover > .listItemDelete{
+.favoritesPageContainer .listItem:hover > .listItemDelete {
     opacity:1;
     background-color: rgb(214, 5, 5, .8);
     transition: opacity 250ms;
+}
+
+.favoritesPageContainer .noFavorites {
+    text-align: center;
+    font-size: 25px;
 }

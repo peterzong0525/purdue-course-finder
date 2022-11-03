@@ -40,6 +40,9 @@ function SideBar(props) {
         } else if (filter_option === 'Classroom') {
             url = `${serverURL}/classrooms`;
             getFavUrl = `${serverURL}/favorites/classrooms`;
+            setLoading(false);
+            setObjects([]);
+            return;
 
         } else if (filter_option === 'Course') {
             if (searchString.trim() === '') {
@@ -74,16 +77,6 @@ function SideBar(props) {
             if (filter_option === 'Building') {
                 data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
 
-                //remove duplicates
-                let tmp = [];
-                tmp.push(data[0])
-                for (let i = 1; i < data.length; i++) {
-                    if (data[i].ShortCode.localeCompare(data[i-1].ShortCode) !== 0) {
-                        tmp.push(data[i]);
-                    }
-                }
-                data = tmp;
-
             } else if (filter_option === 'Classroom') {
                 console.log("todo");
             } else if (filter_option === 'Course') {
@@ -108,13 +101,12 @@ function SideBar(props) {
                 };
                 axios.get(getFavUrl, config).then((response) => {
                     let favorites = response.data;
+                    console.log("Favorites:" );
                     console.log(favorites);
 
                     for (let i = 0; i < data.length; i++) {
-                        let allId = "";
-                        let favId = "";
                         if (filter_option === 'Building') {
-                            if (favorites.some(e => e.Id === data[i].Id)) {
+                            if (favorites.some(e => e.ShortCode === data[i].ShortCode)) {
                                 data[i]['isFavorite'] = true;
                             } else {
                                 data[i]['isFavorite'] = false;
@@ -194,10 +186,10 @@ function SideBar(props) {
                 prevDesc = itemHead;
                 searchString = e.searchStr;
             } else if (e.filter === "Building") {
-                //filter = "Classroom";
+                filter = "Classroom";
                 prevDesc = itemHead;
                 searchString = e.searchStr;
-                //document.getElementById("classroom").checked = true;
+                // document.getElementById("classroom").checked = true;
                 props.onClick(firstRow);
             } else if (e.filter === "Section") {
                 //props.onClick(thirdRow.substring(10));
@@ -312,6 +304,9 @@ function SideBar(props) {
             // Change sidebar
             searchString = searchStr;
             populateSidebar(filter);
+            if (filter === "Building") {
+                props.onClick('');
+            }
         }
     }
 
@@ -349,7 +344,8 @@ function SideBar(props) {
             
             // Filter for buildings with name or shortcode containing search string
             for (let i = 0; i < objects.length; i++) {
-                if (searchString !== null && objects[i].Name !== undefined && objects[i].ShortCode !== undefined) {
+                if (searchString !== null && searchString !== undefined && objects[i].Name !== undefined && objects[i].ShortCode !== undefined) {
+                    // console.log(searchString, objects[i].Name, objects[i].ShortCode)
                     if (objects[i].Name.toLowerCase().includes(searchString.toLowerCase()) || 
                         objects[i].ShortCode.toLowerCase().includes(searchString.toLowerCase())) {
                         filtered.push(objects[i]);
@@ -368,7 +364,7 @@ function SideBar(props) {
                         "", 
                         "",
                         "Building", 
-                        building.Id,
+                        building.ShortCode,
                         building.isFavorite)}
                         {/* TODO: Need rooms to also be returned */}
                 </div>

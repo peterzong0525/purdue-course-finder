@@ -2,10 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './favorites.css'
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { serverURL } from '../index.js';
 
 
 function Favorites() {
     const navigate = useNavigate();
+
+    const [buildings, setBuildings] = useState(null);
+    const [classrooms, setClassrooms] = useState(null);
+    const [courses, setCourses] = useState(null);
+    const [sections, setSections] = useState(null);
     
     useEffect(() => {
         if (window.sessionStorage.getItem("userToken") === null) {
@@ -13,10 +20,112 @@ function Favorites() {
             navigate('/login');
             return;
         }
+        populateFavorites(true, true, true, true);
     }, [])
 
+    function populateFavorites(buildings, classrooms, courses, sections) {
+        const config = {
+            headers:{
+                "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+            }
+        };
+        
+        // Get and set favorite buildings
+        if (buildings) {
+            let url = `${serverURL}/favorites/buildings`;
+            axios.get(url, config).then((response) => {
+                let data = response.data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
+                setBuildings(displayObjects(data, "Building"));
+            }).catch((error) => {
+                console.log(error);
+            })
+        }
 
 
+        // Get and set favorite classrooms
+        /*
+        if (classrooms) {
+            let url = `${serverURL}/favorites/classrooms`;
+            axios.get(url, config).then((response) => {
+                let data = response.data
+                setClassrooms(displayObjects(data, 'Classroom'));
+                console.log(response);
+
+            }).catch((error) => {
+                console.log(error);
+            })
+        }
+        */
+
+        // Get and set favorite courses
+        if (courses) {
+            let url = `${serverURL}/favorites/courses`;
+            axios.get(url, config).then((response) => {
+                let data = response.data.sort((a, b) => a.courseNumber - b.courseNumber);
+                setCourses(displayObjects(data, "Course"));
+
+            }).catch((error) => {
+                console.log(error);
+            })
+        }
+
+        //Get and set favorite sections
+        if (sections) {
+            let url = `${serverURL}/favorites/sections`;
+            axios.get(url, config).then((response) => {
+                let data = response.data.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
+                setSections(displayObjects(data, 'Section'));
+
+            }).catch((error) => {
+                console.log(error);
+            })
+        }
+    }
+
+    function displayObjects(objects, type) {
+        if (!objects.length) {
+            return null;
+        }
+
+        if (type === 'Building') {
+            return objects.map((building, index) => (
+                <div key={index}>
+                    {setItem(building.ShortCode, building.Name, "Building", building.ShortCode)}
+                </div>
+            ))
+        } else if (type === 'Classroom') {
+            return objects.map((classroom, index) => (
+                <div key={index}>
+                    {setItem("Room " + classroom.number, "Building: " + classroom.Building.Name, "Classroom", classroom.classroomId)}
+                </div>
+            ))
+        } else if (type == 'Course') {
+            return objects.map((course, index) => (
+                <div key={index}>
+                    {setItem(course.subjectAbbreviation + " " + course.courseNumber, course.title, "Course", course.courseId)}
+                </div>
+            ))
+        } else if (type === 'Section') {
+            return objects.map((section, index) => (
+                <div key={index}>
+                    {setItem(section.Type + " - " + section.Crn, "Course: Need info", "Section", section.Id)}
+                </div>
+            ))
+        } else {
+            console.log("Error: type does not exist.");
+        }
+    }
+
+
+    function setItem(itemHead_in, firstRow_in, dataType, dataID) {
+        return(
+            <ListItem key = {dataID}
+                    itemHead = {itemHead_in}
+                    firstRow = {firstRow_in}
+                    dataType = {dataType}
+                    dataID = {dataID}/>
+        );
+    }
 
 
     function ListItem(props) {
@@ -26,6 +135,65 @@ function Favorites() {
             dataType: PropTypes.string,
             dataID: PropTypes.string,
         };
+
+        const _handleClick = () => {
+            if (props.dataType === "Building") {
+                axios({
+                    url: `${serverURL}/favorites/buildings/${props.dataID}`,
+                    headers:{
+                        "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+                    },
+                    method: "DELETE",
+                }).then((response) => {
+                    // Parameter order: building, classroom, course, section
+                    populateFavorites(true, false, false, false);
+                }).catch((error) => {
+                    console.log(error)
+                });
+
+            } else if (props.dataType === "Classroom") {
+                axios({
+                    url: `${serverURL}/favorites/classrooms/${props.dataID}`,
+                    headers:{
+                        "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+                    },
+                    method: "DELETE",
+                }).then((response) => {
+                    populateFavorites(false, true, false, false);
+                }).catch((error) => {
+                    console.log(error)
+                });
+
+            } else if (props.dataType === "Course") {
+                axios({
+                    url: `${serverURL}/favorites/courses/${props.dataID}`,
+                    headers:{
+                        "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+                    },
+                    method: "DELETE",
+                }).then((response) => {
+                    populateFavorites(false, false, true, false);
+                }).catch((error) => {
+                    console.log(error)
+                });
+
+            } else if (props.dataType === "Section") {
+                axios({
+                    url: `${serverURL}/favorites/sections/${props.dataID}`,
+                    headers:{
+                        "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+                    },
+                    method: "DELETE",
+                }).then((response) => {
+                    populateFavorites(false, false, false, true);
+                }).catch((error) => {
+                    console.log(error)
+                });
+
+            } else {
+                console.log("Error: Data type does not exist.")
+            }
+        }
 
 
         return(
@@ -38,7 +206,7 @@ function Favorites() {
                         {props.firstRow}
                     </p>
                 </div>
-                <div className = "listItemDelete">
+                <div className = "listItemDelete" onClick={()=>_handleClick()}>
                     <div className = "removeTxt">REMOVE</div>                   
                 </div>
 
@@ -65,12 +233,12 @@ function Favorites() {
                     <h2>Buildings</h2>
                 </div>
                 <div className = "listItemContainer">
-                    <ListItem 
-                        itemHead = "SHORTCODE"
-                        firstRow = "Short building name"/>
-                    <ListItem 
-                        itemHead = "SHORTCODE"
-                        firstRow = "Extremely long building name that takes up multiple lines"/>
+                    {buildings}
+                    {!buildings && (
+                        <div className = "noFavorites">
+                            You have no favorite buildings.
+                        </div>
+                    )}
                 </div>
             </div>
             <div className = "favList">
@@ -78,7 +246,12 @@ function Favorites() {
                     <h2>Classrooms</h2>
                 </div>
                 <div className = "listItemContainer">
-
+                    {classrooms}
+                    {!classrooms && (
+                        <div className = "noFavorites">
+                            You have no favorite classrooms.
+                        </div>
+                    )}
                 </div>
             </div>
             <div className = "favList">
@@ -86,9 +259,12 @@ function Favorites() {
                     <h2>Courses</h2>
                 </div>
                 <div className = "listItemContainer">
-                    <ListItem 
-                        itemHead = "Subject Number"
-                        firstRow = "Course Name"/>
+                    {courses}
+                    {!courses && (
+                        <div className = "noFavorites">
+                            You have no favorite courses.
+                        </div>
+                    )}
                 </div>
             </div>
             <div className = "favList">
@@ -96,9 +272,12 @@ function Favorites() {
                     <h2>Sections</h2>
                 </div>
                 <div className = "listItemContainer">
-                    <ListItem 
-                        itemHead = "Type - Number"
-                        firstRow = "Course: Subject Number"/>
+                    {sections}
+                    {!sections && (
+                        <div className = "noFavorites">
+                            You have no favorite sections.
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
