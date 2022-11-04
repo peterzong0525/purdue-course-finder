@@ -157,7 +157,7 @@ Testing Map Buildings:
         Test Case: 701
         System: /       (home page)
         Description: Building Outlines on Map
-        Severity: 1
+        Severity: 3
         
         Sprint: 2
         User Story: 4
@@ -177,7 +177,7 @@ Testing Map Building Labels:
         Test Case: 801
         System: /       (home page)
         Description: Building Labels on Map
-        Severity: 1
+        Severity: 3
         
         Sprint: 2
         User Story: 6
@@ -195,7 +195,7 @@ Testing Buildings From Sidebar to Map:
         Test Case: 901
         System: /       (home page)
         Description: Sidebar & Map component interactions
-        Severity: 1
+        Severity: 2
 
     On the main page, notice the sidebar on the left, and the map on the right. On default, the filter is set to Building.
     See "Testing Sidebar Filtering" above for more information about that. The search bar will allow us to search for all
@@ -208,36 +208,116 @@ Testing Buildings From Sidebar to Map:
     building actually is and that the map panned to the correct highlighted building. Repeat these steps with other buildings on
     Purdue's campus and confirm the map pans correctly and their highlights display correctly.
 
-Testing Homepage Floating Buttons:
+Testing Homepage Buttons:
     A. Identification and Classification
         Test Case: 1001
         System: /       (home page)
         Description: buttons on the homepage that appear depending on whether or not a user is currently signed in
-        Severity: 1
+        Severity: 3
 
-    There are a collection of floating buttons that appear in the upper right corner of the home page of our application. 
-    These buttons are for logging in, signing out, accessing the account settings page, accessing the favorites page, and 
-    accessing the user schedule page. The Log In button only appears if you are not currently logged into an account, and 
-    the other buttons only appear if you are currently loggen into an account. When loading the application initially, 
-    you should not be logged into an account. Therefore, the only button that appears in the top right is the "LOG IN" 
-    button. Clicking this button leads to the login page (See above "Testing Account Login" section for more info). 
-    Once logged in, the "LOG IN" button disappears, and the following buttons appear in the top right of the homepage 
-    (from right to left): "SIGN OUT", "ACCOUNT SETTINGS", "FAVORITES", and "MY SCHEDULE". Clicking "MY SCHEDULE" leads to
-    the user schedule page. Clicking "FAVORITES" leads to the user favorites page. Clicking "ACCOUNT SETTINGS" leads to the 
-    modify account page. Clicking "SIGN OUT" logs the user out of the application and reloads the homepage. Once reloaded,
-    these four buttons will disappear and the "LOG IN" button will appear. Also, the star icon buttons on each sidebar 
-    element will only appear when the user is logged in, and disappear when the user logs out. 
+        Sprint: 2
+        User Story: 8
+        Tasks: 3, 4
+    
+    B. Instructions
+        1. Open the homepage while not logged in
+        2. Click the "LOG IN" button in the top right corner of the page
+        3. Log into an account and return to the home page
+        4. Click on the "ACCOUNT SETTINGS" button in the top right corner of the page
+        5. return to the home page
+        6. Click on the "FAVORITES" button in the top right corner of the page
+        7. return to the home page
+        8. Click on the "MY SCHEDULE" button in the top right corner of the page
+        9. return to the home page
+        10. Click on the "SIGN OUT" button in the top right corner of the page
+
+    C. Expected result
+        1. When not logged in, the only button that appears in the top right corner of the homepage is the "LOG IN" button
+        2. When logged in, the "SIGN OUT", "ACCOUNT SETTINGS", "FAVORITES", and "MY SCHEDULE" buttons appear in the top right corner of the homepage
+        3. When logged in, the "LOG IN" button does not appear in the top right corner of the home page
+        4. Clicking the "LOG IN" button leads to the /login page
+        5. Clicking the "ACCOUNT SETTINGS" button leads to the /modifyAccount page
+        6. Clicking the "FAVORITES" button leads to the /favorites page
+        7. Clicking the "MY SCHEDULE" button leads to the /schedule page
+        8. Clicking the "SIGN OUT" button signs the user our of their account and refreshes the homepage
+        9. When logged in, the favoriting star buttons appear in the sidebar
+        10. When not logged in, the favoriting star buttons do not appear in the sidebar
 
 Testing Login Redirection:
     A. Identification and Classification
         Test Case: 1101
-        Systems: /deleteacct, /modifyAccount, /schedule, /favorites
-        Description: buttons on the homepage that appear depending on whether or not a user is currently signed in
+        System: /deleteacct
+        Description: pages that require accounts redirect to /login when there is no account currently signed in
         Severity: 1
-    Navigate to the '/deleteacct', '/modifyAccount', '/schedule', and '/favorites' pages while logged in to ensure that they
-    load as expected. Using the button on the homepage, sign out of your current account. Navigate to each of the four pages
-    listed above and see that they redirect to the login page. 
-    
-    This can also be tested by navigating to these pages when first loading the application before ever logging in, and they
-    will each still redirect to the login page.
+
+        Sprint: 2
+        User Story: 8
+        Tasks: 1, 2
+
+    B. Instructions
+        1. Log in to the app
+        2. Navigate to the /deleteacct page (See that it loads as expected)
+        3. Log out of the app
+        4. Navigate to the /deleteacct page (See it redirect to /login)
+
+    C. Expected result
+        1. When logged in, the /deleteacct page loads and appears as expected
+        2. When not logged in, the /deleteacct page redirects to the /login page
+
+    A. Identification and Classification
+        Test Case: 1102
+        System: /modifyAccount
+        Description: pages that require accounts redirect to /login when there is no account currently signed in
+        Severity: 1
+
+        Sprint: 2
+        User Story: 8
+
+    B. Instructions
+        1. Log in to the app
+        2. Navigate to the /modifyAccount page (See that it loads as expected)
+        3. Log out of the app
+        4. Navigate to the /modifyAccount page (See it redirect to /login)
+
+    C. Expected result
+        1. When logged in, the /modifyAccount page loads and appears as expected
+        2. When not logged in, the /modifyAccount page redirects to the /login page
+
+    A. Identification and Classification
+        Test Case: 1103
+        System: /schedule
+        Description: pages that require accounts redirect to /login when there is no account currently signed in
+        Severity: 1
+
+        Sprint: 2
+        User Story: 8
+
+    B. Instructions
+        1. Log in to the app
+        2. Navigate to the /schedule page (See that it loads as expected)
+        3. Log out of the app
+        4. Navigate to the /schedule page (See it redirect to /login)
+
+    C. Expected result
+        1. When logged in, the /schedule page loads and appears as expected
+        2. When not logged in, the /schedule page redirects to the /login page
+
+    A. Identification and Classification
+        Test Case: 1104
+        System: /favorites
+        Description: pages that require accounts redirect to /login when there is no account currently signed in
+        Severity: 1
+
+        Sprint: 2
+        User Story: 8
+
+    B. Instructions
+        1. Log in to the app
+        2. Navigate to the /favorites page (See that it loads as expected)
+        3. Log out of the app
+        4. Navigate to the /favorites page (See it redirect to /login)
+
+    C. Expected result
+        1. When logged in, the /favorites page loads and appears as expected
+        2. When not logged in, the /favorites page redirects to the /login page
 
