@@ -241,3 +241,58 @@ Testing Login Redirection:
     This can also be tested by navigating to these pages when first loading the application before ever logging in, and they
     will each still redirect to the login page.
 
+
+
+Testing Favoriting Star:
+    A. Identification and Classification
+        Test Case: 1201
+        Systems: / (home page) sidebar favoriting "star"
+        Description: A clickable star should be displayed in each item showing if it is currently favorited
+        Severity: 2
+
+    B. Instructions
+        1. With a new account, click on the star for the first and second item in the list of buildings
+        2. Refresh the page
+        3. Click on the star again for the first item in the list of buildings
+        4. Refresh the page
+        5. Click the "Sign Out" button
+        6. Log back in using the same account
+
+    C. Expected result
+        1. The stars for the first and second items in the list of buildings should be yellow, the rest of the start should be white
+        2. After page refresh, the first two stars should still be yellow and the rest should still be white.
+        3. The first item's star should no longer be yellow (after clicking it), the second item's star should still be yellow,
+           and the rest of the items' stars should be white.
+        4. After page refresh, the only star that should be yellow is the second item'same
+        5. After signing out and logging back in, the second item's star in the list of buildings should still be yellow while the rest
+           of the items' stars should still be white.
+
+
+
+Testing Favoriting Page Functionality:
+    A. Identification and Classification
+        Test Case: 1202
+        Systems: / (home page) sidebar favoriting "star", /favorites
+        Description: The favorites page should show a list of favorites that match the yellow stars in the sidebar
+        Severity: 2
+
+    B. Instructions
+        1. With a new account, click on the star for the first item in the list of buildings
+        2. Change the filter to Course and enter "CS" in the search bar
+        3. Click the star for the first item in the list of CS courses
+        4. Click the first CS course item, displaying a list of sections in the course
+        5. Click the star for the first item in the list of sections
+        6. Go to the favorites page and view the favorites in the lists
+        7. Click on the favorited item in the buildings list to remove it from favorites
+        8. Go back to the home Page
+
+    C. Expected result
+        1. Only the first star should be yellow in the buildings list (after clicking on it)
+        2. After filtering for CS courses, none of the stars should be yellow
+        3. Only the first star should be yellow in the list of CS courses (after clicking on it)
+        4. Clicking the first CS course should display a list of sections with none of the stars being yellow
+        5. Only the first star should be yellow in the list of sections (after clicking on it)
+        6. The favorites page should have the same items that were favorited each in their repective
+           lists (each list should only have one item)
+        7. After clicking the only item in the buildings list, the buildings list should be empty
+        8. Going back to the home page, it should display a list of buildings, and the first item's star should no longer be yellow
