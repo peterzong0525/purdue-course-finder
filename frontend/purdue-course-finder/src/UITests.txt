@@ -172,6 +172,8 @@ Testing Map Buildings:
         2. Ensure at Purdue West Lafayette's campus, academic buildings have an accurate
             outline representing their building architecture.
 
+
+
 Testing Map Building Labels:
     A. Identification and Classification
         Test Case: 801
@@ -190,23 +192,31 @@ Testing Map Building Labels:
         1. Ensure at Purdue West Lafayette's campus, academic buildings have a label on outlined buildings
             that accurately represents that building's shortcode, ex. Wilmeth Active Learning Center -> WALC.
 
+
+
 Testing Buildings From Sidebar to Map:
     A. Identification and Classification
         Test Case: 901
-        System: /       (home page)
+        System: / (home page) sidebar and map
         Description: Sidebar & Map component interactions
         Severity: 2
 
-    On the main page, notice the sidebar on the left, and the map on the right. On default, the filter is set to Building.
-    See "Testing Sidebar Filtering" above for more information about that. The search bar will allow us to search for all
-    buildings by having an empty string and hitting the search button. Alternatively, you can search for a specific building
-    by typing in its full name, part of its name, or its shortcode. Do this by typing something like "Max W & Maileen Brown Hall", 
-    which is the most recent name for the Electrical Engineering building (BHEE). You can also search just "Pharmacy" to see the 
-    Robert Heine Pharamcy Building (RHPH) in the sidebar. You can also search "WALC" to see the Wilmeth Active Learning Center (WALC)
-    in the sidebar. For testing the buildings, click on a building in the sidebar. This will cause the map to pan to the location of 
-    that building, and change the highlight color for that building. Confirm that the shape of the building's highlight is where the 
-    building actually is and that the map panned to the correct highlighted building. Repeat these steps with other buildings on
-    Purdue's campus and confirm the map pans correctly and their highlights display correctly.
+    B. Instructions
+        1. By default, whether logged in or not, the sidebar on the home page displays a list of buildings
+        2. Click a building in the sidebar (e.g. WALC a.k.a Wilmeth Active Learning Center)
+        3. Hit enter in the search bar with the filter on Buildings
+
+    C. Expected result
+        1. The sidebar should show a list of buildings and the map should be zoomed out on Purdue's campus
+           with all the building outlines shown
+        2. After clicking on a building in the sidebar, the map should zoom in to the building and the outline of 
+           only that building should be highlighted (the color of the building highlight will change color)
+           For example: If WALC is clicked in the sidebar, the map zooms to the location of the building and WALC's outline is highlighted
+        3. When the search bar is queried (with or without any search input), the previously highlighted building should no longer be highlighted
+           (the color will change back to the default yellow)
+
+
+
 
 Testing Homepage Buttons:
     A. Identification and Classification
@@ -242,6 +252,8 @@ Testing Homepage Buttons:
         8. Clicking the "SIGN OUT" button signs the user our of their account and refreshes the homepage
         9. When logged in, the favoriting star buttons appear in the sidebar
         10. When not logged in, the favoriting star buttons do not appear in the sidebar
+
+
 
 Testing Login Redirection:
     A. Identification and Classification
