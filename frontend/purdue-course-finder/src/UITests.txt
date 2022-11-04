@@ -6,18 +6,26 @@ Testing Account Signup:
         System: /signup
         Description: Creating an Account
         Severity: 1
-    
-    Upon loading the /signup page, there will be a Purdue looking page containing a gold box
-    with fields for the email address, password, and confirming the password. There is also a
-    button for signing up and a link for users if they already have an account. Confirm this
-    link redirects users to the login page and return. 
-    The email address field must fit an appropriate email address format, of x@x.x. You can 
-    confirm this by inputting different incorrect emails. (The passwords do not have such 
-    formats.) You can also try to input 2 different passwords and notice the result will catch 
-    the error. After an account is created, the same email cannot be used. After filling out 
-    each field, confirm your account by hitting 'Sign Up'. Come back to the sign up page and 
-    re-enter the same email. Confirm the error message 
-    'A user with that email address already exists.' is displayed.
+
+        Sprint: 1 
+        User Story: 3
+
+    B. Instructions
+        Upon loading the /signup page, there will be fields for an email address, password, 
+        and confirming the password along with a button for signing up and a link for users
+        if they already have an account. Enter the account info to create an account.
+        The email address field must fit an appropriate email address format, of x@x.x.
+        The password and password confirm fields must be equal to each other.
+        The password must meet minimum password complexity requirements:
+            - Minimum of 8 characters
+            - Minimum of 1 uppercase and 1 lowercase character
+            - Minimum of 1 number
+
+    C. Expected result
+        1. If the email is already in use, the password doesn't match the password confirm,
+           or the password doesn't meet necessary complexity requirements, an error message is displayed.
+        2. If successful, a green popup with a link to the login page should show up.
+        
 
 
 Testing Account Login:
@@ -27,18 +35,19 @@ Testing Account Login:
         Description: Logging into an Account
         Severity: 1
 
-    Load the /login page. The page contains a gold box labeled "Purdue Course Finder Log In". This box contains fields 
-    for an email address and a password, followed by a black "Log In" button. Below that button are links labeled
-    "Forgot Password?" and "Create an Account". Clicking the "Create an Account" link leads to the /signup page. 
-    Return to the /login page to continue testing here. Since the password recovery feature has not yet been implemented, 
-    the "Forgot Password?" link redirects to the homepage. Attempt to login without entering anything, see an error that states
-    that an email address is required. Attempt to login with an email entered but no password, see an error that states that 
-    a password is required. Enter an invalid email & password combination and click "Log In", see an error that states 
-    "The email address or password entered is incorrect". Enter a valid email with an invalid password and click "Log In", 
-    see an error that states "The email address or password entered is incorrect". Enter a valid password with an invalid email 
-    and click "Log In", see an error that states "The email address or password entered is incorrect". Enter the email & password 
-    credentials for a previously created account and click "Log In". Upon successful login, the user is redirected to the home page 
-    (When the home page is implemented it will show that the user is logged in).
+        Sprint: 1
+        User Story: 4
+
+    B. Instructions
+        Upon loading the /login page, there will be fields for an email address and password, along with a "Log In" button,
+        a link that says "Forgot Password?", and a link that says "Create an Account" that leads to the /signup page.
+        Enter an email address and password into the fields and click the "Log In" button.
+
+    C. Expected result
+        1. If either the email or password field is blank, it should say the fields cannot be empty.
+        2. If the email/password is incorrect (it doesn't exist in the system), an error should be shown.
+        3. If the email + password combination is correct, the user should be redirected to the home page and will be logged in.
+
 
 
 Testing Account Deletion:
@@ -68,23 +77,38 @@ Testing Account Deletion:
         4. The popup closes.
         5. Notice the email on the page vanishes as no one is currently logged in.
 
-Testing Sidebar Component Clicking:
+
+
+Testing Sidebar Component:
     A. Identification and Classification
         Test Case: 401
-        System: sidebar on the homepage (/)
+        System: sidebar on the homepage
         Description: selecting items on the sidebar
         Severity: 1
-    In the sidebar, components consisting of either buildings, classrooms, courses, or sections.
-    When clicking on a course, the sidebar should refresh to show section components that are
-    relevant to the selected course. Similarly, when a building is clicked, classrooms that are
-    inside the selected building should repopulate the sidebar.
+
+        Sprint: 2
+        User Story: 2, 7
+
+    B. Instructions
+        1. The sidebar should, by default, display a list of buildings.
+        2. Click the filter button and change the filter to "Course" and enter a subject abbreviation (e.g. CS, MA, EAPS)
+        3. Click a course to view it's sections
+
+    C. Expected result
+        1. Without clicking anything, the sidebar should be populated with building names and shortcodes
+        2. When the "Course" filter is clicked, entering a subject abbreviation  should display a list of
+           courses in that subject. If an invalid subject abbreviation is entered, the sidebar should display a "No Results" text.
+        3. When a course is clicked, sections displaying section info should be displayed. If there are no sections, the sidebar
+            should display a "No Results" text.
+
+
 
 Testing Sidebar Filtering:
     A. Identification and Classification
         Test Case: 501
         System: /       (home page)
         Description: Filtering Sidebar and Panes
-        Severity: 1
+        Severity: 2
         
         Sprint: 2
         User Story: 5
