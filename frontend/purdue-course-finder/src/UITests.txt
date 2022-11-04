@@ -145,12 +145,17 @@ Testing Homepage Map:
         Sprint: 2
         User Story: 1
 
-    When loading the web application, it defaults to our homepage. This homepage contains a map of Purdue's campus in 
-    West Lafayette, and a sidebar on the left of the page. A "+" button in the lower right corner of the map allows it to be 
-    zoomed in. A "-" button in the lower right corner of the map allows it to be zoomed out. The scroll wheel on the mouse can
-    also be used to zoom in and out on the map (only if the mouse cursor is over the map on the page, scrolling on the sidebar
-    works as expected). Clicking on the map and dragging allows the user to pan the map in all directions. The arrow keys on 
-    the keyboard can also be used for panning (as long as the map has been most recently clicked on).
+    B. Instructions
+        1. Open the homepage
+        2. Use the buttons on the map to zoom in and out
+        3. Drag the map to pan
+        4. Use the scroll wheel on the mouse to zoom in and out (with the mouse cursor over the map)
+        5. Click on the map
+        6. Use the arrow keys on the keyboard to pan the map
+
+    C. Expected result
+        1. The map can be zoomed in and out up to the maximum and minimum zoom defined by the Google Maps API
+        2. The map can be panned without restriction
 
 Testing Map Buildings:
     A. Identification and Classification
@@ -196,6 +201,9 @@ Testing Buildings From Sidebar to Map:
         System: /       (home page)
         Description: Sidebar & Map component interactions
         Severity: 2
+
+        Sprint: 2
+        User Story: 10
 
     On the main page, notice the sidebar on the left, and the map on the right. On default, the filter is set to Building.
     See "Testing Sidebar Filtering" above for more information about that. The search bar will allow us to search for all
@@ -351,7 +359,7 @@ Testing Favoriting Star:
 
 Testing Favoriting Page Functionality:
     A. Identification and Classification
-        Test Case: 1202
+        Test Case: 1301
         Systems: / (home page) sidebar favoriting "star", /favorites
         Description: The favorites page should show a list of favorites that match the yellow stars in the sidebar
         Severity: 2
