@@ -6,6 +6,7 @@ import Sidebar from '../components/sideBar'
 import Modify from '../components/modifyAccount';
 import Delete from '../components/deleteAcct';
 import Tutorial from '../components/tutorialPage';
+import Favorites from '../components/Favorites';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
 import { BrowserRouter } from 'react-router-dom';
@@ -176,4 +177,37 @@ it('Home page contains Map and Sidebar', () => {
     expect(sidebar).toBeInTheDocument();
     expect(mapLoading).toBeInTheDocument();
     expect(sidebarContainer).toBeInTheDocument();
+});
+
+it('Favorites page renders without crashing', () => {
+    render(<BrowserRouter><Favorites /></BrowserRouter>);
+
+    // On page normally
+    expect(screen.getByTestId("favoritesPageContainer")).toBeInTheDocument();
+    expect(screen.getByTestId("favoritesContainer")).toBeInTheDocument();
+    expect(screen.getByTestId("favoriteBuildings")).toBeInTheDocument();
+    expect(screen.getByTestId("favoriteClassrooms")).toBeInTheDocument();
+    expect(screen.getByTestId("favoriteCourses")).toBeInTheDocument();
+    expect(screen.getByTestId("favoriteSections")).toBeInTheDocument();
+    expect(screen.getAllByTestId("noFavorites").length).toBe(4);
+    
+    // Nesting items
+    const favoritesPageContainer = screen.getByTestId("favoritesPageContainer");
+    const favoritesContainer = screen.getByTestId("favoritesContainer");
+    const favoriteBuildings = screen.getByTestId("favoriteBuildings");
+    const favoriteClassrooms = screen.getByTestId("favoriteClassrooms");
+    const favoriteCourses = screen.getByTestId("favoriteCourses");
+    const favoriteSections = screen.getByTestId("favoriteSections");
+    const noFavorites = screen.getAllByTestId("noFavorites");
+
+    // Confirm nesting
+    expect(favoritesPageContainer).toContainElement(favoritesContainer);
+    expect(favoritesContainer).toContainElement(favoriteBuildings);
+    expect(favoritesContainer).toContainElement(favoriteClassrooms);
+    expect(favoritesContainer).toContainElement(favoriteCourses);
+    expect(favoritesContainer).toContainElement(favoriteSections);
+    expect(favoriteBuildings).toContainElement(noFavorites[0]);
+    expect(favoriteClassrooms).toContainElement(noFavorites[1]);
+    expect(favoriteCourses).toContainElement(noFavorites[2]);
+    expect(favoriteSections).toContainElement(noFavorites[3]);
 });

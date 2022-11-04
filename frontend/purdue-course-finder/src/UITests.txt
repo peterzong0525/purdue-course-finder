@@ -229,7 +229,6 @@ Testing Buildings From Sidebar to Map:
 
 
 
-
 Testing Homepage Buttons:
     A. Identification and Classification
         Test Case: 1001

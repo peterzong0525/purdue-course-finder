@@ -215,7 +215,7 @@ function Favorites() {
     }
   
   return (
-    <div className = "favoritesPageContainer">
+    <div className = "favoritesPageContainer" data-testid="favoritesPageContainer">
         <div className='returnHomeContainer'>
             <a className='returnHome' href='/'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="Black" className="bi bi-arrow-left" viewBox="0 0 20 6">
@@ -227,54 +227,54 @@ function Favorites() {
         <div className = "header">
             <h1>My Favorites</h1>
         </div>
-        <div className = "favoritesContainer">
-            <div className = "favList">
+        <div className = "favoritesContainer" data-testid="favoritesContainer">
+            <div className = "favList" data-testid="favoriteBuildings">
                 <div className = "favListHeader">
                     <h2>Buildings</h2>
                 </div>
-                <div className = "listItemContainer">
+                <div className = "listItemContainer" >
                     {buildings}
                     {!buildings && (
-                        <div className = "noFavorites">
+                        <div className = "noFavorites" data-testid="noFavorites">
                             You have no favorite buildings.
                         </div>
                     )}
                 </div>
             </div>
-            <div className = "favList">
+            <div className = "favList" data-testid="favoriteClassrooms">
                 <div className = "favListHeader">
                     <h2>Classrooms</h2>
                 </div>
                 <div className = "listItemContainer">
                     {classrooms}
                     {!classrooms && (
-                        <div className = "noFavorites">
+                        <div className = "noFavorites" data-testid="noFavorites">
                             You have no favorite classrooms.
                         </div>
                     )}
                 </div>
             </div>
-            <div className = "favList">
+            <div className = "favList" data-testid="favoriteCourses">
                 <div className = "favListHeader">
                     <h2>Courses</h2>
                 </div>
                 <div className = "listItemContainer">
                     {courses}
                     {!courses && (
-                        <div className = "noFavorites">
+                        <div className = "noFavorites" data-testid="noFavorites">
                             You have no favorite courses.
                         </div>
                     )}
                 </div>
             </div>
-            <div className = "favList">
+            <div className = "favList"  data-testid="favoriteSections">
                 <div className = "favListHeader">
                     <h2>Sections</h2>
                 </div>
                 <div className = "listItemContainer">
                     {sections}
                     {!sections && (
-                        <div className = "noFavorites">
+                        <div className = "noFavorites" data-testid="noFavorites">
                             You have no favorite sections.
                         </div>
                     )}
