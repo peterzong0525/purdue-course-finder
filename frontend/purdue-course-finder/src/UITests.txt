@@ -135,6 +135,8 @@ Testing Sidebar Filtering:
         5. Confirm courses for input department appear.
         6. (See Test Case 401 for clicking courses and showing sections)
 
+
+
 Testing Homepage Map:
     A. Identification and Classification
         Test Case: 601
@@ -156,6 +158,8 @@ Testing Homepage Map:
     C. Expected result
         1. The map can be zoomed in and out up to the maximum and minimum zoom defined by the Google Maps API
         2. The map can be panned without restriction
+
+
 
 Testing Map Buildings:
     A. Identification and Classification
@@ -217,8 +221,7 @@ Testing Buildings From Sidebar to Map:
     C. Expected result
         1. The sidebar should show a list of buildings and the map should be zoomed out on Purdue's campus
            with all the building outlines shown
-      
- 2. After clicking on a building in the sidebar, the map should zoom in to the building and the outline of 
+        2. After clicking on a building in the sidebar, the map should zoom in to the building and the outline of 
            only that building should be highlighted (the color of the building highlight will change color)
            For example: If WALC is clicked in the sidebar, the map zooms to the location of the building and WALC's outline is highlighted
         3. When the search bar is queried (with or without any search input), the previously highlighted building should no longer be highlighted
