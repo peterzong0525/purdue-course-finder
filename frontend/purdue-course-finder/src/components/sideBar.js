@@ -74,25 +74,28 @@ function SideBar(props) {
         axios.get(url).then((response) => {
             let data = response.data;
             
-            if (filter_option === 'Building') {
-                data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
+            if (!loggedIn) {
+                if (filter_option === 'Building') {
+                    data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
+    
+                } else if (filter_option === 'Classroom') {
+                    console.log("todo");
+                } else if (filter_option === 'Course') {
+                    data.sort((a, b) => a.courseNumber - b.courseNumber);
+                }
+                else if (filter_option === 'Section') {
+                    data.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
+                }
+    
+                if (sortOption === "des") 
+                    data = data.reverse();
 
-            } else if (filter_option === 'Classroom') {
-                console.log("todo");
-            } else if (filter_option === 'Course') {
-                data.sort((a, b) => a.courseNumber - b.courseNumber);
+                setObjects(data);
+                setLoading(false);
             }
-            else if (filter_option === 'Section') {
-                data.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
-            }
-
-            if (sortOption === "des") 
-                data = data.reverse();
-
             
 
             // If user is logged in, get their favorites
-            console.log("Get favorites url: " + getFavUrl);
             if (loggedIn) {
                 const config = {
                     headers:{
@@ -101,6 +104,8 @@ function SideBar(props) {
                 };
                 axios.get(getFavUrl, config).then((response) => {
                     let favorites = response.data;
+                    let allFavorites = [];
+                    let allNonFavorites = [];
                     console.log("Favorites:" );
                     console.log(favorites);
 
@@ -108,39 +113,62 @@ function SideBar(props) {
                         if (filter_option === 'Building') {
                             if (favorites.some(e => e.ShortCode === data[i].ShortCode)) {
                                 data[i]['isFavorite'] = true;
+                                allFavorites.push(data[i]);
                             } else {
                                 data[i]['isFavorite'] = false;
+                                allNonFavorites.push(data[i]);
                             }
                         } else if (filter_option === 'Classroom') {
                             console.log("classrooms");
                         } else if (filter_option === 'Course') {
                             if (favorites.some(e => e.courseId === data[i].courseId)) {
                                 data[i]['isFavorite'] = true;
+                                allFavorites.push(data[i]);
                             } else {
                                 data[i]['isFavorite'] = false;
+                                allNonFavorites.push(data[i]);
                             }
                         } else if (filter_option === 'Section') {
                             if (favorites.some(e => e.id === data[i].Id)) {
                                 data[i]['isFavorite'] = true;
+                                allFavorites.push(data[i]);
                             } else {
                                 data[i]['isFavorite'] = false;
+                                allNonFavorites.push(data[i]);
                             }
                         }
-
-
                     }
 
-                    console.log(data)
+                    if (filter_option === 'Building') {
+                        allFavorites.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
+                        allNonFavorites.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
+                    } else if (filter_option === 'Classroom') {
+                        console.log("todo");
+                    } else if (filter_option === 'Course') {
+                        allFavorites.sort((a, b) => a.courseNumber - b.courseNumber);
+                        allNonFavorites.sort((a, b) => a.courseNumber - b.courseNumber);
+                    }
+                    else if (filter_option === 'Section') {
+                        allFavorites.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
+                        allNonFavorites.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
+                    }
+
+                    if (sortOption === "des") {
+                        allFavorites = allFavorites.reverse()
+                        allNonFavorites = allNonFavorites.reverse()
+                    }
+
+                    data = allFavorites.concat(allNonFavorites);
+
+
+                    //console.log(data)
                     setObjects(data);
                     setLoading(false);
                 }).catch((error) => {
                     console.log(error);
                     setLoading(false);
                 });
-            } else {
-                setObjects(data);
-                setLoading(false);
-            }            
+            }    
         }).catch((error) => {
             // console.log(error);
             setLoading(false);
