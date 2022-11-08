@@ -1,0 +1,70 @@
+.schedulePageContainer .returnHome {
+    margin-top: 22px;
+}
+
+.schedulePageContainer .header-txt {
+    color: black;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.schedulePageContainer .headerContainer {
+    background-color: #9D8446;
+    padding-left: 2%;
+    padding-bottom: 5px;
+    column-gap: 20px;
+    display: flex;
+}
+
+.schedulePageContainer .scheduleContainer {
+    display: grid;
+    flex-grow: 1;
+    overflow-y: auto;
+    position: relative;
+    grid-template-columns: 50px auto auto auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+}
+
+.schedulePageContainer .grid-day {
+    border-bottom: 2px solid black;
+    border-left: 2px solid gray;
+    height: 25px;
+    width: calc((100vw - 81px) / 7);
+    text-align: center;
+}
+
+.schedulePageContainer .grid-item {
+    border-bottom: 2px solid gray;
+    border-left: 2px solid gray;
+    min-height: 100px;
+    max-height: 100px;
+    padding: 10px;
+}
+
+.schedulePageContainer .grid-container:nth-child(2n) {
+    background-color: #d1d1d1;
+}
+
+.schedulePageContainer .grid-time {
+    min-height: 130px;
+    max-height: 130px;
+    text-align: center;
+    margin-top: -12px
+}
+
+.schedulePageContainer {
+    max-height:100vh;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.schedulePageContainer .test {
+    position: absolute;
+    border: 1px solid black;
+    background-color:blue;
+    z-index: 2;
+    height: 200px;
+    width: calc((100vw - 95px) / 7);
+    transform: translate(50px, 200px);
+}
