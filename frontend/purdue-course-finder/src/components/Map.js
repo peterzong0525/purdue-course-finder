@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { GoogleMap, useJsApiLoader, Marker, Polyline, Polygon } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker, Polyline, Polygon, DirectionsRenderer } from '@react-google-maps/api';
+//import { withGoogleMap, withScriptjs, DirectionsService } from "@react-google-maps/api";   //unsure if these are needed
 import { Fab, makeStyles } from '@material-ui/core';
 import axios from 'axios';
 import { serverURL } from '../index.js';
@@ -48,6 +49,7 @@ function Map(props) {
   const [map, setMap] = useState(null);
   const [Buildings, setBuildings] = useState([]);
   const [FilteredBuildings, setFilteredBuildings] = useState([]);
+  const [directions, setDirections] = useState([]);
 
   const classes = useStyles();
 
@@ -56,8 +58,6 @@ function Map(props) {
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
     preventGoogleFontsLoading: true,
   });
-
-
 
   async function generateBuildings() {
     let responseData = [];
@@ -100,6 +100,41 @@ function Map(props) {
     filterBuildings(props.buildingName);
   }, [props.buildingName]);
 
+
+  
+
+  // Setting directions (mock up)
+  //https://github.com/trulymittal/google-maps-directions-tutorial/blob/master/src/App.js
+  const [routeVisible, setRouteVisible] = useState(false);
+  async function calculateRoute() {
+    if (routeVisible) {
+      setDirections(null);
+      setRouteVisible(false);
+      return;
+    }
+    setRouteVisible(true);
+
+    const directionsService = new window.google.maps.DirectionsService();
+
+    const origin = { lat: 40.41997, lng: -86.93049 };
+    const destination = { lat: 40.43137, lng: -86.91402 };
+
+    const results = await directionsService.route({
+      origin: origin,
+      destination: destination,
+      travelMode: window.google.maps.TravelMode.DRIVING,
+    });
+
+    setDirections(results);
+  }
+
+  // Generate Route
+  useEffect(() => {
+    //calculateRoute();
+  }, []);
+  // https://stackblitz.com/edit/react-5cuf9v?file=Map.js
+
+
   if (map && FilteredBuildings[0] && FilteredBuildings[0].coordArray[0] && props.buildingName) {
     console.log(FilteredBuildings[0], props.buildingName)
     map.panTo(FilteredBuildings[0].coordArray[0]);
@@ -132,7 +167,7 @@ function Map(props) {
 
         { /* Child components, such as markers, info windows, etc. */
           // This div is necessary as a parent element
-          <div>
+          <div className="mapContainer">
 
             {
               Buildings.map((building, index) => (
@@ -150,6 +185,9 @@ function Map(props) {
                 </div>
               ))
             }
+
+            {/* This mostly works, will add in future commit
+            directions!=undefined && <DirectionsRenderer directions={directions} />*/}
 
             <div className={classes.homeFABdiv}>
               { window.sessionStorage.getItem("userToken") === null && 
@@ -180,6 +218,13 @@ function Map(props) {
                 <Fab variant="extended" className={classes.homeFAB} onClick={() => { window.sessionStorage.removeItem("userToken");}} href='/'>
                   Sign Out
                 </Fab> 
+              }
+
+              {
+                /* // This is a test for directions. Will add popup window soon
+                <Fab variant="extended" className={classes.homeFAB} onClick={() => { calculateRoute() }}>
+                  {routeVisible && "Hide Route"}{!routeVisble && "Route"}
+                </Fab>*/
               }
             </div>
           </div>
