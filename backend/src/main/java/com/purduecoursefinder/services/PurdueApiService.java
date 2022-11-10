@@ -3,6 +3,7 @@ package com.purduecoursefinder.services;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -36,10 +37,13 @@ import com.purduecoursefinder.models.dto.ClassDTO;
 import com.purduecoursefinder.models.dto.CourseApiDTO;
 import com.purduecoursefinder.models.dto.CourseDTO;
 import com.purduecoursefinder.models.dto.MeetingDTO;
+import com.purduecoursefinder.models.dto.RoomApiDTO;
+import com.purduecoursefinder.models.dto.RoomDTO;
 import com.purduecoursefinder.models.dto.SectionDTO;
 import com.purduecoursefinder.models.dto.SubjectDTO;
 import com.purduecoursefinder.models.dto.purdueapi.BuildingsRequestDTO;
 import com.purduecoursefinder.models.dto.purdueapi.CoursesRequestDTO;
+import com.purduecoursefinder.models.dto.purdueapi.RoomsRequestDTO;
 import com.purduecoursefinder.models.dto.purdueapi.SubjectsRequestDTO;
 import com.purduecoursefinder.repositories.BuildingMappingRepository;
 import com.purduecoursefinder.repositories.BuildingRepository;
@@ -51,7 +55,10 @@ import com.purduecoursefinder.repositories.RoomRepository;
 import com.purduecoursefinder.repositories.SectionRepository;
 import com.purduecoursefinder.repositories.SubjectRepository;
 
+import lombok.extern.flogger.Flogger;
+
 @Service
+@Flogger
 public class PurdueApiService {
     @Autowired
     private RestTemplate restTemplate;
@@ -235,6 +242,42 @@ public class PurdueApiService {
         }).toList();
     }
     
+    public List<RoomDTO> getRooms(String shortCode) throws IOException {
+//        getBuildings(); // Make sure buildings are populated.
+        if (roomRepository.count() == 0L) {
+            populateRoomRepository();
+        }
+        
+        return roomRepository.findAllByBuildingShortCode(shortCode).stream().map(room -> RoomDTO.fromRoom(room)).toList();
+    }
+    
+    private void populateRoomRepository() throws IOException {
+        getBuildings(); // Make sure buildings are populated.
+        
+        RoomsRequestDTO roomsRequestDTO = restTemplate.getForObject(apiUrl + "/odata/Rooms", RoomsRequestDTO.class);
+        
+        if (roomsRequestDTO == null) {
+            log.atSevere().log("Unable to load rooms from API");
+            return;
+        }
+        
+        for (RoomApiDTO roomApiDTO : roomsRequestDTO.getValue()) {
+            try {
+                Room room = Room.builder()
+                        .roomId(roomApiDTO.getId())
+                        .number(roomApiDTO.getNumber())
+                        .building(buildingRepository.findById(
+                                    buildingMappingRepository.findById(roomApiDTO.getBuildingId()).orElseThrow().getShortCode()).orElseThrow()
+                                )
+                        .build();
+                
+                roomRepository.save(room);
+            } catch (NoSuchElementException e) {
+                // Ignore
+            }
+        }
+    }
+    
     private void populateSubjectRepository() {
         SubjectsRequestDTO subjectsRequestDTO = restTemplate.getForObject(apiUrl + "/odata/Subjects", SubjectsRequestDTO.class);
         
@@ -264,7 +307,6 @@ public class PurdueApiService {
         buildingRepository.save(Building.builder().name("N/A").shortCode("N/A").shortCodeLocation("{}").outlineCoords("[]").build());
     }
     
-    // TODO: Figure out if this is necessary. It probably isn't.
     private void populateBuildingMappingsRepository() {
         BuildingsRequestDTO buildingsRequestDTO = restTemplate.getForObject(apiUrl + "/odata/Buildings", BuildingsRequestDTO.class);
         
