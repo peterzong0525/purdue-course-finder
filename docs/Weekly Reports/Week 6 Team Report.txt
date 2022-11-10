@@ -1,0 +1,35 @@
+=== Weekly Team Report (Team 9: Purdue Course Finder) ===
+
+Week 6 (Summary) (Scrum Master: Alex Kobus)
+10/30/22 - 4 hours - Commit 8d362a3 - Alex K: fix sidebar filtering bugs, fix bugs in link between sidebar and map, change highlight color of selected building
+10/30/22 - 1 hour - Commit 9e1ee3c - Alex K: remove duplicate buildings from the sidebar
+10/30/22 - 1 hour - Commit 9b0e6dd, Commit faad6e5 - Alex K: fix some building highlights & add some building highlights
+10/31/22 - 1.5 hours - Commit 12edd7c - Peter: Created UI design for Favorites page
+11/1/22 - 2 hours - Commit 9fa4ee4 - Alex K: pan to building location when selected from the sidebar
+11/1/22 - 2 hours - Commit b8e5921 - Alex K: Test sidebar filtering linking to map
+11/1/22 - 6 hours - Commit 006633f - Tommy: Completed CI/CD through GitHub Actions and got domain
+11/1/22 - 3 hours - Commit de0bdfe - Peter: Created Favorite Page UI in React
+11/1/22 - 4 hours - Commit 9940799 - Tommy: Backend buildings handling overhaul
+11/2/22 - 4 hours - Commit 792923a - Alex P: More Buildings and Backend Calling, update the building object structure
+11/2/22 - 2 hours - Commit a30c011 - Alex K: bugfixes: fix updates made to map & sidebar link from the building object structure update
+11/2/22 - 2 hours - Commit 2591aea - Alex P: Fixed coordinates on some buildings, Added building labels to buildings
+11/2/22 - 3 hours - Commit 0dfb825 - Peter: Added functionality to favorites page
+11/2/22 - 1 hour - Commit 7b6dc1c - Alex K: bugfixes: fix issues with changing the map zoom
+11/2/22 - 5 hours - Commit fac3519 - Tommy: Modified favorite sections endpoint to return relevant course information
+11/3/22 - 2 hours - Commit 7bb5674 - Alex P: Update manual test documentation format
+11/3/22 - 1 hour - Commit 4fc7ac0 - Alex P: Created manual tests for buildings and labels, Updated misconfigured buildings
+11/3/22 - 1 hour - Commit 52c470b, Commit 7fb3b05, Commit e2657c5 - Alex K: update manual test documentation format
+11/3/22 - 1 hour - Commit 25ac0d4, Commit 1dbdd1f, Commit 546c26b - Peter: update manual test documentation format
+11/4/22 - 1 hour - Commit 1a12b96 - Peter: Added unit tests for favorites page
+
+
+Week 7 (Plan) (Scrum Master: Alex Kobus)
+[Meetings]
+11/6/22 - Sprint 2 Retrospective, Plan for Sprint 3, Complete Sprint 3 Planning Document
+11/9/22 - Discuss backend & frontend integrations for accessing classroom data on the sidebar and section time data on the schedule pages
+
+[Individual Goals]
+Alex K: link sidebar filterings to the map component, only show highlights for buildings related to the filter results
+Alex P: Show classroom data on the sidebar when buildings are selected, Start working on the logic for routes
+Tommy: add backend endpoints for classroom data and room schedule data
+Peter: start working on the schedule page components

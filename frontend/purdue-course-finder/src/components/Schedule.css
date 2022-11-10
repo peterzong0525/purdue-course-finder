@@ -1,0 +1,75 @@
+.schedule-page-container .return-home {
+    margin-top: 22px;
+}
+
+.schedule-page-container .header-txt {
+    color: black;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.schedule-page-container .header-container {
+    background-color: #9D8446;
+    padding-left: 2%;
+    padding-bottom: 5px;
+    column-gap: 20px;
+    display: flex;
+}
+
+.schedule-page-container .schedule-container {
+    display: grid;
+    flex-grow: 1;
+    overflow-y: auto;
+    position: relative;
+    grid-template-columns: 50px auto auto auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+}
+
+.schedule-page-container .grid-day {
+    border-bottom: 2px solid black;
+    border-left: 2px solid gray;
+    height: 25px;
+    width: calc((100vw - 81px) / 7);
+    text-align: center;
+}
+
+.schedule-page-container .grid-item {
+    border-bottom: 2px dashed gray;
+    border-left: 2px solid gray;
+    min-height: 120px;
+    max-height: 120px;
+}
+
+.schedule-page-container .grid-container:nth-child(2n) {
+    background-color: #d1d1d1;
+}
+
+.schedule-page-container .grid-time {
+    min-height: 130px;
+    max-height: 130px;
+    text-align: center;
+    margin-top: -13px
+}
+
+.schedule-page-container {
+    max-height:100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.schedule-page-container .schedule-event {
+    position: absolute;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: calc((100vw - 235px) / 7);
+    cursor: pointer;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: translate .2s, box-shadow .2s;
+}
+
+.schedule-page-container .meeting-container[selected] .schedule-event{
+    box-shadow: 0 10px 5px 0px gray;
+    translate: 0px -10px;
+    transition: translate .2s, box-shadow .2s;
+}
