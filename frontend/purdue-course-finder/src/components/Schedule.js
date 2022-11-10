@@ -6,39 +6,104 @@ import './Schedule.css'
 
 function Schedule() {
     const navigate = useNavigate();
-    // sch_type = course/section/classroom/null if accessing personal schedule
+    // sch_type = Course/Section/Classroom/null if accessing personal schedule
     // sch_id = course/section/classroom id
     const [searchParams, setSearchParams] = useSearchParams();
     const scheduleType = searchParams.get("sch_type");
-    const scheduleId = searchParams.get("sch_type");
+    const scheduleId = searchParams.get("sch_id");
     const [headerText, setHeaderText] = useState('');
+    const [allSections, setAllSections] = useState([]);
     
     useEffect(() => {
-        setHeaderText("My Schedule");
         if (/*!*/scheduleType && window.sessionStorage.getItem("userToken") === null) {
             //user is not logged in, redirect to /login
             navigate('/login');
             return;
         }
+        addAllScheduleEvents();
     }, [])
 
     function addAllScheduleEvents() {
+        if (!scheduleType) {
+            // TODO Need Meeting data and item keys to be capitalized
+            setHeaderText("My Favorite Sections");
+            const config = {
+                headers:{
+                    "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+                }
+            };
+            let favoriteSections = [];
+            let url = `${serverURL}/favorites/sections`;
+            axios.get(url, config).then((response) => {
+                console.log(response.data)
+                for (let i = 0; i < response.data.length; i++) {
+                    favoriteSections.push(addOneSection(response.data[i]));
+                }
+                setAllSections(
+                    favoriteSections.map((section, index) => (
+                        <div className={section.Id} key={index} style={{position: "absolute"}}>
+                            {section}
+                        </div>
+                    ))
+                )
 
+            }).catch((error) => {
+                console.log(error);
+            });
+        } else if (scheduleType === 'Course') {
+            addOneCourse(scheduleId)
+           
+        } else if (scheduleType === 'Section') {
+            // TODO Need new section endpoint that returns only specific section with meetings
+            let url = `${serverURL}/section/` + scheduleId;
+            axios.get(url).then((response) => {
+                setHeaderText(response.data.Type + " - " + response.data.Crn);
+                setAllSections(addOneSection(response.data));
+            }).catch((error) => {
+                console.log(error);
+            });
+        } else if (scheduleType === 'Classroom') {
+            console.log("TODO classrooms")
+        } else {
+            console.log("Error: Invalid schedule type entered: " + scheduleType)
+        }
     }
 
-    function addOneCourse() {
-
-    }
-
-    function addOneSection(/*sectionData*/dayOfWeek, startTime, durationLength, sectionType) {
-        let sectionMeetings = [];
-        let daysOfWeek = ['Sunday', 'Tuesday', 'Wednesday', 'Saturday']/*sectionData.Meetings.DaysOfWeek.split(", ")*/;
-        daysOfWeek.forEach(day => {
-            sectionMeetings.push(addOneMeeting(day, startTime, durationLength, sectionType));
+    
+    function addOneCourse(courseID) {
+        let courseSections = [];
+        let url = `${serverURL}/sections/` + courseID;
+        axios.get(url).then((response) =>{
+            setHeaderText("My Schedule");
+            for (let i = 0; i < response.data.length; i++) {
+                courseSections.push(addOneSection(response.data[i]));
+            }
+            let currentSections = allSections;
+            console.log(currentSections)
+            setAllSections(
+                currentSections.concat(
+                    courseSections.map((section, index) => (
+                        <div className={section.Id} key={index} style={{position: "absolute"}}>
+                            {section}
+                        </div>
+                    ))
+                )
+            )
+            console.log(currentSections)
+        }).catch((error) => {
+            console.log(error);
         });
-        let className = "meeting-container " + dayOfWeek//" section-id"
+    }
 
-        function setSpecial(className, enterOrExit /*true on enter, false on exit */) {
+    function addOneSection(sectionData) {
+        let sectionMeetings = [];
+        let daysOfWeek = sectionData.Meetings[0].DaysOfWeek.split(", ");
+        daysOfWeek.forEach(day => {
+            sectionMeetings.push(addOneMeeting(day, sectionData.Meetings[0]));
+        });
+        let className = "meeting-container " + sectionData.Meetings[0].Id;
+
+        function setHover(className, enterOrExit /*true on enter, false on exit */) {
             let elements = document.getElementsByClassName(className)
             if (enterOrExit) {
                 for (let i = 0; i < elements.length; i++) {
@@ -53,23 +118,25 @@ function Schedule() {
         }
         return sectionMeetings.map((meeting, index) => (
             <div className={className} key={index} style={{position: "absolute"}}
-                onMouseEnter={()=>{setSpecial(className, true)}}
-                onMouseLeave={()=>{setSpecial(className, false)}}>
+                onMouseEnter={()=>{setHover(className, true)}}
+                onMouseLeave={()=>{setHover(className, false)}}>
                 {meeting}
             </div>
         ))
     }
     
 
-    function addOneMeeting(dayOfWeek, startTime, durationLength, sectionType) {     
+    function addOneMeeting(dayOfWeek, meetingData) {     
+        let startTime = meetingData.StartTime;
+        let durationLength = meetingData.Duration;
+        let sectionType = meetingData.Type;        
         /*  Expected formats:  
               dayOfWeek: Sunday/Monday/Tuesday...
               startTime: 2022-11-04T15:30:00.000+00:00
               durationLength: PT1H50M
               sectionType: Lecture, Practice Study Observation, Distance Learning...
         */
-
-        const baseLeftLoc = "51.5";
+        const baseLeftLoc = "52";
         const map_DofW_to_number = {
             "Sunday": 0,
             "Monday": 1,
@@ -97,6 +164,7 @@ function Schedule() {
         if (durationObject.indexOf('M') !== -1) {
             durationMinutes = durationObject.substring(0, durationObject.indexOf('M'));
         }
+        let minuteDisplay = (parseInt(durationMinutes) > 0) ? " " + durationMinutes + " Minutes": " ";
         durationMinutes = parseInt(durationMinutes) + parseInt(durationHours * 60);
         let height = durationMinutes * 2;
 
@@ -105,7 +173,7 @@ function Schedule() {
             "Distance Learning": "#FFFFFF",
             "Experiential": "#BBBBBB",
             "Individual Study": "#123123",
-            "Laboratory": "#321312",
+            "Laboratory": "#63F3CA",
             "Lecture": "#1CD2FF",
             "Practice Study Observation": "#000000",
             "Recitation": "#A40101"
@@ -117,9 +185,23 @@ function Schedule() {
             backgroundColor: map_section_type_to_color[sectionType]
         }
 
+        let hourDisplay = " ";
+        if (parseInt(durationHours) > 1) {
+            hourDisplay =  " " + durationHours + " Hours"
+        } else if (parseInt(durationHours) == 1) {
+            hourDisplay =  " " + durationHours + " Hour"
+        }
+        
+        
+
+        // Data displayed is not final
         return (
             <div className="schedule-event" style={styleString}>
-                Details
+                Instructor(s): {meetingData.Instructors.map(({Name}) => Name)}
+                <br></br>
+                Meeting type: {meetingData.Type}
+                <br></br>
+                Length:{hourDisplay}{minuteDisplay}
             </div>
         )
     }
@@ -158,12 +240,9 @@ function Schedule() {
         ))
     }
 
-
-    // On page load, scroll to specific starting time
-    window.addEventListener('load', () => {
-        let scrollElement = document.querySelector('.schedule-container');
+    let scrollElement = document.querySelector('.schedule-container');
+    if (scrollElement)
         scrollElement.scrollTop = 950;
-    });
 
     
   
@@ -179,9 +258,11 @@ function Schedule() {
             </div>
             <div className="schedule-container">
                 {generateGrids()}
-                {addOneSection("Tuesday", "2022-11-04T01:55:00.000+00:00", "PT2H30M", "Lecture")}
+                {allSections}
+                
+                {/* {addOneSection("Tuesday", "2022-11-04T01:55:00.000+00:00", "PT2H30M", "Lecture")}
                 {addOneSection("Sunday", "2022-11-04T05:25:00.000+00:00", "PT1H15M", "Recitation")}
-                {addOneSection("Saturday", "2022-11-04T15:30:00.000+00:00", "PT50M", "Laboratory")}
+                {addOneSection("Saturday", "2022-11-04T15:30:00.000+00:00", "PT50M", "Laboratory")} */}
             </div>
         </div>
     );

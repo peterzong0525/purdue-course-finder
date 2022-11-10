@@ -3,6 +3,7 @@ import './sideBar.css';
 import PropTypes from 'prop-types';
 import { serverURL } from '../index.js';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import searchIcon from '../tutorial_images/search-icon.png';
 
 let filter = 'Building';
@@ -17,6 +18,7 @@ function SideBar(props) {
     const [objects, setObjects] = useState([]);
     const [sortOption, setSortOption] = useState("asc");
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (window.sessionStorage.getItem("userToken") != null) {
@@ -73,7 +75,7 @@ function SideBar(props) {
         console.log("Url: " + url);
         axios.get(url).then((response) => {
             let data = response.data;
-            
+            //console.log(data);
             if (!loggedIn) {
                 if (filter_option === 'Building') {
                     data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
@@ -213,6 +215,10 @@ function SideBar(props) {
                 filter = "Section";
                 prevDesc = itemHead;
                 searchString = e.searchStr;
+                
+                // Following two lines are for testing sending user to schedule page
+                //navigate('/schedule?sch_type='+e.filter+'&sch_id='+searchString);
+                //return;
             } else if (e.filter === "Building") {
                 filter = "Classroom";
                 prevDesc = itemHead;
