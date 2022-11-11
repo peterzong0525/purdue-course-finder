@@ -12,6 +12,7 @@ var searchString = "";
 function SideBar(props) {
     SideBar.propTypes = {
         onClick: PropTypes.func,
+        onRouteClick: PropTypes.func,
     };
 
     const [loggedIn, setLoggedIn] = useState(false);
@@ -422,6 +423,15 @@ function SideBar(props) {
         
     }
 
+    // Used to display all buildings on route choosing
+    const [buildings, setBuildings] = useState([]);
+    useEffect(() => {
+        var url = `${serverURL}/buildings`;
+        axios.get(url).then((response) => {
+            setBuildings(response.data);
+        });
+    }, []);
+
 
     return(
         <div className = "sideBarContainer" data-testid="sidebarContainer">
@@ -525,6 +535,39 @@ function SideBar(props) {
                     </div>
                 </div>
             </div>
+
+            <div className="popup_overlay" id="Map_Routing">
+                  <div className="popup_wrapper">
+                      <h1>Routing</h1>
+                      <a href="#" className="close">&times;</a>
+                      <div className="content">
+                          <div className="popup_container">
+                              <form>
+                                    <h5>Choose Your Starting and Ending Locations</h5>
+                                    <div className="popup_box">
+                                        <label>Start:</label>
+                                        <select id="origin_building">
+                                            {buildings.map((building, index) => (
+                                                <option key={index} value={building.ShortCode}>{building.ShortCode}</option>
+                                            ))}
+                                        </select>
+                                        <br/>
+
+                                        <label>End:</label>
+                                        <select id="destination_building">
+                                            {buildings.map((building, index) => (
+                                                <option key={index} value={building.ShortCode}>{building.ShortCode}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                              </form>
+                          </div>
+                      </div>
+                        <a href="#" className="close2">
+                            <button className="showRoute" onClick={() => props.onRouteClick(document.getElementById('origin_building').value, document.getElementById('destination_building').value)}>Show Route</button>
+                        </a>
+                  </div>
+              </div>
         </div>
     );
 }

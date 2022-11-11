@@ -142,6 +142,14 @@
 	color: #333;
 }
 
+.sideBarContainer .popup_wrapper .close2 {
+	transition: all 200ms;
+	font-size: 30px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #333;
+}
+
 .sideBarContainer .popup_wrapper .content {
 	max-height: 30%;
 	overflow: auto;
@@ -184,6 +192,46 @@
     border-radius: 50%;
     width: 50px;
     height: 50px;
+}
+
+.sideBarContainer .showRoute {
+  background-color: #0095ff;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.15385;
+  margin: 0;
+  outline: none;
+  padding: 8px .8em;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.sideBarContainer .showRoute:hover,
+.sideBarContainer .showRoute:focus {
+  background-color: #07c;
+}
+
+.sideBarContainer .showRoute:focus {
+  box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+}
+
+.sideBarContainer .showRoute:active {
+  background-color: #0064bd;
+  box-shadow: none;
 }
 
 @keyframes spin {

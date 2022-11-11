@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { GoogleMap, useJsApiLoader, Marker, Polyline, Polygon } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker, Polyline, Polygon, DirectionsRenderer } from '@react-google-maps/api';
+//import { withGoogleMap, withScriptjs, DirectionsService } from "@react-google-maps/api";   //unsure if these are needed
 import { Fab, makeStyles } from '@material-ui/core';
 import axios from 'axios';
 import { serverURL } from '../index.js';
@@ -42,12 +43,16 @@ class Building {
 
 function Map(props) {
   Map.propTypes = {
-    buildingName: PropTypes.string
+    buildingName: PropTypes.string,
+    originSC: PropTypes.string,
+    resetRoute: PropTypes.func,
+    destinationSC: PropTypes.string,
   };
 
   const [map, setMap] = useState(null);
   const [Buildings, setBuildings] = useState([]);
   const [FilteredBuildings, setFilteredBuildings] = useState([]);
+  const [directions, setDirections] = useState([]);
 
   const classes = useStyles();
 
@@ -56,8 +61,6 @@ function Map(props) {
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
     preventGoogleFontsLoading: true,
   });
-
-
 
   async function generateBuildings() {
     let responseData = [];
@@ -100,11 +103,64 @@ function Map(props) {
     filterBuildings(props.buildingName);
   }, [props.buildingName]);
 
+
+  
+
+  // Setting directions (mock up)
+  //https://github.com/trulymittal/google-maps-directions-tutorial/blob/master/src/App.js
+  const [routeVisible, setRouteVisible] = useState(false);
+  function toggleRouteVisible() {
+    if (routeVisible) {
+      setDirections(null);
+      setRouteVisible(false);
+      props.resetRoute(null, null);
+      return;
+    }
+    setRouteVisible(true);
+  }
+
+  async function calculateRoute() {
+    const directionsService = new window.google.maps.DirectionsService();
+
+    // Iterate through buildings to find starting and ending locations
+    let origin;// = { lat: 40.41997, lng: -86.93049 };
+    let destination;// = { lat: 40.43137, lng: -86.91402 };
+    for (let i = 0; i < Buildings.length; i++) {
+      if (Buildings[i].shortCode === props.originSC) {
+        origin = Buildings[i].shortCodeLocation;
+      }
+
+      if (Buildings[i].shortCode === props.destinationSC) {
+        destination = Buildings[i].shortCodeLocation;
+      }
+    }
+    console.log(origin);
+    console.log(destination);
+
+    
+    const results = await directionsService.route({
+      origin: origin,
+      destination: destination,
+      travelMode: window.google.maps.TravelMode.WALKING,
+    });
+
+    setDirections(results);
+  }
+
+  // Generate Route
+  useEffect(() => {
+    calculateRoute();
+  }, [props.originSC, props.destinationSC]);
+  // https://stackblitz.com/edit/react-5cuf9v?file=Map.js
+
+
   if (map && FilteredBuildings[0] && FilteredBuildings[0].coordArray[0] && props.buildingName) {
     console.log(FilteredBuildings[0], props.buildingName)
     map.panTo(FilteredBuildings[0].coordArray[0]);
     map.setZoom(18);
   }
+
+
   
   // This is for displaying only text 
   //<Marker label="Some_Label" position={{lat:40.43041,lng:-86.91246}} icon="../map_images/BlankPNG.png" />
@@ -132,7 +188,7 @@ function Map(props) {
 
         { /* Child components, such as markers, info windows, etc. */
           // This div is necessary as a parent element
-          <div>
+          <div className="mapContainer">
 
             {
               Buildings.map((building, index) => (
@@ -151,7 +207,19 @@ function Map(props) {
               ))
             }
 
+            {/*routeVisible && */directions != undefined && <DirectionsRenderer directions={directions} />}
+
             <div className={classes.homeFABdiv}>
+
+              { 
+                  <Fab variant="extended" className={classes.homeFAB} onClick={() => { toggleRouteVisible() }}>
+                    {routeVisible && "Hide Route"}
+                    <a style={{textDecoration: 'none', color:'#000000'}} href="#Map_Routing">
+                      {!routeVisible && "Route"}
+                    </a>
+                  </Fab>
+              }
+
               { window.sessionStorage.getItem("userToken") === null && 
                 <Fab variant="extended" className={classes.homeFAB} href='/login'>
                   Log In
@@ -181,6 +249,7 @@ function Map(props) {
                   Sign Out
                 </Fab> 
               }
+
             </div>
           </div>
         }
