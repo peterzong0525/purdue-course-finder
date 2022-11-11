@@ -28,7 +28,7 @@ public class Room {
     String number;
     
     @ManyToOne
-    @JoinColumn(name = "buildingId")
+    @JoinColumn(name = "shortCode")
     Building building;
     
     public static Room fromRoomDTO(RoomDTO roomDTO) {

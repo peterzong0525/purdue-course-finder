@@ -10,4 +10,5 @@ import com.purduecoursefinder.models.Section;
 
 public interface MeetingRepository extends JpaRepository<Meeting, UUID> {
     List<Meeting> findAllBySection(Section section);
+    List<Meeting> findAllByRoomRoomId(UUID roomId);
 }

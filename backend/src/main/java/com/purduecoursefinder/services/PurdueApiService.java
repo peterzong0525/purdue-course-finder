@@ -242,13 +242,47 @@ public class PurdueApiService {
         }).toList();
     }
     
+    public List<SectionDTO> getMeetings(UUID roomId) throws IOException {
+        if (roomRepository.count() == 0L) {
+            populateRoomRepository();
+        }
+        
+//        Room room = roomRepository.findById(roomId).orElseThrow();
+//        
+//        SectionsRequestDTO sectionsRequestDTO = restTemplate.getForObject(apiUrl + "/odata/Sections?$expand=Meetings&$filter=(Meetings/any(m: m/Room/Building/ShortCode eq '" + room.getBuilding().getShortCode() + "')) and (Meetings/any(m: m/Room/Number eq '" + room.getNumber() + "'))", SectionsRequestDTO.class);
+//        
+//        return sectionsRequestDTO == null ? new ArrayList<>() : sectionsRequestDTO.getValue();
+        
+        return meetingRepository.findAllByRoomRoomId(roomId).stream().map(meeting -> {
+            SectionDTO sectionDTO = SectionDTO.fromSection(meeting.getSection());
+            List<MeetingDTO> meetings = new ArrayList<MeetingDTO>();
+            meetings.add(MeetingDTO.fromMeeting(meeting));
+            sectionDTO.setMeetings(meetings);
+            return sectionDTO;
+        }).toList();
+    }
+    
     public List<RoomDTO> getRooms(String shortCode) throws IOException {
-//        getBuildings(); // Make sure buildings are populated.
         if (roomRepository.count() == 0L) {
             populateRoomRepository();
         }
         
         return roomRepository.findAllByBuildingShortCode(shortCode).stream().map(room -> RoomDTO.fromRoom(room)).toList();
+    }
+    
+    public void populateAllCourses() throws IOException {
+        if (subjectRepository.count() == 0L) {
+            populateSubjectRepository();
+        }
+        
+        List<Subject> subjects = subjectRepository.findAll();
+        
+        for (Subject subject : subjects) {
+            if (System.currentTimeMillis() - subject.getLastRefresh() < refreshCacheMillis) {
+                continue;
+            }
+            getCourses(subject.getAbbreviation());
+        }
     }
     
     private void populateRoomRepository() throws IOException {
