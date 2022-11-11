@@ -17,6 +17,6 @@ public class BuildingsController {
     
     @GetMapping("/buildings")
     public List<BuildingDTO> buildings() throws IOException {
-        return purdueApiService.getBuildings();
+        return purdueApiService.getBuildings().stream().filter(building -> !building.getName().equals("N/A")).toList();
     }
 }
