@@ -186,8 +186,7 @@ function Map(props) {
               ))
             }
 
-            {/* This mostly works, will add in future commit
-            directions!=undefined && <DirectionsRenderer directions={directions} />*/}
+            {directions!=undefined && <DirectionsRenderer directions={directions} />}
 
             <div className={classes.homeFABdiv}>
               { window.sessionStorage.getItem("userToken") === null && 
@@ -219,14 +218,40 @@ function Map(props) {
                   Sign Out
                 </Fab> 
               }
-
+              
+              {/*<a href="#Map_Routing" className="button">
+                <button type='submit'>Route</button>
+              </a>*/}
+            </div>
               {
                 /* // This is a test for directions. Will add popup window soon
                 <Fab variant="extended" className={classes.homeFAB} onClick={() => { calculateRoute() }}>
                   {routeVisible && "Hide Route"}{!routeVisble && "Route"}
-                </Fab>*/
+                </Fab>*/ /*
+                <div className="popup_overlay" id="Map_Routing">
+                  <div className="popup_wrapper">
+                      <h2>Change Filter</h2>
+                      <a href="#" className="close">&times;</a>
+                      <div className="content">
+                          <div className="popup_container">
+                              <form>
+                                  <div className="popup_box">
+                                      <select name="origin_building" id="origin_building">
+                                        <option value="WALC">WALC</option>
+                                        <option value="CHAS">CHAS</option>
+                                      </select>
+                                      <select name="destination_building" id="destination_building">
+                                        <option value="WALC">WALC</option>
+                                        <option value="CHAS">CHAS</option>
+                                      </select>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>*/
               }
-            </div>
+            
           </div>
         }
         <></>
