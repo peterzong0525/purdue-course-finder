@@ -43,7 +43,10 @@ class Building {
 
 function Map(props) {
   Map.propTypes = {
-    buildingName: PropTypes.string
+    buildingName: PropTypes.string,
+    originSC: PropTypes.string,
+    resetRoute: PropTypes.func,
+    destinationSC: PropTypes.string,
   };
 
   const [map, setMap] = useState(null);
@@ -106,23 +109,39 @@ function Map(props) {
   // Setting directions (mock up)
   //https://github.com/trulymittal/google-maps-directions-tutorial/blob/master/src/App.js
   const [routeVisible, setRouteVisible] = useState(false);
-  async function calculateRoute() {
+  function toggleRouteVisible() {
     if (routeVisible) {
       setDirections(null);
       setRouteVisible(false);
+      props.resetRoute(null, null);
       return;
     }
     setRouteVisible(true);
+  }
 
+  async function calculateRoute() {
     const directionsService = new window.google.maps.DirectionsService();
 
-    const origin = { lat: 40.41997, lng: -86.93049 };
-    const destination = { lat: 40.43137, lng: -86.91402 };
+    // Iterate through buildings to find starting and ending locations
+    let origin;// = { lat: 40.41997, lng: -86.93049 };
+    let destination;// = { lat: 40.43137, lng: -86.91402 };
+    for (let i = 0; i < Buildings.length; i++) {
+      if (Buildings[i].shortCode === props.originSC) {
+        origin = Buildings[i].shortCodeLocation;
+      }
 
+      if (Buildings[i].shortCode === props.destinationSC) {
+        destination = Buildings[i].shortCodeLocation;
+      }
+    }
+    console.log(origin);
+    console.log(destination);
+
+    
     const results = await directionsService.route({
       origin: origin,
       destination: destination,
-      travelMode: window.google.maps.TravelMode.DRIVING,
+      travelMode: window.google.maps.TravelMode.WALKING,
     });
 
     setDirections(results);
@@ -130,8 +149,8 @@ function Map(props) {
 
   // Generate Route
   useEffect(() => {
-    //calculateRoute();
-  }, []);
+    calculateRoute();
+  }, [props.originSC, props.destinationSC]);
   // https://stackblitz.com/edit/react-5cuf9v?file=Map.js
 
 
@@ -140,6 +159,8 @@ function Map(props) {
     map.panTo(FilteredBuildings[0].coordArray[0]);
     map.setZoom(18);
   }
+
+
   
   // This is for displaying only text 
   //<Marker label="Some_Label" position={{lat:40.43041,lng:-86.91246}} icon="../map_images/BlankPNG.png" />
@@ -186,9 +207,19 @@ function Map(props) {
               ))
             }
 
-            {directions!=undefined && <DirectionsRenderer directions={directions} />}
+            {/*routeVisible && */directions != undefined && <DirectionsRenderer directions={directions} />}
 
             <div className={classes.homeFABdiv}>
+
+              { 
+                  <Fab variant="extended" className={classes.homeFAB} onClick={() => { toggleRouteVisible() }}>
+                    {routeVisible && "Hide Route"}
+                    <a style={{textDecoration: 'none', color:'#000000'}} href="#Map_Routing">
+                      {!routeVisible && "Route"}
+                    </a>
+                  </Fab>
+              }
+
               { window.sessionStorage.getItem("userToken") === null && 
                 <Fab variant="extended" className={classes.homeFAB} href='/login'>
                   Log In
@@ -218,40 +249,8 @@ function Map(props) {
                   Sign Out
                 </Fab> 
               }
-              
-              {/*<a href="#Map_Routing" className="button">
-                <button type='submit'>Route</button>
-              </a>*/}
+
             </div>
-              {
-                /* // This is a test for directions. Will add popup window soon
-                <Fab variant="extended" className={classes.homeFAB} onClick={() => { calculateRoute() }}>
-                  {routeVisible && "Hide Route"}{!routeVisble && "Route"}
-                </Fab>*/ /*
-                <div className="popup_overlay" id="Map_Routing">
-                  <div className="popup_wrapper">
-                      <h2>Change Filter</h2>
-                      <a href="#" className="close">&times;</a>
-                      <div className="content">
-                          <div className="popup_container">
-                              <form>
-                                  <div className="popup_box">
-                                      <select name="origin_building" id="origin_building">
-                                        <option value="WALC">WALC</option>
-                                        <option value="CHAS">CHAS</option>
-                                      </select>
-                                      <select name="destination_building" id="destination_building">
-                                        <option value="WALC">WALC</option>
-                                        <option value="CHAS">CHAS</option>
-                                      </select>
-                                  </div>
-                              </form>
-                          </div>
-                      </div>
-                  </div>
-              </div>*/
-              }
-            
           </div>
         }
         <></>
