@@ -355,12 +355,6 @@
             "OutlineCoords":[{"lat":40.42618,"lng":-86.91959},{"lat":40.42538,"lng":-86.91959},{"lat":40.42538,"lng":-86.91934},{"lat":40.42619,"lng":-86.91936}]
         },
         {
-            "Name": "Griffin Residence Hall South",
-            "ShortCode": "GRFS",
-            "ShortCode_Location":{"lat":40.42786,"lng":-86.92015},
-            "OutlineCoords":[{"lat":40.42764,"lng":-86.92065},{"lat":40.42751,"lng":-86.92065},{"lat":40.42749,"lng":-86.92005},{"lat":40.42820,"lng":-86.92006},{"lat":40.42820,"lng":-86.92035},{"lat":40.42766,"lng":-86.92036}]
-        },
-        {
             "Name": "Fowler Memorial House",
             "ShortCode": "FWLR",
             "ShortCode_Location":{"lat":40.42490,"lng":-86.92225},

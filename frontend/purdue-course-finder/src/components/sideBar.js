@@ -42,11 +42,14 @@ function SideBar(props) {
             getFavUrl = `${serverURL}/favorites/buildings`;
     
         } else if (filter_option === 'Classroom') {
-            url = `${serverURL}/classrooms`;
+            if (searchString.trim() === '') {
+                setLoading(false);
+                setObjects([]);
+                return;
+            }
+
+            url = `${serverURL}/rooms/` + searchString.toUpperCase();
             getFavUrl = `${serverURL}/favorites/classrooms`;
-            setLoading(false);
-            setObjects([]);
-            return;
 
         } else if (filter_option === 'Course') {
             if (searchString.trim() === '') {
@@ -83,7 +86,8 @@ function SideBar(props) {
                     data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
     
                 } else if (filter_option === 'Classroom') {
-                    console.log("todo");
+                    data.sort((a,b ) => a.Number.localeCompare(b.Number));
+
                 } else if (filter_option === 'Course') {
                     data.sort((a, b) => a.courseNumber - b.courseNumber);
                 }
@@ -224,7 +228,7 @@ function SideBar(props) {
             } else if (e.filter === "Building") {
                 filter = "Classroom";
                 prevDesc = itemHead;
-                searchString = e.searchStr;
+                searchString = e.searchStr.toUpperCase();
                 // document.getElementById("classroom").checked = true;
                 props.onClick(firstRow);
             } else if (e.filter === "Section") {
@@ -406,12 +410,12 @@ function SideBar(props) {
                 </div>
             ))
         } else if (filter === 'Classroom') {
-            // TODO: Confirm this works when server can return this data
             return objects.map((classroom, index) => (
                 <div key={index}>
-                    {setItem(classroom.number, 
+                    {setItem(classroom.Building.ShortCode + " " + classroom.Number, 
                         classroom.Building.Name, 
-                        classroom.Meetings.length + " meetings per week", 
+                        //classroom.Meetings.length + " meetings per week",     //page will crash as classroom.Meetings does not exist
+                        "0 meetings per week", // Need to update this eventually
                         "",
                         "Classroom", 
                         classroom.classroomId,
