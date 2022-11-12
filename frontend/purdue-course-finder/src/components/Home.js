@@ -14,12 +14,16 @@ function Home() {
     setmapReload(!mapReload);
   }
 
-  const [origin, setOrigin] = useState('');
-  const [destination, setDestination] = useState('');
+  const [origin, setOrigin] = useState(null);
+  const [destination, setDestination] = useState(null);
+  const [method, setMethod] = useState('walking');
   const _handleRouteClick = (origin, destination) => {
     setOrigin(origin);
     setDestination(destination);
     setmapReload(!mapReload);
+  }
+  const _handleRouteMethod = (method) => {
+    setMethod(method);
   }
   
   return (
@@ -29,6 +33,7 @@ function Home() {
           <SideBar 
             onClick = {(e)=>{_handleBuildingClick(e)}}
             onRouteClick = {(origin, destination)=>{_handleRouteClick(origin, destination)}}
+            onRouteMethodChange = {(route) => {_handleRouteMethod(route)}}
           />
         </div>
         <div className="map" data-testid="map">
@@ -36,6 +41,7 @@ function Home() {
             buildingName = {building}
             originSC={origin}
             destinationSC={destination}
+            routeMethod={method}
             resetRoute={(origin, destination)=>{_handleRouteClick(origin, destination)}}
             mapReload = {mapReload}
           />

@@ -13,6 +13,7 @@ function SideBar(props) {
     SideBar.propTypes = {
         onClick: PropTypes.func,
         onRouteClick: PropTypes.func,
+        onRouteMethodChange: PropTypes.func,
     };
 
     const [loggedIn, setLoggedIn] = useState(false);
@@ -41,11 +42,14 @@ function SideBar(props) {
             getFavUrl = `${serverURL}/favorites/buildings`;
     
         } else if (filter_option === 'Classroom') {
-            url = `${serverURL}/classrooms`;
+            if (searchString.trim() === '') {
+                setLoading(false);
+                setObjects([]);
+                return;
+            }
+
+            url = `${serverURL}/rooms/` + searchString.toUpperCase();
             getFavUrl = `${serverURL}/favorites/classrooms`;
-            setLoading(false);
-            setObjects([]);
-            return;
 
         } else if (filter_option === 'Course') {
             if (searchString.trim() === '') {
@@ -82,7 +86,8 @@ function SideBar(props) {
                     data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
     
                 } else if (filter_option === 'Classroom') {
-                    console.log("todo");
+                    data.sort((a,b ) => a.Number.localeCompare(b.Number));
+
                 } else if (filter_option === 'Course') {
                     data.sort((a, b) => a.courseNumber - b.courseNumber);
                 }
@@ -223,7 +228,7 @@ function SideBar(props) {
             } else if (e.filter === "Building") {
                 filter = "Classroom";
                 prevDesc = itemHead;
-                searchString = e.searchStr;
+                searchString = e.searchStr.toUpperCase();
                 // document.getElementById("classroom").checked = true;
                 props.onClick(firstRow);
             } else if (e.filter === "Section") {
@@ -405,12 +410,12 @@ function SideBar(props) {
                 </div>
             ))
         } else if (filter === 'Classroom') {
-            // TODO: Confirm this works when server can return this data
             return objects.map((classroom, index) => (
                 <div key={index}>
-                    {setItem(classroom.number, 
+                    {setItem(classroom.Building.ShortCode + " " + classroom.Number, 
                         classroom.Building.Name, 
-                        classroom.Meetings.length + " meetings per week", 
+                        //classroom.Meetings.length + " meetings per week",     //page will crash as classroom.Meetings does not exist
+                        "0 meetings per week", // Need to update this eventually
                         "",
                         "Classroom", 
                         classroom.classroomId,
@@ -428,7 +433,7 @@ function SideBar(props) {
     useEffect(() => {
         var url = `${serverURL}/buildings`;
         axios.get(url).then((response) => {
-            setBuildings(response.data);
+            setBuildings(response.data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode)));
         });
     }, []);
 
@@ -566,6 +571,32 @@ function SideBar(props) {
                         <a href="#" className="close2">
                             <button className="showRoute" onClick={() => props.onRouteClick(document.getElementById('origin_building').value, document.getElementById('destination_building').value)}>Show Route</button>
                         </a>
+                        <hr></hr>
+                        <label className="txt">
+                            <input type="radio"
+                                id="routeMethod_w"
+                                name="route_option"
+                                value="walking"
+                                defaultChecked="True"
+                                onChange={() => {props.onRouteMethodChange('walking')}} />
+                            Walking
+                        </label>
+                        <label className="txt">
+                            <input type="radio"
+                                id="routeMethod_b"
+                                name="route_option"
+                                value="biking"
+                                onChange={() => {props.onRouteMethodChange('biking')}} />
+                            Biking
+                        </label>
+                        <label>
+                            <input type="radio"
+                                id="routeMethod_d"
+                                name="route_option"
+                                value="driving"
+                                onChange={() => {props.onRouteMethodChange('driving')}} />
+                            Driving
+                        </label>
                   </div>
               </div>
         </div>

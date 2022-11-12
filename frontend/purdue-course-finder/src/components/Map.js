@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { GoogleMap, useJsApiLoader, Marker, Polyline, Polygon, DirectionsRenderer } from '@react-google-maps/api';
-//import { withGoogleMap, withScriptjs, DirectionsService } from "@react-google-maps/api";   //unsure if these are needed
+import { GoogleMap, useJsApiLoader, Marker, Polygon, DirectionsRenderer } from '@react-google-maps/api';
 import { Fab, makeStyles } from '@material-ui/core';
 import axios from 'axios';
 import { serverURL } from '../index.js';
@@ -45,6 +44,7 @@ function Map(props) {
   Map.propTypes = {
     buildingName: PropTypes.string,
     originSC: PropTypes.string,
+    routeMethod: PropTypes.string,
     resetRoute: PropTypes.func,
     destinationSC: PropTypes.string,
   };
@@ -53,6 +53,7 @@ function Map(props) {
   const [Buildings, setBuildings] = useState([]);
   const [FilteredBuildings, setFilteredBuildings] = useState([]);
   const [directions, setDirections] = useState([]);
+  const [labelSize, setLabelSize] = useState(9);
 
   const classes = useStyles();
 
@@ -103,8 +104,14 @@ function Map(props) {
     filterBuildings(props.buildingName);
   }, [props.buildingName]);
 
-
-  
+  // zoom & pan to selected building
+  useEffect(() => {
+    if (map && FilteredBuildings[0] && FilteredBuildings[0].coordArray[0] && props.buildingName) {
+      console.log(FilteredBuildings[0], props.buildingName)
+      map.panTo(FilteredBuildings[0].coordArray[0]);
+      map.setZoom(18);
+    }
+  }, [FilteredBuildings]);
 
   // Setting directions (mock up)
   //https://github.com/trulymittal/google-maps-directions-tutorial/blob/master/src/App.js
@@ -134,14 +141,22 @@ function Map(props) {
         destination = Buildings[i].shortCodeLocation;
       }
     }
-    console.log(origin);
-    console.log(destination);
 
+    let travelType;
+    if (props.routeMethod === 'walking') {
+      travelType = window.google.maps.TravelMode.WALKING;
+    } else if (props.routeMethod === 'biking') {
+      travelType = window.google.maps.TravelMode.BICYCLING;
+    } else if (props.routeMethod === 'driving') {
+      travelType = window.google.maps.TravelMode.DRIVING;
+    } else {
+      travelType = window.google.maps.TravelMode.WALKING;
+    }
     
     const results = await directionsService.route({
       origin: origin,
       destination: destination,
-      travelMode: window.google.maps.TravelMode.WALKING,
+      travelMode: travelType,
     });
 
     setDirections(results);
@@ -150,26 +165,23 @@ function Map(props) {
   // Generate Route
   useEffect(() => {
     calculateRoute();
-  }, [props.originSC, props.destinationSC]);
-  // https://stackblitz.com/edit/react-5cuf9v?file=Map.js
-
-
-  if (map && FilteredBuildings[0] && FilteredBuildings[0].coordArray[0] && props.buildingName) {
-    console.log(FilteredBuildings[0], props.buildingName)
-    map.panTo(FilteredBuildings[0].coordArray[0]);
-    map.setZoom(18);
-  }
-
-
+  }, [props.originSC, props.destinationSC, props.routeMethod]);
   
-  // This is for displaying only text 
-  //<Marker label="Some_Label" position={{lat:40.43041,lng:-86.91246}} icon="../map_images/BlankPNG.png" />
-  //<Marker label={building.shortCode} position={{lat:(building.shortCodeLocation.lat-0.0001), lng:building.shortCodeLocation.lng}} icon="../map_images/BlankPNG.png" />
   return isLoaded ? (
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
         zoom={15}
+        onZoomChanged={() => {
+          if (map) {
+            let z = map.getZoom();
+            if (z < 15) {
+              setLabelSize(0);
+            } else {
+              setLabelSize((3*(z-12)));
+            }
+          }
+        }}
         clickableIcons={false}
         tilt={0}
         mapTypeId={"ROADMAP"}
@@ -194,8 +206,10 @@ function Map(props) {
               Buildings.map((building, index) => (
                 <div key={index}>
                   <Polygon path={building.coordArray} options={{strokeColor: '#000000', fillColor:'#FFF72F' }} />
-                  <Marker label={{text:building.shortCode, fontSize:"15px", fontWeight: 'bold'}} position={{lat:(building.shortCodeLocation.lat-0.00005), lng:building.shortCodeLocation.lng}} icon="../map_images/BlankPNG.png" />
-                </div>
+                  { labelSize !== 0 &&
+                    <Marker label={{text:building.shortCode, fontSize:labelSize.toString()+"px", fontWeight: 'bold'}} position={{lat:(building.shortCodeLocation.lat-0.00005-(labelSize===12?(labelSize)/100000:0)-(labelSize===9?(labelSize*4)/100000:0)), lng:building.shortCodeLocation.lng}} icon="../map_images/BlankPNG.png" />
+                  }
+                  </div>
               ))
             }
 
