@@ -367,7 +367,7 @@ function SideBar(props) {
                 <div key={index}>
                     {setItem(prevDesc + " - " + section.Type + " - " + section.Crn, 
                     "Meeting day(s): " + section.Meetings[0].DaysOfWeek, 
-                    "Instructor: " + section.Meetings[0].Instructors[0].Name, 
+                    "Instructor(s): " + section.Meetings[0].Instructors.map(({Name}) => " " +  Name).toString(),
                     "Location: " + section.Meetings[0].Room.Building.ShortCode + " " + section.Meetings[0].Room.Number, 
                     "Section", 
                     section.Id,

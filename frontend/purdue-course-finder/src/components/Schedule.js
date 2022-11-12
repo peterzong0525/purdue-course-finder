@@ -4,6 +4,8 @@ import axios from 'axios';
 import { serverURL } from '../index.js';
 import './Schedule.css'
 
+var allSections = [];
+var hiddenEvents = [];
 function Schedule() {
     const navigate = useNavigate();
     // sch_type = Course/Section/Classroom/null if accessing personal schedule
@@ -12,10 +14,12 @@ function Schedule() {
     const scheduleType = searchParams.get("sch_type");
     const scheduleId = searchParams.get("sch_id");
     const [headerText, setHeaderText] = useState('');
-    const [allSections, setAllSections] = useState([]);
+    //const [allSections, setAllSections] = useState([]);
+    const [eventsComplete, setEventsComplete] = useState(false);   
+    
     
     useEffect(() => {
-        if (/*!*/scheduleType && window.sessionStorage.getItem("userToken") === null) {
+        if (!scheduleType && window.sessionStorage.getItem("userToken") === null) {
             //user is not logged in, redirect to /login
             navigate('/login');
             return;
@@ -23,7 +27,30 @@ function Schedule() {
         addAllScheduleEvents();
     }, [])
 
-    function addAllScheduleEvents() {
+    useEffect(() => {
+        if (eventsComplete){
+        console.log("complete")
+        console.log(allSections)
+        console.log(hiddenEvents)
+        displayEvents()
+        }
+    }, [eventsComplete])
+
+    async function displayEvents() {
+        const mapped = allSections.map((section, index) => (
+            <div data-hiddenMap = {index} key = {index}>
+                {section}
+            </div>
+        ))
+        // setHiddenEvents(allSections.map((section, index) => (
+        //     <div className = "hidden-event" data-hiddenmap = {index} key = {index+1000}>
+        //         {section}
+        //     </div>
+        // )))
+        console.log(mapped[0].props.children.props.children.props.children[0])
+    }
+
+    async function addAllScheduleEvents() {
         if (!scheduleType) {
             // TODO Need Meeting data and item keys to be capitalized
             setHeaderText("My Favorite Sections");
@@ -34,34 +61,31 @@ function Schedule() {
             };
             let favoriteSections = [];
             let url = `${serverURL}/favorites/sections`;
-            axios.get(url, config).then((response) => {
+            await axios.get(url, config).then((response) => {
                 console.log(response.data)
                 for (let i = 0; i < response.data.length; i++) {
-                    favoriteSections.push(addOneSection(response.data[i]));
+                    favoriteSections = favoriteSections.concat(addOneSection(response.data[i]));
                 }
-                setAllSections(
-                    favoriteSections.map((section, index) => (
-                        <div className={section.Id} key={index} style={{position: "absolute"}}>
-                            {section}
-                        </div>
-                    ))
-                )
-
+                allSections = allSections.concat(favoriteSections)
+                
             }).catch((error) => {
                 console.log(error);
             });
+            setEventsComplete(true);
         } else if (scheduleType === 'Course') {
-            addOneCourse(scheduleId)
+            await addOneCourse(scheduleId)
+            setEventsComplete(true)
            
         } else if (scheduleType === 'Section') {
             // TODO Need new section endpoint that returns only specific section with meetings
             let url = `${serverURL}/section/` + scheduleId;
-            axios.get(url).then((response) => {
+            await axios.get(url).then((response) => {
                 setHeaderText(response.data.Type + " - " + response.data.Crn);
-                setAllSections(addOneSection(response.data));
+                //setAllSections(addOneSection(response.data));
             }).catch((error) => {
                 console.log(error);
             });
+            setEventsComplete(true)
         } else if (scheduleType === 'Classroom') {
             console.log("TODO classrooms")
         } else {
@@ -70,29 +94,21 @@ function Schedule() {
     }
 
     
-    function addOneCourse(courseID) {
+    async function addOneCourse(courseID) {
         let courseSections = [];
         let url = `${serverURL}/sections/` + courseID;
-        axios.get(url).then((response) =>{
+        await axios.get(url).then((response) =>{
             setHeaderText("My Schedule");
             for (let i = 0; i < response.data.length; i++) {
-                courseSections.push(addOneSection(response.data[i]));
+                courseSections = courseSections.concat(addOneSection(response.data[i]));
             }
-            let currentSections = allSections;
-            console.log(currentSections)
-            setAllSections(
-                currentSections.concat(
-                    courseSections.map((section, index) => (
-                        <div className={section.Id} key={index} style={{position: "absolute"}}>
-                            {section}
-                        </div>
-                    ))
-                )
-            )
-            console.log(currentSections)
+
+            allSections = allSections.concat(courseSections)
+            console.log(allSections)
         }).catch((error) => {
             console.log(error);
         });
+        return;
     }
 
     function addOneSection(sectionData) {
@@ -117,7 +133,7 @@ function Schedule() {
 
         }
         return sectionMeetings.map((meeting, index) => (
-            <div className={className} key={index} style={{position: "absolute"}}
+            <div className={className} key={sectionData.Meetings[0].Id+index} style={{position: "absolute"}}
                 onMouseEnter={()=>{setHover(className, true)}}
                 onMouseLeave={()=>{setHover(className, false)}}>
                 {meeting}
@@ -126,10 +142,10 @@ function Schedule() {
     }
     
 
-    function addOneMeeting(dayOfWeek, meetingData) {     
+    function addOneMeeting(dayOfWeek, meetingData) {   
         let startTime = meetingData.StartTime;
         let durationLength = meetingData.Duration;
-        let sectionType = meetingData.Type;        
+        let sectionType = meetingData.Type;
         /*  Expected formats:  
               dayOfWeek: Sunday/Monday/Tuesday...
               startTime: 2022-11-04T15:30:00.000+00:00
@@ -150,7 +166,7 @@ function Schedule() {
 
         const baseTopLoc = 27.5;
         let startTimeDate = new Date(startTime);
-        let startHour = startTimeDate.getUTCHours();
+        let startHour = startTimeDate.getUTCHours() - 1;
         let startMinute = startTimeDate.getUTCMinutes();
         let posFromTop = baseTopLoc + (((startHour * 61) + startMinute) * 2);
 
@@ -168,6 +184,11 @@ function Schedule() {
         durationMinutes = parseInt(durationMinutes) + parseInt(durationHours * 60);
         let height = durationMinutes * 2;
 
+        // If no meetings for this section/course (some exammples are CS 182, CS 183)
+        if (height === 0) {
+            return;
+        }
+
         // Temporary random colors
         const map_section_type_to_color = {
             "Distance Learning": "#FFFFFF",
@@ -175,7 +196,7 @@ function Schedule() {
             "Individual Study": "#123123",
             "Laboratory": "#63F3CA",
             "Lecture": "#1CD2FF",
-            "Practice Study Observation": "#000000",
+            "Practice Study Observation": "#63F393",
             "Recitation": "#A40101"
         }
 
@@ -191,17 +212,42 @@ function Schedule() {
         } else if (parseInt(durationHours) == 1) {
             hourDisplay =  " " + durationHours + " Hour"
         }
+
+        let instructors = meetingData.Instructors.map(({Name}) => " " +  Name).toString();
+
+        let refIndex = hiddenEvents.length;        
         
-        
+        const _handleHideEventONHiddenEvents = () => {
+            let hiddenEvent = document.querySelectorAll('[data-forhideid="' + meetingData.Id + 'hidden"]')[0];
+            hiddenEvent.setAttribute('data-hidden',"true");
+            let shownScheduleEvent = document.querySelectorAll('[data-forhideid="' + meetingData.Id + 'schedule"]');
+            shownScheduleEvent.forEach((element) => element.setAttribute('data-show', "true"));
+        }
+
+        hiddenEvents = hiddenEvents.concat(
+            <div className="hidden-event" data-forhideid={meetingData.Id+"hidden"} data-hidden="true" onClick={()=> _handleHideEventONHiddenEvents()} key={refIndex}>
+                Checking index: {refIndex}
+            </div>
+        )
+
+
+
+        const _handleHideEventOnSchedule = () => {
+            let hiddenEvent = document.querySelectorAll('[data-forhideid="' + meetingData.Id + 'hidden"]')[0];
+            hiddenEvent.setAttribute('data-hidden', "false");
+            let shownScheduleEvent = document.querySelectorAll('[data-forhideid="' + meetingData.Id + 'schedule"]');
+            shownScheduleEvent.forEach((element) => element.setAttribute('data-show', "false"));
+        }
 
         // Data displayed is not final
         return (
-            <div className="schedule-event" style={styleString}>
-                Instructor(s): {meetingData.Instructors.map(({Name}) => Name)}
+            <div className="schedule-event" data-forhideid={meetingData.Id+"schedule"} data-show="true" onClick={()=> _handleHideEventOnSchedule()} style={styleString}>
+                Instructor(s): {instructors}
                 <br></br>
                 Meeting type: {meetingData.Type}
                 <br></br>
                 Length:{hourDisplay}{minuteDisplay}
+                Index: {refIndex}
             </div>
         )
     }
@@ -254,7 +300,13 @@ function Schedule() {
                         <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
                     </svg>
                 </a>
-                <p className="header-txt">Class Schedule - {headerText}</p>
+                <p className="header-txt">Schedule - {headerText}</p>
+                <div className="hidden-events-container">
+                    Hidden events:
+                    <div className='hidden-events'>
+                        {hiddenEvents}
+                    </div>
+                </div>
             </div>
             <div className="schedule-container">
                 {generateGrids()}
@@ -264,6 +316,7 @@ function Schedule() {
                 {addOneSection("Sunday", "2022-11-04T05:25:00.000+00:00", "PT1H15M", "Recitation")}
                 {addOneSection("Saturday", "2022-11-04T15:30:00.000+00:00", "PT50M", "Laboratory")} */}
             </div>
+            
         </div>
     );
 }
