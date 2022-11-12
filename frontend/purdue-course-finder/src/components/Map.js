@@ -82,7 +82,7 @@ function Map(props) {
     setBuildings(buildings);
   }
 
-  function filterBuildings(buildingName) {
+  async function filterBuildings(buildingName) {
     let filtered = [];
   
     // Find name match from buildingName (props)
@@ -92,7 +92,7 @@ function Map(props) {
         }
     }
   
-    setFilteredBuildings(filtered);
+    await setFilteredBuildings(filtered);
   }
 
   // Fill list Buildings with all building info
@@ -103,7 +103,6 @@ function Map(props) {
   // Filter for specific building
   useEffect(() => {
     filterBuildings(props.buildingName);
-  }, [props.buildingName]);
 
   // zoom & pan to selected building
   useEffect(() => {
@@ -113,7 +112,6 @@ function Map(props) {
       map.setZoom(18);
     }
   }, [FilteredBuildings]);
-  
 
   // Setting directions (mock up)
   //https://github.com/trulymittal/google-maps-directions-tutorial/blob/master/src/App.js
@@ -168,7 +166,6 @@ function Map(props) {
   useEffect(() => {
     calculateRoute();
   }, [props.originSC, props.destinationSC, props.routeMethod]);
-  // https://stackblitz.com/edit/react-5cuf9v?file=Map.js
   
   // This is for displaying only text 
   //<Marker label="Some_Label" position={{lat:40.43041,lng:-86.91246}} icon="../map_images/BlankPNG.png" />
