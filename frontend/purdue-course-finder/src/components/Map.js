@@ -54,6 +54,7 @@ function Map(props) {
   const [Buildings, setBuildings] = useState([]);
   const [FilteredBuildings, setFilteredBuildings] = useState([]);
   const [directions, setDirections] = useState([]);
+  const [labelSize, setLabelSize] = useState(12);
 
   const classes = useStyles();
 
@@ -104,7 +105,14 @@ function Map(props) {
     filterBuildings(props.buildingName);
   }, [props.buildingName]);
 
-
+  // zoom & pan to selected building
+  useEffect(() => {
+    if (map && FilteredBuildings[0] && FilteredBuildings[0].coordArray[0] && props.buildingName) {
+      console.log(FilteredBuildings[0], props.buildingName)
+      map.panTo(FilteredBuildings[0].coordArray[0]);
+      map.setZoom(18);
+    }
+  }, [FilteredBuildings]);
   
 
   // Setting directions (mock up)
@@ -161,15 +169,6 @@ function Map(props) {
     calculateRoute();
   }, [props.originSC, props.destinationSC, props.routeMethod]);
   // https://stackblitz.com/edit/react-5cuf9v?file=Map.js
-
-
-  if (map && FilteredBuildings[0] && FilteredBuildings[0].coordArray[0] && props.buildingName) {
-    console.log(FilteredBuildings[0], props.buildingName)
-    map.panTo(FilteredBuildings[0].coordArray[0]);
-    map.setZoom(18);
-  }
-
-
   
   // This is for displaying only text 
   //<Marker label="Some_Label" position={{lat:40.43041,lng:-86.91246}} icon="../map_images/BlankPNG.png" />
@@ -179,6 +178,17 @@ function Map(props) {
         mapContainerStyle={containerStyle}
         center={center}
         zoom={15}
+        onZoomChanged={() => {
+          if (map) {
+            let z = map.getZoom();
+            console.log(z);
+            if (z < 15) {
+              setLabelSize(0);
+            } else {
+              setLabelSize((3*(z-12)));
+            }
+          }
+        }}
         clickableIcons={false}
         tilt={0}
         mapTypeId={"ROADMAP"}
@@ -203,8 +213,10 @@ function Map(props) {
               Buildings.map((building, index) => (
                 <div key={index}>
                   <Polygon path={building.coordArray} options={{strokeColor: '#000000', fillColor:'#FFF72F' }} />
-                  <Marker label={{text:building.shortCode, fontSize:"15px", fontWeight: 'bold'}} position={{lat:(building.shortCodeLocation.lat-0.00005), lng:building.shortCodeLocation.lng}} icon="../map_images/BlankPNG.png" />
-                </div>
+                  { labelSize !== 0 &&
+                    <Marker label={{text:building.shortCode, fontSize:labelSize.toString()+"px", fontWeight: 'bold'}} position={{lat:(building.shortCodeLocation.lat-0.00005-(labelSize===12?(labelSize)/100000:0)-(labelSize===9?(labelSize*4)/100000:0)), lng:building.shortCodeLocation.lng}} icon="../map_images/BlankPNG.png" />
+                  }
+                  </div>
               ))
             }
 
