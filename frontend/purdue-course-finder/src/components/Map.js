@@ -82,7 +82,7 @@ function Map(props) {
     setBuildings(buildings);
   }
 
-  async function filterBuildings(buildingName) {
+  function filterBuildings(buildingName) {
     let filtered = [];
   
     // Find name match from buildingName (props)
@@ -92,7 +92,7 @@ function Map(props) {
         }
     }
   
-    await setFilteredBuildings(filtered);
+    setFilteredBuildings(filtered);
   }
 
   // Fill list Buildings with all building info
@@ -103,6 +103,7 @@ function Map(props) {
   // Filter for specific building
   useEffect(() => {
     filterBuildings(props.buildingName);
+  }, [props.buildingName]);
 
   // zoom & pan to selected building
   useEffect(() => {
