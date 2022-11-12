@@ -13,6 +13,7 @@ function SideBar(props) {
     SideBar.propTypes = {
         onClick: PropTypes.func,
         onRouteClick: PropTypes.func,
+        onRouteMethodChange: PropTypes.func,
     };
 
     const [loggedIn, setLoggedIn] = useState(false);
@@ -428,7 +429,7 @@ function SideBar(props) {
     useEffect(() => {
         var url = `${serverURL}/buildings`;
         axios.get(url).then((response) => {
-            setBuildings(response.data);
+            setBuildings(response.data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode)));
         });
     }, []);
 
@@ -566,6 +567,32 @@ function SideBar(props) {
                         <a href="#" className="close2">
                             <button className="showRoute" onClick={() => props.onRouteClick(document.getElementById('origin_building').value, document.getElementById('destination_building').value)}>Show Route</button>
                         </a>
+                        <hr></hr>
+                        <label className="txt">
+                            <input type="radio"
+                                id="routeMethod_w"
+                                name="route_option"
+                                value="walking"
+                                defaultChecked="True"
+                                onChange={() => {props.onRouteMethodChange('walking')}} />
+                            Walking
+                        </label>
+                        <label className="txt">
+                            <input type="radio"
+                                id="routeMethod_b"
+                                name="route_option"
+                                value="biking"
+                                onChange={() => {props.onRouteMethodChange('biking')}} />
+                            Biking
+                        </label>
+                        <label>
+                            <input type="radio"
+                                id="routeMethod_d"
+                                name="route_option"
+                                value="driving"
+                                onChange={() => {props.onRouteMethodChange('driving')}} />
+                            Driving
+                        </label>
                   </div>
               </div>
         </div>

@@ -45,6 +45,7 @@ function Map(props) {
   Map.propTypes = {
     buildingName: PropTypes.string,
     originSC: PropTypes.string,
+    routeMethod: PropTypes.string,
     resetRoute: PropTypes.func,
     destinationSC: PropTypes.string,
   };
@@ -134,14 +135,22 @@ function Map(props) {
         destination = Buildings[i].shortCodeLocation;
       }
     }
-    console.log(origin);
-    console.log(destination);
 
+    let travelType;
+    if (props.routeMethod === 'walking') {
+      travelType = window.google.maps.TravelMode.WALKING;
+    } else if (props.routeMethod === 'biking') {
+      travelType = window.google.maps.TravelMode.BICYCLING;
+    } else if (props.routeMethod === 'driving') {
+      travelType = window.google.maps.TravelMode.DRIVING;
+    } else {
+      travelType = window.google.maps.TravelMode.WALKING;
+    }
     
     const results = await directionsService.route({
       origin: origin,
       destination: destination,
-      travelMode: window.google.maps.TravelMode.WALKING,
+      travelMode: travelType,
     });
 
     setDirections(results);
@@ -150,7 +159,7 @@ function Map(props) {
   // Generate Route
   useEffect(() => {
     calculateRoute();
-  }, [props.originSC, props.destinationSC]);
+  }, [props.originSC, props.destinationSC, props.routeMethod]);
   // https://stackblitz.com/edit/react-5cuf9v?file=Map.js
 
 
