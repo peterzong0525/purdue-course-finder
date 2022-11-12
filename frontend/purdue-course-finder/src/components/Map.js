@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { GoogleMap, useJsApiLoader, Marker, Polyline, Polygon, DirectionsRenderer } from '@react-google-maps/api';
-//import { withGoogleMap, withScriptjs, DirectionsService } from "@react-google-maps/api";   //unsure if these are needed
+import { GoogleMap, useJsApiLoader, Marker, Polygon, DirectionsRenderer } from '@react-google-maps/api';
 import { Fab, makeStyles } from '@material-ui/core';
 import axios from 'axios';
 import { serverURL } from '../index.js';
@@ -54,7 +53,7 @@ function Map(props) {
   const [Buildings, setBuildings] = useState([]);
   const [FilteredBuildings, setFilteredBuildings] = useState([]);
   const [directions, setDirections] = useState([]);
-  const [labelSize, setLabelSize] = useState(12);
+  const [labelSize, setLabelSize] = useState(9);
 
   const classes = useStyles();
 
@@ -168,9 +167,6 @@ function Map(props) {
     calculateRoute();
   }, [props.originSC, props.destinationSC, props.routeMethod]);
   
-  // This is for displaying only text 
-  //<Marker label="Some_Label" position={{lat:40.43041,lng:-86.91246}} icon="../map_images/BlankPNG.png" />
-  //<Marker label={building.shortCode} position={{lat:(building.shortCodeLocation.lat-0.0001), lng:building.shortCodeLocation.lng}} icon="../map_images/BlankPNG.png" />
   return isLoaded ? (
       <GoogleMap
         mapContainerStyle={containerStyle}
@@ -179,7 +175,6 @@ function Map(props) {
         onZoomChanged={() => {
           if (map) {
             let z = map.getZoom();
-            console.log(z);
             if (z < 15) {
               setLabelSize(0);
             } else {
