@@ -54,6 +54,7 @@ function Map(props) {
   const [Buildings, setBuildings] = useState([]);
   const [FilteredBuildings, setFilteredBuildings] = useState([]);
   const [directions, setDirections] = useState([]);
+  const [labelSize, setLabelSize] = useState(12);
 
   const classes = useStyles();
 
@@ -103,18 +104,14 @@ function Map(props) {
   useEffect(() => {
     filterBuildings(props.buildingName);
 
-
-    console.log('building name changed to ' + props.buildingName);
-    if (FilteredBuildings[0]) {
-      console.log('There exists a Filtered Building');
-    }
-    
+  // zoom & pan to selected building
+  useEffect(() => {
     if (map && FilteredBuildings[0] && FilteredBuildings[0].coordArray[0] && props.buildingName) {
       console.log(FilteredBuildings[0], props.buildingName)
       map.panTo(FilteredBuildings[0].coordArray[0]);
       map.setZoom(18);
     }
-  }, [props.buildingName]);
+  }, [FilteredBuildings]);
 
   // Setting directions (mock up)
   //https://github.com/trulymittal/google-maps-directions-tutorial/blob/master/src/App.js
@@ -169,18 +166,6 @@ function Map(props) {
   useEffect(() => {
     calculateRoute();
   }, [props.originSC, props.destinationSC, props.routeMethod]);
-
-  // Using zoom level to size building names
-  const [zoom, setZoom] = useState(12);
-  async function handleZoomChanged(newZoom) {
-    if (newZoom === undefined || newZoom === null) {return;}
-    if (newZoom <= 15) {
-      await setZoom(0);
-    } else {
-      await setZoom((3*(newZoom-12)));
-    }
-  }
-
   
   // This is for displaying only text 
   //<Marker label="Some_Label" position={{lat:40.43041,lng:-86.91246}} icon="../map_images/BlankPNG.png" />
@@ -191,8 +176,14 @@ function Map(props) {
         center={center}
         zoom={15}
         onZoomChanged={() => {
-          if (map !== null) {
-            handleZoomChanged(map.getZoom())
+          if (map) {
+            let z = map.getZoom();
+            console.log(z);
+            if (z < 15) {
+              setLabelSize(0);
+            } else {
+              setLabelSize((3*(z-12)));
+            }
           }
         }}
         clickableIcons={false}
@@ -219,8 +210,8 @@ function Map(props) {
               Buildings.map((building, index) => (
                 <div key={index}>
                   <Polygon path={building.coordArray} options={{strokeColor: '#000000', fillColor:'#FFF72F' }} />
-                  if ({zoom}!==0) {
-                    <Marker label={{text:building.shortCode, fontSize:zoom.toString()+"px", fontWeight: 'bold'}} position={{lat:(building.shortCodeLocation.lat-0.00005- (zoom===12?(zoom)/100000:0)), lng:building.shortCodeLocation.lng}} icon="../map_images/BlankPNG.png" />
+                  { labelSize !== 0 &&
+                    <Marker label={{text:building.shortCode, fontSize:labelSize.toString()+"px", fontWeight: 'bold'}} position={{lat:(building.shortCodeLocation.lat-0.00005-(labelSize===12?(labelSize)/100000:0)-(labelSize===9?(labelSize*4)/100000:0)), lng:building.shortCodeLocation.lng}} icon="../map_images/BlankPNG.png" />
                   }
                   </div>
               ))
