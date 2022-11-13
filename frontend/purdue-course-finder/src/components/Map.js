@@ -47,11 +47,17 @@ function Map(props) {
     routeMethod: PropTypes.string,
     resetRoute: PropTypes.func,
     destinationSC: PropTypes.string,
+    mapReload: PropTypes.bool,
+    Buildings: PropTypes.array,
+    setBuildings: PropTypes.func,
+    filteredBuildings: PropTypes.array,
+    setFilteredBuildings: PropTypes.func,
+    searchString: PropTypes.string,
+    setSearchString: PropTypes.func,
   };
 
   const [map, setMap] = useState(null);
-  const [Buildings, setBuildings] = useState([]);
-  const [FilteredBuildings, setFilteredBuildings] = useState([]);
+  const [selectedBuilding, setSelectedBuilding] = useState([]);
   const [directions, setDirections] = useState([]);
   const [labelSize, setLabelSize] = useState(9);
 
@@ -78,20 +84,20 @@ function Map(props) {
                                   currBuilding.ShortCode_Location, 
                                   currBuilding.OutlineCoords));
     }
-    setBuildings(buildings);
+    props.setBuildings(buildings);
   }
 
-  function filterBuildings(buildingName) {
+  function selectBuilding(buildingName) {
     let filtered = [];
   
-    // Find name match from buildingName (props)
-    for (let i = 0; i < Buildings.length; i++) {
-        if (Buildings[i].buildingName === buildingName) {
-          filtered.push(Buildings[i]);
-        }
+    // Find name or shortcode match from buildingName (props)
+    for (let i = 0; i < props.Buildings.length; i++) {
+      if (props.Buildings[i].buildingName === buildingName || props.Buildings[i].shortCode === buildingName) {
+        filtered.push(props.Buildings[i]);
+      }
     }
   
-    setFilteredBuildings(filtered);
+    setSelectedBuilding(filtered);
   }
 
   // Fill list Buildings with all building info
@@ -101,17 +107,35 @@ function Map(props) {
 
   // Filter for specific building
   useEffect(() => {
-    filterBuildings(props.buildingName);
+    selectBuilding(props.buildingName);
   }, [props.buildingName]);
 
   // zoom & pan to selected building
   useEffect(() => {
-    if (map && FilteredBuildings[0] && FilteredBuildings[0].coordArray[0] && props.buildingName) {
-      console.log(FilteredBuildings[0], props.buildingName)
-      map.panTo(FilteredBuildings[0].coordArray[0]);
+    if (map && selectedBuilding[0] && selectedBuilding[0].coordArray[0] && props.buildingName) {
+      map.panTo(selectedBuilding[0].coordArray[0]);
       map.setZoom(18);
     }
-  }, [FilteredBuildings]);
+  }, [selectedBuilding, props.mapReload]);
+
+  //filter buildings using props.searchString
+  useEffect(() => {
+    if (!props.searchString) {
+      //searchString undefined or empty
+      props.setFilteredBuildings([]);
+
+    } else {
+      //filter map building objects
+      let filteredBuildingObjs = [];
+      for (let i = 0; i < props.Buildings.length; i++) {
+          if (props.Buildings[i].buildingName.toLowerCase().includes(props.searchString.toLowerCase()) || 
+          props.Buildings[i].shortCode.toLowerCase().includes(props.searchString.toLowerCase())) {
+            filteredBuildingObjs.push(props.Buildings[i]);
+          }
+      }
+      props.setFilteredBuildings(filteredBuildingObjs);
+    }
+  }, [props.searchString]);
 
   // Setting directions (mock up)
   //https://github.com/trulymittal/google-maps-directions-tutorial/blob/master/src/App.js
@@ -132,13 +156,13 @@ function Map(props) {
     // Iterate through buildings to find starting and ending locations
     let origin;// = { lat: 40.41997, lng: -86.93049 };
     let destination;// = { lat: 40.43137, lng: -86.91402 };
-    for (let i = 0; i < Buildings.length; i++) {
-      if (Buildings[i].shortCode === props.originSC) {
-        origin = Buildings[i].shortCodeLocation;
+    for (let i = 0; i < props.Buildings.length; i++) {
+      if (props.Buildings[i].shortCode === props.originSC) {
+        origin = props.Buildings[i].shortCodeLocation;
       }
 
-      if (Buildings[i].shortCode === props.destinationSC) {
-        destination = Buildings[i].shortCodeLocation;
+      if (props.Buildings[i].shortCode === props.destinationSC) {
+        destination = props.Buildings[i].shortCodeLocation;
       }
     }
 
@@ -202,24 +226,35 @@ function Map(props) {
           // This div is necessary as a parent element
           <div className="mapContainer">
 
-            {
-              Buildings.map((building, index) => (
+            { props.filteredBuildings.length === 0 && 
+              props.Buildings.map((building, index) => (
                 <div key={index}>
                   <Polygon path={building.coordArray} options={{strokeColor: '#000000', fillColor:'#FFF72F' }} />
                   { labelSize !== 0 &&
                     <Marker label={{text:building.shortCode, fontSize:labelSize.toString()+"px", fontWeight: 'bold'}} position={{lat:(building.shortCodeLocation.lat-0.00005-(labelSize===12?(labelSize)/100000:0)-(labelSize===9?(labelSize*4)/100000:0)), lng:building.shortCodeLocation.lng}} icon="../map_images/BlankPNG.png" />
                   }
-                  </div>
+                </div>
               ))
             }
 
             {
-              FilteredBuildings.map((building, index) => (
+              selectedBuilding.map((building, index) => (
                 <div key={index}>
-                  <Polygon path={building.coordArray} options={{strokeColor: '#000000', fillColor:'#0019FA' }} />
+                  <Polygon path={building.coordArray} options={{strokeColor: '#000000', fillColor:'#0000FF' }} />
                 </div>
               ))
             }
+
+            {
+              props.filteredBuildings.map((building, index) => (
+                <div key={index}>
+                  <Polygon path={building.coordArray} options={{strokeColor: '#000000', fillColor:'#FFF72F' }} />
+                  { labelSize !== 0 &&
+                    <Marker label={{text:building.shortCode, fontSize:labelSize.toString()+"px", fontWeight: 'bold'}} position={{lat:(building.shortCodeLocation.lat-0.00005-(labelSize===12?(labelSize)/100000:0)-(labelSize===9?(labelSize*4)/100000:0)), lng:building.shortCodeLocation.lng}} icon="../map_images/BlankPNG.png" />
+                  }
+                </div>
+              ))
+            } 
 
             {/*routeVisible && */directions != undefined && <DirectionsRenderer directions={directions} />}
 

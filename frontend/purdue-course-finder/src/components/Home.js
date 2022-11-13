@@ -4,13 +4,17 @@ import Map from './Map.js';
 import "../App.css";
 
 function Home() {
-  const [building, setBuilding] = useState('');
+  const [buildingName, setBuildingName] = useState('');
+  const [searchString, setSearchString] = useState('');
+  const [Buildings, setBuildings] = useState([]);
+  const [filteredBuildings, setFilteredBuildings] = useState([]);
 
   //force the map to reload to recenter when the same building is selected from the sidebar
   const [mapReload, setmapReload] = useState(false);
 
   const _handleBuildingClick = (e) => {
-    setBuilding(e);
+    setBuildingName(e);
+    setSearchString('');
     setmapReload(!mapReload);
   }
 
@@ -34,16 +38,28 @@ function Home() {
             onClick = {(e)=>{_handleBuildingClick(e)}}
             onRouteClick = {(origin, destination)=>{_handleRouteClick(origin, destination)}}
             onRouteMethodChange = {(route) => {_handleRouteMethod(route)}}
+            Buildings = {Buildings}
+            setBuildings = {setBuildings}
+            filteredBuildings = {filteredBuildings}
+            setFilteredBuildings = {setFilteredBuildings}
+            searchString = {searchString}
+            setSearchString = {setSearchString}
           />
         </div>
         <div className="map" data-testid="map">
           <Map 
-            buildingName = {building}
+            buildingName = {buildingName}
             originSC={origin}
             destinationSC={destination}
             routeMethod={method}
             resetRoute={(origin, destination)=>{_handleRouteClick(origin, destination)}}
             mapReload = {mapReload}
+            Buildings = {Buildings}
+            setBuildings = {setBuildings}
+            filteredBuildings = {filteredBuildings}
+            setFilteredBuildings = {setFilteredBuildings}
+            searchString = {searchString}
+            setSearchString = {setSearchString}
           />
         </div>
       </div>

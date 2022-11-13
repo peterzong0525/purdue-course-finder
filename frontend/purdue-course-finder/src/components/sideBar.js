@@ -14,6 +14,12 @@ function SideBar(props) {
         onClick: PropTypes.func,
         onRouteClick: PropTypes.func,
         onRouteMethodChange: PropTypes.func,
+        Buildings: PropTypes.array,
+        setBuildings: PropTypes.func,
+        filteredBuildings: PropTypes.array,
+        setFilteredBuildings: PropTypes.func,
+        searchString: PropTypes.string,
+        setSearchString: PropTypes.func,
     };
 
     const [loggedIn, setLoggedIn] = useState(false);
@@ -33,8 +39,8 @@ function SideBar(props) {
         let url = "";
         let getFavUrl = "";
 
-        console.log("Filter: " + filter_option)
-        console.log("Search string: " + searchString)
+        // console.log("Filter: " + filter_option)
+        // console.log("Search string: " + searchString)
 
         // Check which filter option is needed
         if (filter_option === 'Building') {
@@ -77,7 +83,7 @@ function SideBar(props) {
         }
 
         // Query Backend        
-        console.log("Url: " + url);
+        // console.log("Url: " + url);
         axios.get(url).then((response) => {
             let data = response.data;
             //console.log(data);
@@ -90,18 +96,28 @@ function SideBar(props) {
 
                 } else if (filter_option === 'Course') {
                     data.sort((a, b) => a.courseNumber - b.courseNumber);
-                }
-                else if (filter_option === 'Section') {
-                    data.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
+
+                } else if (filter_option === 'Section') {
+                    data.sort((a, b) => {
+
+                        //sort Type "Lecture" above Type "Laboratory"
+                        if (a.Type === "Laboratory" && b.Type === "Lecture") {
+                            return 1;
+                        } else if (a.Type === "Lecture" && b.Type === "Laboratory") {
+                            return -1;
+                        }
+
+                        return a.Type.localeCompare(b.Type) || a.Crn - b. Crn;
+                    });
                 }
     
-                if (sortOption === "des") 
+                if (sortOption === "des") {
                     data = data.reverse();
+                }
 
                 setObjects(data);
                 setLoading(false);
             }
-            
 
             // If user is logged in, get their favorites
             if (loggedIn) {
@@ -114,8 +130,7 @@ function SideBar(props) {
                     let favorites = response.data;
                     let allFavorites = [];
                     let allNonFavorites = [];
-                    console.log("Favorites:" );
-                    console.log(favorites);
+                    // console.log("Favorites:", favorites);
 
                     for (let i = 0; i < data.length; i++) {
                         if (filter_option === 'Building') {
@@ -126,8 +141,10 @@ function SideBar(props) {
                                 data[i]['isFavorite'] = false;
                                 allNonFavorites.push(data[i]);
                             }
+
                         } else if (filter_option === 'Classroom') {
                             console.log("classrooms");
+
                         } else if (filter_option === 'Course') {
                             if (favorites.some(e => e.courseId === data[i].courseId)) {
                                 data[i]['isFavorite'] = true;
@@ -136,6 +153,7 @@ function SideBar(props) {
                                 data[i]['isFavorite'] = false;
                                 allNonFavorites.push(data[i]);
                             }
+
                         } else if (filter_option === 'Section') {
                             if (favorites.some(e => e.id === data[i].Id)) {
                                 data[i]['isFavorite'] = true;
@@ -150,13 +168,15 @@ function SideBar(props) {
                     if (filter_option === 'Building') {
                         allFavorites.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
                         allNonFavorites.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
+
                     } else if (filter_option === 'Classroom') {
                         console.log("todo");
+
                     } else if (filter_option === 'Course') {
                         allFavorites.sort((a, b) => a.courseNumber - b.courseNumber);
                         allNonFavorites.sort((a, b) => a.courseNumber - b.courseNumber);
-                    }
-                    else if (filter_option === 'Section') {
+
+                    } else if (filter_option === 'Section') {
                         allFavorites.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
                         allNonFavorites.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
                     }
@@ -181,9 +201,6 @@ function SideBar(props) {
             // console.log(error);
             setLoading(false);
         });
-
-
-
     }
 
 
@@ -232,7 +249,7 @@ function SideBar(props) {
                 // document.getElementById("classroom").checked = true;
                 props.onClick(firstRow);
             } else if (e.filter === "Section") {
-                //props.onClick(thirdRow.substring(10));
+                props.onClick(thirdRow.split(" ")[1]); //each section takes place in exactly 1 building, select that building when a section is clicked
             }
             
             populateSidebar(filter)
@@ -344,9 +361,7 @@ function SideBar(props) {
             // Change sidebar
             searchString = searchStr;
             populateSidebar(filter);
-            if (filter === "Building") {
-                props.onClick('');
-            }
+            props.onClick('');
         }
     }
 
@@ -392,6 +407,8 @@ function SideBar(props) {
                     }
                 }
             }
+
+            props.setSearchString(searchString);
 
             if (filtered.length === 0) {
                 return null;
