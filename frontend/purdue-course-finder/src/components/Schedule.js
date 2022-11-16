@@ -6,6 +6,7 @@ import './Schedule.css'
 
 var allSections = [];
 var hiddenEvents = [];
+var hiddenKey = 0;
 function Schedule() {
     const navigate = useNavigate();
     // sch_type = Course/Section/Classroom/null if accessing personal schedule
@@ -14,9 +15,8 @@ function Schedule() {
     const scheduleType = searchParams.get("sch_type");
     const scheduleId = searchParams.get("sch_id");
     const [headerText, setHeaderText] = useState('');
-    //const [allSections, setAllSections] = useState([]);
-    const [eventsComplete, setEventsComplete] = useState(false);   
-    
+    const [eventsComplete, setEventsComplete] = useState(false);
+    const [refresh, setRefresh] = useState(false);
     
     useEffect(() => {
         if (!scheduleType && window.sessionStorage.getItem("userToken") === null) {
@@ -28,32 +28,24 @@ function Schedule() {
     }, [])
 
     useEffect(() => {
-        if (eventsComplete){
-        console.log("complete")
-        console.log(allSections)
-        console.log(hiddenEvents)
-        displayEvents()
-        }
+        let scrollElement = document.querySelector('.schedule-container');
+        if (scrollElement)
+            scrollElement.scrollTop = 950;
+        /*if (eventsComplete){
+
+            console.log("complete")
+            console.log(allSections)
+            console.log(hiddenEvents)
+
+        }*/
     }, [eventsComplete])
 
-    async function displayEvents() {
-        const mapped = allSections.map((section, index) => (
-            <div data-hiddenMap = {index} key = {index}>
-                {section}
-            </div>
-        ))
-        // setHiddenEvents(allSections.map((section, index) => (
-        //     <div className = "hidden-event" data-hiddenmap = {index} key = {index+1000}>
-        //         {section}
-        //     </div>
-        // )))
-        console.log(mapped[0].props.children.props.children.props.children[0])
-    }
+
 
     async function addAllScheduleEvents() {
         if (!scheduleType) {
             // TODO Need Meeting data and item keys to be capitalized
-            setHeaderText("My Favorite Sections");
+            setHeaderText("My Favorite Sections Schedule");
             const config = {
                 headers:{
                     "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
@@ -73,8 +65,21 @@ function Schedule() {
             });
             setEventsComplete(true);
         } else if (scheduleType === 'Course') {
-            await addOneCourse(scheduleId)
-            setEventsComplete(true)
+            
+            let url = `${serverURL}/sections/` + scheduleId;
+            await axios.get(url).then((response) =>{
+                setHeaderText("Course Schedule - ");
+                let courseSections = [];
+                for (let i = 0; i < response.data.length; i++) {
+                    courseSections = courseSections.concat(addOneSection(response.data[i]));
+                }
+    
+                allSections = allSections.concat(courseSections)
+            }).catch((error) => {
+                console.log(error);
+            });
+
+            setEventsComplete(true);
            
         } else if (scheduleType === 'Section') {
             // TODO Need new section endpoint that returns only specific section with meetings
@@ -85,37 +90,34 @@ function Schedule() {
             }).catch((error) => {
                 console.log(error);
             });
-            setEventsComplete(true)
+            setEventsComplete(true);
+
         } else if (scheduleType === 'Classroom') {
-            console.log("TODO classrooms")
+            let url = `${serverURL}/schedule/room/` + scheduleId;
+            await axios.get(url).then((response) => {
+                let classroomSections = [];
+                if (response.data[0].Meetings[0].Room)
+                    setHeaderText("Room Schedule - " + response.data[0].Meetings[0].Room.Building.ShortCode + " " + response.data[0].Meetings[0].Room.Number)
+                for (let i = 0; i < response.data.length; i++) {
+                    classroomSections = classroomSections.concat(addOneSection(response.data[i]));
+                }
+
+                allSections = allSections.concat(classroomSections);
+            }).catch((error) => {
+                console.log(error);
+            });
+            setEventsComplete(true);
         } else {
             console.log("Error: Invalid schedule type entered: " + scheduleType)
         }
     }
 
-    
-    async function addOneCourse(courseID) {
-        let courseSections = [];
-        let url = `${serverURL}/sections/` + courseID;
-        await axios.get(url).then((response) =>{
-            setHeaderText("My Schedule");
-            for (let i = 0; i < response.data.length; i++) {
-                courseSections = courseSections.concat(addOneSection(response.data[i]));
-            }
-
-            allSections = allSections.concat(courseSections)
-            console.log(allSections)
-        }).catch((error) => {
-            console.log(error);
-        });
-        return;
-    }
 
     function addOneSection(sectionData) {
         let sectionMeetings = [];
         let daysOfWeek = sectionData.Meetings[0].DaysOfWeek.split(", ");
         daysOfWeek.forEach(day => {
-            sectionMeetings.push(addOneMeeting(day, sectionData.Meetings[0]));
+            sectionMeetings.push(addOneMeeting(day, sectionData));
         });
         let className = "meeting-container " + sectionData.Meetings[0].Id;
 
@@ -142,7 +144,8 @@ function Schedule() {
     }
     
 
-    function addOneMeeting(dayOfWeek, meetingData) {   
+    function addOneMeeting(dayOfWeek, sectionData) {   
+        let meetingData = sectionData.Meetings[0];
         let startTime = meetingData.StartTime;
         let durationLength = meetingData.Duration;
         let sectionType = meetingData.Type;
@@ -212,42 +215,44 @@ function Schedule() {
         } else if (parseInt(durationHours) == 1) {
             hourDisplay =  " " + durationHours + " Hour"
         }
-
-        let instructors = meetingData.Instructors.map(({Name}) => " " +  Name).toString();
-
-        let refIndex = hiddenEvents.length;        
+ 
         
-        const _handleHideEventONHiddenEvents = () => {
-            let hiddenEvent = document.querySelectorAll('[data-forhideid="' + meetingData.Id + 'hidden"]')[0];
-            hiddenEvent.setAttribute('data-hidden',"true");
+        const _handleShowEventOnSchedule = () => {
+            for (let i = 0; i < hiddenEvents.length; i++) {
+                if (hiddenEvents[i].props["data-forhideid"] == meetingData.Id + "hidden") {
+                    hiddenEvents.splice(i, 1);
+                    break;
+                }
+            }
+            
             let shownScheduleEvent = document.querySelectorAll('[data-forhideid="' + meetingData.Id + 'schedule"]');
             shownScheduleEvent.forEach((element) => element.setAttribute('data-show', "true"));
+            setRefresh((refresh)=>!refresh);
         }
 
-        hiddenEvents = hiddenEvents.concat(
-            <div className="hidden-event" data-forhideid={meetingData.Id+"hidden"} data-hidden="true" onClick={()=> _handleHideEventONHiddenEvents()} key={refIndex}>
-                Checking index: {refIndex}
-            </div>
-        )
-
-
-
         const _handleHideEventOnSchedule = () => {
-            let hiddenEvent = document.querySelectorAll('[data-forhideid="' + meetingData.Id + 'hidden"]')[0];
-            hiddenEvent.setAttribute('data-hidden', "false");
+            hiddenEvents = hiddenEvents.concat(
+                <div className="hidden-event" data-forhideid={meetingData.Id+"hidden"} 
+                    onClick={(e)=> _handleShowEventOnSchedule(e)} key={hiddenKey++}
+                    style={{backgroundColor: map_section_type_to_color[sectionType]}}>
+                    CRN: {sectionData.Crn}
+                </div>
+            )
+
             let shownScheduleEvent = document.querySelectorAll('[data-forhideid="' + meetingData.Id + 'schedule"]');
             shownScheduleEvent.forEach((element) => element.setAttribute('data-show', "false"));
+            setRefresh((refresh)=>!refresh);
         }
 
         // Data displayed is not final
         return (
             <div className="schedule-event" data-forhideid={meetingData.Id+"schedule"} data-show="true" onClick={()=> _handleHideEventOnSchedule()} style={styleString}>
-                Instructor(s): {instructors}
+                CRN: {sectionData.Crn}
                 <br></br>
                 Meeting type: {meetingData.Type}
                 <br></br>
                 Length:{hourDisplay}{minuteDisplay}
-                Index: {refIndex}
+                <br></br>
             </div>
         )
     }
@@ -286,9 +291,7 @@ function Schedule() {
         ))
     }
 
-    let scrollElement = document.querySelector('.schedule-container');
-    if (scrollElement)
-        scrollElement.scrollTop = 950;
+
 
     
   
@@ -300,11 +303,12 @@ function Schedule() {
                         <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
                     </svg>
                 </a>
-                <p className="header-txt">Schedule - {headerText}</p>
+                <p className="header-txt">{headerText}</p>
                 <div className="hidden-events-container">
-                    Hidden events:
+                    {hiddenEvents.length > 0 ? "Hidden events:": ""}
                     <div className='hidden-events'>
                         {hiddenEvents}
+
                     </div>
                 </div>
             </div>
@@ -312,11 +316,8 @@ function Schedule() {
                 {generateGrids()}
                 {allSections}
                 
-                {/* {addOneSection("Tuesday", "2022-11-04T01:55:00.000+00:00", "PT2H30M", "Lecture")}
-                {addOneSection("Sunday", "2022-11-04T05:25:00.000+00:00", "PT1H15M", "Recitation")}
-                {addOneSection("Saturday", "2022-11-04T15:30:00.000+00:00", "PT50M", "Laboratory")} */}
+                
             </div>
-            
         </div>
     );
 }
