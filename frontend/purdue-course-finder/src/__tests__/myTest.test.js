@@ -211,3 +211,52 @@ it('Favorites page renders without crashing', () => {
     expect(favoriteCourses).toContainElement(noFavorites[2]);
     expect(favoriteSections).toContainElement(noFavorites[3]);
 });
+
+it('Route Popup', () => {
+    render(<Home />);
+
+    // On page normally
+    expect(screen.getByTestId('popup_overlay')).toBeInTheDocument();
+    expect(screen.getByTestId('popup_wrapper')).toBeInTheDocument();
+    expect(screen.getByTestId('popup_close')).toBeInTheDocument();
+    expect(screen.getByTestId('popup_container')).toBeInTheDocument();
+    expect(screen.getByTestId('popup_origin')).toBeInTheDocument();
+    expect(screen.getByTestId('popup_destination')).toBeInTheDocument();
+    expect(screen.getByTestId('popup_show')).toBeInTheDocument();
+    expect(screen.getByTestId('popup_walking')).toBeInTheDocument();
+    expect(screen.getByTestId('popup_biking')).toBeInTheDocument();
+    expect(screen.getByTestId('popup_driving')).toBeInTheDocument();
+
+    // Nesting items
+    const overlay = screen.getByTestId("popup_overlay");
+    const wrapper = screen.getByTestId("popup_wrapper");
+    const close = screen.getByTestId("popup_close");
+    const container = screen.getByTestId("popup_container");
+    const origin = screen.getByTestId("popup_origin");
+    const destination = screen.getByTestId("popup_destination");
+    const show = screen.getAllByTestId("popup_show");
+    const walking = screen.getAllByTestId("popup_walking");
+    const biking = screen.getAllByTestId("popup_biking");
+    const driving = screen.getAllByTestId("popup_driving");
+
+    // Confirm nesting
+    expect(overlay).toContainElement(wrapper);
+    expect(overlay).toContainElement(close);
+    expect(overlay).toContainElement(container);
+    expect(overlay).toContainElement(origin);
+    expect(overlay).toContainElement(destination);
+    expect(overlay).toContainElement(show);
+    expect(overlay).toContainElement(walking);
+    expect(overlay).toContainElement(biking);
+    expect(overlay).toContainElement(driving);
+    expect(wrapper).toContainElement(close);
+    expect(close).not.toContainElement(container);
+    expect(container).toContainElement(origin);
+    expect(container).toContainElement(destination);
+    expect(container).not.toContainElement(show);
+    expect(container).not.toContainElement(walking);
+    expect(container).not.toContainElement(biking);
+    expect(container).not.toContainElement(driving);
+    expect(show).not.toContainElement(walking);
+    expect(walking).not.toContainElement(show);
+});

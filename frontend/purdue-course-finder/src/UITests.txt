@@ -399,3 +399,50 @@ Testing Favoriting Page Functionality:
            lists (each list should only have one item)
         7. After clicking the only item in the buildings list, the buildings list should be empty
         8. Going back to the home page, it should display a list of buildings, and the first item's star should no longer be yellow
+
+Testing Map Routing:
+    A. Identification and Classification
+        Test Case: 1401
+        System: / (homepage)
+        Description: Show visual route between 2 buildings
+        Severity: 1
+
+        Sprint: 3
+        User Story: 3
+
+    B. Instructions
+        1. Click on the Route Button in the top right of the map.
+        2. Go through both drop downs and choose 2 buildings, such as Armstrong and Stone, then click the "Show Route" button.
+        3. Click the "Hide Route" button in the top right of the map.
+        4. Open the popup again and choose the travel type "Biking" and click "Show Route".
+        5. Open the popup again and choose the travel type "Driving" and click "Show Route".
+
+    C. Expected result
+        1. A popup should appear that says "Routing" and should provide drop downs to choose a starting and ending location for
+            you route. Additionally, it will have options for Walking, Biking, and Driving.
+        2. The popup should disappear and a route will appear on the map between the two buildings.
+        3. The route should disappear.
+        4. You should see a new path using bike lanes to travel between the 2 buildings.
+        5. You should see a new path using roads that travels between the 2 buildings.
+
+
+Testing Sidebar Classrooms:
+    A. Identification and Classification
+        Test Case: 1501
+        System: / (homepage)
+        Description: Viewing Classrooms on the Sidebar
+        Severity: 1
+
+        Sprint: 3
+        User Story: 6
+
+    B. Instructions
+        1. Click the filter button and choose classroom. Click the search bar on the top of the sidebar, and type in a
+            building shortcode, such as WALC, and hit enter.
+        2. Change the filter to building, and type another building's shortcode into the search bar, such as RHPH. Hit
+            enter.
+
+    C. Expected result
+        1. You should see a list of rooms in the Wilmeth Active Learning Center.
+        2. The sidebar should populate with classrooms from the Pharmacy building.
+

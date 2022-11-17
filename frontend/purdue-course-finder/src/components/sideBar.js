@@ -558,17 +558,17 @@ function SideBar(props) {
                 </div>
             </div>
 
-            <div className="popup_overlay" id="Map_Routing">
-                  <div className="popup_wrapper">
+            <div className="popup_overlay" id="Map_Routing" data-testid="route_overlay">
+                  <div className="popup_wrapper" data-testid="route_wrapper">
                       <h1>Routing</h1>
-                      <a href="#" className="close">&times;</a>
+                      <a href="#" className="close" data-testid="route_close">&times;</a>
                       <div className="content">
-                          <div className="popup_container">
+                          <div className="popup_container" data-testid="route_container">
                               <form>
                                     <h5>Choose Your Starting and Ending Locations</h5>
                                     <div className="popup_box">
                                         <label>Start:</label>
-                                        <select id="origin_building">
+                                        <select id="origin_building" data-testid="route_origin">
                                             {buildings.map((building, index) => (
                                                 <option key={index} value={building.ShortCode}>{building.ShortCode}</option>
                                             ))}
@@ -576,7 +576,7 @@ function SideBar(props) {
                                         <br/>
 
                                         <label>End:</label>
-                                        <select id="destination_building">
+                                        <select id="destination_building" data-testid="route_destination">
                                             {buildings.map((building, index) => (
                                                 <option key={index} value={building.ShortCode}>{building.ShortCode}</option>
                                             ))}
@@ -585,11 +585,11 @@ function SideBar(props) {
                               </form>
                           </div>
                       </div>
-                        <a href="#" className="close2">
+                        <a href="#" className="close2" data-testid="route_show">
                             <button className="showRoute" onClick={() => props.onRouteClick(document.getElementById('origin_building').value, document.getElementById('destination_building').value)}>Show Route</button>
                         </a>
                         <hr></hr>
-                        <label className="txt">
+                        <label data-testid="route_walking">
                             <input type="radio"
                                 id="routeMethod_w"
                                 name="route_option"
@@ -598,7 +598,7 @@ function SideBar(props) {
                                 onChange={() => {props.onRouteMethodChange('walking')}} />
                             Walking
                         </label>
-                        <label className="txt">
+                        <label data-testid="route_biking">
                             <input type="radio"
                                 id="routeMethod_b"
                                 name="route_option"
@@ -606,7 +606,7 @@ function SideBar(props) {
                                 onChange={() => {props.onRouteMethodChange('biking')}} />
                             Biking
                         </label>
-                        <label>
+                        <label data-testid="route_driving">
                             <input type="radio"
                                 id="routeMethod_d"
                                 name="route_option"
