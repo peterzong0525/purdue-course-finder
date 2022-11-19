@@ -6,6 +6,7 @@ import "../App.css";
 function Home() {
   const [buildingName, setBuildingName] = useState('');
   const [searchString, setSearchString] = useState('');
+  const [shortCodes, setShortCodes] = useState([]);
   const [Buildings, setBuildings] = useState([]);
   const [filteredBuildings, setFilteredBuildings] = useState([]);
 
@@ -14,7 +15,7 @@ function Home() {
 
   const _handleBuildingClick = (e) => {
     setBuildingName(e);
-    setSearchString('');
+    // setSearchString('');
     setmapReload(!mapReload);
   }
 
@@ -44,6 +45,8 @@ function Home() {
             setFilteredBuildings = {setFilteredBuildings}
             searchString = {searchString}
             setSearchString = {setSearchString}
+            shortCodes = {shortCodes}
+            setShortCodes = {setShortCodes}
           />
         </div>
         <div className="map" data-testid="map">
@@ -60,6 +63,8 @@ function Home() {
             setFilteredBuildings = {setFilteredBuildings}
             searchString = {searchString}
             setSearchString = {setSearchString}
+            shortCodes = {shortCodes}
+            setShortCodes = {setShortCodes}
           />
         </div>
       </div>

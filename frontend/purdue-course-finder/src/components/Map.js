@@ -54,6 +54,8 @@ function Map(props) {
     setFilteredBuildings: PropTypes.func,
     searchString: PropTypes.string,
     setSearchString: PropTypes.func,
+    shortCodes: PropTypes.array,
+    setShortCodes: PropTypes.func,
   };
 
   const [map, setMap] = useState(null);
@@ -136,6 +138,26 @@ function Map(props) {
       props.setFilteredBuildings(filteredBuildingObjs);
     }
   }, [props.searchString]);
+
+  //filter buildings using props.shortCodes
+  useEffect(() => {
+    if (!props.shortCodes) {
+      //shortCodes undefined or empty
+      props.setFilteredBuildings([]);
+
+    } else {
+      //filter map building objects
+      let filteredBuildingObjs = [];
+      for (let i = 0; i < props.shortCodes.length; i++) {
+        for (let j = 0; j < props.Buildings.length; j++) {
+          if (props.Buildings[j].shortCode === props.shortCodes[i]) {
+            filteredBuildingObjs.push(props.Buildings[j]);
+          }
+        }
+      }
+      props.setFilteredBuildings(filteredBuildingObjs);
+    }
+  }, [props.shortCodes]);
 
   // Setting directions (mock up)
   //https://github.com/trulymittal/google-maps-directions-tutorial/blob/master/src/App.js

@@ -20,6 +20,8 @@ function SideBar(props) {
         setFilteredBuildings: PropTypes.func,
         searchString: PropTypes.string,
         setSearchString: PropTypes.func,
+        shortCodes: PropTypes.array,
+        setShortCodes: PropTypes.func,
     };
 
     const [loggedIn, setLoggedIn] = useState(false);
@@ -197,6 +199,18 @@ function SideBar(props) {
                     setLoading(false);
                 });
             }
+
+            if (filter_option === 'Section') {
+                //a course has been selected, send building data to map component
+                var arr = [];
+                for (var i = 0; i < data.length; i++) {
+                    arr.push(data[i].Meetings[0].Room.Building.ShortCode)
+                }
+                var uniq = [...new Set(arr)];
+                props.setShortCodes(uniq);
+            } else {
+                props.setShortCodes(null);
+            }
         }).catch((error) => {
             // console.log(error);
             setLoading(false);
@@ -371,6 +385,7 @@ function SideBar(props) {
         }
 
         if (filter === 'Course') {
+            props.setSearchString(""); //reset map building filter
             return objects.map((course, index) => (
                 <div key={index}>
                     {setItem(course.subjectAbbreviation + " " + course.courseNumber, 
@@ -383,6 +398,7 @@ function SideBar(props) {
                 </div>
             ))
         } else if (filter === 'Section') {
+            props.setSearchString(""); //reset map building filter
             return objects.map((section, index) => (
                 <div key={index}>
                     {setItem(prevDesc + " - " + section.Type + " - " + section.Crn, 
@@ -427,6 +443,7 @@ function SideBar(props) {
                 </div>
             ))
         } else if (filter === 'Classroom') {
+            props.setSearchString(""); //reset map building filter
             return objects.map((classroom, index) => (
                 <div key={index}>
                     {setItem(classroom.Building.ShortCode + " " + classroom.Number, 
@@ -440,6 +457,7 @@ function SideBar(props) {
                 </div>
             ))
         } else {
+            props.setSearchString(""); //reset map building filter
             console.log('No other filtering option should occur.');
         }
         
