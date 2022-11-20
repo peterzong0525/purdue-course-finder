@@ -443,7 +443,6 @@ function SideBar(props) {
                 </div>
             ))
         } else if (filter === 'Classroom') {
-            props.setSearchString(""); //reset map building filter
             return objects.map((classroom, index) => (
                 <div key={index}>
                     {setItem(classroom.Building.ShortCode + " " + classroom.Number, 
