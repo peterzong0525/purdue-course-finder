@@ -202,33 +202,6 @@ Testing Map Building Labels:
             that accurately represents that building's shortcode, ex. Wilmeth Active Learning Center -> WALC.
 
 
-
-Testing Buildings From Sidebar to Map:
-    A. Identification and Classification
-        Test Case: 901
-        System: / (home page) sidebar and map
-        Description: Sidebar & Map component interactions
-        Severity: 2
-
-        Sprint: 2
-        User Story: 10
-
-    B. Instructions
-        1. By default, whether logged in or not, the sidebar on the home page displays a list of buildings
-        2. Click a building in the sidebar (e.g. WALC a.k.a Wilmeth Active Learning Center)
-        3. Hit enter in the search bar with the filter on Buildings
-
-    C. Expected result
-        1. The sidebar should show a list of buildings and the map should be zoomed out on Purdue's campus
-           with all the building outlines shown
-        2. After clicking on a building in the sidebar, the map should zoom in to the building and the outline of 
-           only that building should be highlighted (the color of the building highlight will change color)
-           For example: If WALC is clicked in the sidebar, the map zooms to the location of the building and WALC's outline is highlighted
-        3. When the search bar is queried (with or without any search input), the previously highlighted building should no longer be highlighted
-           (the color will change back to the default yellow)
-
-
-
 Testing Homepage Buttons:
     A. Identification and Classification
         Test Case: 1001
@@ -399,3 +372,149 @@ Testing Favoriting Page Functionality:
            lists (each list should only have one item)
         7. After clicking the only item in the buildings list, the buildings list should be empty
         8. Going back to the home page, it should display a list of buildings, and the first item's star should no longer be yellow
+
+Testing Map Routing:
+    A. Identification and Classification
+        Test Case: 1401
+        System: / (homepage)
+        Description: Show visual route between 2 buildings
+        Severity: 1
+
+        Sprint: 3
+        User Story: 3
+
+    B. Instructions
+        1. Click on the Route Button in the top right of the map.
+        2. Go through both drop downs and choose 2 buildings, such as Armstrong and Stone, then click the "Show Route" button.
+        3. Click the "Hide Route" button in the top right of the map.
+        4. Open the popup again and choose the travel type "Biking" and click "Show Route".
+        5. Open the popup again and choose the travel type "Driving" and click "Show Route".
+
+    C. Expected result
+        1. A popup should appear that says "Routing" and should provide drop downs to choose a starting and ending location for
+            you route. Additionally, it will have options for Walking, Biking, and Driving.
+        2. The popup should disappear and a route will appear on the map between the two buildings.
+        3. The route should disappear.
+        4. You should see a new path using bike lanes to travel between the 2 buildings.
+        5. You should see a new path using roads that travels between the 2 buildings.
+
+
+Testing Sidebar Classrooms:
+    A. Identification and Classification
+        Test Case: 1501
+        System: / (homepage)
+        Description: Viewing Classrooms on the Sidebar
+        Severity: 1
+
+        Sprint: 3
+        User Story: 6
+
+    B. Instructions
+        1. Click the filter button and choose classroom. Click the search bar on the top of the sidebar, and type in a
+            building shortcode, such as WALC, and hit enter.
+        2. Change the filter to building, and type another building's shortcode into the search bar, such as RHPH. Hit
+            enter.
+
+    C. Expected result
+        1. You should see a list of rooms in the Wilmeth Active Learning Center.
+        2. The sidebar should populate with classrooms from the Pharmacy building.
+
+
+Testing Sidebar & Map Component Interactions:
+    A. Identification and Classification
+        Test Case: 1601
+        System: / (home page) sidebar and map
+        Description: Sidebar & Map component interactions
+        Severity: 2
+
+        Sprint: 2
+        User Story: 10
+
+    B. Instructions
+        1. Navigate to the homepage of the application
+        2. Click a building in the sidebar (e.g. WALC a.k.a Wilmeth Active Learning Center)
+
+    C. Expected result
+        1. The sidebar should show a list of buildings and the map should be zoomed out on Purdue's campus
+           with all the building outlines shown
+        2. After clicking on a building in the sidebar, the map should zoom in to the building and the color of the building highlight 
+           will change color. For example: If WALC is clicked in the sidebar, the map zooms to the location of the building and WALC's 
+           highlight changes color
+        3. When the search bar is queried (with or without any search input), the building's highlight color should change back to the 
+           default yellow color.
+
+
+    A. Identification and Classification
+        Test Case: 1602
+        System: / (home page) sidebar and map
+        Description: Sidebar & Map component interactions
+        Severity: 2
+
+        Sprint: 3
+        User Story: 9
+        Task: 2
+
+    B. Instructions
+        1. Navigate to the homepage of the application
+        2. Select the "Filter" button and set the filter to "Building"
+        3. Select the search bar and enter part of a building name or shortcode
+        4. Click on the magnifying glass icon to filter the building list
+
+    C. Expected result
+        1. By default, all of the academic buildings (buildings containing classes) on the Purdue WL campus should be 
+           highlighted on the map.
+        2. When filtering the building list on the sidebar, the map highlights should update to have only the results of the 
+           filter be highlighted on the map (ex: only the Physics building is highlighted when searching "phys")
+
+
+    A. Identification and Classification
+        Test Case: 1603
+        System: / (home page) sidebar and map
+        Description: Sidebar & Map component interactions
+        Severity: 2
+
+        Sprint: 3
+        User Story: 9
+        Task: 3
+
+    B. Instructions
+        1. Navigate to the homepage of the application
+        2. Select the "Filter" button and set the filter to "Course"
+        3. Select the search bar and enter a subject code to bring up its classes (ex: "cs")
+        4. Click on the magnifying glass icon to search for courses
+        5. Select a course from the sidebar
+
+    C. Expected result
+        1. By default, all of the academic buildings (buildings containing classes) on the Purdue WL campus should be 
+           highlighted on the map.
+        2. When selecting a course from the sidebar, the map highlights should update to have only the buildings that  
+            contain sections of that course be highlighted on the map (ex: When selecting CS 30700, only RHPH is highlighted.
+            ex: When selecting CS 35400, only PHYS, WTHR, and HAAS are highlighted.)
+
+
+    A. Identification and Classification
+        Test Case: 1604
+        System: / (home page) sidebar and map
+        Description: Sidebar & Map component interactions
+        Severity: 2
+
+        Sprint: 3
+        User Story: 9
+        Task: 4
+
+    B. Instructions
+        1. Navigate to the homepage of the application
+        2. Select the "Filter" button and set the filter to "Course"
+        3. Select the search bar and enter a subject code to bring up its classes (ex: "cs")
+        4. Click on the magnifying glass icon to search for courses
+        5. Select a course from the sidebar
+        6. Select a section from the sidebar
+
+    C. Expected result
+        1. By default, all of the academic buildings (buildings containing classes) on the Purdue WL campus should be 
+           highlighted on the map.
+        2. When selecting a course from the sidebar, the map highlights should update to have only the buildings that  
+            contain sections of that course be highlighted on the map (ex: When selecting CS 35400, only PHYS, WTHR, 
+            and HAAS are highlighted.)
+        3. When selecting a section from the sidebar, the building containing that section should have its highlight change color, 
+           and the map should pan and zoom to that building.

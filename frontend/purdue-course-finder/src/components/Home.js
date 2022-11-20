@@ -4,22 +4,31 @@ import Map from './Map.js';
 import "../App.css";
 
 function Home() {
-  const [building, setBuilding] = useState('');
+  const [buildingName, setBuildingName] = useState('');
+  const [searchString, setSearchString] = useState('');
+  const [shortCodes, setShortCodes] = useState([]);
+  const [Buildings, setBuildings] = useState([]);
+  const [filteredBuildings, setFilteredBuildings] = useState([]);
 
   //force the map to reload to recenter when the same building is selected from the sidebar
   const [mapReload, setmapReload] = useState(false);
 
   const _handleBuildingClick = (e) => {
-    setBuilding(e);
+    setBuildingName(e);
+    // setSearchString('');
     setmapReload(!mapReload);
   }
 
-  const [origin, setOrigin] = useState('');
-  const [destination, setDestination] = useState('');
+  const [origin, setOrigin] = useState(null);
+  const [destination, setDestination] = useState(null);
+  const [method, setMethod] = useState('walking');
   const _handleRouteClick = (origin, destination) => {
     setOrigin(origin);
     setDestination(destination);
     setmapReload(!mapReload);
+  }
+  const _handleRouteMethod = (method) => {
+    setMethod(method);
   }
   
   return (
@@ -29,15 +38,33 @@ function Home() {
           <SideBar 
             onClick = {(e)=>{_handleBuildingClick(e)}}
             onRouteClick = {(origin, destination)=>{_handleRouteClick(origin, destination)}}
+            onRouteMethodChange = {(route) => {_handleRouteMethod(route)}}
+            Buildings = {Buildings}
+            setBuildings = {setBuildings}
+            filteredBuildings = {filteredBuildings}
+            setFilteredBuildings = {setFilteredBuildings}
+            searchString = {searchString}
+            setSearchString = {setSearchString}
+            shortCodes = {shortCodes}
+            setShortCodes = {setShortCodes}
           />
         </div>
         <div className="map" data-testid="map">
           <Map 
-            buildingName = {building}
+            buildingName = {buildingName}
             originSC={origin}
             destinationSC={destination}
+            routeMethod={method}
             resetRoute={(origin, destination)=>{_handleRouteClick(origin, destination)}}
             mapReload = {mapReload}
+            Buildings = {Buildings}
+            setBuildings = {setBuildings}
+            filteredBuildings = {filteredBuildings}
+            setFilteredBuildings = {setFilteredBuildings}
+            searchString = {searchString}
+            setSearchString = {setSearchString}
+            shortCodes = {shortCodes}
+            setShortCodes = {setShortCodes}
           />
         </div>
       </div>

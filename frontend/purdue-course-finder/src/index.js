@@ -11,14 +11,8 @@ import ModifyAcnt from './components/modifyAccount.js';
 import Tutorial from './components/tutorialPage.js';
 import Schedule from './components/Schedule.js';
 import Favorites from './components/Favorites.js';
-import Courses from './components/Courses.js';
-import Sections from './components/Sections.js';
-import Subjects from './components/Subjects.js';
-import Map from './components/Map.js';
 
 export const serverURL = process.env.REACT_APP_BACKEND_URL || 'https://localhost:8443';
-
-//const root = ReactDOM.createRoot(document.getElementById('root') || document.createElement('div'));
 
 ReactDOM.render(
   // Add routes to the list below
@@ -33,12 +27,6 @@ ReactDOM.render(
           <Route path='/tutorial' element={<Tutorial />} />
           <Route path='/schedule' element={<Schedule />} />
           <Route path='/favorites' element={<Favorites />} />
-
-          {/* Below Routes are Temporary */}
-          <Route path='/courses/:id' element={<Courses />} />
-          <Route path='/sections/:id' element={<Sections />} />
-          <Route path='/subjects' element={<Subjects />} />
-          <Route path='/map' element={<Map />} />
         </Routes>
       </Router>
   </React.StrictMode>,

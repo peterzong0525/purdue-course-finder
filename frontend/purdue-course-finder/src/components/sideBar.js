@@ -13,6 +13,15 @@ function SideBar(props) {
     SideBar.propTypes = {
         onClick: PropTypes.func,
         onRouteClick: PropTypes.func,
+        onRouteMethodChange: PropTypes.func,
+        Buildings: PropTypes.array,
+        setBuildings: PropTypes.func,
+        filteredBuildings: PropTypes.array,
+        setFilteredBuildings: PropTypes.func,
+        searchString: PropTypes.string,
+        setSearchString: PropTypes.func,
+        shortCodes: PropTypes.array,
+        setShortCodes: PropTypes.func,
     };
 
     const [loggedIn, setLoggedIn] = useState(false);
@@ -32,8 +41,8 @@ function SideBar(props) {
         let url = "";
         let getFavUrl = "";
 
-        console.log("Filter: " + filter_option)
-        console.log("Search string: " + searchString)
+        // console.log("Filter: " + filter_option)
+        // console.log("Search string: " + searchString)
 
         // Check which filter option is needed
         if (filter_option === 'Building') {
@@ -41,11 +50,14 @@ function SideBar(props) {
             getFavUrl = `${serverURL}/favorites/buildings`;
     
         } else if (filter_option === 'Classroom') {
-            url = `${serverURL}/classrooms`;
+            if (searchString.trim() === '') {
+                setLoading(false);
+                setObjects([]);
+                return;
+            }
+
+            url = `${serverURL}/rooms/` + searchString.toUpperCase();
             getFavUrl = `${serverURL}/favorites/classrooms`;
-            setLoading(false);
-            setObjects([]);
-            return;
 
         } else if (filter_option === 'Course') {
             if (searchString.trim() === '') {
@@ -73,7 +85,7 @@ function SideBar(props) {
         }
 
         // Query Backend        
-        console.log("Url: " + url);
+        // console.log("Url: " + url);
         axios.get(url).then((response) => {
             let data = response.data;
             //console.log(data);
@@ -82,21 +94,32 @@ function SideBar(props) {
                     data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
     
                 } else if (filter_option === 'Classroom') {
-                    console.log("todo");
+                    data.sort((a,b ) => a.Number.localeCompare(b.Number));
+
                 } else if (filter_option === 'Course') {
                     data.sort((a, b) => a.courseNumber - b.courseNumber);
-                }
-                else if (filter_option === 'Section') {
-                    data.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
+
+                } else if (filter_option === 'Section') {
+                    data.sort((a, b) => {
+
+                        //sort Type "Lecture" above Type "Laboratory"
+                        if (a.Type === "Laboratory" && b.Type === "Lecture") {
+                            return 1;
+                        } else if (a.Type === "Lecture" && b.Type === "Laboratory") {
+                            return -1;
+                        }
+
+                        return a.Type.localeCompare(b.Type) || a.Crn - b. Crn;
+                    });
                 }
     
-                if (sortOption === "des") 
+                if (sortOption === "des") {
                     data = data.reverse();
+                }
 
                 setObjects(data);
                 setLoading(false);
             }
-            
 
             // If user is logged in, get their favorites
             if (loggedIn) {
@@ -109,8 +132,7 @@ function SideBar(props) {
                     let favorites = response.data;
                     let allFavorites = [];
                     let allNonFavorites = [];
-                    console.log("Favorites:" );
-                    console.log(favorites);
+                    // console.log("Favorites:", favorites);
 
                     for (let i = 0; i < data.length; i++) {
                         if (filter_option === 'Building') {
@@ -121,8 +143,10 @@ function SideBar(props) {
                                 data[i]['isFavorite'] = false;
                                 allNonFavorites.push(data[i]);
                             }
+
                         } else if (filter_option === 'Classroom') {
                             console.log("classrooms");
+
                         } else if (filter_option === 'Course') {
                             if (favorites.some(e => e.courseId === data[i].courseId)) {
                                 data[i]['isFavorite'] = true;
@@ -131,6 +155,7 @@ function SideBar(props) {
                                 data[i]['isFavorite'] = false;
                                 allNonFavorites.push(data[i]);
                             }
+
                         } else if (filter_option === 'Section') {
                             if (favorites.some(e => e.id === data[i].Id)) {
                                 data[i]['isFavorite'] = true;
@@ -145,13 +170,15 @@ function SideBar(props) {
                     if (filter_option === 'Building') {
                         allFavorites.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
                         allNonFavorites.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
+
                     } else if (filter_option === 'Classroom') {
                         console.log("todo");
+
                     } else if (filter_option === 'Course') {
                         allFavorites.sort((a, b) => a.courseNumber - b.courseNumber);
                         allNonFavorites.sort((a, b) => a.courseNumber - b.courseNumber);
-                    }
-                    else if (filter_option === 'Section') {
+
+                    } else if (filter_option === 'Section') {
                         allFavorites.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
                         allNonFavorites.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
                     }
@@ -171,14 +198,23 @@ function SideBar(props) {
                     console.log(error);
                     setLoading(false);
                 });
-            }    
+            }
+
+            if (filter_option === 'Section') {
+                //a course has been selected, send building data to map component
+                var arr = [];
+                for (var i = 0; i < data.length; i++) {
+                    arr.push(data[i].Meetings[0].Room.Building.ShortCode)
+                }
+                var uniq = [...new Set(arr)];
+                props.setShortCodes(uniq);
+            } else {
+                props.setShortCodes(null);
+            }
         }).catch((error) => {
             // console.log(error);
             setLoading(false);
         });
-
-
-
     }
 
 
@@ -223,11 +259,11 @@ function SideBar(props) {
             } else if (e.filter === "Building") {
                 filter = "Classroom";
                 prevDesc = itemHead;
-                searchString = e.searchStr;
+                searchString = e.searchStr.toUpperCase();
                 // document.getElementById("classroom").checked = true;
                 props.onClick(firstRow);
             } else if (e.filter === "Section") {
-                //props.onClick(thirdRow.substring(10));
+                props.onClick(thirdRow.split(" ")[1]); //each section takes place in exactly 1 building, select that building when a section is clicked
             }
             
             populateSidebar(filter)
@@ -339,9 +375,7 @@ function SideBar(props) {
             // Change sidebar
             searchString = searchStr;
             populateSidebar(filter);
-            if (filter === "Building") {
-                props.onClick('');
-            }
+            props.onClick('');
         }
     }
 
@@ -351,6 +385,7 @@ function SideBar(props) {
         }
 
         if (filter === 'Course') {
+            props.setSearchString(""); //reset map building filter
             return objects.map((course, index) => (
                 <div key={index}>
                     {setItem(course.subjectAbbreviation + " " + course.courseNumber, 
@@ -363,11 +398,12 @@ function SideBar(props) {
                 </div>
             ))
         } else if (filter === 'Section') {
+            props.setSearchString(""); //reset map building filter
             return objects.map((section, index) => (
                 <div key={index}>
                     {setItem(prevDesc + " - " + section.Type + " - " + section.Crn, 
                     "Meeting day(s): " + section.Meetings[0].DaysOfWeek, 
-                    "Instructor: " + section.Meetings[0].Instructors[0].Name, 
+                    "Instructor(s): " + section.Meetings[0].Instructors.map(({Name}) => " " +  Name).toString(),
                     "Location: " + section.Meetings[0].Room.Building.ShortCode + " " + section.Meetings[0].Room.Number, 
                     "Section", 
                     section.Id,
@@ -388,6 +424,8 @@ function SideBar(props) {
                 }
             }
 
+            props.setSearchString(searchString);
+
             if (filtered.length === 0) {
                 return null;
             }
@@ -405,12 +443,13 @@ function SideBar(props) {
                 </div>
             ))
         } else if (filter === 'Classroom') {
-            // TODO: Confirm this works when server can return this data
+            props.setSearchString(""); //reset map building filter
             return objects.map((classroom, index) => (
                 <div key={index}>
-                    {setItem(classroom.number, 
+                    {setItem(classroom.Building.ShortCode + " " + classroom.Number, 
                         classroom.Building.Name, 
-                        classroom.Meetings.length + " meetings per week", 
+                        //classroom.Meetings.length + " meetings per week",     //page will crash as classroom.Meetings does not exist
+                        "0 meetings per week", // Need to update this eventually
                         "",
                         "Classroom", 
                         classroom.classroomId,
@@ -418,6 +457,7 @@ function SideBar(props) {
                 </div>
             ))
         } else {
+            props.setSearchString(""); //reset map building filter
             console.log('No other filtering option should occur.');
         }
         
@@ -428,7 +468,7 @@ function SideBar(props) {
     useEffect(() => {
         var url = `${serverURL}/buildings`;
         axios.get(url).then((response) => {
-            setBuildings(response.data);
+            setBuildings(response.data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode)));
         });
     }, []);
 
@@ -536,17 +576,17 @@ function SideBar(props) {
                 </div>
             </div>
 
-            <div className="popup_overlay" id="Map_Routing">
-                  <div className="popup_wrapper">
+            <div className="popup_overlay" id="Map_Routing" data-testid="route_overlay">
+                  <div className="popup_wrapper" data-testid="route_wrapper">
                       <h1>Routing</h1>
-                      <a href="#" className="close">&times;</a>
+                      <a href="#" className="close" data-testid="route_close">&times;</a>
                       <div className="content">
-                          <div className="popup_container">
+                          <div className="popup_container" data-testid="route_container">
                               <form>
                                     <h5>Choose Your Starting and Ending Locations</h5>
                                     <div className="popup_box">
                                         <label>Start:</label>
-                                        <select id="origin_building">
+                                        <select id="origin_building" data-testid="route_origin">
                                             {buildings.map((building, index) => (
                                                 <option key={index} value={building.ShortCode}>{building.ShortCode}</option>
                                             ))}
@@ -554,7 +594,7 @@ function SideBar(props) {
                                         <br/>
 
                                         <label>End:</label>
-                                        <select id="destination_building">
+                                        <select id="destination_building" data-testid="route_destination">
                                             {buildings.map((building, index) => (
                                                 <option key={index} value={building.ShortCode}>{building.ShortCode}</option>
                                             ))}
@@ -563,9 +603,35 @@ function SideBar(props) {
                               </form>
                           </div>
                       </div>
-                        <a href="#" className="close2">
+                        <a href="#" className="close2" data-testid="route_show">
                             <button className="showRoute" onClick={() => props.onRouteClick(document.getElementById('origin_building').value, document.getElementById('destination_building').value)}>Show Route</button>
                         </a>
+                        <hr></hr>
+                        <label data-testid="route_walking">
+                            <input type="radio"
+                                id="routeMethod_w"
+                                name="route_option"
+                                value="walking"
+                                defaultChecked="True"
+                                onChange={() => {props.onRouteMethodChange('walking')}} />
+                            Walking
+                        </label>
+                        <label data-testid="route_biking">
+                            <input type="radio"
+                                id="routeMethod_b"
+                                name="route_option"
+                                value="biking"
+                                onChange={() => {props.onRouteMethodChange('biking')}} />
+                            Biking
+                        </label>
+                        <label data-testid="route_driving">
+                            <input type="radio"
+                                id="routeMethod_d"
+                                name="route_option"
+                                value="driving"
+                                onChange={() => {props.onRouteMethodChange('driving')}} />
+                            Driving
+                        </label>
                   </div>
               </div>
         </div>

@@ -1,0 +1,28 @@
+=== Weekly Team Report (Team 9: Purdue Course Finder) ===
+
+Week 7 (Summary) (Scrum Master: Alex Kobus)
+11/7/22 - 2 hours - Commit N/A - Alex K: Create an API Key for the Google Directions API
+11/8/22 - 4 hours - Commit 27b79d9 - Peter: Added background grid for schedules and other UI elements
+11/8/22 - 4 hours - Commit 6543710 - Peter: Added partial infrastructure to determine event locations on schedule grid
+11/9/22 - 3 hours - Commit 22a4493 - Peter: Linked courses in the sidebar to display on schedules page
+11/10/22 - 5 hours - Commit 2f3f68b - Tommy: Added /rooms endpoint to backend
+11/10/22 - 3 hours - Commit ce33a42 - Alex P: Google Map route created between 2 points 
+11/10/22 - 3 hours - Commit 5a8c094 - Alex P: Display route on map 
+11/11/22 - 5 hours - Commit 81f97f7 - Alex P: Route button, popup window, and dynamic route changing through Purdue building coordinates
+11/11/22 - 5 hours - Commit 74d2636 - Tommy: Added room schedule endpoint to backend
+11/11/22 - 1.5 hours - Commit 24b6cfa - Alex P: Route travel types and sorted route options 
+11/12/22 - 4 hours - Commit 4d64cbe - Alex P: Classrooms in sidebar, clicking building shows classrooms, scaled building labels on map 
+11/12/22 - 2 hours - Commit 2650b08 - Alex K: fix bugs in map label size changing and map panning/zooming to selected buildings
+11/12/22 - 4 hours - Commit 9edb6c1 - Peter: Implemented partial solution to overlapping schedule events
+11/12/22 - 6 hours - Commit 027733c - Alex K: Link the sidebar filtering for sections & buildings to the map, only show highlights for filtered buildings, change color of building highlight for a selected section
+
+Week 8 (Plan) (Scrum Master: Alex Kobus)
+[Meetings]
+11/14/22 - Discuss Week 6 progress & sidebar integrations for map and schedule components
+11/16/22 - discuss progress on schedule pages and related integrations (sidebar, backend, favoriting, etc)
+
+[Individual Goals]
+Alex K: link sidebar course filtering to the map, highlight buildings containing sections of the currently selected course, test that the map correctly displays highlights corresponding to the sidebar filtering, make building highlights clickable from the map to select the building
+Alex P: test routing functionality & sidebar classroom filtering, start working on classroom schedule page
+Tommy: add favoriting support for classrooms on the backend, add suggestions endpoint to backend, update sections endpoint
+Peter: add functionality to click on sidebar items to get to corresponding schedule pages, adjust schedule overlap logic, create popup for when schedule events are clicked
