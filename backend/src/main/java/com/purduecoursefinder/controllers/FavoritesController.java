@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.purduecoursefinder.models.dto.BuildingDTO;
 import com.purduecoursefinder.models.dto.CourseDTO;
+import com.purduecoursefinder.models.dto.RoomDTO;
 import com.purduecoursefinder.models.dto.SectionCourseDTO;
 import com.purduecoursefinder.services.FavoritesService;
 
@@ -38,6 +39,11 @@ public class FavoritesController {
         return favoritesService.getFavoriteBuildings();
     }
     
+    @GetMapping("/rooms")
+    public List<RoomDTO> rooms() {
+        return favoritesService.getFavoriteRooms();
+    }
+    
     @PostMapping("/courses/{courseId}")
     public void addCourse(@PathVariable UUID courseId) {
         favoritesService.addFavoriteCourse(courseId);
@@ -51,6 +57,11 @@ public class FavoritesController {
     @PostMapping("/buildings/{buildingShortCode}")
     public void addBuilding(@PathVariable String buildingShortCode) {
         favoritesService.addFavoriteBuilding(buildingShortCode);
+    }
+    
+    @PostMapping("/rooms/{roomId}")
+    public void addRoom(@PathVariable UUID roomId) {
+        favoritesService.addFavoriteRoom(roomId);
     }
 
     @CrossOrigin
@@ -69,5 +80,11 @@ public class FavoritesController {
     @DeleteMapping("/buildings/{buildingShortCode}")
     public void removeBuilding(@PathVariable String buildingShortCode) {
         favoritesService.removeFavoriteBuilding(buildingShortCode);
+    }
+    
+    @CrossOrigin
+    @DeleteMapping("/rooms/{roomId}")
+    public void removeRoom(@PathVariable UUID roomId) {
+        favoritesService.removeFavoriteRoom(roomId);
     }
 }

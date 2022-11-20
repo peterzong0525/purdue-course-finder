@@ -36,4 +36,7 @@ public class User {
     
     @ManyToMany
     private List<Building> favoriteBuildings;
+    
+    @ManyToMany
+    private List<Room> favoriteRooms;
 }
