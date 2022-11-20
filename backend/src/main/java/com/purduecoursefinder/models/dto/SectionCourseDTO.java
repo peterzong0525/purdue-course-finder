@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.purduecoursefinder.models.Course;
 import com.purduecoursefinder.models.Section;
 
@@ -17,21 +18,46 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SectionCourseDTO {
+    @JsonProperty("Id")
     private UUID id;
+    
+    @JsonProperty("Crn")
     private String crn;
+    
+    @JsonProperty("Type")
     private String type;
+    
+    @JsonProperty("RegistrationStatus")
     private String registrationStatus;
+    
+    @JsonProperty("StartDate")
     private Date startDate;
+    
+    @JsonProperty("EndDate")
     private Date endDate;
+    
+    @JsonProperty("Capacity")
     private Integer capacity;
+    
+    @JsonProperty("Enrolled")
     private Integer enrolled;
+    
+    @JsonProperty("RemainingSpace")
     private Integer remainingSpace; // Redundant?
+    
+    @JsonProperty("WaitListCapacity")
     private Integer waitListCapacity;
+    
+    @JsonProperty("WaitListCount")
     private Integer waitListCount;
+    
+    @JsonProperty("WaitListSpace")
     private Integer waitListSpace;
+    
+    @JsonProperty("Meetings")
     private List<MeetingDTO> meetings;
     
-    private Course course;
+    private CourseDTO course;
     
     public static SectionCourseDTO fromSection(Section section, Course course) {
         return SectionCourseDTO.builder()
@@ -47,7 +73,7 @@ public class SectionCourseDTO {
                 .waitListCapacity(section.getWaitListCapacity())
                 .waitListCount(section.getWaitListCount())
                 .waitListSpace(section.getWaitListSpace())
-                .course(course)
+                .course(CourseDTO.fromCourse(course))
                 .build();
     }
 }
