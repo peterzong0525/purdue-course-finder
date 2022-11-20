@@ -65,6 +65,7 @@ function Home() {
             setSearchString = {setSearchString}
             shortCodes = {shortCodes}
             setShortCodes = {setShortCodes}
+            setBuildingName = {(e)=>{_handleBuildingClick(e)}}
           />
         </div>
       </div>
