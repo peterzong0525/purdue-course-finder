@@ -36,6 +36,7 @@ public class SecurityConfig {
                     "/auth/login",
                     "/courses/*",
                     "/sections/*",
+                    "/section/*",
                     "/subjects",
                     "/buildings",
                     "/rooms/*",

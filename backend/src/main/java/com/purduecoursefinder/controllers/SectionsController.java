@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.purduecoursefinder.models.dto.SectionCourseDTO;
 import com.purduecoursefinder.models.dto.SectionDTO;
 import com.purduecoursefinder.services.PurdueApiService;
 
@@ -19,5 +20,10 @@ public class SectionsController {
     @GetMapping("/sections/{courseId}")
     public List<SectionDTO> sections(@PathVariable UUID courseId) {
         return purdueApiService.getSections(courseId);
+    }
+    
+    @GetMapping("/section/{sectionId}")
+    public SectionCourseDTO section(@PathVariable UUID sectionId) {
+        return purdueApiService.getSection(sectionId);
     }
 }

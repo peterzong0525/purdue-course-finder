@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.purduecoursefinder.models.dto.BuildingDTO;
 import com.purduecoursefinder.models.dto.CourseDTO;
-import com.purduecoursefinder.models.dto.FavoriteSectionDTO;
+import com.purduecoursefinder.models.dto.SectionCourseDTO;
 import com.purduecoursefinder.services.FavoritesService;
 
 @RestController
@@ -29,7 +29,7 @@ public class FavoritesController {
     }
     
     @GetMapping("/sections")
-    public List<FavoriteSectionDTO> sections() {
+    public List<SectionCourseDTO> sections() {
         return favoritesService.getFavoriteSections();
     }
     

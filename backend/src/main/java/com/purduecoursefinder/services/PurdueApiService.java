@@ -39,6 +39,7 @@ import com.purduecoursefinder.models.dto.CourseDTO;
 import com.purduecoursefinder.models.dto.MeetingDTO;
 import com.purduecoursefinder.models.dto.RoomApiDTO;
 import com.purduecoursefinder.models.dto.RoomDTO;
+import com.purduecoursefinder.models.dto.SectionCourseDTO;
 import com.purduecoursefinder.models.dto.SectionDTO;
 import com.purduecoursefinder.models.dto.SubjectDTO;
 import com.purduecoursefinder.models.dto.purdueapi.BuildingsRequestDTO;
@@ -112,6 +113,13 @@ public class PurdueApiService {
         }
         
         return sections;
+    }
+    
+    public SectionCourseDTO getSection(UUID sectionId) {
+        Section section = sectionRepository.findById(sectionId).orElseThrow();
+        Course course = section.getCls().getCourse();
+        
+        return SectionCourseDTO.fromSection(section, course);
     }
     
     public List<CourseDTO> getCourses(String subjectAbbreviation) throws IOException {

@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.purduecoursefinder.models.User;
 import com.purduecoursefinder.models.dto.BuildingDTO;
 import com.purduecoursefinder.models.dto.CourseDTO;
-import com.purduecoursefinder.models.dto.FavoriteSectionDTO;
+import com.purduecoursefinder.models.dto.SectionCourseDTO;
 import com.purduecoursefinder.repositories.BuildingRepository;
 import com.purduecoursefinder.repositories.CourseRepository;
 import com.purduecoursefinder.repositories.SectionRepository;
@@ -57,7 +57,7 @@ public class FavoritesService {
         return user.getFavoriteCourses().stream().map(course -> CourseDTO.fromCourse(course)).collect(Collectors.toList());
     }
 
-    public List<FavoriteSectionDTO> getFavoriteSections() {
+    public List<SectionCourseDTO> getFavoriteSections() {
         User user = ((PCFUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
 //        return user.getFavoriteSections().stream().map(section -> {
 //            try {
@@ -76,7 +76,7 @@ public class FavoritesService {
 //                        courseRepository.findByClasses(classRepository.findBySections(section/*.getSectionId()*/)
 //                                .orElseThrow().getClassId()).orElseThrow())).collect(Collectors.toList());
         
-        return user.getFavoriteSections().stream().map(section -> FavoriteSectionDTO.fromSection(section,
+        return user.getFavoriteSections().stream().map(section -> SectionCourseDTO.fromSection(section,
                 section.getCls().getCourse())).collect(Collectors.toList());
     }
     

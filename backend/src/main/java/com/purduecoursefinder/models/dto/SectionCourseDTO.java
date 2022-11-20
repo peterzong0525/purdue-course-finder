@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FavoriteSectionDTO {
+public class SectionCourseDTO {
     private UUID id;
     private String crn;
     private String type;
@@ -33,8 +33,8 @@ public class FavoriteSectionDTO {
     
     private Course course;
     
-    public static FavoriteSectionDTO fromSection(Section section, Course course) {
-        return FavoriteSectionDTO.builder()
+    public static SectionCourseDTO fromSection(Section section, Course course) {
+        return SectionCourseDTO.builder()
                 .id(section.getSectionId())
                 .crn(section.getCrn())
                 .type(section.getType())
