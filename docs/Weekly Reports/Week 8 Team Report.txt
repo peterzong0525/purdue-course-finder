@@ -1,0 +1,23 @@
+=== Weekly Team Report (Team 9: Purdue Course Finder) ===
+
+Week 8 (Summary) (Scrum Master: Alex Kobus)
+11/15/22 - 3 hours - Commit f4e06c3 - Peter: Adjust logic for what happens when schedule events overlap
+11/17/22 - 4 hours - Commit be78197 - Alex P: Automatic and Manual Tests for Map Routing and Sidebar Classrooms
+11/18/22 - 4 hours - Commit 7b0dd53 - Alex K: link sidebar filtering for courses to the map, only show highlights for buildings containing the selected course
+11/19/22 - 4 hours - Commit 8990788 - Alex K: test the connection between the sidebar filtering and map display, ensure map is correctly updated to match the sidebar filters
+11/19/22 - 5 hours - Commit 80baaa8 - Tommy: Add backend endpoint for getting information about a specific section
+11/19/22 - 3 hours - Commit 6e4c2f9 - Alex K: make building highlights clickable & change highlight color of building selected from map
+11/20/22 - 2 hours - Commit 8a8f75f - Tommy: Update favorites endpoint to support classrooms
+11/20/22 - 0.5 hours - Commit 5359f03 - Tommy: SectionCourseDTO bugfixes
+11/20/22 - 2 hours - Commit 6fe9530 - Peter: Added correct connection between sidebar and schedule page along with various bug fixes/tweaks
+
+Week 9 (Plan) (Scrum Master: Alex Kobus)
+[Meetings]
+11/28/22 - Discuss progress & what needs to be completed before the Sprint 3 Presentation and end of the final sprint
+11/30/22 - Discuss plan for Sprint 3 Presentation & plan for presentation
+
+[Individual Goals]
+Alex K: update sidebar to show rooms in buildings selected from the map, create suggestions page
+Alex P: create classroom schedule page, create stats page
+Tommy: add suggestions endpoint in the backend, add stats endpoint in the backend, update tutorial page
+Peter: create popup for clicking on section on the schedule page, add robustness to course filters
