@@ -73,7 +73,7 @@ function Favorites() {
         if (sections) {
             let url = `${serverURL}/favorites/sections`;
             axios.get(url, config).then((response) => {
-                let data = response.data.sort((a, b) => a.type.localeCompare(b.type) || a.Crn - b. Crn);
+                let data = response.data.sort((a, b) => a.Type.localeCompare(b.Type) || a.Crn - b. Crn);
                 setSections(displayObjects(data, 'Section'));
 
             }).catch((error) => {
@@ -108,7 +108,7 @@ function Favorites() {
         } else if (type === 'Section') {
             return objects.map((section, index) => (
                 <div key={index}>
-                    {setItem(section.type + " - " + section.crn, "Course: " + section.course.subject.abbreviation + " " + section.course.courseNumber, "Section", section.id)}
+                    {setItem(section.Type + " - " + section.Crn, "Course: " + section.course.subjectAbbreviation + " " + section.course.courseNumber, "Section", section.Id)}
                 </div>
             ))
         } else {

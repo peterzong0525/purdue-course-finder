@@ -30,14 +30,7 @@ function Schedule() {
     useEffect(() => {
         let scrollElement = document.querySelector('.schedule-container');
         if (scrollElement)
-            scrollElement.scrollTop = 950;
-        /*if (eventsComplete){
-
-            console.log("complete")
-            console.log(allSections)
-            console.log(hiddenEvents)
-
-        }*/
+            scrollElement.scrollTop = 1200;
     }, [eventsComplete])
 
 
@@ -45,7 +38,7 @@ function Schedule() {
     async function addAllScheduleEvents() {
         if (!scheduleType) {
             // TODO Need Meeting data and item keys to be capitalized
-            setHeaderText("My Favorite Sections Schedule");
+            setHeaderText("Schedule of my Favorite Sections");
             const config = {
                 headers:{
                     "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
@@ -68,7 +61,11 @@ function Schedule() {
             
             let url = `${serverURL}/sections/` + scheduleId;
             await axios.get(url).then((response) =>{
-                setHeaderText("Course Schedule - ");
+                axios.get(`${serverURL}/section/` + response.data[0].Id).then((response) => {
+                    setHeaderText("Course Schedule: " + response.data.course.subjectAbbreviation + " " + response.data.course.courseNumber);
+                }).catch((error) => {
+                    console.log(error);
+                });
                 let courseSections = [];
                 for (let i = 0; i < response.data.length; i++) {
                     courseSections = courseSections.concat(addOneSection(response.data[i]));
@@ -82,11 +79,11 @@ function Schedule() {
             setEventsComplete(true);
            
         } else if (scheduleType === 'Section') {
-            // TODO Need new section endpoint that returns only specific section with meetings
             let url = `${serverURL}/section/` + scheduleId;
             await axios.get(url).then((response) => {
-                setHeaderText(response.data.Type + " - " + response.data.Crn);
-                //setAllSections(addOneSection(response.data));
+                let data = response.data;
+                setHeaderText("Section Schedule: " + data.course.subjectAbbreviation + " " + data.course.courseNumber + " - " + data.Type + " " + data.Crn);
+                allSections = addOneSection(response.data);
             }).catch((error) => {
                 console.log(error);
             });
@@ -97,7 +94,7 @@ function Schedule() {
             await axios.get(url).then((response) => {
                 let classroomSections = [];
                 if (response.data[0].Meetings[0].Room)
-                    setHeaderText("Room Schedule - " + response.data[0].Meetings[0].Room.Building.ShortCode + " " + response.data[0].Meetings[0].Room.Number)
+                    setHeaderText("Room Schedule: " + response.data[0].Meetings[0].Room.Building.ShortCode + " " + response.data[0].Meetings[0].Room.Number)
                 for (let i = 0; i < response.data.length; i++) {
                     classroomSections = classroomSections.concat(addOneSection(response.data[i]));
                 }
@@ -194,13 +191,29 @@ function Schedule() {
 
         // Temporary random colors
         const map_section_type_to_color = {
+            "Clinic": "#321321",
+            "Clinic 1": "#321321",
+            "Clinic 2": "#321321",
+            "Clinic 3": "#321321",
+            "Clinic 4": "#321321",
             "Distance Learning": "#FFFFFF",
             "Experiential": "#BBBBBB",
             "Individual Study": "#123123",
+            "Lab 1": "#321321",
             "Laboratory": "#63F3CA",
+            "Laboratory Preparation": "#321321",
             "Lecture": "#1CD2FF",
+            "Lecture 1": "#321321",
             "Practice Study Observation": "#63F393",
-            "Recitation": "#A40101"
+            "Presentation": "#321321",
+            "Presentation 1": "#321321",
+            "Recitation": "#A40101",
+            "Research": "#321321",
+            "Studio": "#321321",
+            "Studio 1": "#321321",
+            "Travel Time": "#321321",
+            "Travel Time 1": "#321321",
+            "Travel Time 2": "#321321"
         }
 
         let styleString = {

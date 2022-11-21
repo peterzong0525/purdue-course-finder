@@ -19,7 +19,6 @@
     border-radius: 5px;
     background-color: white;
     padding: 0 10px 10px 10px;
-    display: flex;
     cursor: pointer;
     transition-duration: 250ms;
 }
@@ -27,6 +26,10 @@
 .sideBarContainer .listItemContainer:hover {
     background-color: #e7e7e7;
     transition-duration: 250ms;
+}
+
+.displaySidebarItemContainer {
+    display: flex;
 }
 
 .sideBarContainer .listItemInfo { 
@@ -59,9 +62,27 @@
     visibility: visible;
     transition-duration: 150ms;
 }
+
 .sideBarContainer .star:checked:before {
     content: "\2605";
     color: #F4B30A;
+}
+
+.sideBarContainer .scheduleContainer {
+    margin-top: 10px;
+}
+
+.sideBarContainer .scheduleBtn {
+    cursor: pointer;
+    background-color: #ffd874;
+    border-radius: 5px;
+    padding: 5px;
+    transition: .2s;
+}
+
+.sideBarContainer .scheduleBtn:hover {
+    background-color: #dab967;
+    transition: .2s;
 }
 
 .sideBarContainer .searchBar {

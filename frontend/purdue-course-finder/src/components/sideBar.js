@@ -57,7 +57,7 @@ function SideBar(props) {
             }
 
             url = `${serverURL}/rooms/` + searchString.toUpperCase();
-            getFavUrl = `${serverURL}/favorites/classrooms`;
+            getFavUrl = `${serverURL}/favorites/rooms`;
 
         } else if (filter_option === 'Course') {
             if (searchString.trim() === '') {
@@ -157,7 +157,7 @@ function SideBar(props) {
                             }
 
                         } else if (filter_option === 'Section') {
-                            if (favorites.some(e => e.id === data[i].Id)) {
+                            if (favorites.some(e => e.Id === data[i].Id)) {
                                 data[i]['isFavorite'] = true;
                                 allFavorites.push(data[i]);
                             } else {
@@ -246,16 +246,13 @@ function SideBar(props) {
     
         let [itemHead, firstRow, secondRow, thirdRow, dataType, dataID, isFavorite] = [props.itemHead, props.firstRow, props.secondRow, props.thirdRow, props.dataType, props.dataID, props.isFavorite];
     
-        const handleChange = (e) => {
+        const _changeFilter = (e) => {
             setLoading(true);
             if (e.filter === "Course") {
                 filter = "Section";
                 prevDesc = itemHead;
                 searchString = e.searchStr;
-                
-                // Following two lines are for testing sending user to schedule page
-                //navigate('/schedule?sch_type='+e.filter+'&sch_id='+searchString);
-                //return;
+
             } else if (e.filter === "Building") {
                 filter = "Classroom";
                 prevDesc = itemHead;
@@ -269,7 +266,7 @@ function SideBar(props) {
             populateSidebar(filter)
         }
 
-        const changeFavorite = (e) => {
+        const _changeFavorite = (e) => {
             console.log(e)
             let method = "";
             let url = "";
@@ -322,32 +319,41 @@ function SideBar(props) {
 
         }
 
-    
+        const _viewSchedule = (e) => {
+            navigate('/schedule?sch_type='+e.filter+'&sch_id='+e.id);
+        }
     
         return(
-            <div className = "listItemContainer" onClick={() => {handleChange({filter: dataType, searchStr: dataID})}}>
-                <div className = "listItemInfo" >
-                    <h2 className = "ItemHead" style={{margin: "0"}}>
-                        {itemHead}
-                    </h2>
-                    <p className = "firstRow" style={{margin: "5px 0 0 0"}}>
-                        {firstRow}
-                    </p>
-                    <p className = "secondRow" style={{margin: "5px 0 0 0"}}>
-                        {secondRow}
-                    </p>
-                    <p className = "thirdRow" style={{margin: "5px 0 0 0"}}>
-                        {thirdRow}
-                    </p>
+            <div className = "listItemContainer" onClick={() => {_changeFilter({filter: dataType, searchStr: dataID})}}>
+                <div className="displaySidebarItemContainer">
+                    <div className = "listItemInfo" >
+                        <h2 className = "ItemHead" style={{margin: "0"}}>
+                            {itemHead}
+                        </h2>
+                        <p className = "firstRow" style={{margin: "5px 0 0 0"}}>
+                            {firstRow}
+                        </p>
+                        <p className = "secondRow" style={{margin: "5px 0 0 0"}}>
+                            {secondRow}
+                        </p>
+                        <p className = "thirdRow" style={{margin: "5px 0 0 0"}}>
+                            {thirdRow}
+                        </p>
+                    </div>
+                    {loggedIn && (
+                        <div className = "favoriteStar" >
+                            {isFavorite && (
+                                <input className = "star" type="checkbox" defaultChecked = "checked" onClick={(e) => {e.stopPropagation(); _changeFavorite({category: dataType, id: dataID, isFavorite: isFavorite})}}></input>
+                            )}
+                            {!isFavorite && (
+                                <input className = "star" type="checkbox" onClick={(e) => {e.stopPropagation(); _changeFavorite({category: dataType, id: dataID, isFavorite: isFavorite})}}></input>
+                            )}
+                        </div>
+                    )}
                 </div>
-                {loggedIn && (
-                    <div className = "favoriteStar" >
-                        {isFavorite && (
-                            <input className = "star" type="checkbox" defaultChecked = "checked" onClick={(e) => {e.stopPropagation(); changeFavorite({category: dataType, id: dataID, isFavorite: isFavorite})}}></input>
-                        )}
-                        {!isFavorite && (
-                            <input className = "star" type="checkbox" onClick={(e) => {e.stopPropagation(); changeFavorite({category: dataType, id: dataID, isFavorite: isFavorite})}}></input>
-                        )}
+                {(filter === "Classroom" || filter === "Course" || filter === "Section") && (
+                    <div className = "scheduleContainer">
+                        <button className="scheduleBtn" onClick={(e) => {e.stopPropagation(); _viewSchedule({filter: dataType, id: dataID})}}>View {filter} Schedule</button>
                     </div>
                 )}
 
@@ -451,7 +457,7 @@ function SideBar(props) {
                         "0 meetings per week", // Need to update this eventually
                         "",
                         "Classroom", 
-                        classroom.classroomId,
+                        classroom.Id,
                         classroom.isFavorite)}
                 </div>
             ))
