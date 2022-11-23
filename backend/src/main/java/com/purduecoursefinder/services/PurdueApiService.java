@@ -118,8 +118,11 @@ public class PurdueApiService {
     public SectionCourseDTO getSection(UUID sectionId) {
         Section section = sectionRepository.findById(sectionId).orElseThrow();
         Course course = section.getCls().getCourse();
+        SectionCourseDTO sectionCourseDTO = SectionCourseDTO.fromSection(section, course);
         
-        return SectionCourseDTO.fromSection(section, course);
+        sectionCourseDTO.setMeetings(meetingRepository.findAllBySection(section).stream().map(meeting -> MeetingDTO.fromMeeting(meeting)).collect(Collectors.toList()));
+        
+        return sectionCourseDTO;
     }
     
     public List<CourseDTO> getCourses(String subjectAbbreviation) throws IOException {

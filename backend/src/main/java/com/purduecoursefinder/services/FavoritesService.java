@@ -13,10 +13,12 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.purduecoursefinder.models.User;
 import com.purduecoursefinder.models.dto.BuildingDTO;
 import com.purduecoursefinder.models.dto.CourseDTO;
+import com.purduecoursefinder.models.dto.MeetingDTO;
 import com.purduecoursefinder.models.dto.RoomDTO;
 import com.purduecoursefinder.models.dto.SectionCourseDTO;
 import com.purduecoursefinder.repositories.BuildingRepository;
 import com.purduecoursefinder.repositories.CourseRepository;
+import com.purduecoursefinder.repositories.MeetingRepository;
 import com.purduecoursefinder.repositories.RoomRepository;
 import com.purduecoursefinder.repositories.SectionRepository;
 import com.purduecoursefinder.repositories.UserRepository;
@@ -29,6 +31,9 @@ public class FavoritesService {
     
     @Autowired
     private SectionRepository sectionRepository;
+    
+    @Autowired
+    private MeetingRepository meetingRepository;
     
     @Autowired
     private UserRepository userRepository;
@@ -87,8 +92,12 @@ public class FavoritesService {
 //                        courseRepository.findByClasses(classRepository.findBySections(section/*.getSectionId()*/)
 //                                .orElseThrow().getClassId()).orElseThrow())).collect(Collectors.toList());
         
-        return user.getFavoriteSections().stream().map(section -> SectionCourseDTO.fromSection(section,
-                section.getCls().getCourse())).collect(Collectors.toList());
+        return user.getFavoriteSections().stream().map(section -> {
+                SectionCourseDTO sectionCourseDTO = SectionCourseDTO.fromSection(section, section.getCls().getCourse());
+                sectionCourseDTO.setMeetings(
+                        meetingRepository.findAllBySection(section).stream().map(meeting -> MeetingDTO.fromMeeting(meeting)).toList());
+                return sectionCourseDTO;
+            }).collect(Collectors.toList());
     }
     
     public List<BuildingDTO> getFavoriteBuildings() {
