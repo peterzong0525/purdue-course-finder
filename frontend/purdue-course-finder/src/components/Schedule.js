@@ -123,10 +123,12 @@ function Schedule() {
             if (enterOrExit) {
                 for (let i = 0; i < elements.length; i++) {
                     elements[i].setAttribute('selected', '1');
+                    elements[i].children[0].children[1].style.opacity = '1';
                 }
             } else {
                 for (let i = 0; i < elements.length; i++) {
                     elements[i].removeAttribute('selected');
+                    elements[i].children[0].children[1].style.opacity = '0';
                 }
             }
 
@@ -259,13 +261,18 @@ function Schedule() {
 
         // Data displayed is not final
         return (
-            <div className="schedule-event" data-forhideid={meetingData.Id+"schedule"} data-show="true" onClick={()=> _handleHideEventOnSchedule()} style={styleString}>
-                CRN: {sectionData.Crn}
-                <br></br>
-                Meeting type: {meetingData.Type}
-                <br></br>
-                Length:{hourDisplay}{minuteDisplay}
-                <br></br>
+            <div className="schedule-event" data-forhideid={meetingData.Id+"schedule"} data-show="true" style={styleString}>
+                <div className="event-details">
+                        CRN: {sectionData.Crn}
+                        <br></br>
+                        Meeting type: {meetingData.Type}
+                        <br></br>
+                        Length:{hourDisplay}{minuteDisplay}
+                        <br></br>
+                </div>
+                <div className="close" onClick={()=> _handleHideEventOnSchedule()}>
+                    &times;
+                </div>
             </div>
         )
     }

@@ -104,6 +104,7 @@
     padding-left: 10px;
     padding-right: 10px;
     transition: translate .2s, box-shadow .2s;
+    display: flex;
     /* overflow-y: auto;
     -ms-overflow-style: none;  Internet Explorer 10+
     scrollbar-width: none;  Firefox */
@@ -122,6 +123,34 @@
     translate: 0px -15px;
     transition: translate .2s, box-shadow .2s;
 }
+
+.schedule-page-container .event-details {
+    
+}
+
+.schedule-page-container .close {
+    height: 25px;
+    min-width: 25px;
+    max-width: 25px;
+    text-align: center;
+    line-height: 20px;
+    font-weight: bold;
+    transition: .2s;
+    border-radius: 50%;
+    margin-right: -7px;
+    margin-top: 3px;
+    opacity: 0;
+}
+
+.schedule-page-container .close:hover {
+    background-color: gray;
+    box-shadow: 0 0 3px black inset;
+    transition: .2s;
+}
+
+
+
+
 
 
 /*http://127.0.0.1:3000/schedule?sch_type=Course&sch_id=2b372d3d-1049-4f49-b132-4d08cbe64d6e*/
