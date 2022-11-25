@@ -44,9 +44,10 @@
     border: 1px solid black;
     background-color: gold;
     padding: 1px 2px 2px 2px;
-    width: 150px;
+    width: 200px;
     cursor: pointer;
     transition: background-color .2s;
+    text-align: center;
 }
 
 .schedule-page-container .hidden-event:hover {
@@ -105,14 +106,9 @@
     padding-right: 10px;
     transition: translate .2s, box-shadow .2s;
     display: flex;
-    /* overflow-y: auto;
-    -ms-overflow-style: none;  Internet Explorer 10+
-    scrollbar-width: none;  Firefox */
+    justify-content: space-between;
+    overflow-y: auto;
 }
-
-/* .schedule-page-container .schedule-event::-webkit-scrollbar { 
-    display: none;
-} */
 
 .schedule-page-container .schedule-event[data-show="false"]{
     display: none;
@@ -122,10 +118,6 @@
     box-shadow: 0 5px 5px 0px gray;
     translate: 0px -15px;
     transition: translate .2s, box-shadow .2s;
-}
-
-.schedule-page-container .event-details {
-    
 }
 
 .schedule-page-container .close {
@@ -140,6 +132,7 @@
     margin-right: -7px;
     margin-top: 3px;
     opacity: 0;
+    
 }
 
 .schedule-page-container .close:hover {
