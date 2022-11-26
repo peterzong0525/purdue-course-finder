@@ -4,6 +4,7 @@ import Map from './Map.js';
 import "../App.css";
 
 function Home() {
+  //vars so sidebar updates map
   const [buildingName, setBuildingName] = useState('');
   const [searchString, setSearchString] = useState('');
   const [shortCodes, setShortCodes] = useState([]);
@@ -13,10 +14,19 @@ function Home() {
   //force the map to reload to recenter when the same building is selected from the sidebar
   const [mapReload, setmapReload] = useState(false);
 
+  //vars so map updates sidebar
+  const [filter, setFilter] = useState(false); //force the sidebar to reload when the same building is selected from the map
+  const [filterString, setFilterString] = useState('');
+
   const _handleBuildingClick = (e) => {
     setBuildingName(e);
     // setSearchString('');
     setmapReload(!mapReload);
+  }
+
+  const _setFilterString = (str) => {
+    setFilterString(str);
+    setFilter(!filter);
   }
 
   const [origin, setOrigin] = useState(null);
@@ -47,6 +57,9 @@ function Home() {
             setSearchString = {setSearchString}
             shortCodes = {shortCodes}
             setShortCodes = {setShortCodes}
+            filter = {filter}
+            filterString = {filterString}
+            setFilterString = {_setFilterString}
           />
         </div>
         <div className="map" data-testid="map">
@@ -66,6 +79,9 @@ function Home() {
             shortCodes = {shortCodes}
             setShortCodes = {setShortCodes}
             setBuildingName = {(e)=>{_handleBuildingClick(e)}}
+            filter = {filter}
+            filterString = {filterString}
+            setFilterString = {_setFilterString}
           />
         </div>
       </div>

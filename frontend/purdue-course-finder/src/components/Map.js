@@ -57,6 +57,9 @@ function Map(props) {
     shortCodes: PropTypes.array,
     setShortCodes: PropTypes.func,
     setBuildingName: PropTypes.func,
+    filter: PropTypes.bool,
+    filterString: PropTypes.string,
+    setFilterString: PropTypes.func,
   };
 
   const [map, setMap] = useState(null);
@@ -257,7 +260,10 @@ function Map(props) {
                       fillColor:'#FFF72F', 
                       clickable: true,
                     }}
-                    onClick={() => {props.setBuildingName(building.shortCode)}}
+                    onClick={() => {
+                      props.setBuildingName(building.shortCode);
+                      props.setFilterString(building.shortCode);
+                    }}
                   />
                   { labelSize !== 0 &&
                     <Marker 
@@ -265,7 +271,10 @@ function Map(props) {
                       position={{lat:(building.shortCodeLocation.lat-0.00005-(labelSize===12?(labelSize)/100000:0)-(labelSize===9?(labelSize*4)/100000:0)), lng:building.shortCodeLocation.lng}} 
                       icon="../map_images/BlankPNG.png" 
                       clickable={true}
-                      onClick={() => {props.setBuildingName(building.shortCode)}}
+                      onClick={() => {
+                        props.setBuildingName(building.shortCode);
+                        props.setFilterString(building.shortCode);
+                      }}
                     />
                   }
                 </div>
@@ -278,7 +287,10 @@ function Map(props) {
                   <Polygon 
                     path={building.coordArray} 
                     options={{strokeColor: '#000000', fillColor:'#0000FF' }} 
-                    onClick={() => {props.setBuildingName(building.shortCode)}}
+                    onClick={() => {
+                      props.setBuildingName(building.shortCode);
+                      props.setFilterString(building.shortCode);
+                    }}
                   />
                 </div>
               ))
@@ -294,7 +306,10 @@ function Map(props) {
                       fillColor:'#FFF72F', 
                       clickable: true,
                     }}
-                    onClick={() => {props.setBuildingName(building.shortCode)}}
+                    onClick={() => {
+                      props.setBuildingName(building.shortCode);
+                      props.setFilterString(building.shortCode);
+                    }}
                   />
                   { labelSize !== 0 &&
                     <Marker 
@@ -302,7 +317,10 @@ function Map(props) {
                     position={{lat:(building.shortCodeLocation.lat-0.00005-(labelSize===12?(labelSize)/100000:0)-(labelSize===9?(labelSize*4)/100000:0)), lng:building.shortCodeLocation.lng}} 
                     icon="../map_images/BlankPNG.png" 
                     clickable={true}
-                    onClick={() => {props.setBuildingName(building.shortCode)}}
+                    onClick={() => {
+                      props.setBuildingName(building.shortCode);
+                      props.setFilterString(building.shortCode);
+                    }}
                   />
                   }
                 </div>
