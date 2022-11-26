@@ -11,6 +11,7 @@ import ModifyAcnt from './components/modifyAccount.js';
 import Tutorial from './components/tutorialPage.js';
 import Schedule from './components/Schedule.js';
 import Favorites from './components/Favorites.js';
+import Suggestions from './components/Suggestions.js';
 
 export const serverURL = process.env.REACT_APP_BACKEND_URL || 'https://localhost:8443';
 
@@ -27,6 +28,7 @@ ReactDOM.render(
           <Route path='/tutorial' element={<Tutorial />} />
           <Route path='/schedule' element={<Schedule />} />
           <Route path='/favorites' element={<Favorites />} />
+          <Route path='/suggestions' element={<Suggestions />} />
         </Routes>
       </Router>
   </React.StrictMode>,

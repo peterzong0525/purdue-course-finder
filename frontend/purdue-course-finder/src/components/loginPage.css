@@ -73,6 +73,16 @@
     padding: 10px 0 12px 0;
 }
 
+.logSignContainer .info {
+    white-space: pre-wrap;
+    border-radius: 7px;
+    text-align: center;
+}
+
+.logSignContainer .suggestions_input { 
+    resize: vertical; 
+}
+
 .signupSuccess {
     background-color: green;
     white-space: pre-wrap;
