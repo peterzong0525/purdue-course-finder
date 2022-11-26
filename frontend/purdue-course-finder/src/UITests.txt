@@ -435,7 +435,7 @@ Testing Sidebar & Map Component Interactions:
         2. Click a building in the sidebar (e.g. WALC a.k.a Wilmeth Active Learning Center)
 
     C. Expected result
-        1. The sidebar should show a list of buildings and the map should be zoomed out on Purdue's campus
+        1. By default, The sidebar should show a list of buildings and the map should be zoomed out on Purdue's campus
            with all the building outlines shown
         2. After clicking on a building in the sidebar, the map should zoom in to the building and the color of the building highlight 
            will change color. For example: If WALC is clicked in the sidebar, the map zooms to the location of the building and WALC's 
@@ -518,3 +518,85 @@ Testing Sidebar & Map Component Interactions:
             and HAAS are highlighted.)
         3. When selecting a section from the sidebar, the building containing that section should have its highlight change color, 
            and the map should pan and zoom to that building.
+
+
+Testing Clickable Building Highlights:
+    A. Identification and Classification
+        Test Case: 1701
+        System: / (home page)
+        Description: Clickable Map Building Highlights
+        Severity: 2
+
+        Sprint: 3
+        User Story: 1
+
+    B. Instructions
+        1. Navigate to the homepage of the application
+        2. Click a building highlight on the map
+        3. Click another building highlight on the map
+
+    C. Expected result
+        1. By default, all of the academic buildings (buildings containing classes) on the Purdue WL campus should be 
+           highlighted on the map, and the sidebar should show a list of all highlighted buildings.
+        2. When clicking on a building highlight on the map, the map will zoom into that building's location, and the 
+           building's highlight will change color to indicate that it has been selected. The sidebar will also update 
+           to show information about classrooms inside of that building.
+        3. Clicking on another building on the map will cause the map and sidebar to update for that building just like
+           it did in point C2 above. 
+
+    
+    A. Identification and Classification
+        Test Case: 1702
+        System: / (home page)
+        Description: Clickable Map Building Highlights
+        Severity: 2
+
+        Sprint: 3
+        User Story: 1
+
+    B. Instructions
+        1. Navigate to the homepage of the application
+        2. Filter the map and sidebar by entering a search query into the sidebar's search bar (ex: 'ar')
+        3. Click a building highlight on the map
+        4. Click another building highlight on the map
+
+    C. Expected result
+        1. By default, all of the academic buildings (buildings containing classes) on the Purdue WL campus should be 
+           highlighted on the map, and the sidebar should show a list of all highlighted buildings.
+        2. When filtering using the search bar, the map and sidebar will update to only show buildings relevant to the query.
+        3. When clicking on a building highlight on the map, the map will zoom into that building's location, and the 
+           building's highlight will change color to indicate that it has been selected. The sidebar will also update 
+           to show information about classrooms inside of that building.
+        4. Clicking on another building on the map will cause the map and sidebar to update for that building just like
+           it did in point C3 above. 
+
+    
+    A. Identification and Classification
+        Test Case: 1703
+        System: / (home page)
+        Description: Clickable Map Building Highlights
+        Severity: 2
+
+        Sprint: 3
+        User Story: 1
+
+    B. Instructions
+        1. Navigate to the homepage of the application
+        2. Filter the map and sidebar by entering a search query into the sidebar's search bar (ex: 'ar')
+        3. Click a building highlight on the map
+        4. Reset the building selection by clicking the search icon again
+        5. Click the same building highlight on the map
+        6. Repeat Steps 1-4
+        7. Click another building highlight on the map
+
+    C. Expected result
+        1. By default, all of the academic buildings (buildings containing classes) on the Purdue WL campus should be 
+           highlighted on the map, and the sidebar should show a list of all highlighted buildings.
+        2. When filtering using the search bar, the map and sidebar will update to only show buildings relevant to the query.
+        3. When clicking on a building highlight on the map, the map will zoom into that building's location, and the 
+           building's highlight will change color to indicate that it has been selected. The sidebar will also update 
+           to show information about classrooms inside of that building.
+        4. Clicking the search icon in the sidebar will deselect the building, causing the highlight color to revert to yellow
+           and the sidebar to show buildings relevant to the query again
+        5. Clicking on a building on the map will cause the map and sidebar to update for that building just like
+           it did in point C3 above. 
