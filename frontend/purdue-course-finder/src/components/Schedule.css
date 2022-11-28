@@ -107,7 +107,6 @@
     transition: translate .2s, box-shadow .2s;
     display: flex;
     justify-content: space-between;
-    overflow-y: auto;
 }
 
 .schedule-page-container .schedule-event[data-show="false"]{
@@ -118,6 +117,16 @@
     box-shadow: 0 5px 5px 0px gray;
     translate: 0px -15px;
     transition: translate .2s, box-shadow .2s;
+}
+
+.schedule-page-container .event-details {
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.schedule-page-container .event-details::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
 }
 
 .schedule-page-container .close {
@@ -132,7 +141,6 @@
     margin-right: -7px;
     margin-top: 3px;
     opacity: 0;
-    
 }
 
 .schedule-page-container .close:hover {
@@ -141,9 +149,44 @@
     transition: .2s;
 }
 
+.schedule-page-container .event-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 50vh;
+    width: 70vw;
+    background-color: rgb(243, 243, 243);
+    transform: translate(-50%, -50%);
+    display: flex;
+    padding: 20px 20px 20px 20px;
+    border: 4px solid #9D8446;
+    scale: 0;
+    transition: scale .2s;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 
+.schedule-page-container .popup-section-details {
+    display: grid;
+    grid-template-columns: 22vw 22vw 22vw;
+    column-gap: 5px;
+}
 
+.schedule-page-container .popup-section-details>p {
+    margin: 5px 0 0 0;
+}
 
+.schedule-page-container .popup-meeting-details {
+    display: grid;
+    grid-template-columns: 22vw 22vw 22vw;
+    column-gap: 5px;
+    margin-top: 30px;
+}
 
+.schedule-page-container .popup-meeting-details>p {
+    margin: 5px 0 0 0;
+}
 
-/*http://127.0.0.1:3000/schedule?sch_type=Course&sch_id=2b372d3d-1049-4f49-b132-4d08cbe64d6e*/
+.schedule-page-container .popup-location-details>p {
+    margin: 5px 0 0 0;
+}
