@@ -32,9 +32,17 @@ function Home() {
   const [origin, setOrigin] = useState(null);
   const [destination, setDestination] = useState(null);
   const [method, setMethod] = useState('walking');
+  const [routeVisible, setRouteVisible] = useState(false);
   const _handleRouteClick = (origin, destination) => {
+    if (origin == null || destination == null) {
+      setRouteVisible(false);
+      setOrigin(null);
+      setDestination(null);
+      return;
+    }
     setOrigin(origin);
     setDestination(destination);
+    setRouteVisible(true);
     setmapReload(!mapReload);
   }
   const _handleRouteMethod = (method) => {
@@ -69,6 +77,7 @@ function Home() {
             destinationSC={destination}
             routeMethod={method}
             resetRoute={(origin, destination)=>{_handleRouteClick(origin, destination)}}
+            routeVisible = {routeVisible}
             mapReload = {mapReload}
             Buildings = {Buildings}
             setBuildings = {setBuildings}
