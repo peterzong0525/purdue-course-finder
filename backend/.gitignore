@@ -6,6 +6,7 @@ target/
 
 src/main/resources/keystore/*
 logs/
+suggestions/
 
 ### STS ###
 .apt_generated
