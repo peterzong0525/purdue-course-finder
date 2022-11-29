@@ -146,7 +146,7 @@ public class PurdueApiService {
         }
         
         if (System.currentTimeMillis() - subjectOpt.get().getLastRefresh() < refreshCacheMillis) {
-            System.out.println("Returning cached courses...");
+            log.atInfo().log("Returning cached courses...");
             return courseRepository.findBySubjectId(subject.getId()).stream().map(course -> course.getClasses().size() > 0 ? course : null).filter(Objects::nonNull).map(course -> CourseDTO.fromCourse(course)).collect(Collectors.toList());
         }
         
@@ -220,7 +220,7 @@ public class PurdueApiService {
             courseRepository.save(course);
         }
         
-        System.out.println("Returning courses from API...");
+        log.atInfo().log("Returning courses from API...");
         return courseRepository.findBySubjectId(subject.getId()).stream().map(course -> course.getClasses().size() > 0 ? course : null).filter(Objects::nonNull).map(course -> CourseDTO.fromCourse(course)).collect(Collectors.toList());
     }
     
