@@ -40,7 +40,8 @@ public class SecurityConfig {
                     "/subjects",
                     "/buildings",
                     "/rooms/*",
-                    "/schedule/**").permitAll()
+                    "/schedule/**",
+                    "/statistics/*").permitAll()
             .and()
             .authorizeHttpRequests()
             .anyRequest().authenticated()
