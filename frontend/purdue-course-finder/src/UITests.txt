@@ -600,3 +600,56 @@ Testing Clickable Building Highlights:
            and the sidebar to show buildings relevant to the query again
         5. Clicking on a building on the map will cause the map and sidebar to update for that building just like
            it did in point C3 above. 
+
+
+Testing the Schedule Page:
+    A. Identification and Classification
+        Test Case: 1801
+        System: /Schedule
+        Description: Normal schedule page showing section meetings
+        Severity: 2
+
+        Sprint: 3
+        User Story: 2, 10
+
+    B. Instructions
+        1. When logged in, filter the sidebar until you get to the sections of a course.
+        2. Click on the favoriting stars for a few sections
+        3. Click the "Schedule" button on the home page
+        4. Click the "x" button when hovering over a schedule event
+        5. Click the only button in the "Hidden Events" section at the top of the screen
+        6. Click on a schedule event
+    
+    C. Expected result
+        1. After filtering, you should see a list of sections in the sidebar
+        2. After favoriting a few sections, those stars should be yellow
+        3. Clicking the "Schedule" button will lead to the schedule page with the section meetings
+           displayed as events on the schedule
+        4. Hovering an event should make it move upwards and make an "x" button appear. Clicking the
+           "x" button hides the event from the schedule and adds it to the "hidden Events" section
+           at the top of the screen
+        5. Clicking the hidden event will remove it from the "Hidden Events" section and the event will
+           now once again be displayed on the schedule
+        6. Clicking on a schedule event opens a popup that displays detailed information about the section and class
+
+
+    A. Identification and Classification
+        Test Case: 1802
+        System: /Schedule?sch_type=<Course/Section/Classroom>&&sch_id=<id>
+        Description: Course/Section/Classroom schedule page showing section meetings
+        Severity: 2
+
+        Sprint: 3
+        User Story: 10
+
+    B. Instructions
+        1. In the sidebar, filter for a list of courses/sections/meetings
+        2. Click the "View [] Schedule" button for the corresponding item
+        3. View the Course/section/classroom meetings schedule
+
+    C. Expected result
+        1. After filtering, you should see a list of courses, sections, or classrooms in the sidebar
+        2. Clicking the button leads to the corresponding schedule page
+        3. If the item is a Course, all meetings of the course are displayed.
+           If the item is a Section, all meetings of only that section are displayed.
+           If the item is a Classroom, all meetings that occur in that classroom are displayed.

@@ -173,6 +173,8 @@ function Map(props) {
   }
 
   async function calculateRoute() {
+    if (!window.google)
+      return;
     const directionsService = new window.google.maps.DirectionsService();
 
     // Iterate through buildings to find starting and ending locations

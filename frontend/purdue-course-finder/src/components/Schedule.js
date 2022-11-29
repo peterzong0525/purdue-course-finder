@@ -368,7 +368,7 @@ function Schedule() {
         }
 
         return grids.map((grid, index) => (
-            <div className="grid-container" key={index}>
+            <div className="grid-container" key={index} data-testid="gridContainer">
                 {grid}
             </div>
         ))
@@ -380,26 +380,24 @@ function Schedule() {
   
     return (
         <div className="schedule-page-container">
-            <div className="header-container">
-                <a className="return-home" href="/">
+            <div className="header-container" data-testid="scheduleHeader">
+                <a className="return-home" href="/" data-testid="scheduleHome">
                     <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="Black" className="bi bi-arrow-left" viewBox="0 0 20 5">
                         <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
                     </svg>
                 </a>
                 <p className="header-txt">{headerText}</p>
-                <div className="hidden-events-container">
+                <div className="hidden-events-container" data-testid="hiddenEventsContainer">
                     {hiddenEvents.length > 0 ? "Hidden events:": ""}
-                    <div className='hidden-events'>
+                    <div className='hidden-events' data-testid="hiddenEvents">
                         {hiddenEvents}
 
                     </div>
                 </div>
             </div>
-            <div className="schedule-container">
+            <div className="schedule-container" data-testid="scheduleContainer">
                 {generateGrids()}
                 {allSections}
-                
-                
             </div>
             <Popup/>
         </div>
@@ -417,25 +415,25 @@ function Popup() {
     }
     return (
         <div className="event-popup">
-            <div className="popup-details" style={{width:"100%"}}>
+            <div className="popup-details" style={{width:"100%"}} data-testid="eventPopup">
                 <h1 id="classTitle" style={{textAlign: "center", marginTop: "-10px"}}></h1>
                 <hr></hr>
                 <p id="courseDesc"></p>
                 <h2 id="sectionTypeCrn" style={{marginBlockEnd: "5px"}}></h2>
-                <div className="popup-section-details">
+                <div className="popup-section-details" data-testid="sectionPopup">
                     <p id="sectionCapacity"></p>
                     <p id="sectionEnrolled"></p>
                     <p id="sectionRemaining"></p>
                     <p id="sectionStartDate"></p>
                     <p id="sectionEndDate"></p>
                 </div>
-                <div className="popup-meeting-details">
+                <div className="popup-meeting-details" data-testid="meetingPopup">
                     <p id="meetingDaysOfWeek"></p>
                     <p id="meetingTime"></p>
                     <p id="meetingDuration"></p>
                 </div>
                 <p id="meetingInstructors" style={{margin: "0 0 30px 0"}}></p>
-                <div className="popup-location-details">
+                <div className="popup-location-details" data-testid="locationPopup">
                     <p id="locationBuilding"></p>
                     <p id="locationRoom"></p>
                 </div>
