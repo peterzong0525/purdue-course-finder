@@ -9,6 +9,7 @@ import searchIcon from '../tutorial_images/search-icon.png';
 let filter = 'Building';
 let prevDesc = "";
 var searchString = "";
+
 function SideBar(props) {
     SideBar.propTypes = {
         onClick: PropTypes.func,
@@ -22,6 +23,9 @@ function SideBar(props) {
         setSearchString: PropTypes.func,
         shortCodes: PropTypes.array,
         setShortCodes: PropTypes.func,
+        filter: PropTypes.bool,
+        filterString: PropTypes.string,
+        setFilterString: PropTypes.func,
     };
 
     const [loggedIn, setLoggedIn] = useState(false);
@@ -36,6 +40,25 @@ function SideBar(props) {
         }
         handleChange({key: 'Enter'});
     }, [loggedIn]);
+
+    //modified version of _changeFilter function from the ListItem component defined below
+    const changeFilter = (e) => {
+        setLoading(true);
+        if (e.filter === "Building") {
+            filter = "Classroom";
+            // prevDesc = itemHead;
+            searchString = e.searchStr.toUpperCase();
+            // document.getElementById("classroom").checked = true;
+        }
+        populateSidebar(filter)
+    }
+
+    useEffect(() => {
+        if (!props.filterString) {
+            return;
+        }
+        changeFilter({filter: 'Building', searchStr: props.filterString});
+    }, [props.filterString, props.filter]);
     
     function populateSidebar(filter_option) {
         let url = "";
@@ -451,7 +474,8 @@ function SideBar(props) {
         } else if (filter === 'Classroom') {
             return objects.map((classroom, index) => (
                 <div key={index}>
-                    {setItem(classroom.Building.ShortCode + " " + classroom.Number, 
+                    {classroom.Building && 
+                    setItem(classroom.Building.ShortCode + " " + classroom.Number, 
                         classroom.Building.Name, 
                         //classroom.Meetings.length + " meetings per week",     //page will crash as classroom.Meetings does not exist
                         "0 meetings per week", // Need to update this eventually

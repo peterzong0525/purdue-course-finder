@@ -7,6 +7,7 @@ import Modify from '../components/modifyAccount';
 import Delete from '../components/deleteAcct';
 import Tutorial from '../components/tutorialPage';
 import Favorites from '../components/Favorites';
+import Schedule from '../components/Schedule';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
 import { BrowserRouter } from 'react-router-dom';
@@ -125,7 +126,7 @@ it('Tutorial page renders without crashing', () => {
 });
 
 it('Sidebar Filter Pop-up renders without crashing', () => {
-    render(<Sidebar onClick={() => {return;}}/>)
+    render(<BrowserRouter><Sidebar onClick={() => {return;}}/></BrowserRouter>)
 
     // On page normally
     expect(screen.getByTestId('filter_overlay')).toBeInTheDocument();
@@ -162,11 +163,11 @@ it('Sidebar Filter Pop-up renders without crashing', () => {
 });
 
 it('Home page renders without crashing', () => {
-    render(<Home />);
+    render(<BrowserRouter><Home /></BrowserRouter>);
 });
 
 it('Home page contains Map and Sidebar', () => {
-    render(<Home />);
+    render(<BrowserRouter><Home /></BrowserRouter>);
 
     const map = screen.getByTestId('map');
     const sidebar = screen.getByTestId('sidebar');
@@ -213,31 +214,31 @@ it('Favorites page renders without crashing', () => {
 });
 
 it('Route Popup', () => {
-    render(<Home />);
+    render(<BrowserRouter><Home /></BrowserRouter>);
 
     // On page normally
-    expect(screen.getByTestId('popup_overlay')).toBeInTheDocument();
-    expect(screen.getByTestId('popup_wrapper')).toBeInTheDocument();
-    expect(screen.getByTestId('popup_close')).toBeInTheDocument();
-    expect(screen.getByTestId('popup_container')).toBeInTheDocument();
-    expect(screen.getByTestId('popup_origin')).toBeInTheDocument();
-    expect(screen.getByTestId('popup_destination')).toBeInTheDocument();
-    expect(screen.getByTestId('popup_show')).toBeInTheDocument();
-    expect(screen.getByTestId('popup_walking')).toBeInTheDocument();
-    expect(screen.getByTestId('popup_biking')).toBeInTheDocument();
-    expect(screen.getByTestId('popup_driving')).toBeInTheDocument();
+    expect(screen.getByTestId('route_overlay')).toBeInTheDocument();
+    expect(screen.getByTestId('route_wrapper')).toBeInTheDocument();
+    expect(screen.getByTestId('route_close')).toBeInTheDocument();
+    expect(screen.getByTestId('route_container')).toBeInTheDocument();
+    expect(screen.getByTestId('route_origin')).toBeInTheDocument();
+    expect(screen.getByTestId('route_destination')).toBeInTheDocument();
+    expect(screen.getByTestId('route_show')).toBeInTheDocument();
+    expect(screen.getByTestId('route_walking')).toBeInTheDocument();
+    expect(screen.getByTestId('route_biking')).toBeInTheDocument();
+    expect(screen.getByTestId('route_driving')).toBeInTheDocument();
 
     // Nesting items
-    const overlay = screen.getByTestId("popup_overlay");
-    const wrapper = screen.getByTestId("popup_wrapper");
-    const close = screen.getByTestId("popup_close");
-    const container = screen.getByTestId("popup_container");
-    const origin = screen.getByTestId("popup_origin");
-    const destination = screen.getByTestId("popup_destination");
-    const show = screen.getAllByTestId("popup_show");
-    const walking = screen.getAllByTestId("popup_walking");
-    const biking = screen.getAllByTestId("popup_biking");
-    const driving = screen.getAllByTestId("popup_driving");
+    const overlay = screen.getByTestId("route_overlay");
+    const wrapper = screen.getByTestId("route_wrapper");
+    const close = screen.getByTestId("route_close");
+    const container = screen.getByTestId("route_container");
+    const origin = screen.getByTestId("route_origin");
+    const destination = screen.getByTestId("route_destination");
+    const show = screen.getByTestId("route_show");
+    const walking = screen.getByTestId("route_walking");
+    const biking = screen.getByTestId("route_biking");
+    const driving = screen.getByTestId("route_driving");
 
     // Confirm nesting
     expect(overlay).toContainElement(wrapper);
@@ -259,4 +260,45 @@ it('Route Popup', () => {
     expect(container).not.toContainElement(driving);
     expect(show).not.toContainElement(walking);
     expect(walking).not.toContainElement(show);
+});
+
+it('Schedule page renders without crashing', () => {
+    render(<BrowserRouter><Schedule /></BrowserRouter>);
+
+    // On page normally
+    expect(screen.getByTestId("scheduleHeader")).toBeInTheDocument();
+    expect(screen.getByTestId("scheduleHome")).toBeInTheDocument();
+    expect(screen.getByTestId("hiddenEventsContainer")).toBeInTheDocument();
+    expect(screen.getByTestId("hiddenEvents")).toBeInTheDocument();
+    expect(screen.getByTestId("scheduleContainer")).toBeInTheDocument();
+    expect(screen.getByTestId("eventPopup")).toBeInTheDocument();
+    expect(screen.getByTestId("sectionPopup")).toBeInTheDocument();
+    expect(screen.getByTestId("meetingPopup")).toBeInTheDocument();
+    expect(screen.getByTestId("locationPopup")).toBeInTheDocument();
+    expect(screen.getAllByTestId("gridContainer").length).toBe(200);
+
+    // Nesting items
+    const header = screen.getByTestId("scheduleHeader");
+    const home = screen.getByTestId("scheduleHome");
+    const hiddenContainer = screen.getByTestId("hiddenEventsContainer");
+    const hiddenEvents = screen.getByTestId("hiddenEvents");
+    const scheduleContainer = screen.getByTestId("scheduleContainer");
+    const eventPopup = screen.getByTestId("eventPopup");
+    const sectionPopup = screen.getByTestId("sectionPopup");
+    const meetingPopup = screen.getByTestId("meetingPopup");
+    const locationPopup = screen.getByTestId("locationPopup");
+    const gridContainers = screen.getAllByTestId("gridContainer");
+
+    // Confirm nesting
+    expect(header).toContainElement(home);
+    expect(header).toContainElement(hiddenContainer);
+    expect(header).not.toContainElement(scheduleContainer);
+    expect(hiddenContainer).toContainElement(hiddenEvents);
+    expect(eventPopup).toContainElement(sectionPopup);
+    expect(eventPopup).toContainElement(meetingPopup);
+    expect(eventPopup).toContainElement(locationPopup);
+    for (let i = 0; i < gridContainers.length; i++){
+        expect(scheduleContainer).toContainElement(gridContainers[i]);
+    }
+    
 });

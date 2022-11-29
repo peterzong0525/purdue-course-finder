@@ -46,6 +46,7 @@ function Map(props) {
     originSC: PropTypes.string,
     routeMethod: PropTypes.string,
     resetRoute: PropTypes.func,
+    routeVisible: PropTypes.bool,
     destinationSC: PropTypes.string,
     mapReload: PropTypes.bool,
     Buildings: PropTypes.array,
@@ -57,6 +58,9 @@ function Map(props) {
     shortCodes: PropTypes.array,
     setShortCodes: PropTypes.func,
     setBuildingName: PropTypes.func,
+    filter: PropTypes.bool,
+    filterString: PropTypes.string,
+    setFilterString: PropTypes.func,
   };
 
   const [map, setMap] = useState(null);
@@ -160,20 +164,17 @@ function Map(props) {
     }
   }, [props.shortCodes]);
 
-  // Setting directions (mock up)
+  // Setting directions
   //https://github.com/trulymittal/google-maps-directions-tutorial/blob/master/src/App.js
-  const [routeVisible, setRouteVisible] = useState(false);
-  function toggleRouteVisible() {
-    if (routeVisible) {
-      setDirections(null);
-      setRouteVisible(false);
-      props.resetRoute(null, null);
-      return;
-    }
-    setRouteVisible(true);
+  
+  function hideRouteVisible() {
+    setDirections(null);
+    props.resetRoute(null, null);
   }
 
   async function calculateRoute() {
+    if (!window.google)
+      return;
     const directionsService = new window.google.maps.DirectionsService();
 
     // Iterate through buildings to find starting and ending locations
@@ -257,7 +258,10 @@ function Map(props) {
                       fillColor:'#FFF72F', 
                       clickable: true,
                     }}
-                    onClick={() => {props.setBuildingName(building.shortCode)}}
+                    onClick={() => {
+                      props.setBuildingName(building.shortCode);
+                      props.setFilterString(building.shortCode);
+                    }}
                   />
                   { labelSize !== 0 &&
                     <Marker 
@@ -265,7 +269,10 @@ function Map(props) {
                       position={{lat:(building.shortCodeLocation.lat-0.00005-(labelSize===12?(labelSize)/100000:0)-(labelSize===9?(labelSize*4)/100000:0)), lng:building.shortCodeLocation.lng}} 
                       icon="../map_images/BlankPNG.png" 
                       clickable={true}
-                      onClick={() => {props.setBuildingName(building.shortCode)}}
+                      onClick={() => {
+                        props.setBuildingName(building.shortCode);
+                        props.setFilterString(building.shortCode);
+                      }}
                     />
                   }
                 </div>
@@ -278,7 +285,10 @@ function Map(props) {
                   <Polygon 
                     path={building.coordArray} 
                     options={{strokeColor: '#000000', fillColor:'#0000FF' }} 
-                    onClick={() => {props.setBuildingName(building.shortCode)}}
+                    onClick={() => {
+                      props.setBuildingName(building.shortCode);
+                      props.setFilterString(building.shortCode);
+                    }}
                   />
                 </div>
               ))
@@ -294,7 +304,10 @@ function Map(props) {
                       fillColor:'#FFF72F', 
                       clickable: true,
                     }}
-                    onClick={() => {props.setBuildingName(building.shortCode)}}
+                    onClick={() => {
+                      props.setBuildingName(building.shortCode);
+                      props.setFilterString(building.shortCode);
+                    }}
                   />
                   { labelSize !== 0 &&
                     <Marker 
@@ -302,23 +315,32 @@ function Map(props) {
                     position={{lat:(building.shortCodeLocation.lat-0.00005-(labelSize===12?(labelSize)/100000:0)-(labelSize===9?(labelSize*4)/100000:0)), lng:building.shortCodeLocation.lng}} 
                     icon="../map_images/BlankPNG.png" 
                     clickable={true}
-                    onClick={() => {props.setBuildingName(building.shortCode)}}
+                    onClick={() => {
+                      props.setBuildingName(building.shortCode);
+                      props.setFilterString(building.shortCode);
+                    }}
                   />
                   }
                 </div>
               ))
             } 
 
-            {/*routeVisible && */directions != undefined && <DirectionsRenderer directions={directions} />}
+            {directions != undefined && <DirectionsRenderer directions={directions} />}
 
             <div className={classes.homeFABdiv}>
 
-              { 
-                  <Fab variant="extended" className={classes.homeFAB} onClick={() => { toggleRouteVisible() }}>
-                    {routeVisible && "Hide Route"}
-                    <a style={{textDecoration: 'none', color:'#000000'}} href="#Map_Routing">
-                      {!routeVisible && "Route"}
-                    </a>
+              {
+                !props.routeVisible &&
+                <a style={{textDecoration: 'none', color:'#000000'}} href="#Map_Routing">
+                  <Fab variant="extended" className={classes.homeFAB}>
+                    Route
+                  </Fab>
+                </a>
+              }
+              {
+                props.routeVisible &&
+                  <Fab variant="extended" className={classes.homeFAB} onClick={() => { hideRouteVisible() }}>
+                    Hide Route
                   </Fab>
               }
 

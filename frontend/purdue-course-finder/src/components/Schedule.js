@@ -30,14 +30,13 @@ function Schedule() {
     useEffect(() => {
         let scrollElement = document.querySelector('.schedule-container');
         if (scrollElement)
-            scrollElement.scrollTop = 1200;
+            scrollElement.scrollTop = 1000;
     }, [eventsComplete])
 
 
 
     async function addAllScheduleEvents() {
         if (!scheduleType) {
-            // TODO Need Meeting data and item keys to be capitalized
             setHeaderText("Schedule of my Favorite Sections");
             const config = {
                 headers:{
@@ -47,7 +46,6 @@ function Schedule() {
             let favoriteSections = [];
             let url = `${serverURL}/favorites/sections`;
             await axios.get(url, config).then((response) => {
-                console.log(response.data)
                 for (let i = 0; i < response.data.length; i++) {
                     favoriteSections = favoriteSections.concat(addOneSection(response.data[i]));
                 }
@@ -58,19 +56,20 @@ function Schedule() {
             });
             setEventsComplete(true);
         } else if (scheduleType === 'Course') {
-            
             let url = `${serverURL}/sections/` + scheduleId;
-            await axios.get(url).then((response) =>{
-                axios.get(`${serverURL}/section/` + response.data[0].Id).then((response) => {
-                    setHeaderText("Course Schedule: " + response.data.course.subjectAbbreviation + " " + response.data.course.courseNumber);
-                }).catch((error) => {
-                    console.log(error);
-                });
+            await axios.get(url).then(async (response) =>{
+                let headerTxt = "";
                 let courseSections = [];
                 for (let i = 0; i < response.data.length; i++) {
-                    courseSections = courseSections.concat(addOneSection(response.data[i]));
+                    await axios.get(`${serverURL}/section/` + response.data[i].Id).then((sectionResponse) => {
+                        headerTxt = "Course Schedule: " + sectionResponse.data.course.subjectAbbreviation + " " + sectionResponse.data.course.courseNumber;
+                        courseSections = courseSections.concat(addOneSection(sectionResponse.data));
+                    }).catch((error) => {
+                        console.log(error);
+                    });
+                    
                 }
-    
+                setHeaderText(headerTxt);
                 allSections = allSections.concat(courseSections)
             }).catch((error) => {
                 console.log(error);
@@ -91,12 +90,16 @@ function Schedule() {
 
         } else if (scheduleType === 'Classroom') {
             let url = `${serverURL}/schedule/room/` + scheduleId;
-            await axios.get(url).then((response) => {
+            await axios.get(url).then(async (response) => {
                 let classroomSections = [];
                 if (response.data[0].Meetings[0].Room)
                     setHeaderText("Room Schedule: " + response.data[0].Meetings[0].Room.Building.ShortCode + " " + response.data[0].Meetings[0].Room.Number)
                 for (let i = 0; i < response.data.length; i++) {
-                    classroomSections = classroomSections.concat(addOneSection(response.data[i]));
+                    await axios.get(`${serverURL}/section/` + response.data[i].Id).then((sectionResponse) => {
+                       classroomSections = classroomSections.concat(addOneSection(sectionResponse.data));
+                    }).catch((error) => {
+                        console.log(error);
+                    });
                 }
 
                 allSections = allSections.concat(classroomSections);
@@ -123,16 +126,19 @@ function Schedule() {
             if (enterOrExit) {
                 for (let i = 0; i < elements.length; i++) {
                     elements[i].setAttribute('selected', '1');
+                    elements[i].children[0].children[1].style.opacity = '1';
                 }
             } else {
                 for (let i = 0; i < elements.length; i++) {
                     elements[i].removeAttribute('selected');
+                    elements[i].children[0].children[1].style.opacity = '0';
                 }
             }
 
         }
-        return sectionMeetings.map((meeting, index) => (
-            <div className={className} key={sectionData.Meetings[0].Id+index} style={{position: "absolute"}}
+
+        return sectionMeetings.map((meeting) => (
+            <div className={className} key={sectionData.Meetings[0].Id+hiddenKey++} style={{position: "absolute"}}
                 onMouseEnter={()=>{setHover(className, true)}}
                 onMouseLeave={()=>{setHover(className, false)}}>
                 {meeting}
@@ -166,8 +172,11 @@ function Schedule() {
 
         const baseTopLoc = 27.5;
         let startTimeDate = new Date(startTime);
-        let startHour = startTimeDate.getUTCHours() - 1;
-        let startMinute = startTimeDate.getUTCMinutes();
+        let startHour = startTimeDate.getHours();
+        let startMinute = startTimeDate.getMinutes();
+
+        let endTimeDate = new Date(startTimeDate);
+
         let posFromTop = baseTopLoc + (((startHour * 61) + startMinute) * 2);
 
         let durationObject = durationLength.substring(2);
@@ -180,8 +189,11 @@ function Schedule() {
         if (durationObject.indexOf('M') !== -1) {
             durationMinutes = durationObject.substring(0, durationObject.indexOf('M'));
         }
-        let minuteDisplay = (parseInt(durationMinutes) > 0) ? " " + durationMinutes + " Minutes": " ";
+
         durationMinutes = parseInt(durationMinutes) + parseInt(durationHours * 60);
+
+        endTimeDate.setMinutes(startMinute + durationMinutes)
+
         let height = durationMinutes * 2;
 
         // If no meetings for this section/course (some exammples are CS 182, CS 183)
@@ -189,31 +201,56 @@ function Schedule() {
             return;
         }
 
-        // Temporary random colors
         const map_section_type_to_color = {
-            "Clinic": "#321321",
-            "Clinic 1": "#321321",
-            "Clinic 2": "#321321",
-            "Clinic 3": "#321321",
-            "Clinic 4": "#321321",
-            "Distance Learning": "#FFFFFF",
-            "Experiential": "#BBBBBB",
-            "Individual Study": "#123123",
-            "Lab 1": "#321321",
+            "Clinic": "#E83E8B",
+            "Clinic 1": "#E83E8B",
+            "Clinic 2": "#E83E8B",
+            "Clinic 3": "#E83E8B",
+            "Clinic 4": "#E83E8B",
+            "Distance Learning": "#AAF979",
+            "Experiential": "#E9A013",
+            "Individual Study": "#DBDD25",
+            "Lab 1": "#4778E9",
             "Laboratory": "#63F3CA",
-            "Laboratory Preparation": "#321321",
+            "Laboratory Preparation": "#52E348",
             "Lecture": "#1CD2FF",
-            "Lecture 1": "#321321",
-            "Practice Study Observation": "#63F393",
-            "Presentation": "#321321",
-            "Presentation 1": "#321321",
-            "Recitation": "#A40101",
-            "Research": "#321321",
-            "Studio": "#321321",
-            "Studio 1": "#321321",
-            "Travel Time": "#321321",
-            "Travel Time 1": "#321321",
-            "Travel Time 2": "#321321"
+            "Lecture 1": "#1CD2FF",
+            "Practice Study Observation": "#F17938",
+            "Presentation": "#BDDD25",
+            "Presentation 1": "#BDDD25",
+            "Recitation": "#F9C879",
+            "Research": "#6B3BE4",
+            "Studio": "#933BE4",
+            "Studio 1": "#933BE4",
+            "Travel Time": "#BD3BE4",
+            "Travel Time 1": "#BD3BE4",
+            "Travel Time 2": "#BD3BE4"
+        }
+
+        const map_section_type_to_abbr = {
+            "Clinic": "CLN",
+            "Clinic 1": "CLN1",
+            "Clinic 2": "CLN2",
+            "Clinic 3": "CLN3",
+            "Clinic 4": "CLN4",
+            "Distance Learning": "DIS",
+            "Experiential": "EX",
+            "Individual Study": "IND",
+            "Lab 1": "LAB1",
+            "Laboratory": "LAB",
+            "Laboratory Preparation": "LBP",
+            "Lecture": "LEC",
+            "Lecture 1": "LEC1",
+            "Practice Study Observation": "PSO",
+            "Presentation": "PRS",
+            "Presentation 1": "PRS1",
+            "Recitation": "REC",
+            "Research": "RES",
+            "Studio": "SD",
+            "Studio 1": "SD1",
+            "Travel Time": "TT",
+            "Travel Time 1": "TT1",
+            "Travel Time 2": "TT2"
         }
 
         let styleString = {
@@ -221,15 +258,7 @@ function Schedule() {
             height: height + "px",
             backgroundColor: map_section_type_to_color[sectionType]
         }
-
-        let hourDisplay = " ";
-        if (parseInt(durationHours) > 1) {
-            hourDisplay =  " " + durationHours + " Hours"
-        } else if (parseInt(durationHours) == 1) {
-            hourDisplay =  " " + durationHours + " Hour"
-        }
- 
-        
+     
         const _handleShowEventOnSchedule = () => {
             for (let i = 0; i < hiddenEvents.length; i++) {
                 if (hiddenEvents[i].props["data-forhideid"] == meetingData.Id + "hidden") {
@@ -248,7 +277,8 @@ function Schedule() {
                 <div className="hidden-event" data-forhideid={meetingData.Id+"hidden"} 
                     onClick={(e)=> _handleShowEventOnSchedule(e)} key={hiddenKey++}
                     style={{backgroundColor: map_section_type_to_color[sectionType]}}>
-                    CRN: {sectionData.Crn}
+                    {sectionData.course.subjectAbbreviation} {sectionData.course.courseNumber} {" - "}
+                    {map_section_type_to_abbr[sectionType]} {sectionData.Crn}
                 </div>
             )
 
@@ -257,15 +287,55 @@ function Schedule() {
             setRefresh((refresh)=>!refresh);
         }
 
-        // Data displayed is not final
+        const _openPopup = async () => {
+            document.getElementById("classTitle").innerHTML = sectionData.course.subjectAbbreviation + 
+                " " + sectionData.course.courseNumber + " - " + sectionData.course.title;
+            document.getElementById("courseDesc").innerHTML = sectionData.course.description;
+
+            document.getElementById("sectionTypeCrn").innerHTML = "Section: " + sectionData.Type + " - " + sectionData.Crn;
+            document.getElementById("sectionCapacity").innerHTML = "<b>Capacity:</b> " + sectionData.Capacity;
+            document.getElementById("sectionEnrolled").innerHTML = "<b>Enrolled:</b> " + sectionData.Enrolled;
+            document.getElementById("sectionRemaining").innerHTML = "<b>Remaining space:</b> " + sectionData.RemainingSpace;
+            document.getElementById("sectionStartDate").innerHTML = "<b>Start Date:</b> " + (new Date(sectionData.StartDate)).toLocaleDateString('en-US', {month: "long", day: "numeric", year: "numeric"})
+            document.getElementById("sectionEndDate").innerHTML = "<b>End Date:</b> " + (new Date(sectionData.EndDate)).toLocaleDateString('en-US', {month: "long", day: "numeric", year: "numeric"})        
+        
+            document.getElementById("meetingDaysOfWeek").innerHTML = "<b>Meeting Days:</b> " + meetingData.DaysOfWeek;
+            document.getElementById("meetingTime").innerHTML = "<b>Meeting Time:</b> " + 
+                startTimeDate.toLocaleTimeString('en-US', {hour:'numeric', minute: '2-digit'}) +
+                " - " + endTimeDate.toLocaleTimeString('en-US', {hour:'numeric', minute: '2-digit', timeZoneName: 'short'});
+            let minuteDisplay = (parseInt(durationMinutes) > 0) ? " " + (durationMinutes - durationHours*60) + " Minutes": " ";
+            let hourDisplay = " ";
+            if (parseInt(durationHours) > 1) {
+                hourDisplay =  " " + durationHours + " Hours"
+            } else if (parseInt(durationHours) == 1) {
+                hourDisplay =  " " + durationHours + " Hour"
+            }
+            document.getElementById("meetingDuration").innerHTML = "<b>Duration:</b> " + hourDisplay + " " + minuteDisplay;
+            document.getElementById("meetingInstructors").innerHTML = "<b>Instructors:</b> " + meetingData.Instructors.map(({Name}) => Name);
+        
+            document.getElementById("locationBuilding").innerHTML = "<b>Building:</b> " + meetingData.Room.Building.Name + " (" + meetingData.Room.Building.ShortCode + ")";
+            document.getElementById("locationRoom").innerHTML = "<b>Room:</b> " + meetingData.Room.Number;
+        
+            if (document.getElementsByClassName("event-popup")[0].style.scale == "1") {
+                document.getElementsByClassName("event-popup")[0].style.scale = "0";
+                await new Promise(resolve => setTimeout(resolve, 200));
+            }
+            document.getElementsByClassName("event-popup")[0].style.scale = "1";
+        }
+
         return (
-            <div className="schedule-event" data-forhideid={meetingData.Id+"schedule"} data-show="true" onClick={()=> _handleHideEventOnSchedule()} style={styleString}>
-                CRN: {sectionData.Crn}
-                <br></br>
-                Meeting type: {meetingData.Type}
-                <br></br>
-                Length:{hourDisplay}{minuteDisplay}
-                <br></br>
+            <div className="schedule-event" onClick={()=>{_openPopup()}} data-forhideid={meetingData.Id+"schedule"} data-show="true" style={styleString}>
+                <div className="event-details">
+                    <div><u>{sectionData.course.subjectAbbreviation} {sectionData.course.courseNumber}</u></div>
+                    <div>{meetingData.Type} - {sectionData.Crn}</div>
+                    <div>
+                        {startTimeDate.toLocaleTimeString('en-US', {hour:'numeric', minute: '2-digit'})} - {endTimeDate.toLocaleTimeString('en-US', {hour:'numeric', minute: '2-digit'})}
+                    </div>
+                    <div>{meetingData.Room.Building.ShortCode} {meetingData.Room.Number}</div>
+                </div>
+                <div className="close" onClick={(e) => {e.stopPropagation(); _handleHideEventOnSchedule()}}>
+                    &times;
+                </div>
             </div>
         )
     }
@@ -298,7 +368,7 @@ function Schedule() {
         }
 
         return grids.map((grid, index) => (
-            <div className="grid-container" key={index}>
+            <div className="grid-container" key={index} data-testid="gridContainer">
                 {grid}
             </div>
         ))
@@ -310,29 +380,69 @@ function Schedule() {
   
     return (
         <div className="schedule-page-container">
-            <div className="header-container">
-                <a className="return-home" href="/">
+            <div className="header-container" data-testid="scheduleHeader">
+                <a className="return-home" href="/" data-testid="scheduleHome">
                     <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="Black" className="bi bi-arrow-left" viewBox="0 0 20 5">
                         <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
                     </svg>
                 </a>
                 <p className="header-txt">{headerText}</p>
-                <div className="hidden-events-container">
+                <div className="hidden-events-container" data-testid="hiddenEventsContainer">
                     {hiddenEvents.length > 0 ? "Hidden events:": ""}
-                    <div className='hidden-events'>
+                    <div className='hidden-events' data-testid="hiddenEvents">
                         {hiddenEvents}
 
                     </div>
                 </div>
             </div>
-            <div className="schedule-container">
+            <div className="schedule-container" data-testid="scheduleContainer">
                 {generateGrids()}
                 {allSections}
-                
-                
             </div>
+            <Popup/>
         </div>
     );
 }
 
 export default Schedule;
+
+
+
+function Popup() {
+    const _closePopup = () => {
+        document.getElementsByClassName("event-popup")[0].style.scale = "0";
+        
+    }
+    return (
+        <div className="event-popup">
+            <div className="popup-details" style={{width:"100%"}} data-testid="eventPopup">
+                <h1 id="classTitle" style={{textAlign: "center", marginTop: "-10px"}}></h1>
+                <hr></hr>
+                <p id="courseDesc"></p>
+                <h2 id="sectionTypeCrn" style={{marginBlockEnd: "5px"}}></h2>
+                <div className="popup-section-details" data-testid="sectionPopup">
+                    <p id="sectionCapacity"></p>
+                    <p id="sectionEnrolled"></p>
+                    <p id="sectionRemaining"></p>
+                    <p id="sectionStartDate"></p>
+                    <p id="sectionEndDate"></p>
+                </div>
+                <div className="popup-meeting-details" data-testid="meetingPopup">
+                    <p id="meetingDaysOfWeek"></p>
+                    <p id="meetingTime"></p>
+                    <p id="meetingDuration"></p>
+                </div>
+                <p id="meetingInstructors" style={{margin: "0 0 30px 0"}}></p>
+                <div className="popup-location-details" data-testid="locationPopup">
+                    <p id="locationBuilding"></p>
+                    <p id="locationRoom"></p>
+                </div>
+            </div>
+            <div className="popup-close" style={{marginLeft: "auto"}}>
+                <div className="nav-cancel is-active" id="nav-cancel">
+                    <svg style={{cursor: "pointer"}} onClick={()=>{_closePopup()}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg>
+                </div>
+            </div>
+        </div>
+    );
+}
