@@ -1,4 +1,7 @@
 import React from 'react';
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom'
+import { BrowserRouter } from 'react-router-dom';
 import Signup from '../components/signupPage';
 import Login from '../components/loginPage';
 import Home from '../components/Home';
@@ -8,9 +11,7 @@ import Delete from '../components/deleteAcct';
 import Tutorial from '../components/tutorialPage';
 import Favorites from '../components/Favorites';
 import Schedule from '../components/Schedule';
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom'
-import { BrowserRouter } from 'react-router-dom';
+import Suggestions from '../components/Suggestions';
 
 
 it('Signup page renders without crashing', () => {
@@ -301,4 +302,31 @@ it('Schedule page renders without crashing', () => {
         expect(scheduleContainer).toContainElement(gridContainers[i]);
     }
     
+});
+
+it('Suggestions page renders without crashing', () => {
+    render(<Suggestions />)
+    expect(screen.getByTestId('suggestions_container')).toBeInTheDocument();
+    expect(screen.getByTestId('suggestions_head')).toBeInTheDocument();
+    expect(screen.getByTestId('suggestions_form')).toBeInTheDocument();
+    expect(screen.getByTestId('suggestions_input')).toBeInTheDocument();
+    expect(screen.getByTestId('suggestions_button')).toBeInTheDocument();
+
+    // Nesting items
+    const suggestions_container = screen.getByTestId('suggestions_container');
+    const suggestions_head = screen.getByTestId('suggestions_head');
+    const suggestions_form = screen.getByTestId('suggestions_form');
+    const suggestions_input = screen.getByTestId('suggestions_input');
+    const suggestions_button = screen.getByTestId('suggestions_button');
+
+    // Cofirming nesting
+    expect(suggestions_container).toContainElement(suggestions_head);
+    expect(suggestions_container).toContainElement(suggestions_form);
+    expect(suggestions_container).toContainElement(suggestions_input);
+    expect(suggestions_container).toContainElement(suggestions_button);
+    expect(suggestions_head).not.toContainElement(suggestions_container);
+    expect(suggestions_head).not.toContainElement(suggestions_form);
+    expect(suggestions_head).not.toContainElement(suggestions_button);
+    expect(suggestions_form).toContainElement(suggestions_input);
+    expect(suggestions_form).toContainElement(suggestions_button);
 });

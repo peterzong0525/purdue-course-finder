@@ -653,3 +653,80 @@ Testing the Schedule Page:
         3. If the item is a Course, all meetings of the course are displayed.
            If the item is a Section, all meetings of only that section are displayed.
            If the item is a Classroom, all meetings that occur in that classroom are displayed.
+
+
+Testing Suggestions Page:
+    A. Identification and Classification
+        Test Case: 1901
+        System: /suggestions
+        Description: Suggestions Page when not logged in
+        Severity: 3
+
+        Sprint: 3
+        User Story: 4
+
+    B. Instructions
+        1. Ensure you are not logged into the application (Users should be signed out on initial load, if you are signed in click the "SIGN OUT" button on the homepage)
+        2. Navigate to the Suggestions Page (/suggestions, there should be a button in the lower right of the homepage with a lightbulb icon that links to this page)
+        3. Type notes in the textbox
+        4. Click Submit
+        5. Click the "Home" link on the "Suggestion Submitted" popup
+
+    C. Expected result
+        1. The Suggestions Page should appear with a textbox in the center that is marked "Type Here...". A description above this
+           textbox says "Submit notes about the app or suggestions for future features here."
+        2. When clicking "Submit", the Suggestion is sent to the backend of the app where it is saved, A green popup appears to 
+           show the user that the Suggestion was successfully submitted.
+        3. Clicking "Home" on the success popup should return the user to the application's homepage.
+
+    
+    A. Identification and Classification
+        Test Case: 1902
+        System: /suggestions
+        Description: Suggestions Page when logged in
+        Severity: 3
+
+        Sprint: 3
+        User Story: 4
+
+    B. Instructions
+        1. Ensure you are logged into the application (Users should be signed out on initial load, if you are signed out click the "LOG IN" button on the homepage to sign into an account)
+        2. Navigate to the Suggestions Page (/suggestions, there should be a button in the lower right of the homepage with a lightbulb icon that links to this page)
+        3. Type notes in the textbox
+        4. Click Submit
+        5. Click the "Home" link on the "Suggestion Submitted" popup
+
+    C. Expected result
+        1. The Suggestions Page should appear with a textbox in the center that is marked "Type Here...". A description above this
+           textbox says "Submit notes about the app or suggestions for future features here."
+        2. When clicking "Submit", the Suggestion is sent to the backend of the app where the suggestion and the email of the user
+           that sent the suggestion are saved, A green popup appears to show the user that their suggestion was successfully submitted.
+        3. Clicking "Home" on the success popup should return the user to the application's homepage.
+
+
+    A. Identification and Classification
+        Test Case: 1903
+        System: /suggestions
+        Description: Submit an empty suggestion
+        Severity: 3
+
+        Sprint: 3
+        User Story: 4
+
+    B. Instructions
+        1. Navigate to the Suggestions Page (/suggestions, there should be a button in the lower right of the homepage with a lightbulb icon that links to this page)
+        2. Leave the textbox empty
+        3. Click Submit
+        4. Type notes in the textbox
+        5. Click Submit
+        6. Click the "Home" link on the "Suggestion Submitted" popup
+
+    C. Expected result
+        1. The Suggestions Page should appear with a textbox in the center that is marked "Type Here...". A description above this
+           textbox says "Submit notes about the app or suggestions for future features here."
+        2. If the textbox is empty when "Submit" is clicked, a red error box will appear telling the user "Error: Can't submit 
+           empty suggestion."
+        3. When clicking "Submit" when the textbox is not empty, the Suggestion is sent to the backend of the app where it is saved, 
+           A green popup appears to show the user that the Suggestion was successfully submitted.
+        3. Clicking "Home" on the success popup should return the user to the application's homepage.
+
