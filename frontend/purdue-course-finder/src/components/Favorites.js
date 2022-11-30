@@ -43,19 +43,18 @@ function Favorites() {
 
 
         // Get and set favorite classrooms
-        /*
+        
         if (classrooms) {
-            let url = `${serverURL}/favorites/classrooms`;
+            let url = `${serverURL}/favorites/rooms`;
             axios.get(url, config).then((response) => {
-                let data = response.data
+                let data = response.data.sort((a, b) => a.Number - b.Number);
                 setClassrooms(displayObjects(data, 'Classroom'));
-                console.log(response);
 
             }).catch((error) => {
                 console.log(error);
             })
         }
-        */
+        
 
         // Get and set favorite courses
         if (courses) {
@@ -96,7 +95,7 @@ function Favorites() {
         } else if (type === 'Classroom') {
             return objects.map((classroom, index) => (
                 <div key={index}>
-                    {setItem("Room " + classroom.number, "Building: " + classroom.Building.Name, "Classroom", classroom.classroomId)}
+                    {setItem("Room " + classroom.Number, "Building: " + classroom.Building.Name, "Classroom", classroom.Id)}
                 </div>
             ))
         } else if (type == 'Course') {
@@ -153,7 +152,7 @@ function Favorites() {
 
             } else if (props.dataType === "Classroom") {
                 axios({
-                    url: `${serverURL}/favorites/classrooms/${props.dataID}`,
+                    url: `${serverURL}/favorites/rooms/${props.dataID}`,
                     headers:{
                         "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
                     },

@@ -111,13 +111,13 @@ function SideBar(props) {
         // console.log("Url: " + url);
         axios.get(url).then((response) => {
             let data = response.data;
-            //console.log(data);
+            
             if (!loggedIn) {
                 if (filter_option === 'Building') {
                     data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
     
                 } else if (filter_option === 'Classroom') {
-                    data.sort((a,b ) => a.Number.localeCompare(b.Number));
+                    data.sort((a, b) => a.Number - b.Number);
 
                 } else if (filter_option === 'Course') {
                     data.sort((a, b) => a.courseNumber - b.courseNumber);
@@ -168,7 +168,13 @@ function SideBar(props) {
                             }
 
                         } else if (filter_option === 'Classroom') {
-                            console.log("classrooms");
+                            if (favorites.some(e => e.Number === data[i].Number)) {
+                                data[i]['isFavorite'] = true;
+                                allFavorites.push(data[i]);
+                            } else {
+                                data[i]['isFavorite'] = false;
+                                allNonFavorites.push(data[i]);
+                            }
 
                         } else if (filter_option === 'Course') {
                             if (favorites.some(e => e.courseId === data[i].courseId)) {
@@ -195,7 +201,8 @@ function SideBar(props) {
                         allNonFavorites.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));
 
                     } else if (filter_option === 'Classroom') {
-                        console.log("todo");
+                        allFavorites.sort((a, b) => a.Number - b.Number);
+                        allNonFavorites.sort((a, b) => a.Number - b.Number);
 
                     } else if (filter_option === 'Course') {
                         allFavorites.sort((a, b) => a.courseNumber - b.courseNumber);
@@ -290,7 +297,6 @@ function SideBar(props) {
         }
 
         const _changeFavorite = (e) => {
-            console.log(e)
             let method = "";
             let url = "";
             if (e.category === "Building") {
@@ -303,12 +309,12 @@ function SideBar(props) {
                 
             }
             else if (e.category === "Classroom") {
-                // url = `${serverURL}/favorites/rooms/${e.id}`;
-                // if (e.isFavorite) {
-                //     method = "DELETE";
-                // } else {
-                //     method = "POST";
-                // }
+                url = `${serverURL}/favorites/rooms/${e.id}`;
+                if (e.isFavorite) {
+                    method = "DELETE";
+                } else {
+                    method = "POST";
+                }
             }
             else if (e.category === "Course") {
                 url = `${serverURL}/favorites/courses/${e.id}`;
@@ -552,16 +558,6 @@ function SideBar(props) {
                                                 defaultChecked="True"
                                                 data-testid="filter_building" />
                                         Building
-                                    </label>
-                                    <p>&nbsp;</p>
-
-                                    <label className="text">
-                                        <input type="radio"
-                                        id="classroom"
-                                        name="filter_option"
-                                        value="Classroom"
-                                        data-testid="filter_classroom" />
-                                        Classroom
                                     </label>
                                     <p>&nbsp;</p>
 

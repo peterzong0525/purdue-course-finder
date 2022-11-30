@@ -51,6 +51,14 @@ function Suggestions() {
 
     return (
         <div className="logSignContainer">
+            <div className='returnHomeContainer'>
+                <a className='returnHome' href='/'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="Black" className="bi bi-arrow-left" viewBox="0 0 20 6">
+                        <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
+                    </svg>
+                    Home
+                </a>
+            </div>
             <div className="form-container" data-testid="suggestions_container">
                 <Dialog open={success}>
                     <div className="signupSuccess">
@@ -75,7 +83,7 @@ function Suggestions() {
                 )}
                 <form className="form" data-testid="suggestions_form" onSubmit={handleSubmitClick}>
                     <div className="input-container" data-testid="suggestions_input">
-                        <label>‎</label> {/* Whitespace Character for Padding */}
+                        <br></br>
                         <textarea
                             className="suggestions_input"
                             placeholder="Type Here..."
