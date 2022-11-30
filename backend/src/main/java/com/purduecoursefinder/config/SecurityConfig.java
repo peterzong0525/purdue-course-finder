@@ -41,7 +41,8 @@ public class SecurityConfig {
                     "/buildings",
                     "/rooms/*",
                     "/schedule/**",
-                    "/statistics/*").permitAll()
+                    "/statistics/*",
+                    "/suggestion").permitAll()
             .and()
             .authorizeHttpRequests()
             .anyRequest().authenticated()

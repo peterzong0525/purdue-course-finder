@@ -20,7 +20,8 @@ public class SuggestionService {
     private String suggestionsDirectory;
     
     public void saveSuggestion(String suggestion) {
-        String user = ((PCFUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        
         File file = new File(suggestionsDirectory + "/suggestions.txt");
         file.getParentFile().mkdirs();
         
@@ -34,7 +35,11 @@ public class SuggestionService {
         }
         
         PrintWriter pw = new PrintWriter(fw);
-        pw.write("Suggestion by \"" + user + "\":\n" + suggestion + "\n");
+        if (!(user instanceof PCFUserDetails)) {
+            pw.write("Anonymous suggestion:\n" + suggestion + "\n");
+        } else {            
+            pw.write("Suggestion by \"" + ((PCFUserDetails) user).getUsername() + "\":\n" + suggestion + "\n");
+        }
         pw.close();
     }
 }
