@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { GoogleMap, useJsApiLoader, Marker, Polygon, DirectionsRenderer } from '@react-google-maps/api';
-import { Fab, makeStyles } from '@material-ui/core';
+import { Fab, makeStyles, SvgIcon } from '@material-ui/core';
 import axios from 'axios';
 import { serverURL } from '../index.js';
 
@@ -14,10 +14,15 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     padding: 20,
   },
-  homeFABdiv: {
+  upperFABdiv: {
     position: 'fixed',
     right: theme.spacing(0),
     top: theme.spacing(0),
+  },
+  lowerFABdiv: {
+    position: 'fixed',
+    right: theme.spacing(7),
+    bottom: theme.spacing(0),
   },
 }));
 
@@ -173,8 +178,10 @@ function Map(props) {
   }
 
   async function calculateRoute() {
-    if (!window.google)
+    if (!window.google) {
       return;
+    }
+    
     const directionsService = new window.google.maps.DirectionsService();
 
     // Iterate through buildings to find starting and ending locations
@@ -327,7 +334,7 @@ function Map(props) {
 
             {directions != undefined && <DirectionsRenderer directions={directions} />}
 
-            <div className={classes.homeFABdiv}>
+            <div className={classes.upperFABdiv}>
 
               {
                 !props.routeVisible &&
@@ -373,7 +380,19 @@ function Map(props) {
                   Sign Out
                 </Fab> 
               }
+            </div>
 
+            <div className={classes.lowerFABdiv}>
+              <Fab className={classes.homeFAB} href='/suggestions'>
+                <SvgIcon>
+                  <path d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z" />
+                </SvgIcon>
+              </Fab>
+              <Fab className={classes.homeFAB} href='/tutorial'>
+                <SvgIcon>
+                  <path d="M11.07 12.85c.77-1.39 2.25-2.21 3.11-3.44.91-1.29.4-3.7-2.18-3.7-1.69 0-2.52 1.28-2.87 2.34L6.54 6.96C7.25 4.83 9.18 3 11.99 3c2.35 0 3.96 1.07 4.78 2.41.7 1.15 1.11 3.3.03 4.9-1.2 1.77-2.35 2.31-2.97 3.45-.25.46-.35.76-.35 2.24h-2.89c-.01-.78-.13-2.05.48-3.15zM14 20c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z" />
+                </SvgIcon>
+              </Fab> 
             </div>
           </div>
         }

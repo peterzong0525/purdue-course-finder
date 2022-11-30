@@ -20,15 +20,16 @@ function Suggestions() {
         setError(null);
 
         //send suggestion to server
-        var url = `${serverURL}/suggestions`;
-        var config = {
-            headers:{
-              "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
-            }
-        };
+        var headers = null;
+        if (window.sessionStorage.getItem("userToken")) {
+            headers = {
+                "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
+            };
+        }
+        var url = `${serverURL}/suggestion`;
         axios({
             url: url,
-            config: config,
+            headers: headers,
             method: 'POST',
             data: {
                 "suggestion": suggestion.value,
