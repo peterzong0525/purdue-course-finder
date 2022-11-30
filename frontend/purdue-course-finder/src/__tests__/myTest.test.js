@@ -133,7 +133,6 @@ it('Sidebar Filter Pop-up renders without crashing', () => {
     expect(screen.getByTestId('filter_close')).toBeInTheDocument();
     expect(screen.getByTestId('filter_container')).toBeInTheDocument();
     expect(screen.getByTestId('filter_building')).toBeInTheDocument();
-    expect(screen.getByTestId('filter_classroom')).toBeInTheDocument();
     expect(screen.getByTestId('filter_course')).toBeInTheDocument();
     expect(screen.getByTestId('sort_asc')).toBeInTheDocument();
     expect(screen.getByTestId('sort_des')).toBeInTheDocument();
@@ -143,7 +142,6 @@ it('Sidebar Filter Pop-up renders without crashing', () => {
     const filter_close = screen.getByTestId('filter_close');
     const filter_container = screen.getByTestId('filter_container');
     const filter_building = screen.getByTestId('filter_building');
-    const filter_classroom = screen.getByTestId('filter_classroom');
     const filter_course = screen.getByTestId('filter_course');
     const sort_container = screen.getByTestId('sort_container');
     const sort_asc = screen.getByTestId('sort_asc');
@@ -155,7 +153,6 @@ it('Sidebar Filter Pop-up renders without crashing', () => {
     expect(filter_close).not.toContainElement(filter_container);
     expect(filter_container).not.toContainElement(filter_close);
     expect(filter_container).toContainElement(filter_building);
-    expect(filter_container).toContainElement(filter_classroom);
     expect(filter_container).toContainElement(filter_course);
     expect(filter_container).toContainElement(sort_container);
     expect(sort_container).toContainElement(sort_asc);
@@ -271,10 +268,6 @@ it('Schedule page renders without crashing', () => {
     expect(screen.getByTestId("hiddenEventsContainer")).toBeInTheDocument();
     expect(screen.getByTestId("hiddenEvents")).toBeInTheDocument();
     expect(screen.getByTestId("scheduleContainer")).toBeInTheDocument();
-    expect(screen.getByTestId("eventPopup")).toBeInTheDocument();
-    expect(screen.getByTestId("sectionPopup")).toBeInTheDocument();
-    expect(screen.getByTestId("meetingPopup")).toBeInTheDocument();
-    expect(screen.getByTestId("locationPopup")).toBeInTheDocument();
     expect(screen.getAllByTestId("gridContainer").length).toBe(200);
 
     // Nesting items
@@ -283,10 +276,7 @@ it('Schedule page renders without crashing', () => {
     const hiddenContainer = screen.getByTestId("hiddenEventsContainer");
     const hiddenEvents = screen.getByTestId("hiddenEvents");
     const scheduleContainer = screen.getByTestId("scheduleContainer");
-    const eventPopup = screen.getByTestId("eventPopup");
-    const sectionPopup = screen.getByTestId("sectionPopup");
-    const meetingPopup = screen.getByTestId("meetingPopup");
-    const locationPopup = screen.getByTestId("locationPopup");
+
     const gridContainers = screen.getAllByTestId("gridContainer");
 
     // Confirm nesting
@@ -294,11 +284,29 @@ it('Schedule page renders without crashing', () => {
     expect(header).toContainElement(hiddenContainer);
     expect(header).not.toContainElement(scheduleContainer);
     expect(hiddenContainer).toContainElement(hiddenEvents);
-    expect(eventPopup).toContainElement(sectionPopup);
-    expect(eventPopup).toContainElement(meetingPopup);
-    expect(eventPopup).toContainElement(locationPopup);
+
     for (let i = 0; i < gridContainers.length; i++){
         expect(scheduleContainer).toContainElement(gridContainers[i]);
     }
-    
+});
+
+it('Schedule popup renders without crashing', () => {
+    render(<BrowserRouter><Schedule /></BrowserRouter>);
+
+    // On page normally
+    expect(screen.getByTestId("eventPopup")).toBeInTheDocument();
+    expect(screen.getByTestId("sectionPopup")).toBeInTheDocument();
+    expect(screen.getByTestId("meetingPopup")).toBeInTheDocument();
+    expect(screen.getByTestId("locationPopup")).toBeInTheDocument();
+
+    // Nesting items
+    const eventPopup = screen.getByTestId("eventPopup");
+    const sectionPopup = screen.getByTestId("sectionPopup");
+    const meetingPopup = screen.getByTestId("meetingPopup");
+    const locationPopup = screen.getByTestId("locationPopup");
+
+    // Confirm nesting
+    expect(eventPopup).toContainElement(sectionPopup);
+    expect(eventPopup).toContainElement(meetingPopup);
+    expect(eventPopup).toContainElement(locationPopup);
 });

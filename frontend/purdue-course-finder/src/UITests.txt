@@ -635,7 +635,7 @@ Testing the Schedule Page:
 
     A. Identification and Classification
         Test Case: 1802
-        System: /Schedule?sch_type=<Course/Section/Classroom>&&sch_id=<id>
+        System: /Schedule?sch_type=<Course/Section/Classroom>&sch_id=<id>
         Description: Course/Section/Classroom schedule page showing section meetings
         Severity: 2
 
