@@ -484,7 +484,7 @@ function SideBar(props) {
                     setItem(classroom.Building.ShortCode + " " + classroom.Number, 
                         classroom.Building.Name, 
                         //classroom.Meetings.length + " meetings per week",     //page will crash as classroom.Meetings does not exist
-                        "0 meetings per week", // Need to update this eventually
+                        "",
                         "",
                         "Classroom", 
                         classroom.Id,
