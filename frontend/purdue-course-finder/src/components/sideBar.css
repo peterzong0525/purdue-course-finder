@@ -34,6 +34,8 @@
 
 .sideBarContainer .listItemInfo { 
     display: block;
+    width: 100%;
+    word-wrap: break-word;
 }
 
 .sideBarContainer .favoriteStar {

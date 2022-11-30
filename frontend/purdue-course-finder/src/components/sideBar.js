@@ -89,7 +89,12 @@ function SideBar(props) {
                 return;
             }
 
-            url = `${serverURL}/courses/` + searchString;
+            if (searchString.split(" ").length > 1) {
+                url = `${serverURL}/courses/` + searchString.split(" ")[0];
+            } else {
+                url = `${serverURL}/courses/` + searchString;
+            }
+            
             getFavUrl = `${serverURL}/favorites/courses`;
         
         } else if (filter_option === 'Section') {
@@ -111,7 +116,28 @@ function SideBar(props) {
         // console.log("Url: " + url);
         axios.get(url).then((response) => {
             let data = response.data;
-            
+
+            if (filter_option === 'Course') {
+                let splitSearch = searchString.split(" ");
+                if (splitSearch.length > 1) {
+                    let dataSubset = [];
+                    if (splitSearch[1].length > 1) {
+                        for (let i = 0; i < data.length; i++) {
+                            if (data[i].courseNumber.includes(splitSearch[1]))
+                                dataSubset.push(data[i]);
+                        }
+                    } else if (splitSearch[1].length == 1) {
+                        for (let i = 0; i < data.length; i++) {
+                            if (data[i].courseNumber.substring(0,1) === splitSearch[1])
+                                dataSubset.push(data[i]);
+                        }
+                    } else {
+                        dataSubset = data;
+                    }
+                    data = dataSubset;
+                }
+            }
+
             if (!loggedIn) {
                 if (filter_option === 'Building') {
                     data.sort((a, b) => a.ShortCode.localeCompare(b.ShortCode));

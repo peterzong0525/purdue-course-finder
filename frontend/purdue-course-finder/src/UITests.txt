@@ -127,13 +127,52 @@ Testing Sidebar Filtering:
     C. Expected result
         1. Confirm the sidebar appears on the left side of the page. By default, the current filter
             is 'Building' so buildings will appear in the sidebar.
-        2. Confirm a popup appears with options 'Building', 'Classroom', and 'Course'. Also confirm
-            sort by 'Ascending' and 'Descending' options appear. (Note: Classrooms are going to be
-            implemented in the next sprint and do not work currently.)
+        2. Confirm a popup appears with options 'Building' and 'Course'. Also confirm
+            sort by 'Ascending' and 'Descending' options appear.
         3. Confirm the popup disappears.
         4. Confirm only the correct buildings display.
         5. Confirm courses for input department appear.
         6. (See Test Case 401 for clicking courses and showing sections)
+
+    
+    A. Identification and Classification
+        Test Case: 502
+        System: /       (home page)
+        Description: Filtering sidebar for specific course number
+        Severity: 3
+
+        Sprint: 3
+        User Story: 5
+
+    B. Instructions
+        1. Click the "Filter" button and change the filter to "Course"
+        2. Exit the popup and Type "CS 307" in the search bar and hit <Enter>
+        3. Clear the search bar and type "CS 30700" and hit <Enter>
+
+    C. Expected result
+        1. The Filter popup appears and the "Course" radio button is selected after clicking on it
+        2. The sidebar displays only one course, the one belonging to CS 30700 - Software Engineering I
+        3. The sidebar should still only display one course, the one belonging to CS 30700 - Software Engineering I
+
+
+    A. Identification and Classification
+        Test Case: 503
+        System: /       (home page)
+        Description: Filtering sidebar for specific course level
+        Severity: 3
+
+        Sprint: 3
+        User Story: 5
+
+    B. Instructions
+        1. Click the "Filter" button and change the filter to "Course"
+        2. Exit the popup and Type "CS 3" in the search bar and hit <Enter>
+        3. Clear the search bar and type "EAPS 1" and hit <Enter>
+
+    C. Expected result
+        1. The Filter popup appears and the "Course" radio button is selected after clicking on it
+        2. All 300 level CS courses should be displayed in the sidebar. The course numbers should go from 30700 to 39700
+        3. All 100 level EAPS courses should be displayed in the sidebar. The course numbers should go from 10000 to 19100
 
 
 
