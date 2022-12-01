@@ -25,7 +25,7 @@ function Stats () {
                 statStack.push(response.data);
 
                 // For loading bar
-                let myPercent = i / 0.83;
+                let myPercent = i / 83 * 100;   // divide by total number of buildings, convert to percent
                 document.getElementById("spanbar").style.width = myPercent.toString() + "%";
             });
         }
@@ -35,43 +35,36 @@ function Stats () {
         setBuildingStats(statStack);
     }, []);
 
-//<span style={{width: {loadedPercent}}}></span>
     return (
         <div className='statsContainer'>
             {!loaded && "Loading will take a couple of seconds"}
             {!loaded && (
                     <div className="meter">
-                        <span id="spanbar" style={{width: "25%"}}></span>
+                        <span id="spanbar" style={{width: "0%"}}></span>
                     </div>
             )}
 
-            {loaded && (
-                <div className='listOfItems'>
-                    {buildingStats.map((building, index) => (
-                        <div className="listItemContainer" key={index}>
-                            <div className="displayItemContainer">
-                                <div className = "listItemInfo" >
-                                    <h2 className = "ItemHead" style={{margin: "0"}}>
-                                        {building.building.Name + " (" + building.building.ShortCode + ")"}
-                                    </h2>
-                                    <p className = "firstRow" style={{margin: "5px 0 0 0"}}>
-                                        {"Rooms: " + building.rooms}
-                                    </p>
-                                    <p className = "secondRow" style={{margin: "5px 0 0 0"}}>
-                                        {"Courses: " + building.courses}
-                                    </p>
-                                    <p className = "thirdRow" style={{margin: "5px 0 0 0"}}>
-                                        {"Sections: " + building.sections}
-                                    </p>
-                                    <p className = "fourthRow" style={{margin: "5px 0 0 0"}}>
-                                        {"Meetings: " + building.meetings}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-                )}
+            <table className='topPadding'>
+                <tr className="navbar">
+                    <th className='tableHeader' style={{paddingLeft: "400px"}}>Building</th>
+                    <th className='tableHeader' style={{paddingLeft: "440px"}}>Shortcode</th>
+                    <th className='tableHeader' style={{paddingLeft: "30px"}}>Rooms</th>
+                    <th className='tableHeader' style={{paddingLeft: "10px"}}>Courses</th>
+                    <th className='tableHeader' style={{paddingLeft: "20px"}}>Sections</th>
+                    <th className='tableHeader' style={{paddingLeft: "10px"}}>Meetings</th>
+                </tr>
+                {loaded && buildingStats.map((building, index) => (
+                            <tr key={index}>
+                                <td className='tableData'>{building.building.Name}</td>
+                                <td className='tableData'>{building.building.ShortCode}</td>
+                                <td className='tableData'>{building.rooms}</td>
+                                <td className='tableData'>{building.courses}</td>
+                                <td className='tableData'>{building.sections}</td>
+                                <td className='tableData'>{building.meetings}</td>
+                            </tr>
+                        ))
+                    }
+            </table>
         </div>
     );
 }
