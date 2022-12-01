@@ -44,14 +44,14 @@ function Stats () {
                     </div>
             )}
 
-            <table className='topPadding'>
-                <tr className="navbar">
-                    <th className='tableHeader' style={{paddingLeft: "400px"}}>Building</th>
-                    <th className='tableHeader' style={{paddingLeft: "440px"}}>Shortcode</th>
-                    <th className='tableHeader' style={{paddingLeft: "30px"}}>Rooms</th>
-                    <th className='tableHeader' style={{paddingLeft: "10px"}}>Courses</th>
-                    <th className='tableHeader' style={{paddingLeft: "20px"}}>Sections</th>
-                    <th className='tableHeader' style={{paddingLeft: "10px"}}>Meetings</th>
+            <table>
+                <tr>
+                    <th className='tableHeader'>Building</th>
+                    <th className='tableHeader'>Shortcode</th>
+                    <th className='tableHeader'>Rooms</th>
+                    <th className='tableHeader'>Courses</th>
+                    <th className='tableHeader'>Sections</th>
+                    <th className='tableHeader'>Meetings</th>
                 </tr>
                 {loaded && buildingStats.map((building, index) => (
                             <tr key={index}>
