@@ -34,7 +34,7 @@
 
 .sideBarContainer .listItemInfo { 
     display: block;
-    width: 100%;
+    width: 85%;
     word-wrap: break-word;
 }
 
@@ -114,6 +114,10 @@
     margin-bottom: 10px;
 }
 
+.sideBarContainer #favoritesOnly {
+    transform: translate(0, 1px) scale(1.2);
+}
+
 /* Classes for popup window when pressing settings button */
 .deleteparent .filterAdvanced .button {
 	font-size: 1em;
@@ -137,6 +141,15 @@
 	visibility: hidden;
 	opacity: 0;
     z-index: 1;
+}
+
+.sideBarContainer .popup_overlay #building {
+    transform: translate(0,-2px) scale(1.25);
+}
+
+.sideBarContainer .popup_overlay #course {
+    transform: translate(-15px,-2px) scale(1.25);
+    margin-right: -12px;
 }
 
 .sideBarContainer .popup_overlay:target {
