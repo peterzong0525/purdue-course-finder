@@ -63,21 +63,26 @@
   border-bottom-left-radius: 20px;
   overflow: hidden;
 }
-
-.statsContainer .loaderContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.statsContainer .topPadding {
+    margin-top: 50px;
 }
 
-.statsContainer .loader {
-    z-index: 1;
-    border: 5px solid #f3f3f3;
-    animation: spin 1s linear infinite;
-    border-top: 5px solid #555;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
+.statsContainer .navbar {
+    overflow: hidden;
+    background-color: #333;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+}
+
+.statsContainer .tableHeader {
+    font-size: 24px;
+}
+
+.statsContainer .tableData {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
 }
 
 .statsContainer .listOfItems {

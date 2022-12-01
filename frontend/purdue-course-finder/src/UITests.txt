@@ -146,7 +146,7 @@ Testing Sidebar Filtering:
 
     B. Instructions
         1. Click the "Filter" button and change the filter to "Course"
-        2. Exit the popup and Type "CS 307" in the search bar and hit <Enter>
+        2. Exit the popup and type "CS 307" in the search bar and hit <Enter>
         3. Clear the search bar and type "CS 30700" and hit <Enter>
 
     C. Expected result
@@ -166,13 +166,64 @@ Testing Sidebar Filtering:
 
     B. Instructions
         1. Click the "Filter" button and change the filter to "Course"
-        2. Exit the popup and Type "CS 3" in the search bar and hit <Enter>
+        2. Exit the popup and type "CS 3" in the search bar and hit <Enter>
         3. Clear the search bar and type "EAPS 1" and hit <Enter>
+        4. Clear the search bar and type "EAPS" and hit <Enter>
 
     C. Expected result
         1. The Filter popup appears and the "Course" radio button is selected after clicking on it
         2. All 300 level CS courses should be displayed in the sidebar. The course numbers should go from 30700 to 39700
         3. All 100 level EAPS courses should be displayed in the sidebar. The course numbers should go from 10000 to 19100
+        4. All EAPS courses, regardless of level, should be displayed in the sidebar
+
+
+    A. Identification and Classification
+        Test Case: 504
+        System: /       (home page)
+        Description: Filtering sidebar for only favorite courses display in sidebar
+        Severity: 3
+
+        Sprint: 3
+        User Story: 8
+
+    B. Instructions
+        1. Click the "Filter" button and change the filter to "Course"
+        2. Exit the popup and type "CS 3" in the search bar and hit <Enter>
+        3. Make sure none of the stars are currently checked, then hit the star for CS 30700
+        4. Click the "Favorites Only" checkbox under the search bar
+        5. Clear the search bar and type CS, make sure the "Favorites Only" checkbox is checked, then hit <Enter>
+        6. Uncheck the star for CS 30700, then uncheck and recheck the "Favorites Only" checkbox
+
+    C. Expected result
+        1. The Filter popup appears and the "Course" radio button is selected after clicking on it
+        2. All 300 level CS courses should be displayed in the sidebar. The course numbers should go from 30700 to 39700
+        3. The star for CS 30700 should now be checked (it should be the only start checked)
+        4. Once the sidebar refreshes, the only course in the sidebar should be CS 30700
+        5. The search bar should be "CS" and the only course in the sidebar should be CS 30700
+        6. The sidebar should display no courses and display the text "No Results"
+
+
+    A. Identification and Classification
+        Test Case: 505
+        System: /       (home page)
+        Description: Filtering sidebar for only favorite courses link to map
+        Severity: 3
+
+        Sprint: 3
+        User Story: 8
+    
+    B. Instructions
+        1. Click the "Filter" button and change the filter to "Course"
+        2. Exit the popup and type "CS 180" in the search bar and hit <Enter>
+        3. Click the CS 18000 course and observe the highlighted buildings on the map
+        4. Click the star for CS 18000 - Laboratory - 10706, then check the "Favorites Only" checkbox
+
+    C. Expected result
+        1. The Filter popup appears and the "Course" radio button is selected after clicking on it
+        2. CS 18000 should be the only course displayed in the sidebar
+        3. 4 buildings should be highlighted: LWSN, HAAS, CL50, and WTHR
+        4. Only 1 building should be highlighted: LWSN
+       
 
 
 

@@ -11,6 +11,10 @@ import homeImg from '../tutorial_images/home page.PNG'
 import homeBuildingImg from '../tutorial_images/home page building selection.PNG'
 import homeCourseImg from '../tutorial_images/home page course selection.PNG'
 import courseScheduleImg from '../tutorial_images/course schedule page.PNG'
+import filteringImg from '../tutorial_images/filtering.png'
+import statisticsImg from '../tutorial_images/statistics.png'
+import suggestionsImg from '../tutorial_images/suggestions.png'
+import routingImg from '../tutorial_images/routing.png'
 
 function Tutorial() {
     return(
@@ -59,6 +63,18 @@ function Tutorial() {
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <a href='#Filtering'>Filtering</a>
+                        </li>
+                        <li>
+                            <a href='#Statistics'>Statistics</a>
+                        </li>
+                        <li>
+                            <a href='#Suggestions'>Suggestions</a>
+                        </li>
+                        <li>
+                            <a href='#Routing'>Routing</a>
+                        </li>
                     </ol>
                 </div>
                 <div id='About'>
@@ -70,7 +86,7 @@ function Tutorial() {
                         classroom locations. Our product will eliminate that issue by providing a map 
                         of Purdue which outlines buildings, classrooms, the courses in those classrooms, 
                         the time slots of those courses, and more. This map will also be searchable 
-                        using the names or acronyms of buildings, or by using course numbers or titles. 
+                        using the names or acronyms of buildings, or by using course subjects. 
                         This will help students to find exactly where their classes are, find more 
                         information about the classrooms and buildings, and see the locations of other 
                         sections for their courses.
@@ -190,6 +206,49 @@ function Tutorial() {
                         </p>
                         <br></br><br></br><br></br>
                     </div>    
+                </div>
+                <div id='Filtering'>
+                    <hr></hr>
+                    <h2>Filtering</h2>
+                    <img className="unimplemented" src={filteringImg} alt='No image yet'></img>
+                    <p>
+                        In order to find a particular building or course you will want to use the Filter button on the sidebar.
+                        Click this button and select the item you wish to search for and press the &ldquo;x&rdquo; button in the top right
+                        corner. Now you can search in the search box for that type of item.
+                    </p>
+                </div>
+                <div id='Statistics'>
+                    <hr></hr>
+                    <h2>Statistics</h2>
+                    <img className="unimplemented" src={statisticsImg} alt='No image yet'></img>
+                    <p>
+                        The statistics page is useful for analyzing which buildings get the most use. After navigating to the
+                        statistics page through the floating button on the home page a loading bar will appear until all of the
+                        information has been retrieved from the backend. After this you will see a list with every building and
+                        the various statistics relating to each building.
+                    </p>
+                </div>
+                <div id='Suggestions'>
+                    <hr></hr>
+                    <h2>Suggestions</h2>
+                    <img className="unimplemented" src={suggestionsImg} alt='No image yet'></img>
+                    <p>
+                        To leave feedback or offer suggestions for new features you can navigate to the suggestion
+                        floating button on the home screen in the bottom right corner of the screen. This will take
+                        you to a page where you can write your feedback into a textbox and submit it to be read
+                        later by developers.
+                    </p>
+                </div>
+                <div id='Routing'>
+                    <hr></hr>
+                    <h2>Routing</h2>
+                    <img className="unimplemented" src={routingImg} alt='No image yet'></img>
+                    <p>
+                        To find the optimal route between two buildings, click the route button towards the top of the map.
+                        It will open a menu, in this menu put the building short codes for where you are beginning and ending
+                        and also select your means of transportation at the bottom. Then select show route and it will show the
+                        route on the map.
+                    </p>
                 </div>
             </div>
         </div>

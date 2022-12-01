@@ -32,6 +32,7 @@ function SideBar(props) {
     const [objects, setObjects] = useState([]);
     const [sortOption, setSortOption] = useState("asc");
     const [loading, setLoading] = useState(false);
+    const [favoritesOnly, setFavoritesOnly] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -40,6 +41,10 @@ function SideBar(props) {
         }
         handleChange({key: 'Enter'});
     }, [loggedIn]);
+
+    useEffect(() => {
+        populateSidebar(filter)
+    }, [favoritesOnly])
 
     //modified version of _changeFilter function from the ListItem component defined below
     const changeFilter = (e) => {
@@ -114,7 +119,7 @@ function SideBar(props) {
 
         // Query Backend        
         // console.log("Url: " + url);
-        axios.get(url).then((response) => {
+        axios.get(url).then(async (response) => {
             let data = response.data;
 
             if (filter_option === 'Course') {
@@ -177,7 +182,7 @@ function SideBar(props) {
                         "Authorization": `Bearer ${window.sessionStorage.getItem("userToken")}`
                     }
                 };
-                axios.get(getFavUrl, config).then((response) => {
+                await axios.get(getFavUrl, config).then((response) => {
                     let favorites = response.data;
                     let allFavorites = [];
                     let allNonFavorites = [];
@@ -246,6 +251,9 @@ function SideBar(props) {
 
                     data = allFavorites.concat(allNonFavorites);
 
+                    if (favoritesOnly) {
+                        data = allFavorites;
+                    }                    
 
                     //console.log(data)
                     setObjects(data);
@@ -533,6 +541,15 @@ function SideBar(props) {
         });
     }, []);
 
+    const _handleFavoritesOnly = () => {
+        setLoading(true);
+        if (document.getElementById("favoritesOnly").checked) {
+            setFavoritesOnly(true);
+        } else {
+            setFavoritesOnly(false);
+        }
+    };
+
 
     return(
         <div className = "sideBarContainer" data-testid="sidebarContainer">
@@ -551,7 +568,12 @@ function SideBar(props) {
                     <a href="#SideBarFilter" className="button">
                         <button type='submit'>Filter</button>
                     </a>
-                    <button style={{marginLeft: 'auto'}} type='submit'>Advanced Search</button>
+                    {loggedIn && (
+                        <div style={{marginLeft: 'auto'}}>
+                            <input type="checkbox" id="favoritesOnly" name="favoritesOnly" onChange={()=>_handleFavoritesOnly()}/>
+                            <label htmlFor="favoritesOnly">Favorites Only</label>
+                        </div>
+                    )}
                 </div>
                 <hr></hr>
             </div>
