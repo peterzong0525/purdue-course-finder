@@ -39,13 +39,13 @@ function Stats () {
         <div className='statsContainer'>
             {!loaded && "Loading will take a couple of seconds"}
             {!loaded && (
-                    <div className="meter">
-                        <span id="spanbar" style={{width: "0%"}}></span>
+                    <div className="meter" test-id='stats_meter'>
+                        <span test-id='stats_meter_bar' id="spanbar" style={{width: "0%"}}></span>
                     </div>
             )}
 
-            <table>
-                <tr className='navbar'>
+            <table data-id='stats_table'>
+                <tr className='navbar' data-id='stats_table_header'>
                     <th className='tableHeader'>Building</th>
                     <th className='tableHeader'>Shortcode</th>
                     <th className='tableHeader'>Rooms</th>

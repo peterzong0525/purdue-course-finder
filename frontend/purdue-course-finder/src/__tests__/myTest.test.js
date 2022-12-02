@@ -12,6 +12,7 @@ import Tutorial from '../components/tutorialPage';
 import Favorites from '../components/Favorites';
 import Schedule from '../components/Schedule';
 import Suggestions from '../components/Suggestions';
+import Stats from '../components/Stats';
 
 
 it('Signup page renders without crashing', () => {
@@ -337,4 +338,31 @@ it('Suggestions page renders without crashing', () => {
     expect(suggestions_head).not.toContainElement(suggestions_button);
     expect(suggestions_form).toContainElement(suggestions_input);
     expect(suggestions_form).toContainElement(suggestions_button);
+});
+
+it('Stats page renders without crashing', () => {
+    render(<Stats />)
+    expect(screen.getByTestId('statsContainer')).toBeInTheDocument();
+    expect(screen.getByTestId('stats_meter')).toBeInTheDocument();
+    expect(screen.getByTestId('stats_meter_bar')).toBeInTheDocument();
+    expect(screen.getByTestId('stats_table')).toBeInTheDocument();
+    expect(screen.getByTestId('stats_table_header')).toBeInTheDocument();
+
+    // Nesting items
+    const stats_container = screen.getByTestId('statsContainer');
+    const stats_meter = screen.getByTestId('stats_meter');
+    const stats_meterBar = screen.getByTestId('stats_meter_bar');
+    const stats_table = screen.getByTestId('stats_table');
+    const stats_tableHeader = screen.getByTestId('stats_table_header');
+
+    // Cofirming nesting
+    expect(stats_container).toContainElement(stats_meter);
+    expect(stats_container).toContainElement(stats_meterBar);
+    expect(stats_container).toContainElement(stats_table);
+    expect(stats_container).toContainElement(stats_tableHeader);
+    expect(stats_meter).toContainElement(stats_meterBar);
+    expect(stats_meterBar).not.toContainElement(stats_meter);
+    expect(stats_table).toContainElement(stats_tableHeader);
+    expect(stats_tableHeader).not.toContainElement(stats_table);
+    expect(stats_meter).not.toContainElement(stats_table);
 });
