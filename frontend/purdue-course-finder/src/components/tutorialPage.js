@@ -156,7 +156,7 @@ function Tutorial() {
                     <p>
                         To favorite items when logged in, click on the Star next to the item of interest in the sidebar, which will turn yellow once favorited.
                         The stars will not appear if you are not logged in. You can favorite courses, buildings, rooms, and sections, and
-                        you can manage or view all your favorites on the <a href='./'>favorites</a> page.
+                        you can manage or view all your favorites on the <a href='./favorites'>favorites</a> page.
                     </p>
                 </div>
                 <div id='Personal_Shedules'>
@@ -164,10 +164,10 @@ function Tutorial() {
                     <h2>Personal Schedules</h2>
                     <img className="unimplemented" src={courseScheduleImg} alt=''></img>
                     <p>
-                        If you are logged in, you can create a personal schedule displaying a weekly schedule of your courses on the <a href='./'>My Schedule</a> page.
-                        To add a new course, Something will happen, More details to come... To view more details for a course
-                        on the schedule, hover over or click the course on the calendar. In the event that two courses overlap,
-                        the calendar will split the courses evenly in the space available. Exact implementation and display will be determined later.
+                        If you are logged in, you can create a personal schedule displaying a weekly schedule of your courses by selecting favorites on the home page.
+                        Use the <a href='./schedule'>schedule</a> page to view your personal schedule.
+                        To view more details for a course on the schedule, click the course on the calendar. In the event that two courses overlap,
+                        you can use the x button to hide an overlapping course.
                     </p>
                 </div>
                 <div id='Navigation'>
@@ -187,7 +187,7 @@ function Tutorial() {
                         </div>
                         <p>
                             To move around the map, simply drag along the map. All buildings currently registered in the system will be clickable on the map.
-                            When you click on a building on a map, relevant information will appear in the sidebar (and maybe a popup (TBD)).
+                            When you click on a building on a map, relevant information will appear in the sidebar.
                         </p>
                         <h3 id='Sidebar'>Sidebar</h3>
                         {/* eslint-disable-next-line */}
@@ -195,14 +195,7 @@ function Tutorial() {
                         <p>
                             The sidebar, by default, contains all the buildings registered in the system. 
                             To search for a course, building, room, or section, you can use the search bar located at
-                            the top of the sidebar. To filter your search, click the Filter button below the search bar (not in the UI mockup).
-                        </p>
-                        <p>
-                            In the event that the course, building, room, or section you searched for is not found, 
-                            you can manually search for it under the Advanced Search located below all the sidebar entries(not in the UI mockup).
-                            Fill out as many sections as you can and hit the search button, calling the Purdue API.
-                            If no results are returned in the sidebar, the course, building, room, or section you are
-                            searching for is not currently registered in the Purdue system.
+                            the top of the sidebar which will search based on the selected filter.
                         </p>
                         <br></br><br></br><br></br>
                     </div>    
