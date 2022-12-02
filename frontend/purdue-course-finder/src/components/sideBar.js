@@ -263,14 +263,22 @@ function SideBar(props) {
                     setLoading(false);
                 });
             }
-
-            if (filter_option === 'Section') {
+            console.log(filter_option)
+            if (filter_option === 'Building') {
+                let arr = [];
+                console.log(data)
+                for (let i = 0; i < data.length; i++) {
+                    arr.push(data[i].ShortCode)
+                }
+                let uniq = [...new Set(arr)];
+                props.setShortCodes(uniq);
+            } else if (filter_option === 'Section') {
                 //a course has been selected, send building data to map component
-                var arr = [];
-                for (var i = 0; i < data.length; i++) {
+                let arr = [];
+                for (let i = 0; i < data.length; i++) {
                     arr.push(data[i].Meetings[0].Room.Building.ShortCode)
                 }
-                var uniq = [...new Set(arr)];
+                let uniq = [...new Set(arr)];
                 props.setShortCodes(uniq);
             } else {
                 props.setShortCodes(null);
