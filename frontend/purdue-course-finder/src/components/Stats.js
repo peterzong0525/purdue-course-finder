@@ -45,7 +45,7 @@ function Stats () {
             )}
 
             <table>
-                <tr>
+                <tr className='navbar'>
                     <th className='tableHeader'>Building</th>
                     <th className='tableHeader'>Shortcode</th>
                     <th className='tableHeader'>Rooms</th>
