@@ -342,14 +342,14 @@ it('Suggestions page renders without crashing', () => {
 
 it('Stats page renders without crashing', () => {
     render(<Stats />)
-    expect(screen.getByTestId('statsContainer')).toBeInTheDocument();
+    expect(screen.getByTestId('stats_container')).toBeInTheDocument();
     expect(screen.getByTestId('stats_meter')).toBeInTheDocument();
     expect(screen.getByTestId('stats_meter_bar')).toBeInTheDocument();
     expect(screen.getByTestId('stats_table')).toBeInTheDocument();
     expect(screen.getByTestId('stats_table_header')).toBeInTheDocument();
 
     // Nesting items
-    const stats_container = screen.getByTestId('statsContainer');
+    const stats_container = screen.getByTestId('stats_container');
     const stats_meter = screen.getByTestId('stats_meter');
     const stats_meterBar = screen.getByTestId('stats_meter_bar');
     const stats_table = screen.getByTestId('stats_table');

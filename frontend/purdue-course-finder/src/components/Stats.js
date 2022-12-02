@@ -36,16 +36,16 @@ function Stats () {
     }, []);
 
     return (
-        <div className='statsContainer'>
+        <div className='statsContainer' data-testid='stats_container'>
             {!loaded && "Loading will take a couple of seconds"}
             {!loaded && (
-                    <div className="meter" test-id='stats_meter'>
-                        <span test-id='stats_meter_bar' id="spanbar" style={{width: "0%"}}></span>
+                    <div className="meter" data-testid='stats_meter'>
+                        <span data-testid='stats_meter_bar' id="spanbar" style={{width: "0%"}}></span>
                     </div>
             )}
 
-            <table data-id='stats_table'>
-                <tr className='navbar' data-id='stats_table_header'>
+            <table data-testid='stats_table'>
+                <tr className='navbar' data-testid='stats_table_header'>
                     <th className='tableHeader'>Building</th>
                     <th className='tableHeader'>Shortcode</th>
                     <th className='tableHeader'>Rooms</th>
