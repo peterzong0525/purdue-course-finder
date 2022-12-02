@@ -263,10 +263,9 @@ function SideBar(props) {
                     setLoading(false);
                 });
             }
-            console.log(filter_option)
-            if (filter_option === 'Building') {
+
+            if (filter_option === 'Building' && favoritesOnly) {
                 let arr = [];
-                console.log(data)
                 for (let i = 0; i < data.length; i++) {
                     arr.push(data[i].ShortCode)
                 }
